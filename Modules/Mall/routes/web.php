@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use Modules\Mall\App\Http\Controllers\MallController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::group([], function () {
+    Route::resource('mall', MallController::class)->names('mall');
 });
