@@ -9,4 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Role extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_permission')->withTimestamps();
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }
