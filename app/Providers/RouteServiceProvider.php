@@ -35,6 +35,18 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            /** Begain Mall Routes */
+            Route::middleware('api')
+            ->prefix('mall/api')
+            ->group(base_path('routes/mall/api.php'));
+
+            Route::middleware('web')
+            ->prefix('mall')
+            ->group(base_path('routes/mall/web.php'));
+            /** End Mall Routes */
+
+
         });
     }
 

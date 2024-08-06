@@ -470,7 +470,7 @@
                             <p class="card-text">Some quick example text to build on the card title and make up the
                                 bulk of
                                 the card's content.</p>
-                            <a href="#" class="btn btn-primary">Visit</a>
+                            <a href="{{ route('mall.home') }}" class="btn btn-primary">Visit</a>
                         </div>
                     </div>
                 </div>

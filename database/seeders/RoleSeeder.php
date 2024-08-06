@@ -27,10 +27,10 @@ class RoleSeeder extends Seeder
 
         // Define permissions
         $permissions = [
-            ['name' => 'create-users'],
-            ['name' => 'update-users'],
-            ['name' => 'view-users'],
-            ['name' => 'destroy-users'],
+            ['name' => 'create-users', 'app' => 'all'],
+            ['name' => 'update-users', 'app' => 'all'],
+            ['name' => 'view-users', 'app' => 'all'],
+            ['name' => 'destroy-users', 'app' => 'all'],
         ];
 
         foreach ($permissions as $permission) {
