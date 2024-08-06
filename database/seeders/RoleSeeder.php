@@ -16,9 +16,9 @@ class RoleSeeder extends Seeder
     {
         // Define roles
         $roles = [
-            ['name_ar' => 'المدير العام', 'name_en' => 'super-admin'],
-            ['name_ar' => 'عميل', 'name_en' => 'client'],
-            ['name_ar' => 'تاجر', 'name_en' => 'seller'],
+            ['name_ar' => 'المدير العام', 'name_en' => 'super-admin', 'app' => 'all'],
+            ['name_ar' => 'عميل', 'name_en' => 'client', 'app' => 'all'],
+            ['name_ar' => 'تاجر', 'name_en' => 'seller', 'app' => 'all'],
         ];
 
         foreach ($roles as $role) {
