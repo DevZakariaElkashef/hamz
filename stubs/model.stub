@@ -2,13 +2,14 @@
 
 namespace {{ namespace }};
 
+use App\Traits\AppScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class {{ class }} extends Model
 {
-    use HasFactory,  SoftDeletes;
+    use HasFactory, AppScope, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 }
