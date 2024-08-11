@@ -14,10 +14,43 @@ class ShowStoreRecource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $products = $this->filterProductsByCategory($request);
+
         return [
-            'images' => ImagePathRecource::collection($this->images),
-            'logo' => $this->image ? asset($this->image) : '',
-            'name' => ''
+            'images' => $this->getImageCollection(),
+            'logo' => $this->getLogoUrl(),
+            'name' => $this->name ?? '',
+            'stars' => $this->getStars(), // You can make this dynamic later
+            'is_added_to_favourite' => false,
+            'address' => $this->address ?? '',
+            'categories' => CategoriesInStorePageResource::collection($this->categories),
+            'products' => ProductsInStorePageResource::collection($products)
         ];
+    }
+
+    private function filterProductsByCategory(Request $request)
+    {
+        if ($request->filled('category')) {
+            return $this->products()->where('category_id', $request->category)->get();
+        }
+
+        return $this->products;
+    }
+
+    private function getImageCollection()
+    {
+        return $this->images && $this->images->count() > 0
+            ? ImagePathRecource::collection($this->images)
+            : collect([$this->image ? asset($this->image) : '']);
+    }
+
+    private function getLogoUrl()
+    {
+        return $this->image ? asset($this->image) : '';
+    }
+
+    private function getStars()
+    {
+        return '4.2'; // Make this dynamic later
     }
 }

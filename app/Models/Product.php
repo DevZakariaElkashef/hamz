@@ -24,6 +24,36 @@ class Product extends Model
         return $this->attributes['description_' . app()->getLocale()];
     }
 
+    public function getCalcPriceAttribute()
+    {
+        $currentDate = now(); // Get the current date and time
+
+        if ($this->offer && $this->start_offer_date && $this->end_offer_date) {
+            // Check if the current date is within the offer period
+            if ($currentDate->between($this->start_offer_date, $this->end_offer_date)) {
+                return $this->offer; // Return the offer price if within the offer period
+            }
+        }
+
+        return $this->price; // Return the regular price if no valid offer
+    }
+
+    public function getActiveOffer()
+    {
+        $currentDate = now(); // Get the current date and time
+
+        if ($this->offer && $this->start_offer_date && $this->end_offer_date) {
+            // Check if the current date is within the offer period
+            if ($currentDate->between($this->start_offer_date, $this->end_offer_date)) {
+                return $this->offer; // Return the offer price if within the offer period
+            }
+        }
+
+        return 0; // Return null if no active offer
+    }
+
+
+
     public function brand()
     {
         return $this->belongsTo(Brand::class);

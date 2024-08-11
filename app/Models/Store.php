@@ -38,4 +38,22 @@ class Store extends Model
     {
         return $this->hasMany(Brand::class);
     }
+
+    public function products()
+    {
+        return $this->hasManyThrough(
+            Product::class,      // The final model you want to access
+            Category::class,     // The intermediate model
+            'store_id',          // Foreign key on the Category model
+            'category_id',       // Foreign key on the Product model
+            'id',                // Local key on the Store model
+            'id'                 // Local key on the Category model
+        );
+    }
+
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

@@ -35,5 +35,11 @@ return
         'Close' => 'Close',
         'filter' => "filter",
         'end_date' => 'end date',
-        'start_date' => 'start date'
+        'start_date' => 'start date',
+
+
+        'qty_required' => 'The quantity field is required.',
+        'qty_gt' => 'The quantity must be greater than 0.',
+        'product_id_required' => 'The product ID field is required.',
+        'product_id_exists' => 'The selected product ID does not exist.',
     ];
