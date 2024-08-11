@@ -42,4 +42,5 @@ return
         'qty_gt' => 'The quantity must be greater than 0.',
         'product_id_required' => 'The product ID field is required.',
         'product_id_exists' => 'The selected product ID does not exist.',
+        'unauthenticated' => 'Please log in to access this resource.'
     ];

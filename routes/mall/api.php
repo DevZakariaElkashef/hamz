@@ -9,6 +9,7 @@ use App\Http\Controllers\Mall\Api\SectionController;
 
 Route::get('home', [HomeController::class, 'index']);
 
+
 /**Begain Section Routes */
 Route::get('sections', [SectionController::class, 'index']);
 Route::get('sections/{section}', [SectionController::class, 'show']);
@@ -25,6 +26,13 @@ Route::get("products/{product}", [ProductController::class, 'show']);
 /**End Products Routes */
 
 
-/**Start Cart Routes */
-Route::post('update_cart_qty', [CartController::class, 'update']);
-/**End Cart Routes */
+/**Start Auth Routes */
+Route::middleware(['api', 'auth:sanctum'])->group(function() {
+
+    /**Start Cart Routes */
+    Route::post('update_cart_qty', [CartController::class, 'update']);
+    /**End Cart Routes */
+
+
+});
+/**Start Auth Routes */

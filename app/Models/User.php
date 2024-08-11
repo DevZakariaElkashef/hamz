@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->role && $this->role->permissions->contains('name', $permission);
     }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
 }
