@@ -34,12 +34,11 @@ class LoginRequest extends BaseApiRequest
     }
 
     public function messages()
-{
-    return [
-        'phone.required' => __('mall.phone_required'),
-        'phone.exists' => __('mall.phone_exists'),
-        'password.required' => __('mall.password_required'),
-    ];
-}
-
+    {
+        return [
+            'phone.required' => __('mall.phone_required'),
+            'phone.exists' => __('mall.phone_exists'),
+            'password.required' => __('mall.password_required'),
+        ];
+    }
 }

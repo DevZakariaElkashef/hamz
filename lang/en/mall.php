@@ -67,5 +67,15 @@ return
         'otp_send_success' => 'otp send success',
         'email_already_taken' => 'The email address has already been taken.',
         'password_confirmation_mismatch' => 'The password confirmation does not match.',
+        'product_required' => 'product required',
+        'product_exists' => 'product exists',
+        'store_required' => 'store required',
+        'store_exists' => 'store exists',
+        'product_delete_from_favourite' => 'product delete from favourite',
+        'product_added_to_favourite' => 'product added to favourite',
+        'store_delete_from_favourite' => 'store delete from favourite',
+        'store_added_to_favourite' => 'store added to favourite',
+
+
 
     ];
