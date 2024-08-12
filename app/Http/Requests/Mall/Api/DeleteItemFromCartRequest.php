@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Mall\Api;
 
-use App\Rules\ValidCartStoreRule;
+use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCartRequest extends BaseApiRequest
+class DeleteItemFromCartRequest extends BaseApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +22,13 @@ class UpdateCartRequest extends BaseApiRequest
     public function rules(): array
     {
         return [
-            'qty' => 'required|gt:0',
-            'product_id' => ['required', 'exists:products,id', new ValidCartStoreRule($this->user())]
+            'product_id' => 'required|exists:products,id'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'qty.required' => __('mall.qty_required'),
-            'qty.gt' => __('mall.qty_gt'),
             'product_id.required' => __('mall.product_id_required'),
             'product_id.exists' => __('mall.product_id_exists'),
         ];

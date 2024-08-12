@@ -21,7 +21,7 @@ class ShowStoreRecource extends JsonResource
             'logo' => $this->getLogoUrl(),
             'name' => $this->name ?? '',
             'stars' => $this->getStars(), // You can make this dynamic later
-            'is_added_to_favourite' => false,
+            'is_added_to_favourite' => checkFavouriteStore($request->user('sanctum'), $this->id),
             'address' => $this->address ?? '',
             'categories' => CategoriesInStorePageResource::collection($this->categories),
             'products' => ProductsInStorePageResource::collection($products)

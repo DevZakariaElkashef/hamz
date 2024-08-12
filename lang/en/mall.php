@@ -75,6 +75,10 @@ return
         'product_added_to_favourite' => 'product added to favourite',
         'store_delete_from_favourite' => 'store delete from favourite',
         'store_added_to_favourite' => 'store added to favourite',
+        'added_to_cart_success' => 'added to cart success',
+        'quantaty_updated' => 'quantaty updated',
+        'only_one_store' => 'only_one_store',
+        'fill_cart_first' => "fill cart first"
 
 
 

@@ -39,6 +39,11 @@ class Store extends Model
         return $this->hasMany(Brand::class);
     }
 
+    public function storeDelivery()
+    {
+        return $this->hasOne(StoreDelivery::class);
+    }
+
     public function products()
     {
         return $this->hasManyThrough(
@@ -55,5 +60,43 @@ class Store extends Model
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+
+    public function calcDeliveryValue($userLocation)
+    {
+        $delivery = 0;
+        $status = true;
+
+        // Check if the store has delivery type and storeDelivery relationship
+        if ($this->delivery_type && $this->storeDelivery) {
+            $storeDelivery = $this->storeDelivery;
+            
+            if ($storeDelivery->default_type) {
+                // Calculate distance
+                $distance = distance($this->lat, $this->lng, $userLocation['lat'], $userLocation['lng']);
+
+
+                // Handle free delivery distance
+                $freeDeliveryDistance = $storeDelivery->free_delivery_distance ?? 0;
+                $maxDistance = $storeDelivery->max_distance ?? PHP_INT_MAX;
+
+                if ($distance > $freeDeliveryDistance && $distance < $maxDistance) {
+                    $costPerKm = $storeDelivery->cost_per_km ?? 0;
+                    $delivery = $distance * $costPerKm;
+                } elseif ($distance > $maxDistance) {
+                    // Not working area; set status to false
+                    $status = false;
+                }
+            } else {
+                // Handle fixed delivery value
+                $delivery = $storeDelivery->fixed_value ?? 0;
+            }
+        }
+
+        return [
+            'status' => $status,
+            'delivery' => $delivery
+        ];
     }
 }

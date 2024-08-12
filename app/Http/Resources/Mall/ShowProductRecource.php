@@ -17,12 +17,13 @@ class ShowProductRecource extends JsonResource
         return [
             'id' => $this->id,
             'images' => $this->getImageCollection(),
-            'is_added_to_favourite' => false,
+            'logo' => $this->image ? asset($this->image) : '',
+            'is_added_to_favourite' => checkFavouriteProduct($request->user('sanctum'), $this->id),
             'name' => $this->name ?? '',
             'price' => (string) $this->price,
             'offer' => (string) $this->getActiveOffer(),
             'description' => (string) $this->description,
-            'qty_in_cart' => (int) 0,
+            'qty_in_cart' => (int) getProductCountInCart($request->user('sanctum'), $this->id),
         ];
     }
 

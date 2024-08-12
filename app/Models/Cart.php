@@ -27,4 +27,44 @@ class Cart extends Model
     {
         return $this->hasMany(CartItem::class);
     }
+
+    public function calcSubTotal($user)
+    {
+        $cart = $user->cart;
+        $sum = 0;
+        if ($cart && $cart->items->count()) {
+            foreach ($cart->items as $item) {
+                $sum += ($item->qty * $item->product->calc_price);
+            }
+        }
+
+        return $sum;
+    }
+
+    public function calcTax($user)
+    {
+        $subtotal = $this->calcSubTotal($user);
+
+        return $subtotal * .15;
+    }
+
+    public function calcDiscount($user)
+    {
+        $subtotal = $this->calcSubTotal($user);
+        $tax = $this->calcTax($user);
+        $delivery = $this->delivery ?? 0;
+        $discount = $user->cart->coupon ? $user->cart->coupon->discount : 0;
+
+        return ($subtotal + $tax + $delivery) * ($discount / 100);
+    }
+
+    public function calcTotal($user)
+    {
+        $subtotal = $this->calcSubTotal($user);
+        $tax = $this->calcTax($user);
+        $delivery = $this->delivery ?? 0;
+        $discount = $this->calcDiscount($user);
+
+        return ($subtotal + $tax + $delivery) - $discount;
+    }
 }

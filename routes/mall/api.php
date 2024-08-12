@@ -3,6 +3,7 @@
 use App\Http\Controllers\Mall\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mall\Api\CartController;
+use App\Http\Controllers\Mall\Api\DeliveryController;
 use App\Http\Controllers\Mall\Api\FavouriteController;
 use App\Http\Controllers\Mall\Api\HomeController;
 use App\Http\Controllers\Mall\Api\StoreController;
@@ -78,7 +79,10 @@ Route::middleware(['api', 'auth:sanctum'])->group(function () {
     // -------------------------------
     //            CART ROUTES
     // -------------------------------
+    Route::get('view_cart', [CartController::class, 'index']); // get cart
     Route::post('update_cart_qty', [CartController::class, 'update']); // Update cart quantity
+    Route::post('delete_cart_item', [CartController::class, 'delete']); // Update cart quantity
+    Route::post('clear_cart', [CartController::class, 'destroy']); // get cart
     // -------------------------------
 
 
@@ -86,9 +90,19 @@ Route::middleware(['api', 'auth:sanctum'])->group(function () {
     // -------------------------------
     //            Favourite ROUTES
     // -------------------------------
-    Route::get('favourites/product', [FavouriteController::class, 'productIndex']);
-    Route::post('product_favourite', [FavouriteController::class, 'productFavourite']); // Update cart quantity
-    Route::post('store_favourite', [FavouriteController::class, 'storeFavourite']); // Update cart quantity
+    Route::get('favourite_products', [FavouriteController::class, 'productIndex']);
+    Route::get('favourite_stores', [FavouriteController::class, 'storeIndex']);
+    Route::post('toggle_product_favourite', [FavouriteController::class, 'toggleProductFavourite']); // toggleProductFavourite
+    Route::post('toggle_store_favourite', [FavouriteController::class, 'toggleStoreFavourite']); // toggleStoreFavourite
+    // -------------------------------
+
+
+
+    // -------------------------------
+    //            Orders ROUTES
+    // -------------------------------
+    Route::get('delivery_tipes', [DeliveryController::class, 'index']);
+    Route::get('calcDelivery', [DeliveryController::class, 'calcDelivery']);
     // -------------------------------
 });
 // =============================================================================

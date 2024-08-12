@@ -19,7 +19,7 @@ class ProductsInStorePageResource extends JsonResource
             'name' => $this->name ?? '',
             'description' => $this->description ?? '',
             'image' => $this->image ? asset($this->image) : '',
-            'is_added_to_favourite' => false,
+            'is_added_to_favourite' => checkFavouriteProduct($request->user('sanctum'), $this->id),
             'price' => (string) $this->price ?? "0",
             'offer' => (string) $this->getActiveOffer() ?? "0"
 

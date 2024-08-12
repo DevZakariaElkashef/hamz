@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Mall\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mall\Api\ProductFavouriteRequest;
 use App\Http\Requests\Mall\Api\StoreFavouriteRequest;
+use App\Http\Resources\Mall\ProductsInStorePageResource;
+use App\Http\Resources\Mall\StoreRecource;
 use App\Models\Favourite;
+use App\Models\Product;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -15,10 +18,21 @@ class FavouriteController extends Controller
 
     public function productIndex(Request $request)
     {
-        // return 
+        $user = $request->user();
+        $products = Product::whereIn('id', $user->favourites()->pluck('product_id')->toArray())->get();
+        $products = ProductsInStorePageResource::collection($products);
+        return $this->sendResponse(200, $products);
     }
 
-    public function productFavourite(ProductFavouriteRequest $request)
+    public function storeIndex(Request $request)
+    {
+        $user = $request->user();
+        $stores = Product::whereIn('id', $user->favourites()->pluck('store_id')->toArray())->get();
+        $stores = StoreRecource::collection($stores);
+        return $this->sendResponse(200, $stores);
+    }
+
+    public function toggleProductFavourite(ProductFavouriteRequest $request)
     {
         $check = Favourite::where('product_id', $request->product_id)->first();
         if ($check) {
@@ -35,7 +49,7 @@ class FavouriteController extends Controller
         return $this->sendResponse(200, '', $message);
     }
 
-    public function storeFavourite(StoreFavouriteRequest $request)
+    public function toggleStoreFavourite(StoreFavouriteRequest $request)
     {
         $check = Favourite::where('store_id', $request->store_id)->first();
         if ($check) {
