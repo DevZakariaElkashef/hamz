@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Mall\Api;
 
-use App\Rules\ValidCartStoreRule;
-
 class UpdateCartRequest extends BaseApiRequest
 {
     /**
@@ -23,7 +21,7 @@ class UpdateCartRequest extends BaseApiRequest
     {
         return [
             'qty' => 'required|gt:0',
-            'product_id' => ['required', 'exists:products,id', new ValidCartStoreRule($this->user())]
+            'product_id' => ['required', 'exists:products,id']
         ];
     }
 

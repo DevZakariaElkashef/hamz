@@ -33,8 +33,8 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $this->authRepository->register($request->validated());
-        return $this->sendResponse(200, '', __("mall.acount_created_check_otp"));
+        $otp = $this->authRepository->register($request->validated());
+        return $this->sendResponse(200, $otp, __("mall.acount_created_check_otp"));
     }
 
     public function verifyOtp(VerifiyRequest $request)

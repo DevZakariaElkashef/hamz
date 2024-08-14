@@ -18,6 +18,11 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
+
     public function coupon()
     {
         return $this->belongsTo(Coupon::class);
@@ -28,12 +33,11 @@ class Cart extends Model
         return $this->hasMany(CartItem::class);
     }
 
-    public function calcSubTotal($user)
+    public function calcSubTotal()
     {
-        $cart = $user->cart;
         $sum = 0;
-        if ($cart && $cart->items->count()) {
-            foreach ($cart->items as $item) {
+        if ($this && $this->items->count()) {
+            foreach ($this->items as $item) {
                 $sum += ($item->qty * $item->product->calc_price);
             }
         }
@@ -41,29 +45,29 @@ class Cart extends Model
         return $sum;
     }
 
-    public function calcTax($user)
+    public function calcTax()
     {
-        $subtotal = $this->calcSubTotal($user);
+        $subtotal = $this->calcSubTotal();
 
         return $subtotal * .15;
     }
 
-    public function calcDiscount($user)
+    public function calcDiscount()
     {
-        $subtotal = $this->calcSubTotal($user);
-        $tax = $this->calcTax($user);
+        $subtotal = $this->calcSubTotal();
+        $tax = $this->calcTax();
         $delivery = $this->delivery ?? 0;
-        $discount = $user->cart->coupon ? $user->cart->coupon->discount : 0;
+        $discount = $this->coupon ? $this->coupon->discount : 0;
 
         return ($subtotal + $tax + $delivery) * ($discount / 100);
     }
 
-    public function calcTotal($user)
+    public function calcTotal()
     {
-        $subtotal = $this->calcSubTotal($user);
-        $tax = $this->calcTax($user);
+        $subtotal = $this->calcSubTotal();
+        $tax = $this->calcTax();
         $delivery = $this->delivery ?? 0;
-        $discount = $this->calcDiscount($user);
+        $discount = $this->calcDiscount();
 
         return ($subtotal + $tax + $delivery) - $discount;
     }

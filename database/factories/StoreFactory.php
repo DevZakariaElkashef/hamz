@@ -27,7 +27,8 @@ class StoreFactory extends Factory
             'lng' => fake()->longitude(),
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
-            'app' => fake()->randomElement($apps)
+            'app' => fake()->randomElement($apps),
+            'delivery_type' => rand(0, 1)
         ];
     }
 }

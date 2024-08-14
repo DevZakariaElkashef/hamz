@@ -22,7 +22,8 @@ class DeleteItemFromCartRequest extends BaseApiRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'required|exists:products,id'
+            'product_id' => 'required|exists:products,id',
+            'cart_id' => 'required|exists:carts,id'
         ];
     }
 
@@ -31,6 +32,8 @@ class DeleteItemFromCartRequest extends BaseApiRequest
         return [
             'product_id.required' => __('mall.product_id_required'),
             'product_id.exists' => __('mall.product_id_exists'),
+            'cart_id.required' => __('mall.cart_id_required'),
+            'cart_id.exists' => __('mall.cart_id_exists'),
         ];
     }
 }

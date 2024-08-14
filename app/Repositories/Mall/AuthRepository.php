@@ -16,7 +16,8 @@ class AuthRepository
     public function register($data)
     {
         $otp = $this->generateOtp();
-        return User::create(array_merge($data, ['app' => 'mall', 'role_id' => 2, 'otp' => $otp]));
+        User::create(array_merge($data, ['app' => 'mall', 'role_id' => 2, 'otp' => $otp]));
+        return $otp;
     }
 
     public function verify($request)

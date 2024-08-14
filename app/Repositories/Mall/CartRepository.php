@@ -3,13 +3,15 @@
 namespace App\Repositories\Mall;
 
 use App\Models\Cart;
+use App\Models\Product;
 
 class CartRepository
 {
     public function update($request)
     {
         $user = $request->user();
-        $cart = Cart::firstOrCreate(['user_id' => $user->id]);
+        $product = Product::find($request->product_id);
+        $cart = Cart::firstOrCreate(['user_id' => $user->id, 'store_id' => $product->store->id]);
 
         $item = $cart->items->where('product_id', $request->product_id)->first();
 
@@ -31,8 +33,8 @@ class CartRepository
 
     public function delete($request)
     {
-        $user = $request->user();
-        $user->cart->items()->where('product_id', $request->product_id)->forceDelete();
+        $cart = Cart::find($request->cart_id);
+        $cart->items()->where('product_id', $request->product_id)->forceDelete();
         return __("mall.delete_successffully");
     }
 }

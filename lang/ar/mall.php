@@ -33,6 +33,13 @@ return
         'Close' => 'إغلاق',
         'filter' => 'تصفية',
         'end_date' => 'تاريخ الانتهاء',
-        'start_date' => 'تاريخ البدء'
+        'start_date' => 'تاريخ البدء',
+        'Monday' => 'الاثنين',
+        'Tuesday' => 'الثلاثاء',
+        'Wednesday' => 'الأربعاء',
+        'Thursday' => 'الخميس',
+        'Friday' => 'الجمعة',
+        'Saturday' => 'السبت',
+        'Sunday' => 'الأحد'
 
     ];

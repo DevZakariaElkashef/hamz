@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Mall\Api;
 
 use App\Models\Cart;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Mall\Api\DeleteItemFromCartRequest;
-use App\Http\Requests\Mall\Api\UpdateCartRequest;
 use App\Http\Resources\Mall\CartResource;
 use App\Repositories\Mall\CartRepository;
-use App\Traits\ApiResponse;
+use App\Http\Resources\Mall\CartStoreResource;
+use App\Http\Requests\Mall\Api\ClearCartRequest;
+use App\Http\Requests\Mall\Api\UpdateCartRequest;
+use App\Http\Requests\Mall\Api\DeleteItemFromCartRequest;
 
 class CartController extends Controller
 {
@@ -25,7 +27,18 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $data = new CartResource($user);
+        $data = CartStoreResource::collection($user->cart);
+        return $this->sendResponse(200, $data);
+    }
+
+    public function show(Request $request, $id)
+    {
+
+        $cart = Cart::find($id);
+        if (!$cart) {
+            return $this->sendResponse(404, __('mall.cart_not_found'));
+        }
+        $data = new CartResource($cart);
         return $this->sendResponse(200, $data);
     }
 
@@ -42,12 +55,11 @@ class CartController extends Controller
     }
 
 
-    public function destroy(Request $request)
+    public function destroy(ClearCartRequest $request)
     {
-        $request->user()->cart->items()->forceDelete();
-        $request->user()->cart->update([
-            'coupon_id' => null
-        ]);
+        $cart = Cart::find($request->cart_id);
+        $cart->items()->forceDelete();
+        $cart->forceDelete();
         return $this->sendResponse(200, '', __("mall.delete_successffully"));
     }
 }

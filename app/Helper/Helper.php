@@ -19,10 +19,9 @@ function checkFavouriteStore($user, $id)
     return false;
 }
 
-function getProductCountInCart($user, $id)
+function getProductCountInCart($cart, $id)
 {
-    if ($user && $id) {
-        $cart = Cart::firstOrCreate(['user_id' => $user->id]);
+    if ($cart && $id) {
         $item = $cart->items->where('product_id', $id)->first();
         if ($item) {
             return $item->qty;
@@ -30,23 +29,6 @@ function getProductCountInCart($user, $id)
         return 0;
     }
     return false;
-}
-
-
-function checkUniqueStore($user, $prodID)
-{
-    $storeId = Product::find($prodID)->store->id;
-    $unique = true;
-
-    foreach ($user->cart->items as $item) {
-        $id = $item->product->store->id;
-        if ($id != $storeId) {
-            $unique = false;
-            break;
-        }
-    }
-
-    return $unique;
 }
 
 function distance($lat1, $lng1, $lat2, $lng2)

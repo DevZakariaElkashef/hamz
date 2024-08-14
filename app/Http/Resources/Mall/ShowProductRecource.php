@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Mall;
 
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,7 +24,7 @@ class ShowProductRecource extends JsonResource
             'price' => (string) $this->price,
             'offer' => (string) $this->getActiveOffer(),
             'description' => (string) $this->description,
-            'qty_in_cart' => (int) getProductCountInCart($request->user('sanctum'), $this->id),
+            'qty_in_cart' => (int) getProductCountInCart(Cart::where('store_id', $this->store->id)->first(), $this->id),
         ];
     }
 
