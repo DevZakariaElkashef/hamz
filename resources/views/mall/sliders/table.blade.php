@@ -29,7 +29,7 @@
                         @if ($slider->is_active)
                             <span class="badge badge-primary">{{ __('mall.active') }}</span>
                         @else
-                            <span class="badge badge-secondary">{{ __('mall.active') }}</span>
+                            <span class="badge badge-secondary">{{ __('mall.not_active') }}</span>
                         @endif
                     </td>
                     <td>

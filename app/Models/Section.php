@@ -23,4 +23,10 @@ class Section extends Model
     {
         return $this->hasMany(Store::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name_ar', 'like', "%$search%")
+                ->orWhere('name_en', 'like', "%$search%");
+    }
 }
