@@ -97,4 +97,23 @@ return
         'edit_section' => 'Edit section',
 
 
+
+        'stores' => 'stores',
+        'create_store' => 'create_store',
+        'edit_store' => 'edit_store',
+        'section' => 'section',
+        'enter_description' => 'enter_description',
+        'description' => 'description',
+        'phone' => 'phone',
+        'enter_phone' => 'enter_phone',
+        'enter_lng' => 'enter_lng',
+        'lng' => 'lng',
+        'enter_lat' => 'enter_lat',
+        'lat' => 'lat',
+        'enter_address' => 'enter_address',
+        'address' => 'address',
+        'sellers' => 'sellers',
+        'images' => 'images'
+
+
     ];

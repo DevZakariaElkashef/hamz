@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('stores', function (Blueprint $table) {
-            $table->tinyInteger('delivery_type')->after('app')->comment('0 => dont have, 1 => has delivery');
-            $table->boolean('puck_up')->after('app')->default(0);
+            $table->tinyInteger('delivery_type')->after('app')->default(0)->comment('0 => dont have, 1 => has delivery');
+            $table->boolean('pick_up')->after('app')->default(0);
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('stores', function (Blueprint $table) {
             $table->dropColumn('delivery_type');
-            $table->dropColumn('puck_up');
+            $table->dropColumn('pick_up');
         });
     }
 };

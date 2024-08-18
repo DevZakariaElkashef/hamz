@@ -19,17 +19,17 @@ class SectionSeeder extends Seeder
      */
     public function run(): void
     {
-        Section::factory(5)
+        Section::factory(2)
             ->has(
-                Store::factory(3)
+                Store::factory(2)
                     ->has(
-                        Category::factory(5)
+                        Category::factory(2)
                             ->has(
-                                Product::factory(10)
+                                Product::factory(2)
                                     ->has(Brand::factory())
                                     ->has(
-                                        ProductAttribute::factory(3)
-                                            ->has(AttributeOption::factory(4))
+                                        ProductAttribute::factory(2)
+                                            ->has(AttributeOption::factory(2))
                                     )
                             )
                     )

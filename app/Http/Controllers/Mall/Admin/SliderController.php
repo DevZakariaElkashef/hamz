@@ -6,13 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Mall\Web\SliderRequest;
 use App\Models\Slider;
 use App\Repositories\Mall\SliderRepository;
-use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
-    use ImageUploadTrait;
-
     protected $sliderRepository;
 
     public function __construct(SliderRepository $sliderRepository)

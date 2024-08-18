@@ -4,16 +4,14 @@ namespace App\Http\Controllers\Mall\Admin;
 
 use App\Models\Section;
 use Illuminate\Http\Request;
-use App\Traits\ImageUploadTrait;
 use App\Http\Controllers\Controller;
 use App\Repositories\Mall\SectionRepository;
 use App\Http\Requests\Mall\Web\SectionRequest;
 
 class SectionController extends Controller
 {
-    use ImageUploadTrait;
 
-        protected $sectionRepository;
+    protected $sectionRepository;
 
     public function __construct(SectionRepository $sectionRepository)
     {
