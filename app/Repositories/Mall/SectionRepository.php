@@ -27,6 +27,10 @@ class SectionRepository
             $sections->whereDate('created_at', '<=', $request->end_at);
         }
 
+        if ($request->filled('is_active')) {
+            $sections->where('is_active', $request->is_active);
+        }
+
         $sections = $sections->mall()->paginate($this->limit);
 
         return $sections;
@@ -59,7 +63,7 @@ class SectionRepository
         }
 
         $section->update($data);
-        
+
         return $section;
     }
 

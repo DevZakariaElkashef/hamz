@@ -74,9 +74,8 @@
         });
 
 
-        $(document).on('click', '.delete-image', function()
-    {
-        $('#deleteImageModal').modal('show');
-    });
+        $(document).on('click', '.delete-image', function() {
+            $('#imageIDInput').val($(this).data('id'));
+        });
     </script>
 @endsection

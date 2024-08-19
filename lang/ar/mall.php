@@ -51,7 +51,7 @@ return
         'filter' => 'تصفية',
         'end_date' => 'تاريخ الانتهاء',
         'start_date' => 'تاريخ البدء',
-    
+
         'qty_required' => 'حقل الكمية مطلوب.',
         'qty_gt' => 'يجب أن تكون الكمية أكبر من 0.',
         'product_id_required' => 'حقل معرف المنتج مطلوب.',
@@ -106,5 +106,26 @@ return
         'sections' => 'الأقسام',
         'create_section' => 'إنشاء قسم',
         'edit_section' => 'تعديل قسم',
+        'stores' => 'المتاجر',
+        'create_store' => 'إنشاء متجر',
+        'edit_store' => 'تعديل متجر',
+        'section' => 'القسم',
+        'enter_description' => 'أدخل الوصف',
+        'description' => 'الوصف',
+        'phone' => 'الهاتف',
+        'enter_phone' => 'أدخل الهاتف',
+        'enter_lng' => 'أدخل خط الطول',
+        'lng' => 'خط الطول',
+        'enter_lat' => 'أدخل خط العرض',
+        'lat' => 'خط العرض',
+        'enter_address' => 'أدخل العنوان',
+        'address' => 'العنوان',
+        'sellers' => 'البائعين',
+        'images' => 'الصور',
+        'Pick_Up_From_The_Store' => 'الاستلام من المتجر',
+        'Store_Has_Delivery' => 'المتجر يوفر توصيل',
+        'all' => 'الكل',
+
+
 
     ];

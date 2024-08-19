@@ -62,29 +62,6 @@
             </div>
         </div>
     </div>
-    <!-- Modal effects -->
-    <div class="modal" id="deleteImageModal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content modal-content-demo">
-                <div class="modal-header">
-                    <h6 class="modal-title">{{ __('mall.delete') }}</h6><button aria-label="Close" class="close"
-                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <form method="POST" id="deleteImageForm">
-                    @csrf
-                    @method('delete')
-                    <div class="modal-body">
-                        <h6 class="text-center">{{ __('mall.Are_you_sure') }}</h6>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn ripple btn-danger" type="submit">{{ __('mall.delete') }}</button>
-                        <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <div class="modal" id="filterModal">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,6 +72,23 @@
                 </div>
                 <form method="get" action="{{ route('mall.stores.index') }}">
                     <div class="modal-body">
+                        <div class="form-group">
+                            <label for="section_id">{{ __('mall.section') }}</label>
+                            <select name="section_id" class="form-control select2">
+                                <option value="">{{ __("mall.all") }}</option>
+                                @foreach ($sections as $section)
+                                    <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="is_active">{{ __('mall.status') }}</label>
+                            <select name="is_active" class="form-control">
+                                <option value="">{{ __("mall.all") }}</option>
+                                <option value="0">{{ __("mall.not_active") }}</option>
+                                <option value="1">{{ __("mall.active") }}</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="start_at">{{ __('mall.start_date') }}</label>
                             <input type="date" name="start_at" id="start_at" class="form-control">
@@ -113,6 +107,8 @@
             </div>
         </div>
     </div>
+
+
     <!-- End Modal effects-->
     <!-- row opened -->
     <div class="row row-sm">
@@ -122,8 +118,8 @@
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">{{ __('mall.stores') }}</h4>
                         <div class="d-flex">
-                            <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn" data-toggle="modal"
-                                data-effect="effect-flip-vertical" data-target="#deletemodal"
+                            <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
+                                data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
                                 data-url="{{ route('mall.stores.delete') }}">{{ __('mall.delete') }}</a>
                             <input type="text" id="searchInput" data-url="{{ route('mall.stores.search') }}"
                                 class="form-control" placeholder="{{ __('search') }}">

@@ -80,6 +80,14 @@
                             <label for="end_at">{{ __('mall.end_date') }}</label>
                             <input type="date" name="end_at" id="end_at" class="form-control">
                         </div>
+                        <div class="form-group">
+                            <label for="is_active">{{ __('mall.status') }}</label>
+                            <select name="is_active" class="form-control">
+                                <option value="">{{ __("mall.all") }}</option>
+                                <option value="0">{{ __('mall.not_active') }}</option>
+                                <option value="1">{{ __('mall.active') }}</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn ripple btn-primary" type="submit">{{ __('mall.filter') }}</button>
@@ -99,8 +107,8 @@
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">{{ __('mall.sections') }}</h4>
                         <div class="d-flex">
-                            <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn" data-toggle="modal"
-                                data-effect="effect-flip-vertical" data-target="#deletemodal"
+                            <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
+                                data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
                                 data-url="{{ route('mall.sections.delete') }}">{{ __('mall.delete') }}</a>
                             <input type="text" id="searchInput" data-url="{{ route('mall.sections.search') }}"
                                 class="form-control" placeholder="{{ __('search') }}">

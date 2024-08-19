@@ -27,6 +27,14 @@ class StoreRepository
             $stores->whereDate('created_at', '<=', $request->end_at);
         }
 
+        if ($request->filled('section_id')) {
+            $stores->where('section_id', $request->section_id);
+        }
+
+        if ($request->filled('is_active')) {
+            $stores->where('is_active', $request->is_active);
+        }
+
         $stores = $stores->mall()->paginate($this->limit);
 
         return $stores;
@@ -71,7 +79,21 @@ class StoreRepository
         }
 
 
+        if ($request->has('images')) {
+            foreach ($request->images as $image) {
+                $store->images()->create([
+                    'path' => $this->uploadImage($image, 'stores')
+                ]);
+            }
+        }
 
+        if (!$request->has('delivery_type')) {
+            $store->update(['delivery_type' => 0]);
+        }
+
+        if (!$request->has('pick_up')) {
+            $store->update(['pick_up' => 0]);
+        }
 
         $store->update($data);
 

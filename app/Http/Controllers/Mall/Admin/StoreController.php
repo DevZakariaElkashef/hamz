@@ -24,7 +24,8 @@ class StoreController extends Controller
     public function index(Request $request)
     {
         $stores = $this->storeRepository->index($request);
-        return view('mall.stores.index', compact('stores'));
+        $sections = Section::mall()->active()->get();
+        return view('mall.stores.index', compact('stores', 'sections'));
     }
 
     public function search(Request $request)

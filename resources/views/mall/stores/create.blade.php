@@ -89,7 +89,7 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('mall.sections') }}: <span
                                         class="tx-danger">*</span></label>
-                                <select required class="form-control" name="section_id">
+                                <select required class="form-control select2" name="section_id">
                                     @foreach ($sections as $section)
                                         <option value="{{ $section->id }}"
                                             @if (old('section_id') == $section->id) selected @endif>
@@ -104,7 +104,7 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('mall.sellers') }}: <span
                                         class="tx-danger">*</span></label>
-                                <select required class="form-control" name="user_id">
+                                <select required class="form-control select2" name="user_id">
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}"
                                             @if (old('user_id') == $user->id) selected @endif>
@@ -189,7 +189,7 @@
                             <div class="col-md-6 mt-3">
                                 <div class="custom-checkbox-toggle">
                                     <input type="checkbox" value="1" id="pick_up" name="pick_up">
-                                    <label for="pick_up">Pick Up From The Store</label>
+                                    <label for="pick_up">{{ __('mall.Pick_Up_From_The_Store') }}</label>
                                 </div>
                                 @error('pick_up')
                                     <div class="text-danger">{{ $message }}</div>
@@ -199,15 +199,12 @@
                             <div class="col-md-6 mt-3">
                                 <div class="custom-checkbox-toggle">
                                     <input type="checkbox" value="1" id="delivery_type" name="delivery_type">
-                                    <label for="delivery_type">Store Has Delivery</label>
+                                    <label for="delivery_type">{{ __(("mall.Store_Has_Delivery")) }}</label>
                                 </div>
                                 @error('delivery_type')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
-
-
 
 
                             <div class="col-12 mg-t-10 mg-sm-t-25">

@@ -27,6 +27,10 @@ class SliderRepository
             $sliders->whereDate('created_at', '<=', $request->end_at);
         }
 
+        if ($request->filled('is_active')) {
+            $sliders->where('is_active', $request->is_active);
+        }
+
         $sliders = $sliders->mall()->paginate($this->limit);
 
         return $sliders;

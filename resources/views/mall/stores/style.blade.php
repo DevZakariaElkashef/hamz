@@ -80,6 +80,11 @@
             height: auto;
         }
 
+        .delete-image {
+            top: -10px;
+            right: -10px;
+            cursor: pointer;
+        }
         .remove-image {
             top: -10px;
             right: -10px;

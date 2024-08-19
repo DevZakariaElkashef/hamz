@@ -95,25 +95,26 @@ return
         'sections' => 'Sections',
         'create_section' => 'Create section',
         'edit_section' => 'Edit section',
+        'stores' => 'Stores',
+        'create_store' => 'Create Store',
+        'edit_store' => 'Edit Store',
+        'section' => 'Section',
+        'enter_description' => 'Enter Description',
+        'description' => 'Description',
+        'phone' => 'Phone',
+        'enter_phone' => 'Enter Phone',
+        'enter_lng' => 'Enter Lng',
+        'lng' => 'Lng',
+        'enter_lat' => 'Enter Lat',
+        'lat' => 'Lat',
+        'enter_address' => 'Enter Address',
+        'address' => 'Address',
+        'sellers' => 'Sellers',
+        'images' => 'Images',
+        'Pick_Up_From_The_Store' => 'Pick Up From The Store',
+        'Store_Has_Delivery' => 'Store Has Delivery',
+        'all' => 'all'
 
-
-
-        'stores' => 'stores',
-        'create_store' => 'create_store',
-        'edit_store' => 'edit_store',
-        'section' => 'section',
-        'enter_description' => 'enter_description',
-        'description' => 'description',
-        'phone' => 'phone',
-        'enter_phone' => 'enter_phone',
-        'enter_lng' => 'enter_lng',
-        'lng' => 'lng',
-        'enter_lat' => 'enter_lat',
-        'lat' => 'lat',
-        'enter_address' => 'enter_address',
-        'address' => 'address',
-        'sellers' => 'sellers',
-        'images' => 'images'
 
 
     ];

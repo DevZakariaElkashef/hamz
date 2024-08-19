@@ -2,11 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mall\Admin\HomeController;
+use App\Http\Controllers\Mall\Admin\ImageController;
 use App\Http\Controllers\Mall\Admin\SectionController;
 use App\Http\Controllers\Mall\Admin\SliderController;
 use App\Http\Controllers\Mall\Admin\StoreController;
 
 Route::get('/', [HomeController::class, 'index'])->name('mall.home');
+
+
+// images
+Route::delete('delete-image', [ImageController::class, 'destroy'])->name('images.destroy');
+// images
 
 Route::as('mall.')->group(function () {
 /**start Slider Routes */
