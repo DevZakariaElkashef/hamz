@@ -74,11 +74,11 @@
                                 <label class="form-label">{{ __('mall.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
                                     <option value="0" @if (old('is_active') == 0 || $slider->is_active == 0) selected @endif>
-                                        {{ __('not_active') }}</option>
+                                        {{ __('mall.not_active') }}</option>
                                     <option value="1" @if (old('is_active') == 1 || $slider->is_active == 1) selected @endif>
-                                        {{ __('active') }}</option>
+                                        {{ __('mall.active') }}</option>
                                 </select>
-                                @error('url')
+                                @error('is_active')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>

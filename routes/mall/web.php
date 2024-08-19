@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mall\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mall\Admin\HomeController;
 use App\Http\Controllers\Mall\Admin\ImageController;
@@ -33,5 +34,12 @@ Route::as('mall.')->group(function () {
     Route::resource('stores', StoreController::class);
     Route::get('search-stores', [StoreController::class, 'search'])->name('stores.search');
     Route::delete('delete-stores', [StoreController::class, 'delete'])->name('stores.delete');
+/**end Slider Routes */
+
+
+/**start Slider Routes */
+Route::resource('categories', CategoryController::class);
+Route::get('search-categories', [CategoryController::class, 'search'])->name('categories.search');
+Route::delete('delete-categories', [CategoryController::class, 'delete'])->name('categories.delete');
 /**end Slider Routes */
 });

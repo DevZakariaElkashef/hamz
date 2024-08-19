@@ -17,8 +17,12 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         $apps = config('app.apps'); // return array of values
+        $arabicCategories = [
+            'ملابس','إلكترونيات','أثاث','ألعاب','مستحضرات تجميل','مأكولات ومشروبات','أدوات منزلية','كتب','معدات رياضية','أجهزة كمبيوتر',
+        ];
+
         return [
-            'name_ar' => fake()->word(),
+            'name_ar' => $this->faker->randomElement($arabicCategories),
             'name_en' => fake()->word(),
             'image' => str_replace(['public', '\\'], ['', '/'], fake()->image('public/uploads/categories', 640, 480, 'art4muslim')),
             'app' => fake()->randomElement($apps)

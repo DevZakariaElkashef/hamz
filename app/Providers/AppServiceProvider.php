@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Store;
 use App\Models\Section;
+use App\Observers\StoreObserver;
 use App\Observers\SectionObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         Section::observe(SectionObserver::class);
+        Store::observe(StoreObserver::class);
     }
 }

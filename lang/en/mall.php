@@ -113,7 +113,15 @@ return
         'images' => 'Images',
         'Pick_Up_From_The_Store' => 'Pick Up From The Store',
         'Store_Has_Delivery' => 'Store Has Delivery',
-        'all' => 'all'
+        'all' => 'all',
+        'create_category' => 'Create Category',
+        'edit_category' => 'edit Category',
+        'categories' => 'categories',
+        'category' => 'category',
+        'parent_category' => 'Parent Category',
+        'select' => 'select',
+        'store' => "store"
+
 
 
 

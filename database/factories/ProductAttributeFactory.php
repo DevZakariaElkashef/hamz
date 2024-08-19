@@ -16,8 +16,12 @@ class ProductAttributeFactory extends Factory
      */
     public function definition(): array
     {
+        $arabicAttributes = [
+            'مقاس','لون','مواد','شكل','طول','عرض','ارتفاع','وزن','حجم','قوة','سرعة','نوع','نمط','تصميم','سماكة',
+        ];
+
         return [
-            'name_ar' => fake()->word(),
+            'name_ar' => $this->faker->randomElement($arabicAttributes),
             'name_en' => fake()->word(),
         ];
     }

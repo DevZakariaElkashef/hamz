@@ -125,6 +125,14 @@ return
         'Pick_Up_From_The_Store' => 'الاستلام من المتجر',
         'Store_Has_Delivery' => 'المتجر يوفر توصيل',
         'all' => 'الكل',
+        'create_category' => 'إنشاء فئة',
+        'edit_category' => 'تعديل الفئة',
+        'categories' => 'الفئات',
+        'category' => 'الفئة',
+        'parent_category' => 'الفئة الرئيسية',
+        'select' => 'اختر',
+        'store' => 'المتجر'
+
 
 
 

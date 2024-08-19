@@ -17,8 +17,12 @@ class SliderFactory extends Factory
     public function definition(): array
     {
         $apps = config('app.apps'); // return array of values
+        $arabicSliderWords = [
+            'مذهل','مميز','حديث','فخم','ملون','راقي','أنيق','مبتكر','جديد','حصري','رائع','مذهل','مستقبلي','جذاب','ممتع'
+        ];
+
         return [
-            'name_ar' => fake()->word(),
+            'name_ar' => $this->faker->randomElement($arabicSliderWords),
             'name_en' => fake()->word(),
             'image' => str_replace(['public', '\\'], ['', '/'], fake()->image('public/uploads/sliders', 640, 480, 'art4muslim')),
             'url' => fake()->url(),

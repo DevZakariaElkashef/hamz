@@ -16,8 +16,12 @@ class BrandFactory extends Factory
      */
     public function definition(): array
     {
+        $arabicCategories = [
+            'الماس','أنيق','تطور','مجموعة الرائد','النجاح','الروح','الأصالة','الفخامة','العالم','الأفضل',
+        ];
+
         return [
-            'name_ar' => fake()->word(),
+            'name_ar' => $this->faker->randomElement($arabicCategories),
             'name_en' => fake()->word(),
             'image' => str_replace(['public', '\\'], ['', '/'], fake()->image('public/uploads/brands', 640, 480, 'art4muslim')),
 

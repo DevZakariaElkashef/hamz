@@ -16,8 +16,12 @@ class AttributeOptionFactory extends Factory
      */
     public function definition(): array
     {
+        $arabicAttributeOptions = [
+            'مقاس صغير','مقاس متوسط','مقاس كبير','أحمر','أزرق','أخضر','جلدي','نايلون','خشب','معدن','طويل','قصير','مستدير','مربع','مستقيم','منحني',
+        ];
+
         return [
-            'name_ar' => fake()->word(),
+            'name_ar' => $this->faker->randomElement($arabicAttributeOptions),
             'name_en' => fake()->word(),
             'additional_price' => rand(0, 100),
             'is_required' => fake()->boolean()
