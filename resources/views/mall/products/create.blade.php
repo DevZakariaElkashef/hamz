@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.edit_category') }}
+    {{ __('mall.create_product') }}
 @endsection
 @section('css')
     <!--- Internal Select2 css-->
@@ -13,14 +13,14 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('mall.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.categories.index') }}">{{ __('mall.categories') }}</a></span>
+                        href="{{ route('mall.products.index') }}">{{ __('mall.products') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.categories.edit', $category->id) }}">{{ __('mall.edit_category') }}</a></span>
+                        href="{{ route('mall.products.create') }}">{{ __('mall.create_product') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.categories.index') }}" class="btn btn-secondary ">{{ __('mall.back') }}</a>
+                <a href="{{ route('mall.products.index') }}" class="btn btn-secondary ">{{ __('mall.back') }}</a>
             </div>
         </div>
     </div>
@@ -33,20 +33,19 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('mall.categories') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('mall.products') }}</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('mall.categories.update', $category->id) }}"
-                        data-parsley-validate="" enctype="multipart/form-data">
-                        @method('PUT')
+                    <form method="post" action="{{ route('mall.products.store') }}" data-parsley-validate=""
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('mall.name') }}(AR): <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="name_ar" placeholder="{{ __('mall.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') ?? $category->name_ar }}">
+                                    required="" type="text" value="{{ old('name_ar') }}">
                                 @error('name_ar')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -55,45 +54,27 @@
                                 <label class="form-label">{{ __('mall.name') }}(EN): <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="name_en" placeholder="{{ __('mall.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') ?? $category->name_en }}">
+                                    required="" type="text" value="{{ old('name_en') }}">
                                 @error('name_en')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.store') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control select2" name="store_id">
-                                    @foreach ($stores as $store)
-                                        <option value="{{ $store->id }}"
-                                            @if (old('store_id', $category->store_id) == $store->id) selected @endif>{{ $store->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('store_id')
+                                <label class="form-label">{{ __('mall.url') }}:</label>
+                                <input class="form-control" name="url" placeholder="{{ __('mall.enter_name') }}"
+                                    type="url" value="{{ old('url') }}">
+                                @error('url')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.parent_category') }}: </label>
-                                <select class="form-control select2" name="parent_id">
-                                    <option>{{ __('mall.select') }}</option>
-                                    @foreach ($categories as $item)
-                                        <option value="{{ $item->id }}"
-                                            @if (old('parent_id', $category->parent_id) == $item->id) selected @endif>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('parent_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('mall.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active', $category->is_active) == 0) selected @endif>
+                                    <option value="0" @if (old('is_active') == 0) selected @endif>
                                         {{ __('mall.not_active') }}</option>
-                                    <option value="1" @if (old('is_active', $category->is_active) == 1) selected @endif>
+                                    <option value="1" @if (old('is_active') == 1) selected @endif>
                                         {{ __('mall.active') }}</option>
                                 </select>
                                 @error('is_active')
@@ -101,10 +82,10 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 form-group mt-4">
+                            <div class="col-md-12 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('mall.image') }}</label>
-                                    <input class="custom-file-input" id="customFile" type="file" name="image">
+                                    <input class="custom-file-input" required id="customFile" type="file" name="image">
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

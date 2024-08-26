@@ -83,9 +83,18 @@
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
-                                <option value="">{{ __("mall.all") }}</option>
+                                <option value="">{{ __('mall.all') }}</option>
                                 <option value="0">{{ __('mall.not_active') }}</option>
                                 <option value="1">{{ __('mall.active') }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="is_active">{{ __('mall.store') }}</label>
+                            <select name="is_active" class="form-control">
+                                <option value="">{{ __('mall.all') }}</option>
+                                @foreach ($stores as $store)
+                                    <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -111,7 +120,7 @@
                                 data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
                                 data-url="{{ route('mall.categories.delete') }}">{{ __('mall.delete') }}</a>
                             <input type="text" id="searchInput" data-url="{{ route('mall.categories.search') }}"
-                                class="form-control" placeholder="{{ __('search') }}">
+                                class="form-control" placeholder="{{ __('mall.search') }}">
                         </div>
                     </div>
                 </div>

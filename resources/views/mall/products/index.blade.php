@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.sliders') }}
+    {{ __('mall.products') }}
 @endsection
 @section('css')
     <!---Internal Owl Carousel css-->
@@ -18,7 +18,7 @@
                 <h5 class="content-title mb-0 my-auto"><a href="{{ route('mall.home') }}"
                         class="text-dark">{{ __('mall.home') }}</a></h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.sliders.index') }}">{{ __('mall.sliders') }}</a></span>
+                        href="{{ route('mall.products.index') }}">{{ __('mall.products') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -27,11 +27,11 @@
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
             </div>
             <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('mall.sliders.index') }}" class="btn btn-warning  btn-icon ml-2"><i
+                <a href="{{ route('mall.products.index') }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.sliders.create') }}" class="btn btn-primary ">{{ __('mall.create') }}</a>
+                <a href="{{ route('mall.products.create') }}" class="btn btn-primary ">{{ __('mall.create') }}</a>
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
                     <h6 class="modal-title">{{ __('mall.filter') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form method="get" action="{{ route('mall.sliders.index') }}">
+                <form method="get" action="{{ route('mall.products.index') }}">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('mall.start_date') }}</label>
@@ -105,19 +105,19 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('mall.sliders') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('mall.products') }}</h4>
                         <div class="d-flex">
                             <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
                                 data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
-                                data-url="{{ route('mall.sliders.delete') }}">{{ __('mall.delete') }}</a>
-                            <input type="text" id="searchInput" data-url="{{ route('mall.sliders.search') }}"
+                                data-url="{{ route('mall.products.delete') }}">{{ __('mall.delete') }}</a>
+                            <input type="text" id="searchInput" data-url="{{ route('mall.products.search') }}"
                                 class="form-control" placeholder="{{ __('mall.search') }}">
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div id="tableFile">
-                        @include('mall.sliders.table')
+                        @include('mall.products.table')
                     </div>
                 </div>
             </div>

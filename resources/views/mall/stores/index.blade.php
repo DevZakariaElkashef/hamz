@@ -122,7 +122,7 @@
                                 data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
                                 data-url="{{ route('mall.stores.delete') }}">{{ __('mall.delete') }}</a>
                             <input type="text" id="searchInput" data-url="{{ route('mall.stores.search') }}"
-                                class="form-control" placeholder="{{ __('search') }}">
+                                class="form-control" placeholder="{{ __('mall.search') }}">
                         </div>
                     </div>
                 </div>

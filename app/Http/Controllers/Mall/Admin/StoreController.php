@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Models\City;
+use App\Models\User;
 use App\Models\Store;
+use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Mall\StoreRepository;
 use App\Http\Requests\Mall\Web\StoreRequest;
-use App\Models\Section;
-use App\Models\User;
 
 class StoreController extends Controller
 {
@@ -41,7 +42,8 @@ class StoreController extends Controller
     {
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
-        return view("mall.stores.create", compact('sections', 'users'));
+        $cities = City::mall()->active()->get();
+        return view("mall.stores.create", compact('sections', 'users', 'cities'));
     }
 
     /**
@@ -68,7 +70,8 @@ class StoreController extends Controller
     {
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
-        return view('mall.stores.edit', compact('store', 'sections', 'users'));
+        $cities = City::mall()->active()->get();
+        return view('mall.stores.edit', compact('store', 'sections', 'users', 'cities'));
     }
 
     /**

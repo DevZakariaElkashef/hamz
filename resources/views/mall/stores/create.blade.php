@@ -101,6 +101,22 @@
                                 @enderror
                             </div>
 
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('mall.cities') }}: <span
+                                        class="tx-danger">*</span></label>
+                                <select required class="form-control select2" name="city_id">
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->id }}"
+                                            @if (old('city_id') == $city->id) selected @endif>
+                                            {{ $city->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('city_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('mall.sellers') }}: <span
                                         class="tx-danger">*</span></label>

@@ -131,7 +131,11 @@ return
         'category' => 'الفئة',
         'parent_category' => 'الفئة الرئيسية',
         'select' => 'اختر',
-        'store' => 'المتجر'
+        'store' => 'المتجر',
+        'create_city' => 'إنشاء مدينة',
+        'cities' => 'المدن',
+        'edit_city' => 'تعديل مدينة',
+
 
 
 

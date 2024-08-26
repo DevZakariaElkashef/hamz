@@ -23,7 +23,8 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = $this->categoryRepository->index($request);
-        return view('mall.categories.index', compact('categories'));
+        $stores = Store::mall()->active()->get();
+        return view('mall.categories.index', compact('categories', 'stores'));
     }
 
     public function search(Request $request)

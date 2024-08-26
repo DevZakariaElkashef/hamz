@@ -39,7 +39,7 @@
                     @method('delete')
                     <input type="hidden" name="image_id" id="imageIDInput">
                     <div class="modal-body">
-                        {{ __("mall.Are you sure!") }}
+                        {{ __('mall.Are you sure!') }}
                     </div>
                     <div class="modal-footer">
                         <button class="btn ripple btn-danger" type="submit">{{ __('mall.delete') }}</button>
@@ -127,12 +127,27 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('mall.cities') }}: <span
+                                        class="tx-danger">*</span></label>
+                                <select required class="form-control select2" name="city_id">
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->id }}"
+                                            @if (old('city_id', $store->city_id) == $city->id) selected @endif>
+                                            {{ $city->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('section_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('mall.sellers') }}: <span
                                         class="tx-danger">*</span></label>
                                 <select required class="form-control select2" name="user_id">
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}"
-                                            @if (old('user_id') == $user->id || $store->user_id == $user->id) selected @endif>
+                                            @if (old('user_id', $store->user_id) == $user->id) selected @endif>
                                             {{ $user->name }}</option>
                                     @endforeach
                                 </select>
@@ -174,9 +189,9 @@
                                 <label class="form-label">{{ __('mall.status') }}: <span
                                         class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active') == 0 || $store->is_active == 0) selected @endif>
+                                    <option value="0" @if (old('is_active', $store->is_active) == 0) selected @endif>
                                         {{ __('mall.not_active') }}</option>
-                                    <option value="1" @if (old('is_active') == 1 || $store->is_active == 1) selected @endif>
+                                    <option value="1" @if (old('is_active', $store->is_active) == 1) selected @endif>
                                         {{ __('mall.active') }}</option>
                                 </select>
                                 @error('is_active')
@@ -187,8 +202,7 @@
                             <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('mall.image') }}</label>
-                                    <input class="custom-file-input" id="customFile" type="file"
-                                        name="image">
+                                    <input class="custom-file-input" id="customFile" type="file" name="image">
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -210,8 +224,8 @@
                                     @foreach ($store->images as $image)
                                         <div class="image-box position-relative m-2">
                                             <img src="{{ asset($image->path) }}">
-                                            <button type="button" data-id="{{ $image->id }}" data-toggle="modal" data-effect="effect-flip-vertical"
-                                                data-target="#deleteImageModal"
+                                            <button type="button" data-id="{{ $image->id }}" data-toggle="modal"
+                                                data-effect="effect-flip-vertical" data-target="#deleteImageModal"
                                                 class="btn btn-danger delete-image btn-sm position-absolute top-0 end-0"
                                                 data-index="3">×</button>
                                         </div>
@@ -234,7 +248,7 @@
                                 <div class="custom-checkbox-toggle">
                                     <input type="checkbox" value="1" id="delivery_type"
                                         @if ($store->delivery_type) checked @endif name="delivery_type">
-                                    <label for="delivery_type">{{ __("mall.Store_Has_Delivery") }}</label>
+                                    <label for="delivery_type">{{ __('mall.Store_Has_Delivery') }}</label>
                                 </div>
                                 @error('delivery_type')
                                     <div class="text-danger">{{ $message }}</div>

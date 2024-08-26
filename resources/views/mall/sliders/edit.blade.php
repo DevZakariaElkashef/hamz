@@ -73,9 +73,9 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('mall.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active') == 0 || $slider->is_active == 0) selected @endif>
+                                    <option value="0" @if (old('is_active', $slider->is_active) == 0) selected @endif>
                                         {{ __('mall.not_active') }}</option>
-                                    <option value="1" @if (old('is_active') == 1 || $slider->is_active == 1) selected @endif>
+                                    <option value="1" @if (old('is_active', $slider->is_active) == 1) selected @endif>
                                         {{ __('mall.active') }}</option>
                                 </select>
                                 @error('is_active')

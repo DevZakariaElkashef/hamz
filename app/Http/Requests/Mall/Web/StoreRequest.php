@@ -28,6 +28,7 @@ class StoreRequest extends FormRequest
             'description_en' => 'required|string|max:60000',
             'phone' => 'required|unique:stores,phone,' . $this->id,
             'section_id' => 'required|exists:sections,id',
+            'city_id' => 'required|exists:cities,id',
             'user_id' => 'required|exists:users,id',
             'lat' => 'required|string|max:255',
             'lng' => 'required|string|max:255',

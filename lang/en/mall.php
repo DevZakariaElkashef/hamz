@@ -120,7 +120,17 @@ return
         'category' => 'category',
         'parent_category' => 'Parent Category',
         'select' => 'select',
-        'store' => "store"
+        'store' => "store",
+
+
+
+        'create_city' => 'Create City',
+        'cities' => 'Cities',
+        'edit_city' => 'Edit City',
+
+        'create_product' => 'Create Product',
+        'products' => 'Products',
+        'edit_product' => 'Edit Product',
 
 
 
