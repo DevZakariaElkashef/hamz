@@ -9,7 +9,7 @@ use App\Models\Section;
 use App\Models\Category;
 use App\Models\AttributeOption;
 use Illuminate\Database\Seeder;
-use App\Models\ProductAttribute;
+use App\Models\Attribute;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SectionSeeder extends Seeder
@@ -26,11 +26,11 @@ class SectionSeeder extends Seeder
                         Category::factory(2)
                             ->has(
                                 Product::factory(2)
-                                    ->has(Brand::factory())
                                     ->has(
-                                        ProductAttribute::factory(2)
-                                            ->has(AttributeOption::factory(2))
+                                        AttributeOption::factory(2)
+                                            ->for(Attribute::factory(2)) // Each AttributeOption belongs to an Attribute
                                     )
+                                    ->has(Brand::factory(2)) // Assuming each Product has a Brand
                             )
                     )
             )

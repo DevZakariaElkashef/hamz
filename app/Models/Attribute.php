@@ -7,19 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductAttribute extends Model
+class Attribute extends Model
 {
     use HasFactory, AppScope, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function product()
+    public function getNameAttribute()
     {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function attributeOptions()
-    {
-        return $this->hasMany(AttributeOption::class);
+        return $this->attributes['name_' . app()->getLocale()];
     }
 }

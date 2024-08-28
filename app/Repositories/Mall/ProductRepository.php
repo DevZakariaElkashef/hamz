@@ -44,6 +44,7 @@ class ProductRepository
 
     public function store($request)
     {
+        dd($request->all());
         $data = $request->except('image');
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'products');

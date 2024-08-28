@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Models\Attribute;
+use App\Models\Store;
 use App\Models\Product;
+use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Mall\ProductRepository;
 use App\Http\Requests\Mall\Web\ProductRequest;
+use App\Models\Brand;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -36,7 +41,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("mall.products.create");
+        $sections = Section::mall()->active()->get();
+        $stores = Store::mall()->active()->get();
+        $categories = Category::mall()->active()->get();
+        $brands = Brand::mall()->active()->get();
+        $attributes = Attribute::mall()->get();
+        return view("mall.products.create", compact('sections', 'stores', 'categories', 'brands', 'attributes'));
     }
 
     /**

@@ -86,9 +86,9 @@ class Product extends Model
         });
     }
 
-    public function productAttributes()
+    public function attributeOptions()
     {
-        return $this->hasMany(ProductAttribute::class);
+        return $this->hasMany(AttributeOption::class);
     }
 
     public function images()

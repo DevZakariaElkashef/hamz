@@ -35,6 +35,12 @@ class StoreController extends Controller
         return view('mall.stores.table', compact('stores'))->render();
     }
 
+    public function getStoresBySection(Request $request)
+    {
+        $items = Store::where('section_id', $request->sectionId)->get();
+        return view("mall.layouts._options", compact('items'))->render();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

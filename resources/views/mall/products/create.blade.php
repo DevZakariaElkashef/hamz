@@ -5,6 +5,92 @@
 @section('css')
     <!--- Internal Select2 css-->
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <style>
+        <style>.custom-checkbox-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .custom-checkbox-toggle input {
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .custom-checkbox-toggle label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding-left: 2.5rem;
+            font-size: 1rem;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .custom-checkbox-toggle label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 2rem;
+            height: 1.2rem;
+            background-color: #ddd;
+            border-radius: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-checkbox-toggle label::after {
+            content: '';
+            position: absolute;
+            left: 0.2rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .custom-checkbox-toggle input:checked+label::before {
+            background-color: #025cd8;
+            /* Change this to the color you prefer for active state */
+        }
+
+        .custom-checkbox-toggle input:checked+label::after {
+            transform: translateX(0.8rem);
+            /* Adjust this based on the width of your toggle */
+        }
+
+        .custom-checkbox-toggle input:checked+label {
+            color: #025cd8;
+            /* Change this to the text color when active */
+        }
+
+
+        .image-box {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-box img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .delete-image {
+            top: -10px;
+            right: -10px;
+            cursor: pointer;
+        }
+
+        .remove-image {
+            top: -10px;
+            right: -10px;
+            cursor: pointer;
+        }
+    </style>
+    </style>
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -36,69 +122,245 @@
                         <h4 class="card-title mg-b-0">{{ __('mall.products') }}</h4>
                     </div>
                 </div>
-                <div class="card-body">
-                    <form method="post" action="{{ route('mall.products.store') }}" data-parsley-validate=""
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.name') }}(AR): <span
-                                        class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_ar" placeholder="{{ __('mall.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') }}">
-                                @error('name_ar')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.name') }}(EN): <span
-                                        class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_en" placeholder="{{ __('mall.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') }}">
-                                @error('name_en')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.url') }}:</label>
-                                <input class="form-control" name="url" placeholder="{{ __('mall.enter_name') }}"
-                                    type="url" value="{{ old('url') }}">
-                                @error('url')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.status') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active') == 0) selected @endif>
-                                        {{ __('mall.not_active') }}</option>
-                                    <option value="1" @if (old('is_active') == 1) selected @endif>
-                                        {{ __('mall.active') }}</option>
-                                </select>
-                                @error('is_active')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-12 form-group mt-4">
-                                <div class="custom-file">
-                                    <label class="custom-file-label" for="customFile">{{ __('mall.image') }}</label>
-                                    <input class="custom-file-input" required id="customFile" type="file" name="image">
-                                    @error('image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-12 mg-t-10 mg-sm-t-25">
-                                <button class="btn btn-main-primary pd-x-20"
-                                    type="submit">{{ __('mall.submit') }}</button>
-                            </div>
+                <form id="createProductForm" method="post" action="{{ route('mall.products.store') }}" data-parsley-validate=""
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="card-body">
+                        <div class="main-content-label mg-b-5">
+                            {{ __('mall.create_product') }}
                         </div>
-                    </form>
-                </div>
+                        <div id="wizard1">
+                            <h3>{{ __('mall.General_Information') }}</h3>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.name') }}(AR): <span
+                                                class="tx-danger">*</span></label>
+                                        <input class="form-control" name="name_ar"
+                                            placeholder="{{ __('mall.enter_name') }}" required="" type="text"
+                                            value="{{ old('name_ar') }}">
+                                        @error('name_ar')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.name') }}(EN): <span
+                                                class="tx-danger">*</span></label>
+                                        <input class="form-control" name="name_en"
+                                            placeholder="{{ __('mall.enter_name') }}" required="" type="text"
+                                            value="{{ old('name_en') }}">
+                                        @error('name_en')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.description') }}(AR): <span
+                                                class="tx-danger">*</span></label>
+                                        <textarea class="form-control" name="description_ar" placeholder="{{ __('mall.enter_description') }}" required=""> {{ old('description_ar') }} </textarea>
+                                        @error('description_ar')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.description') }}(EN): <span
+                                                class="tx-danger">*</span></label>
+                                        <textarea class="form-control" name="description_en" placeholder="{{ __('mall.enter_description') }}" required=""> {{ old('description_en') }} </textarea>
+                                        @error('description_en')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.price') }}:</label>
+                                        <input class="form-control" type="number" name="price"
+                                            placeholder="{{ __('mall.enter_price') }}" type="price"
+                                            value="{{ old('price') }}">
+                                        @error('price')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.offer') }}:</label>
+                                        <input class="form-control" type="number" name="offer"
+                                            placeholder="{{ __('mall.enter_offer') }}" type="offer"
+                                            value="{{ old('offer') }}">
+                                        @error('offer')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.start_offer_date') }}:</label>
+                                        <input class="form-control" type="date" name="start_offer_date"
+                                            placeholder="{{ __('mall.enter_start_offer_date') }}" type="start_offer_date"
+                                            value="{{ old('start_offer_date') }}">
+                                        @error('start_offer_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.end_offer_date') }}:</label>
+                                        <input class="form-control" type="date" name="end_offer_date"
+                                            placeholder="{{ __('mall.enter_end_offer_date') }}" type="end_offer_date"
+                                            value="{{ old('end_offer_date') }}">
+                                        @error('end_offer_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.qty') }}:</label>
+                                        <input class="form-control" type="number" name="qty"
+                                            placeholder="{{ __('mall.enter_qty') }}" type="qty"
+                                            value="{{ old('qty') }}">
+                                        @error('qty')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.section') }}: </label>
+                                        <select class="form-control select2" name="section_id" id="sectionId">
+                                            <option selected>{{ __('mall.select') }}</option>
+                                            @foreach ($sections as $section)
+                                                <option value="{{ $section->id }}"
+                                                    @if (old('section_id') == $section->id) selected @endif>{{ $section->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('section_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.store') }}: </label>
+                                        <select class="form-control select2" name="store_id" id="storeId">
+                                            <option selected>{{ __('mall.select') }}</option>
+                                            @foreach ($stores as $store)
+                                                <option value="{{ $store->id }}"
+                                                    @if (old('store_id') == $store->id) selected @endif>{{ $store->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('store_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.category') }}: </label>
+                                        <select class="form-control select2" name="category_id" id="categoryId">
+                                            <option selected>{{ __('mall.select') }}</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    @if (old('category_id') == $category->id) selected @endif>{{ $category->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.brand') }}: </label>
+                                        <select class="form-control select2" name="brand_id" id="brandId">
+                                            <option selected>{{ __('mall.select') }}</option>
+                                            @foreach ($brands as $brand)
+                                                <option value="{{ $brand->id }}"
+                                                    @if (old('brand_id') == $brand->id) selected @endif>{{ $brand->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('brand_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 form-group mg-b-0">
+                                        <label class="form-label">{{ __('mall.status') }}: <span
+                                                class="tx-danger">*</span></label>
+                                        <select required class="form-control" name="is_active">
+                                            <option value="0" @if (old('is_active') == 0) selected @endif>
+                                                {{ __('mall.not_active') }}</option>
+                                            <option value="1" @if (old('is_active') == 1) selected @endif>
+                                                {{ __('mall.active') }}</option>
+                                        </select>
+                                        @error('is_active')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                            </section>
+                            <h3>{{ __('mall.product_attributes') }}</h3>
+                            <section>
+                                <div class="attibutes">
+                                    <div class="attribute row align-items-center">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="Attribute">{{ __('mall.attribute') }}</label>
+                                                <select name="attributes[]" id="Attribute" class="form-control">
+                                                    @foreach ($attributes as $attribute)
+                                                        <option value="{{ $attribute->id }}">{{ $attribute->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="value">{{ __('mall.attribute') }}</label>
+                                                <input type="text" name="value[]" id="value"
+                                                    placeholder="{{ __('mall.value') }}" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="#" id="createAttribute" class="btn btn-primary">+</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <h3>{{ __('mall.product_images') }}</h3>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-12 form-group mt-4">
+                                        <div class="custom-file">
+                                            <label class="custom-file-label"
+                                                for="customFile">{{ __('mall.image') }}</label>
+                                            <input class="custom-file-input" required id="customFile" type="file"
+                                                name="image">
+                                            @error('image')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 form-group mt-4">
+                                        <div class="custom-file">
+                                            <label class="custom-file-label"
+                                                for="customFileMulti">{{ __('mall.images') }}</label>
+                                            <input class="custom-file-input" multiple id="customFileMulti" type="file"
+                                                name="images[]" accept="image/*">
+                                            @error('images')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div id="image-preview" class="mt-4 d-flex flex-wrap"></div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <!--/div-->
@@ -116,4 +378,135 @@
     <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
     <!-- Internal Form-validation js -->
     <script src="{{ URL::asset('assets/js/form-validation.js') }}"></script>
+    <!-- Internal Jquery.steps js -->
+    <script src="{{ URL::asset('assets/plugins/jquery-steps/jquery.steps.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
+    <!--Internal  Form-wizard js -->
+    <script src="{{ URL::asset('assets/js/form-wizard.js') }}"></script>
+
+
+    <script>
+        async function fetchData(url, data, targetElement) {
+            try {
+                // Build query string from data object
+                const params = new URLSearchParams(data).toString();
+
+                // Send GET request with query string
+                const response = await fetch(`${url}?${params}`);
+
+                // Check if response is ok
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Assuming the response is HTML, use text()
+                const result = await response.text();
+
+                // Update the target element with the response HTML
+                $(targetElement).html(result); // jQuery style selection
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        $(document).on('change', '#sectionId', async function() {
+            const sectionId = $(this).val();
+
+            // Fetch stores, categories, and brands by section
+            await fetchData("{{ route('mall.stores.bySection') }}", {
+                sectionId: sectionId
+            }, '#storeId');
+            await fetchData("{{ route('mall.categories.bySection') }}", {
+                sectionId: sectionId
+            }, '#categoryId');
+            await fetchData("{{ route('mall.brands.bySection') }}", {
+                sectionId: sectionId
+            }, '#brandId');
+        });
+
+        $(document).on('change', '#storeId', async function() {
+            const storeId = $(this).val();
+
+            // Fetch categories and brands by store
+            await fetchData("{{ route('mall.categories.byStore') }}", {
+                storeId: storeId
+            }, '#categoryId');
+            await fetchData("{{ route('mall.brands.byStore') }}", {
+                storeId: storeId
+            }, '#brandId');
+        });
+    </script>
+    <script>
+        $(document).on('click', '#createAttribute', function(e) {
+            e.preventDefault();
+            let $clone = $('.attribute:first').clone();
+            $clone.find('#createAttribute').parent().remove(); // Remove the create button
+            $clone.append(
+                '<div class="col-md-2"><a href="#" class="btn btn-danger removeAttribute">-</a></div>'
+            ); // Add a delete button
+            $('.attibutes').append($clone);
+        });
+
+        $(document).on('click', '.removeAttribute', function(e) {
+            e.preventDefault();
+            $(this).closest('.attribute').remove();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // When images are selected
+            $('#customFileMulti').on('change', function(e) {
+                const files = e.target.files;
+                const previewContainer = $('#image-preview');
+                previewContainer.empty(); // Clear existing previews
+
+                // Loop through selected images
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        // Create a preview box for each image
+                        const previewBox = $(`
+                            <div class="image-box position-relative m-2">
+                                <img src="${e.target.result}" class="img-thumbnail" style="max-width: 150px; height: auto;">
+                                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
+                            </div>
+                        `);
+
+                        previewContainer.append(previewBox);
+                    };
+
+                    reader.readAsDataURL(file); // Read the image file
+                });
+            });
+
+            // Remove image on click
+            $(document).on('click', '.remove-image', function() {
+                const index = $(this).data('index');
+                const fileInput = $('#customFile')[0];
+
+                // Create a DataTransfer object to manipulate files
+                const dt = new DataTransfer();
+
+                // Loop through files and add them back, excluding the one that needs to be removed
+                Array.from(fileInput.files).forEach((file, i) => {
+                    if (i !== index) {
+                        dt.items.add(file);
+                    }
+                });
+
+                // Re-assign the updated files list to the input
+                fileInput.files = dt.files;
+
+                // Refresh the preview container
+                $(this).closest('.image-box').remove();
+            });
+        });
+
+
+        $(document).on('click', '.delete-image', function() {
+            $('#imageIDInput').val($(this).data('id'));
+        });
+    </script>
+
 @endsection

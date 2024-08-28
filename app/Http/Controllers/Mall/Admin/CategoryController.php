@@ -33,6 +33,22 @@ class CategoryController extends Controller
         return view('mall.categories.table', compact('categories'))->render();
     }
 
+
+    public function getCategoriesBySection(Request $request)
+    {
+        $items = Category::whereHas('store', function ($store) use($request) {
+            $store->where("section_id", $request->sectionId);
+        })->get();
+
+        return view('mall.layouts._options', compact('items'))->render();
+    }
+
+    public function getCategoriesBystore(Request $request)
+    {
+        $items = Category::where("store_id", $request->storeId)->get();
+        return view('mall.layouts._options', compact('items'))->render();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mall\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mall\Admin\CityController;
 use App\Http\Controllers\Mall\Admin\HomeController;
@@ -42,6 +43,7 @@ Route::delete('delete-cities', [CityController::class, 'delete'])->name('cities.
 /**start Slider Routes */
     Route::resource('stores', StoreController::class);
     Route::get('search-stores', [StoreController::class, 'search'])->name('stores.search');
+    Route::get('stores-by-section', [StoreController::class, 'getStoresBySection'])->name('stores.bySection');
     Route::delete('delete-stores', [StoreController::class, 'delete'])->name('stores.delete');
 /**end Slider Routes */
 
@@ -49,7 +51,17 @@ Route::delete('delete-cities', [CityController::class, 'delete'])->name('cities.
 /**start Slider Routes */
 Route::resource('categories', CategoryController::class);
 Route::get('search-categories', [CategoryController::class, 'search'])->name('categories.search');
+Route::get('categories-by-store', [CategoryController::class, 'getCategoriesBystore'])->name('categories.byStore');
+Route::get('categories-by-section', [CategoryController::class, 'getCategoriesBySection'])->name('categories.bySection');
 Route::delete('delete-categories', [CategoryController::class, 'delete'])->name('categories.delete');
+
+
+/**start Slider Routes */
+Route::resource('brands', BrandController::class);
+Route::get('search-brands', [BrandController::class, 'search'])->name('brands.search');
+Route::get('brands-by-store', [BrandController::class, 'getBrandsBystore'])->name('brands.byStore');
+Route::get('brands-by-section', [BrandController::class, 'getbrandsBySection'])->name('brands.bySection');
+Route::delete('delete-brands', [BrandController::class, 'delete'])->name('brands.delete');
 
 
 /**start Slider Routes */

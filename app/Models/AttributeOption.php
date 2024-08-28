@@ -13,6 +13,11 @@ class AttributeOption extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
+    }
+
     public function getNameAttribute()
     {
         return $this->attributes['name_' . app()->getLocale()];

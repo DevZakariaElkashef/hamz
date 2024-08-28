@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('attribute_options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_attribute_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('attribute_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('name_ar')->nullable();
             $table->string('name_en')->nullable();
             $table->decimal('additional_price', 8, 2)->default(0.00); // Additional price for this option
