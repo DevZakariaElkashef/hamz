@@ -23,9 +23,9 @@
         $toastPosition = app()->getLocale() == 'en' ? 'right: 20px;' : 'left: 20px;';
     @endphp
     @if (session('success') || session('error'))
-        <div class="demo-static-toast" style="z-index: 10000000; position: absolute; top: 20px; {{ $toastPosition }}">
+        <div class="demo-static-toast" style="z-index: 10000000; position: fixed; bottom: 20px; {{ $toastPosition }}">
             <div aria-atomic="true" aria-live="assertive" class="toast fade show" role="alert">
-                <div class="toast-body {{ session('success') ? 'bg-primary' : 'bg-danger' }} text-light">
+                <div class="toast-body text-light" style="background-color: {{ session('success') ? '#007f00' : '#c82333' }};">
                     {{ session('success') ?? session('error') }}
                 </div>
             </div>

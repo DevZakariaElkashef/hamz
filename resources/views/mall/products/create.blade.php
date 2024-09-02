@@ -5,8 +5,9 @@
 @section('css')
     <!--- Internal Select2 css-->
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+
     <style>
-        <style>.custom-checkbox-toggle {
+        .custom-checkbox-toggle {
             position: relative;
             display: flex;
             align-items: center;
@@ -67,7 +68,6 @@
             /* Change this to the text color when active */
         }
 
-
         .image-box {
             position: relative;
             display: inline-block;
@@ -78,18 +78,12 @@
             height: auto;
         }
 
-        .delete-image {
-            top: -10px;
-            right: -10px;
-            cursor: pointer;
-        }
-
+        .delete-image,
         .remove-image {
             top: -10px;
             right: -10px;
             cursor: pointer;
         }
-    </style>
     </style>
 @endsection
 @section('page-header')
@@ -122,8 +116,8 @@
                         <h4 class="card-title mg-b-0">{{ __('mall.products') }}</h4>
                     </div>
                 </div>
-                <form id="createProductForm" method="post" action="{{ route('mall.products.store') }}" data-parsley-validate=""
-                    enctype="multipart/form-data">
+                <form id="createProductForm" method="post" action="{{ route('mall.products.store') }}"
+                    data-parsley-validate="" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="main-content-label mg-b-5">
@@ -305,10 +299,11 @@
                             <section>
                                 <div class="attibutes">
                                     <div class="attribute row align-items-center">
-                                        <div class="col-md-5">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="Attribute">{{ __('mall.attribute') }}</label>
                                                 <select name="attributes[]" id="Attribute" class="form-control">
+                                                    <option selected disabled>{{ __('mall.select') }}</option>
                                                     @foreach ($attributes as $attribute)
                                                         <option value="{{ $attribute->id }}">{{ $attribute->name }}
                                                         </option>
@@ -316,11 +311,35 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="value">{{ __('mall.attribute') }}</label>
-                                                <input type="text" name="value[]" id="value"
-                                                    placeholder="{{ __('mall.value') }}" class="form-control">
+                                                <label for="option">{{ __('mall.options') }}</label>
+                                                <select name="options[]" id="option"
+                                                    class="form-control optionSelect">
+                                                    <option selected disabled>{{ __('mall.select') }}</option>
+                                                    @foreach ($options as $option)
+                                                        <option value="{{ $option->id }}">{{ $option->value }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="ckbox">
+                                                    <input checked="" class="isRequiredCheckbox" name="is_required[]"
+                                                        type="checkbox">
+                                                    <span>
+                                                        {{ __('mall.is_required') }}
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="price">{{ __('mall.additional_price') }}</label>
+                                                <input type="number" class="form-control" name="costs[]" value="0"
+                                                    id="price">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -380,9 +399,9 @@
     <script src="{{ URL::asset('assets/js/form-validation.js') }}"></script>
     <!-- Internal Jquery.steps js -->
     <script src="{{ URL::asset('assets/plugins/jquery-steps/jquery.steps.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
+    {{-- <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script> --}}
     <!--Internal  Form-wizard js -->
-    <script src="{{ URL::asset('assets/js/form-wizard.js') }}"></script>
+    {{-- <script src="{{ URL::asset('assets/js/form-wizard.js') }}"></script> --}}
 
 
     <script>
@@ -436,6 +455,33 @@
             }, '#brandId');
         });
     </script>
+
+    <script>
+        $(document).on('change', '#Attribute', async function() {
+            const attributeId = $(this).val();
+            const attributeElement = $(this); // Store reference to the triggering element
+
+            $.ajax({
+                type: "GET",
+                url: "{{ route('mall.options.byAttribute') }}",
+                data: {
+                    attributeId: attributeId
+                },
+                dataType: "html", // Assuming the response is HTML; change if necessary
+                success: function(response) {
+                    // Use the stored reference to find the nearest '.optionSelect' element
+                    attributeElement.closest('.attribute').find('.optionSelect').html(response);
+                    attributeElement.closest('.attribute').find('.isRequiredCheckbox').attr('value',
+                        attributeId);
+                },
+                error: function(error) {
+                    console.error('Error fetching options:', error);
+                }
+            });
+        });
+    </script>
+
+
     <script>
         $(document).on('click', '#createAttribute', function(e) {
             e.preventDefault();
@@ -452,61 +498,79 @@
             $(this).closest('.attribute').remove();
         });
     </script>
-    <script>
-        $(document).ready(function() {
-            // When images are selected
-            $('#customFileMulti').on('change', function(e) {
-                const files = e.target.files;
-                const previewContainer = $('#image-preview');
-                previewContainer.empty(); // Clear existing previews
 
-                // Loop through selected images
-                Array.from(files).forEach((file, index) => {
-                    const reader = new FileReader();
 
-                    reader.onload = function(e) {
-                        // Create a preview box for each image
-                        const previewBox = $(`
-                            <div class="image-box position-relative m-2">
-                                <img src="${e.target.result}" class="img-thumbnail" style="max-width: 150px; height: auto;">
-                                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
-                            </div>
-                        `);
+<script>
+    $(document).ready(function() {
+        // When images are selected
+        $(document).on('change', '#customFileMulti', function(e) {
+            const files = e.target.files;
+            const previewContainer = $('#image-preview');
+            previewContainer.empty(); // Clear existing previews
 
-                        previewContainer.append(previewBox);
-                    };
+            // Loop through selected images
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
 
-                    reader.readAsDataURL(file); // Read the image file
-                });
-            });
+                reader.onload = function(e) {
+                    // Create a preview box for each image
+                    const previewBox = $(`
+                        <div class="image-box position-relative m-2">
+                            <img src="${e.target.result}" class="img-thumbnail" style="max-width: 150px; height: auto;">
+                            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
+                        </div>
+                    `);
 
-            // Remove image on click
-            $(document).on('click', '.remove-image', function() {
-                const index = $(this).data('index');
-                const fileInput = $('#customFile')[0];
+                    previewContainer.append(previewBox);
+                };
 
-                // Create a DataTransfer object to manipulate files
-                const dt = new DataTransfer();
-
-                // Loop through files and add them back, excluding the one that needs to be removed
-                Array.from(fileInput.files).forEach((file, i) => {
-                    if (i !== index) {
-                        dt.items.add(file);
-                    }
-                });
-
-                // Re-assign the updated files list to the input
-                fileInput.files = dt.files;
-
-                // Refresh the preview container
-                $(this).closest('.image-box').remove();
+                reader.readAsDataURL(file); // Read the image file
             });
         });
 
+        // Remove image on click
+        $(document).on('click', '.remove-image', function() {
+            const index = $(this).data('index');
+            const fileInput = $('#customFileMulti')[0]; // Corrected to match the input element's ID
 
-        $(document).on('click', '.delete-image', function() {
-            $('#imageIDInput').val($(this).data('id'));
+            // Create a DataTransfer object to manipulate files
+            const dt = new DataTransfer();
+
+            // Loop through files and add them back, excluding the one that needs to be removed
+            Array.from(fileInput.files).forEach((file, i) => {
+                if (i !== index) {
+                    dt.items.add(file);
+                }
+            });
+
+            // Re-assign the updated files list to the input
+            fileInput.files = dt.files;
+
+            // Refresh the preview container
+            $(this).closest('.image-box').remove();
+        });
+    });
+
+    $(document).on('click', '.delete-image', function() {
+        $('#imageIDInput').val($(this).data('id'));
+    });
+</script>
+
+
+
+    <script>
+        $(function() {
+            'use strict'
+            $('#wizard1').steps({
+                headerTag: 'h3',
+                bodyTag: 'section',
+                autoFocus: true,
+                titleTemplate: '<span class="number">#index#<\/span> <span class="title">#title#<\/span>',
+                onFinished: function(event, currentIndex) {
+                    // Submit the form when the user finishes the wizard
+                    $("#createProductForm").submit();
+                }
+            });
         });
     </script>
-
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mall\Admin;
 use App\Models\City;
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Store;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,7 +27,8 @@ class BrandController extends Controller
     {
         $brands = $this->brandRepository->index($request);
         $sections = Section::mall()->active()->get();
-        return view('mall.brands.index', compact('brands', 'sections'));
+        $stores = Store::mall()->active()->get();
+        return view('mall.brands.index', compact('brands', 'sections', 'stores'));
     }
 
     public function search(Request $request)
@@ -58,13 +60,14 @@ class BrandController extends Controller
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
         $cities = City::mall()->active()->get();
-        return view("mall.brands.create", compact('sections', 'users', 'cities'));
+        $stores = Store::mall()->active()->get();
+        return view("mall.brands.create", compact('sections', 'users', 'cities', 'stores'));
     }
 
     /**
      * Brand a newly created resource in storage.
      */
-    public function brand(BrandRequest $request)
+    public function store(BrandRequest $request)
     {
         $this->brandRepository->brand($request); // brand brand
         return to_route('mall.brands.index')->with('success', __("mall.created_successffully"));
@@ -86,7 +89,8 @@ class BrandController extends Controller
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
         $cities = City::mall()->active()->get();
-        return view('mall.brands.edit', compact('brand', 'sections', 'users', 'cities'));
+        $stores = Store::mall()->active()->get();
+        return view('mall.brands.edit', compact('brand', 'sections', 'users', 'cities', 'stores'));
     }
 
     /**

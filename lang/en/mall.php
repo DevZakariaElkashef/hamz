@@ -184,9 +184,19 @@ return
         'product_attributes' => "Product Attributes",
         'product_images' => 'Product Image',
         'attribute' => 'Attribute',
-        'value' => 'value'
+        'value' => 'value',
+        'attributes' => 'Attributes',
+        'create_attribute' => 'Create Attribute',
+        'edit_attribute' => 'Update Attribute',
+        'options' => 'options',
+        'create_option' => 'Create Option',
+        'edit_option' => 'Edit Option',
 
-
-
+        'enter_value' => 'Enter Value',
+        'brands' => 'Brands',
+        'create_brand' => 'Create Brand',
+        'edit_brand' => 'Edit Brand',
+        'is_required' => "Is Required",
+        'additional_price' => 'Additional Price'
 
     ];

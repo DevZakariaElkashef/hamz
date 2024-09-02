@@ -86,9 +86,11 @@ class Product extends Model
         });
     }
 
-    public function attributeOptions()
+    public function attributes()
     {
-        return $this->hasMany(AttributeOption::class);
+        return $this->belongsToMany(Attribute::class, 'product_attribute_option')
+            ->withPivot('option_id', 'is_required', 'additional_price')
+            ->withTimestamps();
     }
 
     public function images()

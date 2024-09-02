@@ -4,7 +4,10 @@ $(function() {
 		headerTag: 'h3',
 		bodyTag: 'section',
 		autoFocus: true,
-		titleTemplate: '<span class="number">#index#<\/span> <span class="title">#title#<\/span>'
+		titleTemplate: '<span class="number">#index#<\/span> <span class="title">#title#<\/span>',
+        onFinished: function (event, currentIndex) {
+            alert("Form finished!");
+        }
 	});
 	$('#wizard2').steps({
 		headerTag: 'h3',

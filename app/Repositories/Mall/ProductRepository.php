@@ -44,12 +44,47 @@ class ProductRepository
 
     public function store($request)
     {
-        dd($request->all());
+        // Extract all data except image
         $data = $request->except('image');
+
+        // Handle main image upload
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'products');
+            $data['image'] = $this->uploadImage($request->file('image'), 'products');
         }
-        return Product::create($data);
+
+        // Create the product
+        $product = Product::create($data);
+
+        // Handle multiple images upload
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $product->images()->create([
+                    'path' => $this->uploadImage($image, 'products')
+                ]);
+            }
+        }
+
+        if ($request->filled('attributes')) {
+            $attributes = $request->input('attributes');
+            $options = $request->options;
+            $required = $request->is_required;
+            $costs = $request->costs;
+
+            for ($i = 0; $i < count($attributes); $i++) {
+
+                $attributeId = (int) $attributes[$i]; // Cast to integer
+                $optionId = (int) $options[$i]; // Cast to integer
+                $isRequired = in_array($attributes[$i], $required) ? 1 : 0;
+                $additionalPrice = (float) $costs[$i]; // Cast to float
+
+                // Attach the attribute to the product with its option and additional data
+                $product->attributes()->attach($attributeId, [
+                    'option_id' => $optionId,
+                    'is_required' => $isRequired,
+                    'additional_price' => $additionalPrice
+                ]);
+            }
+        }
     }
 
 
@@ -72,6 +107,7 @@ class ProductRepository
 
     public function deleteSelection($request)
     {
+
         $ids = explode(',', $request->ids);
         Product::whereIn('id', $ids)->delete();
         return true;

@@ -5,7 +5,8 @@ namespace App\Repositories\Mall;
 use App\Models\Brand;
 use App\Traits\ImageUploadTrait;
 
-class BrandRepository {
+class BrandRepository
+{
     use ImageUploadTrait;
     protected $limit;
 
@@ -57,14 +58,6 @@ class BrandRepository {
 
         $brand = Brand::create($data);
 
-        if ($request->has('images')) {
-            foreach ($request->images as $image) {
-                $brand->images()->create([
-                    'path' => $this->uploadImage($image, 'brands')
-                ]);
-            }
-        }
-
         return $brand;
     }
 
@@ -75,23 +68,6 @@ class BrandRepository {
 
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'brands', $brand->image);
-        }
-
-
-        if ($request->has('images')) {
-            foreach ($request->images as $image) {
-                $brand->images()->create([
-                    'path' => $this->uploadImage($image, 'brands')
-                ]);
-            }
-        }
-
-        if (!$request->has('delivery_type')) {
-            $brand->update(['delivery_type' => 0]);
-        }
-
-        if (!$request->has('pick_up')) {
-            $brand->update(['pick_up' => 0]);
         }
 
         $brand->update($data);

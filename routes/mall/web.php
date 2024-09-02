@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mall\Admin\AttributeController;
 use App\Http\Controllers\Mall\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mall\Admin\CityController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Mall\Admin\StoreController;
 use App\Http\Controllers\Mall\Admin\SliderController;
 use App\Http\Controllers\Mall\Admin\SectionController;
 use App\Http\Controllers\Mall\Admin\CategoryController;
+use App\Http\Controllers\Mall\Admin\OptionController;
 use App\Http\Controllers\Mall\Admin\ProductController;
 
 Route::get('/', [HomeController::class, 'index'])->name('mall.home');
@@ -62,6 +64,19 @@ Route::get('search-brands', [BrandController::class, 'search'])->name('brands.se
 Route::get('brands-by-store', [BrandController::class, 'getBrandsBystore'])->name('brands.byStore');
 Route::get('brands-by-section', [BrandController::class, 'getbrandsBySection'])->name('brands.bySection');
 Route::delete('delete-brands', [BrandController::class, 'delete'])->name('brands.delete');
+
+
+/**start Slider Routes */
+Route::resource('attributes', AttributeController::class);
+Route::get('search-attributes', [AttributeController::class, 'search'])->name('attributes.search');
+Route::delete('delete-attributes', [AttributeController::class, 'delete'])->name('attributes.delete');
+
+
+/**start Slider Routes */
+Route::resource('options', OptionController::class);
+Route::get('search-options', [OptionController::class, 'search'])->name('options.search');
+Route::get('options-by-attribute', [OptionController::class, 'getOptionsByAttribute'])->name('options.byAttribute');
+Route::delete('delete-options', [OptionController::class, 'delete'])->name('options.delete');
 
 
 /**start Slider Routes */

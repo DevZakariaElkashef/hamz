@@ -191,7 +191,23 @@ return
         'product_attributes' => 'سمات المنتج',
         'product_images' => 'صورة المنتج',
         'attribute' => 'السمة',
-        'value' => 'القيمة'
+        'value' => 'القيمة',
+        'attributes' => 'خصائص المنتجات',
+        'create_attribute' => 'إنشاء خاصية منتج',
+        'edit_attribute' => 'تحديث خاصية منتج',
+        'options' => 'قيم خصائص المنتجات',
+        'create_option' => 'إنشاء قيمة',
+        'edit_option' => 'تحديث قيمة',
+        'enter_value' => 'أدخل القيمة',
+        'brands' => 'العلامات التجارية',
+        'create_brand' => 'إنشاء علامة تجارية',
+        'edit_brand' => 'تعديل العلامة التجارية',
+
+        'is_required' => "هل الخاصية أجبارى",
+        'additional_price' => 'سعر إضافي',
+
+
+
 
 
 

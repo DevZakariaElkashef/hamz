@@ -12,6 +12,7 @@ use App\Repositories\Mall\ProductRepository;
 use App\Http\Requests\Mall\Web\ProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Option;
 
 class ProductController extends Controller
 {
@@ -46,7 +47,8 @@ class ProductController extends Controller
         $categories = Category::mall()->active()->get();
         $brands = Brand::mall()->active()->get();
         $attributes = Attribute::mall()->get();
-        return view("mall.products.create", compact('sections', 'stores', 'categories', 'brands', 'attributes'));
+        $options = Option::mall()->get();
+        return view("mall.products.create", compact('sections', 'stores', 'categories', 'brands', 'attributes', 'options'));
     }
 
     /**
@@ -71,7 +73,13 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('mall.products.edit', compact('product'));
+        $sections = Section::mall()->active()->get();
+        $stores = Store::mall()->active()->get();
+        $categories = Category::mall()->active()->get();
+        $brands = Brand::mall()->active()->get();
+        $attributes = Attribute::mall()->get();
+        $options = Option::mall()->get();
+        return view('mall.products.edit', compact('product', 'sections', 'stores', 'categories', 'brands', 'attributes', 'options'));
     }
 
     /**

@@ -26,10 +26,10 @@ class ProductRequest extends FormRequest
             'name_en' => 'required|string|max:255',
             'description_ar' => 'required|string',
             'description_en' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'offer' => 'nullable|numeric|min:0|max:100', // Assuming offer is a percentage
-            'start_offer_date' => 'required|date|after_or_equal:today',
-            'end_offer_date' => 'required|date|after_or_equal:start_offer_date',
+            'price' => 'required|numeric|gt:0',
+            'offer' => 'nullable|numeric', // Assuming offer is a percentage
+            'start_offer_date' => 'nullable|date|after_or_equal:today',
+            'end_offer_date' => 'nullable|date|after_or_equal:start_offer_date',
             'qty' => 'required|integer|min:0',
             'section_id' => 'required|exists:sections,id',
             'store_id' => 'required|exists:stores,id',
@@ -37,6 +37,10 @@ class ProductRequest extends FormRequest
             'brand_id' => 'required|exists:brands,id',
             'is_active' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'images.*' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'attributes.*' => 'nullable|exists:attributes,id',
+            'options.*' => 'nullable|exists:options,id',
+            'costs.*' => 'nullable|numeric'
         ];
     }
 
