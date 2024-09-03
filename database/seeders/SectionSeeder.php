@@ -9,6 +9,7 @@ use App\Models\Section;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 use App\Models\Attribute;
+use App\Models\Option;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SectionSeeder extends Seeder
@@ -25,9 +26,24 @@ class SectionSeeder extends Seeder
                         Category::factory(2)
                             ->has(
                                 Product::factory(2)
-                                    ->has(Brand::factory(2)) // Assuming each Product has a Brand
+                                    ->for(Brand::factory(), 'brand')
+                                    ->afterCreating(function (Product $product) {
+                                        $attributes = Attribute::factory(3)
+                                            ->has(Option::factory(3))
+                                            ->create();
+
+                                        foreach ($attributes as $attribute) {
+                                            $option = $attribute->options->random();
+                                            $product->attributes()->attach($attribute->id, [
+                                                'option_id' => $option->id,
+                                                'is_required' => rand(0, 1),
+                                                'additional_price' => rand(0, 100),
+                                            ]);
+                                        }
+                                    })
                             )
                     )
+                    ->has(Brand::factory(2))
             )
             ->create();
     }

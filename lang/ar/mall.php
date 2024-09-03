@@ -205,6 +205,7 @@ return
 
         'is_required' => "هل الخاصية أجبارى",
         'additional_price' => 'سعر إضافي',
+        'inventory' => 'المخزون'
 
 
 

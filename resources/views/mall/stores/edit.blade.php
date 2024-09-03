@@ -202,7 +202,7 @@
                             <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('mall.image') }}</label>
-                                    <input class="custom-file-input" id="customFile" type="file" name="image">
+                                    <input class="custom-file-input" accept="image/*" id="customFile" type="file" name="image">
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -213,7 +213,7 @@
                             <div class="col-md-12 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label"
-                                        for="customFileMulti">{{ __('mall.images') }}</label>
+                                        for="customFileMulti">{{ __('mall.sliders') }}</label>
                                     <input class="custom-file-input" multiple id="customFileMulti" type="file"
                                         name="images[]" accept="image/*">
                                     @error('images')

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AttributeOption>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Option>
  */
-class AttributeOptionFactory extends Factory
+class OptionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,10 +21,8 @@ class AttributeOptionFactory extends Factory
         ];
 
         return [
-            'name_ar' => $this->faker->randomElement($arabicAttributeOptions),
-            'name_en' => fake()->word(),
-            'additional_price' => rand(0, 100),
-            'is_required' => fake()->boolean()
+            'value_ar' => $this->faker->randomElement($arabicAttributeOptions),
+            'value_en' => fake()->word(),    
         ];
     }
 }

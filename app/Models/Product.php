@@ -24,6 +24,31 @@ class Product extends Model
         return $this->attributes['description_' . app()->getLocale()];
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name_ar', 'like', "%$search%")
+                ->orWhere('name_en', 'like', "%$search%")
+                ->orWhere('description_ar', 'like', "%$search%")
+                ->orWhere('description_en', 'like', "%$search%")
+                ->orWhere('price', 'like', "%$search%")
+                ->orWhere('offer', 'like', "%$search%")
+                ->orWhere('start_offer_date', 'like', "%$search%")
+                ->orWhere('end_offer_date', 'like', "%$search%")
+                ->orWhere('qty', 'like', "%$search%")
+                ->orWhereHas('brand', function($brand) use($search) {
+                    $brand->where('name_ar', 'like', "%$search%")
+                        ->orWhere('name_en', 'like', "%$search%");
+                })
+                ->orWhereHas('category', function($category) use($search) {
+                    $category->where('name_ar', 'like', "%$search%")
+                        ->orWhere('name_en', 'like', "%$search%");
+                })
+                ->orWhereHas('category.store', function($store) use($search) {
+                    $store->where('name_ar', 'like', "%$search%")
+                        ->orWhere('name_en', 'like', "%$search%");
+                });
+    }
+
     public function getCalcPriceAttribute()
     {
         $currentDate = now(); // Get the current date and time

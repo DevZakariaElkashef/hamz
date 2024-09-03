@@ -28,7 +28,12 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = $this->productRepository->index($request);
-        return view('mall.products.index', compact('products'));
+        $sections = Section::mall()->active()->get();
+        $stores = Store::mall()->active()->get();
+        $categories = Category::mall()->active()->get();
+        $brands = Brand::mall()->active()->get();
+
+        return view('mall.products.index', compact('products', 'sections', 'stores', 'brands', 'categories'));
     }
 
     public function search(Request $request)
@@ -79,6 +84,7 @@ class ProductController extends Controller
         $brands = Brand::mall()->active()->get();
         $attributes = Attribute::mall()->get();
         $options = Option::mall()->get();
+
         return view('mall.products.edit', compact('product', 'sections', 'stores', 'categories', 'brands', 'attributes', 'options'));
     }
 

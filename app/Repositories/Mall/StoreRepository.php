@@ -35,7 +35,7 @@ class StoreRepository
             $stores->where('is_active', $request->is_active);
         }
 
-        $stores = $stores->mall()->paginate($this->limit);
+        $stores = $stores->mall()->with('section')->paginate($this->limit);
 
         return $stores;
     }

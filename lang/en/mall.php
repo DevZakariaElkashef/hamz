@@ -197,6 +197,8 @@ return
         'create_brand' => 'Create Brand',
         'edit_brand' => 'Edit Brand',
         'is_required' => "Is Required",
-        'additional_price' => 'Additional Price'
+        'additional_price' => 'Additional Price',
+
+        'inventory' => 'Inventory'
 
     ];

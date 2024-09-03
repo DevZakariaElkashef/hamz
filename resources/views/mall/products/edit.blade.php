@@ -107,6 +107,30 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+  <!-- row opened -->
+  <div class="modal" id="deleteImageModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">{{ __('mall.filter') }}</h6><button aria-label="Close" class="close"
+                    data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form method="POST" action="{{ route('images.destroy') }}">
+                @csrf
+                @method('delete')
+                <input type="hidden" name="image_id" id="imageIDInput">
+                <div class="modal-body">
+                    {{ __('mall.Are you sure!') }}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn ripple btn-danger" type="submit">{{ __('mall.delete') }}</button>
+                    <button class="btn ripple btn-secondary" data-dismiss="modal"
+                        type="button">{{ __('mall.Close') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     <!-- row opened -->
     <div class="row row-sm">
         <div class="col-xl-12">
@@ -119,6 +143,7 @@
                 <form id="editProductForm" method="post" action="{{ route('mall.products.update', $product->id) }}"
                     data-parsley-validate="" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="main-content-label mg-b-5">
                             {{ __('mall.edit_product') }}
@@ -168,7 +193,8 @@
 
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.price') }}:</label>
+                                        <label class="form-label">{{ __('mall.price') }}: <span
+                                            class="tx-danger">*</span></label>
                                         <input class="form-control" type="number" name="price"
                                             placeholder="{{ __('mall.enter_price') }}" type="price"
                                             value="{{ old('price', $product->price) }}">
@@ -209,7 +235,8 @@
 
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.qty') }}:</label>
+                                        <label class="form-label">{{ __('mall.inventory') }}: <span
+                                            class="tx-danger">*</span></label>
                                         <input class="form-control" type="number" name="qty"
                                             placeholder="{{ __('mall.enter_qty') }}" type="qty"
                                             value="{{ old('qty', $product->qty) }}">
@@ -219,12 +246,13 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.section') }}: </label>
+                                        <label class="form-label">{{ __('mall.section') }}: <span
+                                            class="tx-danger">*</span></label>
                                         <select class="form-control select2" name="section_id" id="sectionId">
                                             <option selected>{{ __('mall.select') }}</option>
                                             @foreach ($sections as $section)
                                                 <option value="{{ $section->id }}"
-                                                    @if (old('section_id', $product->category->store->section_id) == $section->id) selected @endif>{{ $section->name }}
+                                                    @if (old('section_id', $product->store->section_id) == $section->id) selected @endif>{{ $section->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -235,7 +263,8 @@
 
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.store') }}: </label>
+                                        <label class="form-label">{{ __('mall.store') }}: <span
+                                            class="tx-danger">*</span></label>
                                         <select class="form-control select2" name="store_id" id="storeId">
                                             <option selected>{{ __('mall.select') }}</option>
                                             @foreach ($stores as $store)
@@ -250,7 +279,8 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.category') }}: </label>
+                                        <label class="form-label">{{ __('mall.category') }}: <span
+                                            class="tx-danger">*</span></label>
                                         <select class="form-control select2" name="category_id" id="categoryId">
                                             <option selected>{{ __('mall.select') }}</option>
                                             @foreach ($categories as $category)
@@ -265,7 +295,8 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.brand') }}: </label>
+                                        <label class="form-label">{{ __('mall.brand') }}: <span
+                                            class="tx-danger">*</span></label>
                                         <select class="form-control select2" name="brand_id" id="brandId">
                                             <option selected>{{ __('mall.select') }}</option>
                                             @foreach ($brands as $brand)
@@ -281,6 +312,7 @@
 
                                     <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('mall.status') }}: <span
+                                            class="tx-danger">*</span><span
                                                 class="tx-danger">*</span></label>
                                         <select required class="form-control" name="is_active">
                                             <option value="0" @if (old('is_active', $product->is_active) == 0) selected @endif>
@@ -299,55 +331,66 @@
                             <section>
 
                                 <div class="attibutes">
-                                    
-                                    <div class="attribute row align-items-center">
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="Attribute">{{ __('mall.attribute') }}</label>
-                                                <select name="attributes[]" id="Attribute" class="form-control">
-                                                    <option selected disabled>{{ __('mall.select') }}</option>
-                                                    @foreach ($attributes as $attribute)
-                                                        <option value="{{ $attribute->id }}">{{ $attribute->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                    @foreach ($product->attributes as $productAttribute)
+                                        <div class="attribute row align-items-center">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="Attribute">{{ __('mall.attribute') }}</label>
+                                                    <select name="attributes[]" id="Attribute" class="form-control">
+                                                        <option selected disabled>{{ __('mall.select') }}</option>
+                                                        @foreach ($attributes as $attribute)
+                                                            <option value="{{ $attribute->id }}"
+                                                                @if ($productAttribute->id == $attribute->id) selected @endif>
+                                                                {{ $attribute->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="option">{{ __('mall.options') }}</label>
+                                                    <select name="options[]" id="option"
+                                                        class="form-control optionSelect">
+                                                        <option selected disabled>{{ __('mall.select') }}</option>
+                                                        @foreach ($options as $option)
+                                                            <option value="{{ $option->id }}"
+                                                                @if ($productAttribute->pivot->option_id == $option->id) selected @endif>
+                                                                {{ $option->value }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label class="ckbox">
+                                                        <input @if ($productAttribute->pivot->is_required) checked @endif
+                                                            class="isRequiredCheckbox" name="is_required[]"
+                                                            type="checkbox">
+                                                        <span>
+                                                            {{ __('mall.is_required') }}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="price">{{ __('mall.additional_price') }}</label>
+                                                    <input type="number" class="form-control" name="costs[]"
+                                                        value="{{ $productAttribute->pivot->additional_price }}"
+                                                        id="price">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                @if ($loop->first)
+                                                    <a href="#" id="editAttribute" class="btn btn-primary">+</a>
+                                                @else
+                                                    <a href="#" id="removeAttribute" class="btn btn-danger">-</a>
+                                                @endif
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="option">{{ __('mall.options') }}</label>
-                                                <select name="options[]" id="option"
-                                                    class="form-control optionSelect">
-                                                    <option selected disabled>{{ __('mall.select') }}</option>
-                                                    @foreach ($options as $option)
-                                                        <option value="{{ $option->id }}">{{ $option->value }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label class="ckbox">
-                                                    <input checked="" class="isRequiredCheckbox" name="is_required[]"
-                                                        type="checkbox">
-                                                    <span>
-                                                        {{ __('mall.is_required') }}
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="price">{{ __('mall.additional_price') }}</label>
-                                                <input type="number" class="form-control" name="costs[]" value="0"
-                                                    id="price">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="#" id="editAttribute" class="btn btn-primary">+</a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </section>
                             <h3>{{ __('mall.product_images') }}</h3>
@@ -357,7 +400,7 @@
                                         <div class="custom-file">
                                             <label class="custom-file-label"
                                                 for="customFile">{{ __('mall.image') }}</label>
-                                            <input class="custom-file-input" required id="customFile" type="file"
+                                            <input class="custom-file-input" id="customFile" accept="image/*" type="file"
                                                 name="image">
                                             @error('image')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -368,14 +411,24 @@
                                     <div class="col-md-12 form-group mt-4">
                                         <div class="custom-file">
                                             <label class="custom-file-label"
-                                                for="customFileMulti">{{ __('mall.images') }}</label>
+                                                for="customFileMulti">{{ __('mall.sliders') }}</label>
                                             <input class="custom-file-input" multiple id="customFileMulti" type="file"
                                                 name="images[]" accept="image/*">
                                             @error('images')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div id="image-preview" class="mt-4 d-flex flex-wrap"></div>
+                                        <div id="image-preview" class="mt-4 d-flex flex-wrap">
+                                            @foreach ($product->images as $image)
+                                                <div class="image-box position-relative m-2">
+                                                    <img src="{{ asset($image->path) }}">
+                                                    <button type="button" data-id="{{ $image->id }}" data-toggle="modal"
+                                                        data-effect="effect-flip-vertical" data-target="#deleteImageModal"
+                                                        class="btn btn-danger delete-image btn-sm position-absolute top-0 end-0"
+                                                        data-index="3">×</button>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                             </section>
@@ -406,57 +459,7 @@
     {{-- <script src="{{ URL::asset('assets/js/form-wizard.js') }}"></script> --}}
 
 
-    {{-- <script>
-        async function fetchData(url, data, targetElement) {
-            try {
-                // Build query string from data object
-                const params = new URLSearchParams(data).toString();
-
-                // Send GET request with query string
-                const response = await fetch(`${url}?${params}`);
-
-                // Check if response is ok
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                // Assuming the response is HTML, use text()
-                const result = await response.text();
-
-                // Update the target element with the response HTML
-                $(targetElement).html(result); // jQuery style selection
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
-        $(document).on('change', '#sectionId', async function() {
-            const sectionId = $(this).val();
-
-            // Fetch stores, categories, and brands by section
-            await fetchData("{{ route('mall.stores.bySection') }}", {
-                sectionId: sectionId
-            }, '#storeId');
-            await fetchData("{{ route('mall.categories.bySection') }}", {
-                sectionId: sectionId
-            }, '#categoryId');
-            await fetchData("{{ route('mall.brands.bySection') }}", {
-                sectionId: sectionId
-            }, '#brandId');
-        });
-
-        $(document).on('change', '#storeId', async function() {
-            const storeId = $(this).val();
-
-            // Fetch categories and brands by store
-            await fetchData("{{ route('mall.categories.byStore') }}", {
-                storeId: storeId
-            }, '#categoryId');
-            await fetchData("{{ route('mall.brands.byStore') }}", {
-                storeId: storeId
-            }, '#brandId');
-        });
-    </script> --}}
+    @include('mall.products._dynamic_selector')
 
     <script>
         $(document).on('change', '#Attribute', async function() {
@@ -568,7 +571,7 @@
                 bodyTag: 'section',
                 autoFocus: true,
                 enableAllSteps: true,
-                    loadingTemplate: '<span class="spinner"></span> #text#',
+                loadingTemplate: '<span class="spinner"></span> #text#',
 
                 titleTemplate: '<span class="number">#index#<\/span> <span class="title">#title#<\/span>',
                 onFinished: function(event, currentIndex) {

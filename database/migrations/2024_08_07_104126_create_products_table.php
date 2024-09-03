@@ -18,11 +18,11 @@ return new class extends Migration
             $table->text('description_ar')->nullable();
             $table->text('description_en')->nullable();
             $table->string('image')->nullable();
-            $table->decimal('price');
-            $table->decimal('offer');
+            $table->decimal('price')->nullable();
+            $table->decimal('offer')->nullable();
             $table->date('start_offer_date')->nullable();
             $table->date('end_offer_date')->nullable();
-            $table->integer('qty');
+            $table->integer('qty')->nullable();
             $table->foreignId('brand_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
             $table->boolean('is_active')->default(1);

@@ -35,7 +35,7 @@ class BrandRepository
             $brands->where('is_active', $request->is_active);
         }
 
-        $brands = $brands->mall()->paginate($this->limit);
+        $brands = $brands->mall()->with('store')->paginate($this->limit);
 
         return $brands;
     }

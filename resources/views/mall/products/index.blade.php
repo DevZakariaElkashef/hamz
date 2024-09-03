@@ -64,7 +64,7 @@
     </div>
 
     <div class="modal" id="filterModal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
                     <h6 class="modal-title">{{ __('mall.filter') }}</h6><button aria-label="Close" class="close"
@@ -83,9 +83,45 @@
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
-                                <option value="">{{ __("mall.all") }}</option>
+                                <option value="">{{ __('mall.all') }}</option>
                                 <option value="0">{{ __('mall.not_active') }}</option>
                                 <option value="1">{{ __('mall.active') }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sectionId">{{ __('mall.section') }}</label>
+                            <select id="sectionId" name="section_id" class="form-control">
+                                <option value="">{{ __('mall.all') }}</option>
+                                @foreach ($sections as $section)
+                                    <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="storeId">{{ __('mall.store') }}</label>
+                            <select id="storeId" name="store_id" class="form-control">
+                                <option value="">{{ __('mall.all') }}</option>
+                                @foreach ($stores as $store)
+                                    <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryId">{{ __('mall.category') }}</label>
+                            <select id="categoryId" name="category_id" class="form-control">
+                                <option value="">{{ __('mall.all') }}</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="brandId">{{ __('mall.brand') }}</label>
+                            <select id="brandId" name="brand_id" class="form-control">
+                                <option value="">{{ __('mall.all') }}</option>
+                                @foreach ($brands as $brand)
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -98,6 +134,7 @@
             </div>
         </div>
     </div>
+
     <!-- End Modal effects-->
     <!-- row opened -->
     <div class="row row-sm">
@@ -137,4 +174,6 @@
     <script src="{{ URL::asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <!-- Internal Modal js-->
     <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
+
+    @include('mall.products._dynamic_selector')
 @endsection
