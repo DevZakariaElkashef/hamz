@@ -35,7 +35,7 @@ class BrandRepository
             $brands->where('is_active', $request->is_active);
         }
 
-        $brands = $brands->mall()->with('store')->paginate($this->limit);
+        $brands = $brands->mall()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $brands;
     }
@@ -43,7 +43,7 @@ class BrandRepository
 
     public function search($request)
     {
-        return Brand::mall()->search($request->search)->paginate($this->limit);
+        return Brand::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function brand($request)

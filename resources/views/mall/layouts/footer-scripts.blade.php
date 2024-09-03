@@ -121,35 +121,50 @@
 </script>
 
 <script>
-   $(document).ready(function() {
-    $('.custom-toggle-input').change(function() {
-        var switchElement = $(this);
-        var id = switchElement.data('id');
-        var url = switchElement.data('url');
-        var status = switchElement.prop('checked') ? 1 : 0;
+    $(document).ready(function() {
+        $('.custom-toggle-input').change(function() {
+            var switchElement = $(this);
+            var id = switchElement.data('id');
+            var url = switchElement.data('url');
+            var status = switchElement.prop('checked') ? 1 : 0;
 
-        $.ajax({
-            url: url,
-            type: 'GET',
-            data: {
-                is_active: status
-            },
-            success: function(response) {
-                if (response.success) {
-                    // Remove d-none before showing the toast
-                    $('.success-toast').removeClass('d-none').show();
-                    $('.success-toast .toast-body').text(response.message);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {
+                    is_active: status
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Remove d-none before showing the toast
+                        $('.success-toast').removeClass('d-none').show();
+                        $('.success-toast .toast-body').text(response.message);
 
-                    setTimeout(function() {
-                        // Hide the toast after 1 second
-                        $('.success-toast').fadeOut(function() {
-                            $(this).addClass('d-none'); // Add d-none after fade out completes
-                        });
-                    }, 1000);
+                        setTimeout(function() {
+                            // Hide the toast after 1 second
+                            $('.success-toast').fadeOut(function() {
+                                $(this).addClass(
+                                'd-none'); // Add d-none after fade out completes
+                            });
+                        }, 1000);
+                    }
                 }
-            }
+            });
         });
     });
-});
+</script>
 
+<script>
+    function updatePageSize() {
+        var perPage = document.getElementById('showPerPage').value;
+        var selectElement = document.getElementById('showPerPage');
+        var baseUrl = selectElement.getAttribute('data-url'); // Get the URL from the data-url attribute
+
+        // Construct the new URL with the per_page parameter
+        var url = new URL(baseUrl, window.location.origin);
+        url.searchParams.set('per_page', perPage);
+
+        // Redirect to the new URL
+        window.location.href = url.href;
+    }
 </script>

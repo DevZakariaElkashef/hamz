@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
-                                <option value="">{{ __("mall.all") }}</option>
+                                <option value="">{{ __('mall.all') }}</option>
                                 <option value="0">{{ __('mall.not_active') }}</option>
                                 <option value="1">{{ __('mall.active') }}</option>
                             </select>
@@ -112,6 +112,15 @@
                                 data-url="{{ route('mall.attributes.delete') }}">{{ __('mall.delete') }}</a>
                             <input type="text" id="searchInput" data-url="{{ route('mall.attributes.search') }}"
                                 class="form-control" placeholder="{{ __('mall.search') }}">
+                            <div class="custom-select-wrapper mx-1">
+                                <select id="showPerPage" class="custom-select"
+                                    data-url="{{ route('mall.attributes.index') }}" onchange="updatePageSize()">
+                                    <option value="10" @if (request('per_page') && request('per_page') == 10) selected @endif>10</option>
+                                    <option value="25" @if (request('per_page') && request('per_page') == 25) selected @endif>25</option>
+                                    <option value="50" @if (request('per_page') && request('per_page') == 50) selected @endif>50</option>
+                                    <option value="100" @if (request('per_page') && request('per_page') == 100) selected @endif>100</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

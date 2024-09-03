@@ -31,7 +31,7 @@ class OptionRepository
             $option->where('is_active', $request->is_active);
         }
 
-        $option = $option->mall()->paginate($this->limit);
+        $option = $option->mall()->paginate($request->per_page ?? $this->limit);
 
         return $option;
     }
@@ -39,7 +39,7 @@ class OptionRepository
 
     public function search($request)
     {
-        return Option::mall()->search($request->search)->paginate($this->limit);
+        return Option::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

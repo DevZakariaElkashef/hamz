@@ -31,7 +31,7 @@ class CityRepository
             $cities->where('is_active', $request->is_active);
         }
 
-        $cities = $cities->mall()->paginate($this->limit);
+        $cities = $cities->mall()->paginate($request->per_page ?? $this->limit);
 
         return $cities;
     }
@@ -39,7 +39,7 @@ class CityRepository
 
     public function search($request)
     {
-        return City::mall()->search($request->search)->paginate($this->limit);
+        return City::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

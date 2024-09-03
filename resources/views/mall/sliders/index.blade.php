@@ -106,13 +106,26 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">{{ __('mall.sliders') }}</h4>
-                        <div class="d-flex">
+                        <div class="d-flex align-items-center">
                             <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
                                 data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
                                 data-url="{{ route('mall.sliders.delete') }}">{{ __('mall.delete') }}</a>
+
                             <input type="text" id="searchInput" data-url="{{ route('mall.sliders.search') }}"
-                                class="form-control" placeholder="{{ __('mall.search') }}">
+                                class="form-control mx-1" placeholder="{{ __('mall.search') }}">
+
+                            <div class="custom-select-wrapper mx-1">
+                                <select id="showPerPage" class="custom-select"
+                                    data-url="{{ route('mall.sliders.index') }}" onchange="updatePageSize()">
+                                    <option value="10" @if (request('per_page') && request('per_page') == 10) selected @endif>10</option>
+                                    <option value="25" @if (request('per_page') && request('per_page') == 25) selected @endif>25</option>
+                                    <option value="50" @if (request('per_page') && request('per_page') == 50) selected @endif>50</option>
+                                    <option value="100" @if (request('per_page') && request('per_page') == 100) selected @endif>100</option>
+                                </select>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -137,6 +150,4 @@
     <script src="{{ URL::asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <!-- Internal Modal js-->
     <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
-
-    
 @endsection

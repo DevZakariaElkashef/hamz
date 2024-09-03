@@ -73,4 +73,64 @@
     .custom-toggle-input:not(:checked)+.custom-toggle-slider:before {
         transform: translateX(0px);
     }
+
+    /* Custom Select Dropdown Styles */
+    .custom-select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 120px;
+        /* Adjust width as needed */
+    }
+
+    .custom-select {
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        /* Smaller font size for compact appearance */
+        color: #495057;
+        cursor: pointer;
+        appearance: none;
+        width: 100%;
+        box-sizing: border-box;
+        /* Ensures padding and border are included in the width */
+        overflow: hidden;
+        /* Hide overflow to prevent text from extending outside */
+        text-overflow: ellipsis;
+        /* Show ellipsis for text overflow */
+        white-space: nowrap;
+        /* Prevent text from wrapping */
+    }
+
+    /* Custom Arrow */
+    .custom-select::after {
+        content: "\f078";
+        /* FontAwesome arrow */
+        font-family: 'FontAwesome';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #495057;
+    }
+
+    /* Adjust for the wrapper */
+    .custom-select-wrapper {
+        position: relative;
+    }
+
+    .custom-select::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        pointer-events: none;
+        z-index: 1;
+    }
 </style>

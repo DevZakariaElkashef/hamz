@@ -31,7 +31,7 @@ class ProductRepository
             $products->where('is_active', $request->is_active);
         }
 
-        $products = $products->mall()->with('store', 'category', 'brand', 'store.section')->paginate($this->limit);
+        $products = $products->mall()->with('store', 'category', 'brand', 'store.section')->paginate($request->per_page ?? $this->limit);
 
         return $products;
     }
@@ -39,7 +39,7 @@ class ProductRepository
 
     public function search($request)
     {
-        return Product::mall()->search($request->search)->paginate($this->limit);
+        return Product::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

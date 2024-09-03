@@ -31,7 +31,7 @@ class SliderRepository
             $sliders->where('is_active', $request->is_active);
         }
 
-        $sliders = $sliders->mall()->paginate($this->limit);
+        $sliders = $sliders->mall()->paginate($request->per_page ?? $this->limit);
 
         return $sliders;
     }
@@ -39,7 +39,7 @@ class SliderRepository
 
     public function search($request)
     {
-        return Slider::mall()->search($request->search)->paginate($this->limit);
+        return Slider::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

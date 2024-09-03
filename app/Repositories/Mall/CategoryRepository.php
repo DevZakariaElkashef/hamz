@@ -31,7 +31,7 @@ class CategoryRepository
             $categorys->where('is_active', $request->is_active);
         }
 
-        $categorys = $categorys->mall()->with('store')->paginate($this->limit);
+        $categorys = $categorys->mall()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $categorys;
     }
@@ -39,7 +39,7 @@ class CategoryRepository
 
     public function search($request)
     {
-        return Category::mall()->search($request->search)->paginate($this->limit);
+        return Category::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

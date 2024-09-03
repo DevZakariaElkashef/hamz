@@ -35,7 +35,7 @@ class StoreRepository
             $stores->where('is_active', $request->is_active);
         }
 
-        $stores = $stores->mall()->with('section')->paginate($this->limit);
+        $stores = $stores->mall()->with('section')->paginate($request->per_page ?? $this->limit);
 
         return $stores;
     }
@@ -43,7 +43,7 @@ class StoreRepository
 
     public function search($request)
     {
-        return Store::mall()->search($request->search)->paginate($this->limit);
+        return Store::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

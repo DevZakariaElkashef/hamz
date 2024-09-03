@@ -31,7 +31,7 @@ class SectionRepository
             $sections->where('is_active', $request->is_active);
         }
 
-        $sections = $sections->mall()->paginate($this->limit);
+        $sections = $sections->mall()->paginate($request->per_page ?? $this->limit);
 
         return $sections;
     }
@@ -39,7 +39,7 @@ class SectionRepository
 
     public function search($request)
     {
-        return Section::mall()->search($request->search)->paginate($this->limit);
+        return Section::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

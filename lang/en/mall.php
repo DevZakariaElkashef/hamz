@@ -199,6 +199,10 @@ return
         'is_required' => "Is Required",
         'additional_price' => 'Additional Price',
 
-        'inventory' => 'Inventory'
+        'inventory' => 'Inventory',
+        'show_10' => 'Show 10',
+        'show_25' => 'Show 25',
+        'show_50' => 'Show 50',
+        'show_100' => 'Show 100',
 
     ];
