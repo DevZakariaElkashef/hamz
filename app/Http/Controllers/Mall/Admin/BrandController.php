@@ -102,6 +102,15 @@ class BrandController extends Controller
         return to_route('mall.brands.index')->with('success', __("mall.updated_successffully"));
     }
 
+    public function toggleStatus(Request $request, Brand $brand)
+    {
+        $brand->update(['is_active' => $request->is_active]);
+        return response()->json([
+            'success' => true,
+            'message' => __("mall.updated_successffully")
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

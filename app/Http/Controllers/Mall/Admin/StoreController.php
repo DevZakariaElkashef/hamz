@@ -89,6 +89,15 @@ class StoreController extends Controller
         return to_route('mall.stores.index')->with('success', __("mall.updated_successffully"));
     }
 
+    public function toggleStatus(Request $request, Store $store)
+    {
+        $store->update(['is_active' => $request->is_active]);
+        return response()->json([
+            'success' => true,
+            'message' => __("mall.updated_successffully")
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

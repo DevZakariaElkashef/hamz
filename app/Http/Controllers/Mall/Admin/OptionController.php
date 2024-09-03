@@ -82,6 +82,15 @@ class OptionController extends Controller
         return to_route('mall.options.index')->with('success', __("mall.updated_successffully"));
     }
 
+    public function toggleStatus(Request $request, Option $option)
+    {
+        $option->update(['is_active' => $request->is_active]);
+        return response()->json([
+            'success' => true,
+            'message' => __("mall.updated_successffully")
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

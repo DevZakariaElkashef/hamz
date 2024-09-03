@@ -26,11 +26,12 @@
                         </a>
                     </td>
                     <td>
-                        @if ($brand->is_active)
-                            <span class="badge badge-primary">{{ __('mall.active') }}</span>
-                        @else
-                            <span class="badge badge-secondary">{{ __('mall.not_active') }}</span>
-                        @endif
+                        <label class="custom-toggle-switch">
+                            <input type="checkbox" class="custom-toggle-input" data-id="{{ $brand->id }}"
+                                data-url="{{ route('mall.brands.toggleStatus', $brand->id) }}"
+                                {{ $brand->is_active ? 'checked' : '' }}>
+                            <span class="custom-toggle-slider"></span>
+                        </label>
                     </td>
                     <td>
                         <a href="{{ route('mall.brands.edit', $brand->id) }}"

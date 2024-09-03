@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function getCategoriesBySection(Request $request)
     {
-        $items = Category::whereHas('store', function ($store) use($request) {
+        $items = Category::whereHas('store', function ($store) use ($request) {
             $store->where("section_id", $request->sectionId);
         })->get();
 
@@ -93,6 +93,15 @@ class CategoryController extends Controller
     {
         $this->categoryRepository->update($request, $category);
         return to_route('mall.categories.index')->with('success', __("mall.updated_successffully"));
+    }
+
+    public function toggleStatus(Request $request, Category $category)
+    {
+        $category->update(['is_active' => $request->is_active]);
+        return response()->json([
+            'success' => true,
+            'message' => __("mall.updated_successffully")
+        ]);
     }
 
     /**

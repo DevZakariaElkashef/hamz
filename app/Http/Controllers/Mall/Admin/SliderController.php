@@ -73,6 +73,15 @@ class SliderController extends Controller
         return to_route('mall.sliders.index')->with('success', __("mall.updated_successffully"));
     }
 
+    public function toggleStatus(Request $request, Slider $slider)
+    {
+        $slider->update(['is_active' => $request->is_active]);
+        return response()->json([
+            'success' => true,
+            'message' => __("mall.updated_successffully")
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

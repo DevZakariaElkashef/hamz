@@ -16,11 +16,12 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $attribute->name }}</td>
                     <td>
-                        @if ($attribute->is_active)
-                            <span class="badge badge-primary">{{ __('mall.active') }}</span>
-                        @else
-                            <span class="badge badge-secondary">{{ __('mall.not_active') }}</span>
-                        @endif
+                        <label class="custom-toggle-switch">
+                            <input type="checkbox" class="custom-toggle-input" data-id="{{ $attribute->id }}"
+                                data-url="{{ route('mall.attributes.toggleStatus', $attribute->id) }}"
+                                {{ $attribute->is_active ? 'checked' : '' }}>
+                            <span class="custom-toggle-slider"></span>
+                        </label>
                     </td>
                     <td>
                         <a href="{{ route('mall.attributes.edit', $attribute->id) }}"

@@ -74,6 +74,15 @@ class SectionController extends Controller
         return to_route('mall.sections.index')->with('success', __("mall.updated_successffully"));
     }
 
+    public function toggleStatus(Request $request, Section $section)
+    {
+        $section->update(['is_active' => $request->is_active]);
+        return response()->json([
+            'success' => true,
+            'message' => __("mall.updated_successffully")
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

@@ -36,11 +36,12 @@
                     <td>{{ $product->calc_price }}</td>
                     <td>{{ $product->qty }}</td>
                     <td>
-                        @if ($product->is_active)
-                            <span class="badge badge-primary">{{ __('mall.active') }}</span>
-                        @else
-                            <span class="badge badge-secondary">{{ __('mall.not_active') }}</span>
-                        @endif
+                        <label class="custom-toggle-switch">
+                            <input type="checkbox" class="custom-toggle-input" data-id="{{ $product->id }}"
+                                data-url="{{ route('mall.products.toggleStatus', $product->id) }}"
+                                {{ $product->is_active ? 'checked' : '' }}>
+                            <span class="custom-toggle-slider"></span>
+                        </label>
                     </td>
                     <td>
                         <a href="{{ route('mall.products.edit', $product->id) }}"

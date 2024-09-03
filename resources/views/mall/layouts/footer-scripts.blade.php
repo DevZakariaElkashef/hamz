@@ -119,3 +119,37 @@
         });
     });
 </script>
+
+<script>
+   $(document).ready(function() {
+    $('.custom-toggle-input').change(function() {
+        var switchElement = $(this);
+        var id = switchElement.data('id');
+        var url = switchElement.data('url');
+        var status = switchElement.prop('checked') ? 1 : 0;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {
+                is_active: status
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Remove d-none before showing the toast
+                    $('.success-toast').removeClass('d-none').show();
+                    $('.success-toast .toast-body').text(response.message);
+
+                    setTimeout(function() {
+                        // Hide the toast after 1 second
+                        $('.success-toast').fadeOut(function() {
+                            $(this).addClass('d-none'); // Add d-none after fade out completes
+                        });
+                    }, 1000);
+                }
+            }
+        });
+    });
+});
+
+</script>

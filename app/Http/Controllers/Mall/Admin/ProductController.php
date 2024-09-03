@@ -97,6 +97,15 @@ class ProductController extends Controller
         return to_route('mall.products.index')->with('success', __("mall.updated_successffully"));
     }
 
+    public function toggleStatus(Request $request, Product $product)
+    {
+        $product->update(['is_active' => $request->is_active]);
+        return response()->json([
+            'success' => true,
+            'message' => __("mall.updated_successffully")
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

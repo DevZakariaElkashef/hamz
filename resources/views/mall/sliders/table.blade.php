@@ -19,19 +19,22 @@
                     <td>{{ $slider->name }}</td>
                     <td>
                         <a href="{{ asset($slider->image) }}" download>
-                            <img src="{{ asset($slider->image) }}"
-                                style="display: inline-block; border-radius: 50%;" width="40"
-                                height="40" alt="">
+                            <img src="{{ asset($slider->image) }}" style="display: inline-block; border-radius: 50%;"
+                                width="40" height="40" alt="">
                         </a>
                     </td>
                     <td>{{ $slider->url }}</td>
                     <td>
-                        @if ($slider->is_active)
-                            <span class="badge badge-primary">{{ __('mall.active') }}</span>
-                        @else
-                            <span class="badge badge-secondary">{{ __('mall.not_active') }}</span>
-                        @endif
+                        <label class="custom-toggle-switch">
+                            <input type="checkbox" class="custom-toggle-input" data-id="{{ $slider->id }}"
+                                data-url="{{ route('mall.slider.toggleStatus', $slider->id) }}"
+                                {{ $slider->is_active ? 'checked' : '' }}>
+                            <span class="custom-toggle-slider"></span>
+                        </label>
                     </td>
+
+
+
                     <td>
                         <a href="{{ route('mall.sliders.edit', $slider->id) }}"
                             class="btn btn-secondary">{{ __('mall.edit') }}</a>

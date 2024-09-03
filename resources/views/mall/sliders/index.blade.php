@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
-                                <option value="">{{ __("mall.all") }}</option>
+                                <option value="">{{ __('mall.all') }}</option>
                                 <option value="0">{{ __('mall.not_active') }}</option>
                                 <option value="1">{{ __('mall.active') }}</option>
                             </select>
@@ -137,4 +137,6 @@
     <script src="{{ URL::asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <!-- Internal Modal js-->
     <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
+
+    
 @endsection

@@ -64,6 +64,15 @@ class CityController extends Controller
         return view('mall.cities.edit', compact('city'));
     }
 
+    public function toggleStatus(Request $request, City $city)
+    {
+        $city->update(['is_active' => $request->is_active]);
+        return response()->json([
+            'success' => true,
+            'message' => __("mall.updated_successffully")
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      */
