@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
-use App\Exports\SectionExport;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use App\Exports\Mall\SectionExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\SectionRepository;

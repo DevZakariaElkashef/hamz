@@ -209,7 +209,8 @@ return
         'export' => 'تصدير',
         'import' => 'استيراد',
 
-        'export_to_excel' => 'تصدير إلى إكسل'
+        'export_to_excel' => 'تصدير إلى إكسل',
+        'date' => 'التاريخ'
 
 
 

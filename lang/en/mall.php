@@ -204,6 +204,7 @@ return
         'import' => 'Import',
 
 
-        'export_to_excel' => 'Export To Excel'
+        'export_to_excel' => 'Export To Excel',
+        'date' => 'Date'
 
     ];
