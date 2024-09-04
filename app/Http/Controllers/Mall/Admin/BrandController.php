@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Exports\Mall\BrandExport;
 use App\Models\City;
 use App\Models\User;
 use App\Models\Brand;
@@ -9,6 +10,7 @@ use App\Models\Store;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\BrandRepository;
 use App\Http\Requests\Mall\Web\BrandRequest;
 
@@ -50,6 +52,11 @@ class BrandController extends Controller
     {
         $items = Brand::where("store_id", $request->storeId)->get();
         return view('mall.layouts._options', compact('items'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new BrandExport($request), 'brands.xlsx');
     }
 
     /**

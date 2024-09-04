@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Exports\Mall\CityExport;
 use App\Models\City;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\CityRepository;
 use App\Http\Requests\Mall\Web\CityRequest;
 
@@ -29,6 +31,11 @@ class CityController extends Controller
     {
         $cities = $this->cityRepository->search($request);
         return view('mall.cities.table', compact('cities'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new CityExport($request), 'cities.xlsx');
     }
 
     /**

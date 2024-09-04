@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Exports\Mall\CategoryExport;
 use App\Models\Store;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\CategoryRepository;
 use App\Http\Requests\Mall\Web\CategoryRequest;
 
@@ -31,6 +33,11 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryRepository->search($request);
         return view('mall.categories.table', compact('categories'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new CategoryExport($request), 'categories.xlsx');
     }
 
 

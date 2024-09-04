@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Exports\Mall\StoreExport;
 use App\Models\City;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\StoreRepository;
 use App\Http\Requests\Mall\Web\StoreRequest;
 
@@ -39,6 +41,11 @@ class StoreController extends Controller
     {
         $items = Store::where('section_id', $request->sectionId)->get();
         return view("mall.layouts._options", compact('items'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new StoreExport($request), 'stores.xlsx');
     }
 
     /**

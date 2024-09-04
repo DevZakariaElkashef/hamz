@@ -23,6 +23,20 @@
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="pr-1 mb-3 mb-xl-0">
+                <a class="btn btn-success  ml-2">
+                    {{ __('mall.import') }}
+                    <i class="mdi mdi-upload"></i>
+                </a>
+            </div>
+            <div class="pr-1 mb-3 mb-xl-0">
+                <a href="{{ route('mall.cities.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active')]) }}"
+                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('mall.export_to_excel') }}">
+                    {{ __('mall.export') }}
+                    <i class="mdi mdi-download"></i>
+                </a>
+
+            </div>
+            <div class="pr-1 mb-3 mb-xl-0">
                 <button type="button" class="btn btn-info btn-icon ml-2" data-target="#filterModal" data-toggle="modal"
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
             </div>
@@ -83,7 +97,7 @@
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
-                                <option value="">{{ __("mall.all") }}</option>
+                                <option value="">{{ __('mall.all') }}</option>
                                 <option value="0">{{ __('mall.not_active') }}</option>
                                 <option value="1">{{ __('mall.active') }}</option>
                             </select>
@@ -112,15 +126,15 @@
                                 data-url="{{ route('mall.cities.delete') }}">{{ __('mall.delete') }}</a>
                             <input type="text" id="searchInput" data-url="{{ route('mall.cities.search') }}"
                                 class="form-control" placeholder="{{ __('mall.search') }}">
-                                <div class="custom-select-wrapper mx-1">
-                                    <select id="showPerPage" class="custom-select"
-                                        data-url="{{ route('mall.cities.index') }}" onchange="updatePageSize()">
-                                        <option value="10" @if (request('per_page') && request('per_page') == 10) selected @endif>10</option>
-                                        <option value="25" @if (request('per_page') && request('per_page') == 25) selected @endif>25</option>
-                                        <option value="50" @if (request('per_page') && request('per_page') == 50) selected @endif>50</option>
-                                        <option value="100" @if (request('per_page') && request('per_page') == 100) selected @endif>100</option>
-                                    </select>
-                                </div>
+                            <div class="custom-select-wrapper mx-1">
+                                <select id="showPerPage" class="custom-select"
+                                    data-url="{{ route('mall.cities.index') }}" onchange="updatePageSize()">
+                                    <option value="10" @if (request('per_page') && request('per_page') == 10) selected @endif>10</option>
+                                    <option value="25" @if (request('per_page') && request('per_page') == 25) selected @endif>25</option>
+                                    <option value="50" @if (request('per_page') && request('per_page') == 50) selected @endif>50</option>
+                                    <option value="100" @if (request('per_page') && request('per_page') == 100) selected @endif>100</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

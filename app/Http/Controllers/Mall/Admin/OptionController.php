@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Exports\Mall\OptionExport;
 use App\Models\Option;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\OptionRepository;
 use App\Http\Requests\Mall\Web\OptionRequest;
-use App\Models\Attribute;
 
 class OptionController extends Controller
 {
@@ -36,6 +38,11 @@ class OptionController extends Controller
     {
         $items = Option::where('attribute_id', $request->attributeId)->get();
         return view('mall.layouts._options', compact('items'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new OptionExport($request), 'options.xlsx');
     }
 
     /**

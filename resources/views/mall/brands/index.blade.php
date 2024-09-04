@@ -23,6 +23,20 @@
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="pr-1 mb-3 mb-xl-0">
+                <a class="btn btn-success  ml-2">
+                    {{ __('mall.import') }}
+                    <i class="mdi mdi-upload"></i>
+                </a>
+            </div>
+            <div class="pr-1 mb-3 mb-xl-0">
+                <a href="{{ route('mall.brands.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active'), 'store_id' => request('store_id')]) }}"
+                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('mall.export_to_excel') }}">
+                    {{ __('mall.export') }}
+                    <i class="mdi mdi-download"></i>
+                </a>
+
+            </div>
+            <div class="pr-1 mb-3 mb-xl-0">
                 <button type="button" class="btn btn-info btn-icon ml-2" data-target="#filterModal" data-toggle="modal"
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
             </div>

@@ -205,6 +205,11 @@ return
 
 
         'export_to_excel' => 'Export To Excel',
-        'date' => 'Date'
+        'date' => 'Date',
+        'city' => 'City',
+        'owner' => 'Owner',
+        
+        'start_offer_date' => 'Start Offer Date',
+        'end_offer_date' => 'End Offer Date',
 
     ];

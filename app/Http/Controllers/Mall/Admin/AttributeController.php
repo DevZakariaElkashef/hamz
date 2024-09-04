@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Exports\Mall\AttributeExport;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\AttributeRepository;
 use App\Http\Requests\Mall\Web\AttributeRequest;
 
@@ -29,6 +31,11 @@ class AttributeController extends Controller
     {
         $attributes = $this->attributeRepository->search($request);
         return view('mall.attributes.table', compact('attributes'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new AttributeExport($request), 'attributes.xlsx');
     }
 
     /**

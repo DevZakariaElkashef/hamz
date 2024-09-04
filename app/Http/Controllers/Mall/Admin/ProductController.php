@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
-use App\Models\Attribute;
+use App\Models\Brand;
 use App\Models\Store;
+use App\Models\Option;
 use App\Models\Product;
 use App\Models\Section;
+use App\Models\Category;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
+use App\Exports\Mall\ProductExport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\ProductRepository;
 use App\Http\Requests\Mall\Web\ProductRequest;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Option;
 
 class ProductController extends Controller
 {
@@ -40,6 +42,11 @@ class ProductController extends Controller
     {
         $products = $this->productRepository->search($request);
         return view('mall.products.table', compact('products'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new ProductExport($request), 'products.xlsx');
     }
 
     /**
