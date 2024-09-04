@@ -89,32 +89,32 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('mall.start_date') }}</label>
-                            <input type="date" name="start_at" id="start_at" class="form-control">
+                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="end_at">{{ __('mall.end_date') }}</label>
-                            <input type="date" name="end_at" id="end_at" class="form-control">
+                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
-                                <option value="0">{{ __('mall.not_active') }}</option>
-                                <option value="1">{{ __('mall.active') }}</option>
+                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('mall.not_active') }}</option>
+                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('mall.active') }}</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="sectionId">{{ __('mall.section') }}</label>
-                            <select id="sectionId" name="section_id" class="form-control">
+                            <select id="sectionId" name="product_section_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($sections as $section)
-                                    <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                    <option value="{{ $section->id }}" @if(request('section_id') == $section->id) selected @endif>{{ $section->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="storeId">{{ __('mall.store') }}</label>
-                            <select id="storeId" name="store_id" class="form-control">
+                            <select id="storeId" name="product_store_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($stores as $store)
                                     <option value="{{ $store->id }}">{{ $store->name }}</option>
@@ -126,7 +126,7 @@
                             <select id="categoryId" name="category_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" @if($category->id == request('category_id')) selected @endif>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -135,7 +135,7 @@
                             <select id="brandId" name="brand_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($brands as $brand)
-                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                    <option value="{{ $brand->id }}" @if($brand->id == request('brand_id')) selected @endif>{{ $brand->name }}</option>
                                 @endforeach
                             </select>
                         </div>

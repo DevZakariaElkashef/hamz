@@ -25,7 +25,8 @@ class OptionController extends Controller
     public function index(Request $request)
     {
         $options = $this->optionRepository->index($request);
-        return view('mall.options.index', compact('options'));
+        $attributes = Attribute::mall()->active()->get();
+        return view('mall.options.index', compact('options', 'attributes'));
     }
 
     public function search(Request $request)

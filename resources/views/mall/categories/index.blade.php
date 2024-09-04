@@ -88,18 +88,18 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('mall.start_date') }}</label>
-                            <input type="date" name="start_at" id="start_at" class="form-control">
+                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="end_at">{{ __('mall.end_date') }}</label>
-                            <input type="date" name="end_at" id="end_at" class="form-control">
+                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
-                                <option value="0">{{ __('mall.not_active') }}</option>
-                                <option value="1">{{ __('mall.active') }}</option>
+                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('mall.not_active') }}</option>
+                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('mall.active') }}</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -107,7 +107,7 @@
                             <select name="store_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($stores as $store)
-                                    <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                <option value="{{ $store->id }}" @if(request('store_id') == $store->id) selected @endif>{{ $store->name }}</option>
                                 @endforeach
                             </select>
                         </div>
