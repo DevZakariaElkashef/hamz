@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use App\Traits\ActiveScope;
 use App\Traits\AppScope;
+use App\Traits\ActiveScope;
 use App\Traits\FilterScope;
+use App\Traits\ImageAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Slider extends Model
 {
-    use HasFactory, AppScope, ActiveScope, FilterScope, SoftDeletes;
+    use HasFactory, AppScope, ActiveScope, FilterScope, ImageAttribute, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 

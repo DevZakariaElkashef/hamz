@@ -23,7 +23,8 @@
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="pr-1 mb-3 mb-xl-0">
-                <a class="btn btn-success  ml-2">
+                <a class="btn btn-success  ml-2" data-target="#importmodal" data-toggle="modal"
+                    data-effect="effect-flip-vertical">
                     {{ __('mall.import') }}
                     <i class="mdi mdi-upload"></i>
                 </a>
@@ -33,8 +34,8 @@
                     class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('mall.export_to_excel') }}">
                     {{ __('mall.export') }}
                     <i class="mdi mdi-download"></i>
-                 </a>
-                 
+                </a>
+
             </div>
             <div class="pr-1 mb-3 mb-xl-0">
                 <button type="button" class="btn btn-info btn-icon ml-2" data-target="#filterModal" data-toggle="modal"
@@ -53,6 +54,34 @@
 @endsection
 @section('content')
     <!-- Modal effects -->
+    <div class="modal" id="importmodal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">{{ __('mall.import') }}</h6><button aria-label="Close" class="close"
+                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <form method="POST" id="importForm" action="{{ route('mall.sections.import') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="file">{{ __('mall.select_file') }}</label>
+                            <input type="file" class="form-control" accept=".xlsx" id="file" name="file">
+                        </div>
+                        <div class="mt-3">
+                            <a href="{{ asset("imports/sections.xlsx") }}" download class="btn btn-warning">{{ __('mall.download_example') }}</a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn ripple btn-primary" type="submit">{{ __('mall.import') }}</button>
+                        <button class="btn ripple btn-secondary" data-dismiss="modal"
+                            type="button">{{ __('mall.Close') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="deletemodal">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
@@ -88,18 +117,22 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('mall.start_date') }}</label>
-                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at" class="form-control">
+                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at"
+                                class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="end_at">{{ __('mall.end_date') }}</label>
-                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at" class="form-control">
+                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at"
+                                class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
-                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('mall.not_active') }}</option>
-                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('mall.active') }}</option>
+                                <option value="0" @if (request('is_active') == '0') selected @endif>
+                                    {{ __('mall.not_active') }}</option>
+                                <option value="1" @if (request('is_active') == '1') selected @endif>
+                                    {{ __('mall.active') }}</option>
                             </select>
                         </div>
                     </div>

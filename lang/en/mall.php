@@ -208,8 +208,10 @@ return
         'date' => 'Date',
         'city' => 'City',
         'owner' => 'Owner',
-        
+
         'start_offer_date' => 'Start Offer Date',
         'end_offer_date' => 'End Offer Date',
+        'download_example' => 'Download Example',
+        'select_file' => 'Select File'
 
     ];

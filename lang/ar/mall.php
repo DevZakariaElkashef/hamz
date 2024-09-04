@@ -215,6 +215,8 @@ return
         'owner' => 'صاحب المتجر',
         'start_offer_date' => 'تاريخ بداية العرض',
         'end_offer_date' => 'تاريخ نهاية العرض',
+        'download_example' => 'تحميل نموذج',
+        'select_file' => 'إختر ملف'
 
 
 

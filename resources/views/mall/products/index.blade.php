@@ -23,7 +23,8 @@
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="pr-1 mb-3 mb-xl-0">
-                <a class="btn btn-success  ml-2">
+                <a class="btn btn-success  ml-2" data-target="#importmodal" data-toggle="modal"
+                    data-effect="effect-flip-vertical">
                     {{ __('mall.import') }}
                     <i class="mdi mdi-upload"></i>
                 </a>
@@ -54,6 +55,35 @@
 @endsection
 @section('content')
     <!-- Modal effects -->
+    <div class="modal" id="importmodal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">{{ __('mall.import') }}</h6><button aria-label="Close" class="close"
+                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <form method="POST" id="importForm" action="{{ route('mall.products.import') }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="file">{{ __('mall.select_file') }}</label>
+                            <input type="file" class="form-control" accept=".xlsx" id="file" name="file">
+                        </div>
+                        <div class="mt-3">
+                            <a href="{{ asset('imports/products.xlsx') }}" download
+                                class="btn btn-warning">{{ __('mall.download_example') }}</a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn ripple btn-primary" type="submit">{{ __('mall.import') }}</button>
+                        <button class="btn ripple btn-secondary" data-dismiss="modal"
+                            type="button">{{ __('mall.Close') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="modal" id="deletemodal">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
@@ -89,18 +119,22 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('mall.start_date') }}</label>
-                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at" class="form-control">
+                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at"
+                                class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="end_at">{{ __('mall.end_date') }}</label>
-                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at" class="form-control">
+                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at"
+                                class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="is_active">{{ __('mall.status') }}</label>
                             <select name="is_active" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
-                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('mall.not_active') }}</option>
-                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('mall.active') }}</option>
+                                <option value="0" @if (request('is_active') == '0') selected @endif>
+                                    {{ __('mall.not_active') }}</option>
+                                <option value="1" @if (request('is_active') == '1') selected @endif>
+                                    {{ __('mall.active') }}</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -108,7 +142,8 @@
                             <select id="sectionId" name="product_section_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($sections as $section)
-                                    <option value="{{ $section->id }}" @if(request('section_id') == $section->id) selected @endif>{{ $section->name }}</option>
+                                    <option value="{{ $section->id }}" @if (request('section_id') == $section->id) selected @endif>
+                                        {{ $section->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -126,7 +161,8 @@
                             <select id="categoryId" name="category_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" @if($category->id == request('category_id')) selected @endif>{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" @if ($category->id == request('category_id')) selected @endif>
+                                        {{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -135,7 +171,8 @@
                             <select id="brandId" name="brand_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($brands as $brand)
-                                    <option value="{{ $brand->id }}" @if($brand->id == request('brand_id')) selected @endif>{{ $brand->name }}</option>
+                                    <option value="{{ $brand->id }}" @if ($brand->id == request('brand_id')) selected @endif>
+                                        {{ $brand->name }}</option>
                                 @endforeach
                             </select>
                         </div>

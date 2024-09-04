@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
-use App\Exports\Mall\CityExport;
 use App\Models\City;
 use Illuminate\Http\Request;
+use App\Exports\Mall\CityExport;
+use App\Imports\Mall\CityImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\CityRepository;
 use App\Http\Requests\Mall\Web\CityRequest;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class CityController extends Controller
 {
@@ -36,6 +38,27 @@ class CityController extends Controller
     public function export(Request $request)
     {
         return Excel::download(new CityExport($request), 'cities.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        try {
+            Excel::import(new CityImport, $request->file('file'));
+
+            return back()->with('success', __("mall.created_successfully"));
+        } catch (ValidationException $e) {
+            // Get the first failure from the exception
+            $failure = $e->failures()[0];
+
+            // Format the error message for the first failed row
+            $errorMessage = "Row {$failure->row()}: " . implode(', ', $failure->errors());
+
+            // Flash the error message to the session
+            return back()->with('error', $errorMessage);
+        } catch (\Exception $e) {
+            // Handle any other exceptions that might occur
+            return back()->with('error', __("An unexpected error occurred: " . $e->getMessage()));
+        }
     }
 
     /**

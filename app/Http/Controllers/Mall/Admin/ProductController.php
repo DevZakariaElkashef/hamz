@@ -15,6 +15,8 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\ProductRepository;
 use App\Http\Requests\Mall\Web\ProductRequest;
+use App\Imports\Mall\ProductImport;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class ProductController extends Controller
 {
@@ -47,6 +49,27 @@ class ProductController extends Controller
     public function export(Request $request)
     {
         return Excel::download(new ProductExport($request), 'products.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        try {
+            Excel::import(new ProductImport, $request->file('file'));
+
+            return back()->with('success', __("mall.created_successfully"));
+        } catch (ValidationException $e) {
+            // Get the first failure from the exception
+            $failure = $e->failures()[0];
+
+            // Format the error message for the first failed row
+            $errorMessage = "Row {$failure->row()}: " . implode(', ', $failure->errors());
+
+            // Flash the error message to the session
+            return back()->with('error', $errorMessage);
+        } catch (\Exception $e) {
+            // Handle any other exceptions that might occur
+            return back()->with('error', __("An unexpected error occurred: " . $e->getMessage()));
+        }
     }
 
     /**
