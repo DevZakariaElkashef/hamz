@@ -17,21 +17,7 @@ class CategoryRepository
 
     public function index($request)
     {
-        $categorys = Category::query();
-
-        if ($request->filled('start_at')) {
-            $categorys->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $categorys->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('is_active')) {
-            $categorys->where('is_active', $request->is_active);
-        }
-
-        $categorys = $categorys->mall()->with('store')->paginate($request->per_page ?? $this->limit);
+        $categorys = Category::filter($request)->mall()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $categorys;
     }

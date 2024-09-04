@@ -17,21 +17,7 @@ class AttributeRepository
 
     public function index($request)
     {
-        $attributes = Attribute::query();
-
-        if ($request->filled('start_at')) {
-            $attributes->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $attributes->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('is_active')) {
-            $attributes->where('is_active', $request->is_active);
-        }
-
-        $attributes = $attributes->mall()->paginate($this->limit);
+        $attributes = Attribute::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $attributes;
     }

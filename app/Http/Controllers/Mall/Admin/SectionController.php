@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Exports\SectionExport;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\SectionRepository;
 use App\Http\Requests\Mall\Web\SectionRequest;
 
@@ -30,6 +32,11 @@ class SectionController extends Controller
     {
         $sections = $this->sectionRepository->search($request);
         return view('mall.sections.table', compact('sections'))->render();
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new SectionExport($request), 'sections.xlsx');
     }
 
     /**

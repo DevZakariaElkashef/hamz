@@ -17,25 +17,7 @@ class BrandRepository
 
     public function index($request)
     {
-        $brands = Brand::query();
-
-        if ($request->filled('start_at')) {
-            $brands->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $brands->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('section_id')) {
-            $brands->where('section_id', $request->section_id);
-        }
-
-        if ($request->filled('is_active')) {
-            $brands->where('is_active', $request->is_active);
-        }
-
-        $brands = $brands->mall()->with('store')->paginate($request->per_page ?? $this->limit);
+        $brands = Brand::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $brands;
     }

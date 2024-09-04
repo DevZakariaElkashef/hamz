@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Traits\ActiveScope;
 use App\Traits\AppScope;
+use App\Traits\FilterScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Section extends Model
 {
-    use HasFactory, AppScope, ActiveScope, SoftDeletes;
+    use HasFactory, AppScope, ActiveScope, FilterScope, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
@@ -27,6 +28,6 @@ class Section extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where('name_ar', 'like', "%$search%")
-                ->orWhere('name_en', 'like', "%$search%");
+            ->orWhere('name_en', 'like', "%$search%");
     }
 }

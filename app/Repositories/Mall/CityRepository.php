@@ -17,21 +17,7 @@ class CityRepository
 
     public function index($request)
     {
-        $cities = City::query();
-
-        if ($request->filled('start_at')) {
-            $cities->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $cities->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('is_active')) {
-            $cities->where('is_active', $request->is_active);
-        }
-
-        $cities = $cities->mall()->paginate($request->per_page ?? $this->limit);
+        $cities = City::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $cities;
     }

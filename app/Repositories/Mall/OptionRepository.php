@@ -17,21 +17,7 @@ class OptionRepository
 
     public function index($request)
     {
-        $option = Option::query();
-
-        if ($request->filled('start_at')) {
-            $option->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $option->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('is_active')) {
-            $option->where('is_active', $request->is_active);
-        }
-
-        $option = $option->mall()->paginate($request->per_page ?? $this->limit);
+        $option = Option::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $option;
     }

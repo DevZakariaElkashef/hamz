@@ -89,8 +89,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="is_active">{{ __('mall.store') }}</label>
-                            <select name="is_active" class="form-control">
+                            <label for="store_id">{{ __('mall.store') }}</label>
+                            <select name="store_id" class="form-control">
                                 <option value="">{{ __('mall.all') }}</option>
                                 @foreach ($stores as $store)
                                     <option value="{{ $store->id }}">{{ $store->name }}</option>

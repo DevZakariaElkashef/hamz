@@ -17,25 +17,7 @@ class StoreRepository
 
     public function index($request)
     {
-        $stores = Store::query();
-
-        if ($request->filled('start_at')) {
-            $stores->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $stores->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('section_id')) {
-            $stores->where('section_id', $request->section_id);
-        }
-
-        if ($request->filled('is_active')) {
-            $stores->where('is_active', $request->is_active);
-        }
-
-        $stores = $stores->mall()->with('section')->paginate($request->per_page ?? $this->limit);
+        $stores = Store::filter($request)->mall()->with('section')->paginate($request->per_page ?? $this->limit);
 
         return $stores;
     }

@@ -17,21 +17,7 @@ class ProductRepository
 
     public function index($request)
     {
-        $products = Product::query();
-
-        if ($request->filled('start_at')) {
-            $products->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $products->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('is_active')) {
-            $products->where('is_active', $request->is_active);
-        }
-
-        $products = $products->mall()->with('store', 'category', 'brand', 'store.section')->paginate($request->per_page ?? $this->limit);
+        $products = Product::filter($request)->mall()->with('store', 'category', 'brand', 'store.section')->paginate($request->per_page ?? $this->limit);
 
         return $products;
     }

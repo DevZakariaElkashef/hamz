@@ -17,21 +17,7 @@ class SectionRepository
 
     public function index($request)
     {
-        $sections = Section::query();
-
-        if ($request->filled('start_at')) {
-            $sections->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $sections->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('is_active')) {
-            $sections->where('is_active', $request->is_active);
-        }
-
-        $sections = $sections->mall()->paginate($request->per_page ?? $this->limit);
+        $sections = Section::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $sections;
     }

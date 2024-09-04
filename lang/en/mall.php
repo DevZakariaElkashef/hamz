@@ -200,9 +200,10 @@ return
         'additional_price' => 'Additional Price',
 
         'inventory' => 'Inventory',
-        'show_10' => 'Show 10',
-        'show_25' => 'Show 25',
-        'show_50' => 'Show 50',
-        'show_100' => 'Show 100',
+        'export' => 'Export',
+        'import' => 'Import',
+
+
+        'export_to_excel' => 'Export To Excel'
 
     ];

@@ -33,6 +33,7 @@ Route::as('mall.')->group(function () {
     Route::resource('sections', SectionController::class);
     Route::get('search-sections', [SectionController::class, 'search'])->name('sections.search');
     Route::get('sections-toggle-status/{section}', [SectionController::class, 'toggleStatus'])->name('sections.toggleStatus');
+    Route::get('sections-export', [SectionController::class, 'export'])->name('sections.export');
     Route::delete('delete-sections', [SectionController::class, 'delete'])->name('sections.delete');
 /**end Slider Routes */
 

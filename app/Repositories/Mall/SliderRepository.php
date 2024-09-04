@@ -17,21 +17,7 @@ class SliderRepository
 
     public function index($request)
     {
-        $sliders = Slider::query();
-
-        if ($request->filled('start_at')) {
-            $sliders->whereDate('created_at', '>=', $request->start_at);
-        }
-
-        if ($request->filled('end_at')) {
-            $sliders->whereDate('created_at', '<=', $request->end_at);
-        }
-
-        if ($request->filled('is_active')) {
-            $sliders->where('is_active', $request->is_active);
-        }
-
-        $sliders = $sliders->mall()->paginate($request->per_page ?? $this->limit);
+        $sliders = Slider::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $sliders;
     }
