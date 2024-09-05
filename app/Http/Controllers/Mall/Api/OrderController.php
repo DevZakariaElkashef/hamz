@@ -12,6 +12,7 @@ use App\Http\Requests\Mall\Api\MakeOrderRrequest;
 use App\Http\Resources\Mall\OrderStatusResource;
 use App\Http\Resources\Mall\ShowOrderResource;
 use App\Models\OrderStatus;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -78,7 +79,7 @@ class OrderController extends Controller
             $order->orderItems()->create([
                 'product_id' => $item->product_id,
                 'qty' => $item->qty,
-                'price' => $item->price,
+                'price' => Product::find($item->product_id)->calcPrice,
                 'app' => 'mall'
             ]);
         }

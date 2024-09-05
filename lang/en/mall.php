@@ -212,6 +212,52 @@ return
         'start_offer_date' => 'Start Offer Date',
         'end_offer_date' => 'End Offer Date',
         'download_example' => 'Download Example',
-        'select_file' => 'Select File'
+        'select_file' => 'Select File',
+
+
+
+
+        'phone_exists' => 'Phone Is not Exists',
+        'client' => 'Client',
+        'payment_status' => 'Payment Status',
+        'payment_method' => 'Payment Method',
+        'total' => 'Total',
+        'store' => 'Store',
+        'wallet' => 'Wallet',
+        'online' => 'Online Payment',
+        'pending' => 'pending',
+        'paid' => 'paid',
+        'faild' => 'faild',
+        'unknown' => 'unknown',
+        'View_order_details' => 'View Order Details',
+        'Change_Order_Status' => 'Change Order Status',
+        'Change_payment_status' => 'Change Payment Status',
+        'Bill' => 'Bill',
+        'Order_number' => 'Order Number',
+        'Order_Status' => 'Order Status',
+        'Note' => 'Note',
+        'number_products' => 'Number Products',
+        'Total_Products' => 'Total Products',
+        'Coupon_Discount_Value' => "Coupon Discount Value",
+        'Delivery_value' => 'Delivery Value',
+        'added_tax' => 'Added Tax',
+        'Order_Products' => 'Order Products',
+        'Delivery_Address' => 'Delivery Address',
+        'Payment_Method' => 'Payment Method',
+        'Order_evaluation' => 'Order Evaluation',
+        'product' => 'product',
+        'Product_Add_Category' => 'Product Add Category',
+
+
+        'orders' => 'orders',
+        'show' => 'show',
+        'email' => 'email',
+        'Subtotal' => 'Subtotal',
+        'discount' => 'discount',
+        'Payment_Details' => 'Payment Details',
+
+
+        'update' => 'update'
+
 
     ];

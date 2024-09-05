@@ -51,6 +51,15 @@ class ProductController extends Controller
         return Excel::download(new ProductExport($request), 'products.xlsx');
     }
 
+    public function fetchProductDetails(Product $product)
+    {
+        // Return the product price and image in JSON format
+        return response()->json([
+            'price' => $product->price,
+            'image' => asset($product->image),
+        ]);
+    }
+
     public function import(Request $request)
     {
         try {

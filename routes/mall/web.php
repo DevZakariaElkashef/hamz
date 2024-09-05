@@ -10,7 +10,10 @@ use App\Http\Controllers\Mall\Admin\StoreController;
 use App\Http\Controllers\Mall\Admin\SliderController;
 use App\Http\Controllers\Mall\Admin\SectionController;
 use App\Http\Controllers\Mall\Admin\CategoryController;
+use App\Http\Controllers\Mall\Admin\InvoiceController;
 use App\Http\Controllers\Mall\Admin\OptionController;
+use App\Http\Controllers\Mall\Admin\OrderController;
+use App\Http\Controllers\Mall\Admin\OrderItemController;
 use App\Http\Controllers\Mall\Admin\ProductController;
 
 Route::get('/', [HomeController::class, 'index'])->name('mall.home');
@@ -107,6 +110,29 @@ Route::as('mall.')->group(function () {
     Route::get('products-toggle-status/{product}', [ProductController::class, 'toggleStatus'])->name('products.toggleStatus');
     Route::get('products-export', [ProductController::class, 'export'])->name('products.export');
     Route::post('products-import', [ProductController::class, 'import'])->name('products.import');
+    Route::get('/fetch-products/{product}', [ProductController::class, 'fetchProductDetails'])->name('mall.product.details');
     Route::delete('delete-products', [ProductController::class, 'delete'])->name('products.delete');
+    /**end Slider Routes */
+
+
+    /**start Slider Routes */
+    Route::resource('orders', OrderController::class);
+    Route::get('search-orders', [OrderController::class, 'search'])->name('orders.search');
+    Route::get('orders-toggle-status/{product}', [OrderController::class, 'toggleStatus'])->name('orders.toggleStatus');
+    Route::get('orders-export', [OrderController::class, 'export'])->name('orders.export');
+    Route::delete('delete-orders', [OrderController::class, 'delete'])->name('orders.delete');
+    /**end Slider Routes */
+
+
+    /**start Slider Routes */
+    Route::resource('orderitems', OrderItemController::class);
+    /**end Slider Routes */
+
+
+
+
+    /**start Slider Routes */
+
+    Route::get('orders-invoice/{order}', [InvoiceController::class, 'show'])->name('invoices.show');
     /**end Slider Routes */
 });

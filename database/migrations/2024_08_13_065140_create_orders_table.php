@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('lng')->nullable();
             $table->string('address')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->text('note')->nullable();
             $table->enum('app', ['mall', 'booth', 'coupons', 'earn', 'resale', 'rfoof', 'all']);
             $table->softDeletes();
             $table->timestamps();
