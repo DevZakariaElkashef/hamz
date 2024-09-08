@@ -2,53 +2,73 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
-
 use function PHPSTORM_META\map;
+
+use App\Http\Controllers\Controller;
+use App\Repositories\Mall\OrderItemRepository;
 
 class OrderItemController extends Controller
 {
+    protected $orderItemRepository;
+
+    public function __construct(OrderItemRepository $orderItemRepository)
+    {
+        $this->orderItemRepository = $orderItemRepository;
+    }
 
     public function store(Request $request)
     {
-        dd($request->all());
-    }
-    public function update(Request $request, $id)
-    {
-        // Find the specific OrderItem
-        $orderItem = OrderItem::find($id);
+        $product = Product::findOrFail($request->product_id);
 
-        // Update the OrderItem details based on the request data
-        $orderItem->update($request->all());
+        // Create a new order item
+        $orderItem = $this->orderItemRepository->createOrderItem([
+            'order_id' => $request->id,
+            'product_id' => $request->product_id,
+            'qty' => $request->qty,
+            'price' => $product->calc_price,
+        ]);
 
         // Get the associated order
         $order = $orderItem->order;
 
-        // Calculate the subtotal (sum of all order items)
-        $sub_total = $order->orderItems->sum(function ($item) {
-            return $item->price * $item->qty; // Multiply price by quantity for each item
-        });
+        // Recalculate and update order totals
+        $this->orderItemRepository->calculateOrderTotals($order);
 
-        // Calculate the discount if any (assuming it is a fixed amount or percentage)
-        $discount = $order->discount ?? 0; // You can add your own discount logic here
+        return back()->with('success', __('mall.added_successfully'));
+    }
 
-        // Apply tax (e.g., 15%)
-        $tax = ($sub_total - $discount) * 0.15;
+    public function update(Request $request, $id)
+    {
+        $orderItem = OrderItem::findOrFail($id);
 
-        // Calculate the final total (subtotal - discount + tax + delivery fee)
-        $total = ($sub_total - $discount) + $tax + $order->delivery_fee;
+        // Update the order item
+        $this->orderItemRepository->updateOrderItem($orderItem, $request->all());
 
-        // Update the order with the new values
-        $order->update([
-            'sub_total' => $sub_total,
-            'discount' => $discount,
-            'tax' => $tax,
-            'total' => $total,
-        ]);
+        // Get the associated order
+        $order = $orderItem->order;
 
-        // Return back with success message
-        return back()->with('success', __('mall.updated_successffully'));
+        // Recalculate and update order totals
+        $this->orderItemRepository->calculateOrderTotals($order);
+
+        return back()->with('success', __('mall.updated_successfully'));
+    }
+
+    public function destroy($id)
+    {
+        $orderItem = OrderItem::findOrFail($id);
+
+        // Get the associated order
+        $order = $orderItem->order;
+
+        // Delete the order item
+        $this->orderItemRepository->deleteOrderItem($orderItem);
+
+        // Recalculate and update order totals
+        $this->orderItemRepository->calculateOrderTotals($order);
+
+        return back()->with('success', __('mall.deleted_successfully'));
     }
 }

@@ -24,22 +24,22 @@ class Store extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where('name_ar', 'like', "%$search%")
-                ->orWhere('name_en', 'like', "%$search%")
-                ->orWhere('description_ar', 'like', "%$search%")
-                ->orWhere('description_en', 'like', "%$search%")
-                ->orWhere('address', 'like', "%$search%")
-                ->orWhere('lat', 'like', "%$search%")
-                ->orWhere('lng', 'like', "%$search%")
-                ->orWhere('id', 'like', "%$search%")
-                ->orWhereHas('user', function($user) use($search) {
-                    $user->where("name", "LIKE", "%$search%")
+            ->orWhere('name_en', 'like', "%$search%")
+            ->orWhere('description_ar', 'like', "%$search%")
+            ->orWhere('description_en', 'like', "%$search%")
+            ->orWhere('address', 'like', "%$search%")
+            ->orWhere('lat', 'like', "%$search%")
+            ->orWhere('lng', 'like', "%$search%")
+            ->orWhere('id', 'like', "%$search%")
+            ->orWhereHas('user', function ($user) use ($search) {
+                $user->where("name", "LIKE", "%$search%")
                     ->orWhere("email", "LIKE", "%$search%")
                     ->orWhere("phone", "LIKE", "%$search%");
-                })
-                ->orWhereHas('section', function($user) use($search) {
-                    $user->where("name_ar", "LIKE", "%$search%")
+            })
+            ->orWhereHas('section', function ($user) use ($search) {
+                $user->where("name_ar", "LIKE", "%$search%")
                     ->orWhere("name_en", "LIKE", "%$search%");
-                });
+            });
     }
 
     public function user()

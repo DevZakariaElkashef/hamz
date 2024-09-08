@@ -10,7 +10,6 @@
             <th>{{ __('mall.payment_status') }}</th>
                 <th>{{ __('mall.total') }}</th>
                 <th>{{ __('mall.status') }}</th>
-                <th>{{ __('mall.price') }}</th>
                 <th>{{ __('mall.section') }}</th>
                 <th>{{ __('mall.store') }}</th>
                 <th>{{ __('mall.actions') }}</th>
@@ -24,10 +23,13 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $order->created_at }}</td>
                     <td>
-                        <a href="{{ asset($order->user->image) }}" class="text-dark" download>
+                        <a href="{{ asset($order->user->image) }}" class="text-dark d-flex" download>
                             <img src="{{ asset($order->user->image) }}" style="display: inline-block; border-radius: 50%;"
                                 width="40" height="40" alt="">
-                            {{ $order->user->name }}
+                                <div class="">
+                                    {{ $order->user->name ?? '' }} <br>
+                                    <small>{{ $order->user->phone ?? '' }}</small>
+                                </div>
                         </a>
                     </td>
                     <td>{{ $order->payment_method }}</td>
@@ -36,12 +38,9 @@
                     <td>{{ $order->orderStatus->name }}</td>
                     <td>{{ $order->store->section->name }}</td>
                     <td>{{ $order->store->name }}</td>
-                    <td>{{ $order->calc_price }}</td>
                     <td>
                         <a href="{{ route('mall.orders.show', $order->id) }}"
                             class="btn btn-primary">{{ __('mall.show') }}</a>
-                        <a href="{{ route('mall.orders.edit', $order->id) }}"
-                            class="btn btn-secondary">{{ __('mall.edit') }}</a>
 
                         <a href="#" class="btn btn-danger delete-btn" data-toggle="modal"
                             data-effect="effect-flip-vertical"

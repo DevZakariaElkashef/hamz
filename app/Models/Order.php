@@ -37,6 +37,21 @@ class Order extends Model
         }
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('sub_total', 'like', "%$search%")
+            ->orWhere('tax', 'like', "%$search%")
+            ->orWhere('discount', 'like', "%$search%")
+            ->orWhere('total', 'like', "%$search%")
+            ->orWhere('address', 'like', "%$search%")
+            ->orWhere('transaction_id', 'like', "%$search%")
+            ->orWhere('delivery', 'like', "%$search%")
+            ->orWhereHas('store', function ($store) use ($search) {
+                $store->where("name_ar", 'like', "%$search%")
+                    ->orWhere('name_en', 'like', "%$search%");
+            });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

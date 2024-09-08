@@ -256,6 +256,37 @@ return
         'discount' => 'الخصم',
         'Payment_Details' => 'تفاصيل الدفع',
         'update' => 'تحديث',
+        'add_product' => 'إضافة منتج',
+        'reports' => 'التقارير',
+        'Product_Sales' => 'مبيعات المنتجات',
+        'Sales_report' => 'تقرير المبيعات',
+        'Quantity_Sold' => 'الكمية المباعة',
+        'Total_Sales' => 'إجمالي المبيعات',
+        'Vendor_Name' => 'اسم التاجر',
+        'Product_Sales' => 'مبيعات المنتجات',
+        'Vendor_Sales' => 'مبيعات التاجر',
+        'Time_Period_Sales' => 'مبيعات الفترة الزمنية',
+        'Category_Sales' => 'مبيعات الفئات',
+        'Revenue_report' => 'تقرير الإيرادات',
+        'Vendor_Revenue' => 'إيرادات التاجر',
+        'Time_Period_Revenue' => 'إيرادات الفترة الزمنية',
+        'Order_report' => 'تقرير الطلبات',
+        'Order_Status' => 'حالة الطلب',
+        'Order_Details' => 'تفاصيل الطلب',
+        'Delayed_Shipments' => 'الشحنات المتأخرة',
+        'Customer_report' => 'تقرير العملاء',
+        'Customer_Activity' => 'نشاط العملاء',
+        'New_Customers' => 'العملاء الجدد',
+        'Inventory_report' => 'تقرير المخزون',
+        'Stock_Levels' => 'مستويات المخزون',
+        'Low_Stock_Alerts' => 'تنبيهات المخزون المنخفض',
+        'Returns_report' => 'تقرير العائدات',
+        'Returns' => 'العائدات',
+        'Financial_report' => 'التقرير المالي',
+        'Profit_Loss' => 'الأرباح والخسائر',
+        'total_orders' => 'إجمالي الطلبات'
+
+
 
 
 

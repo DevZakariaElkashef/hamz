@@ -15,6 +15,7 @@ use App\Http\Controllers\Mall\Admin\OptionController;
 use App\Http\Controllers\Mall\Admin\OrderController;
 use App\Http\Controllers\Mall\Admin\OrderItemController;
 use App\Http\Controllers\Mall\Admin\ProductController;
+use App\Http\Controllers\Mall\Admin\ReportController;
 
 Route::get('/', [HomeController::class, 'index'])->name('mall.home');
 
@@ -120,6 +121,8 @@ Route::as('mall.')->group(function () {
     Route::get('search-orders', [OrderController::class, 'search'])->name('orders.search');
     Route::get('orders-toggle-status/{product}', [OrderController::class, 'toggleStatus'])->name('orders.toggleStatus');
     Route::get('orders-export', [OrderController::class, 'export'])->name('orders.export');
+    Route::post('orders-update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::post('orders-update-payment', [OrderController::class, 'updatePayment'])->name('orders.updatePayment');
     Route::delete('delete-orders', [OrderController::class, 'delete'])->name('orders.delete');
     /**end Slider Routes */
 
@@ -132,7 +135,35 @@ Route::as('mall.')->group(function () {
 
 
     /**start Slider Routes */
-
     Route::get('orders-invoice/{order}', [InvoiceController::class, 'show'])->name('invoices.show');
+    /**end Slider Routes */
+
+
+
+    /**start Slider Routes */
+    // Sales Reports
+    Route::get('/reports/product-sales', [ReportController::class, 'allProductSalesReport'])->name('reports.allProductSales');
+    Route::get('/reports/vendor-sales', [ReportController::class, 'allVendorSalesReport'])->name('reports.allVendorSales');
+    
+
+    // Order Reports
+    Route::get('/reports/order-status', [ReportController::class, 'orderStatusReport'])->name('reports.orderStatus');
+    Route::get('/reports/order-details', [ReportController::class, 'allOrderDetailsReport'])->name('reports.allOrderDetails');
+    Route::get('/reports/delayed-shipments', [ReportController::class, 'delayedShipmentsReport'])->name('reports.delayedShipments');
+
+    // Customer Reports
+    Route::get('/reports/customer-activity', [ReportController::class, 'customerActivityReport'])->name('reports.customerActivity');
+    Route::get('/reports/new-customers', [ReportController::class, 'newCustomersReport'])->name('reports.newCustomers');
+
+    // Inventory Reports
+    Route::get('/reports/stock-levels', [ReportController::class, 'stockLevelsReport'])->name('reports.stockLevels');
+    Route::get('/reports/low-stock-alerts', [ReportController::class, 'lowStockAlertsReport'])->name('reports.lowStockAlerts');
+
+    // Returns Reports
+    Route::get('/reports/returns', [ReportController::class, 'returnsReport'])->name('reports.returns');
+
+    // Financial Reports
+    Route::get('/reports/profit-loss', [ReportController::class, 'profitAndLossReport'])->name('reports.profitLoss');
+
     /**end Slider Routes */
 });

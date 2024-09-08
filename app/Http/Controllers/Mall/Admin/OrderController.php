@@ -87,7 +87,18 @@ class OrderController extends Controller
             ]
         ];
 
-        return view('mall.orders.show', compact('order', 'orderStatuses', 'paymentStatus', 'products'));
+        $paymentMethods = [
+            [
+                'id' => 0,
+                'name' => __('mall.online')
+            ],
+            [
+                'id' => 1,
+                'name' => __('mall.wallet')
+            ]
+        ];
+
+        return view('mall.orders.show', compact('order', 'orderStatuses', 'paymentStatus', 'products', 'paymentMethods'));
     }
 
     /**
@@ -115,6 +126,25 @@ class OrderController extends Controller
             'message' => __("mall.updated_successffully")
         ]);
     }
+
+    public function updateStatus(Request $request)
+    {
+        Order::findOrFail($request->id)->update(['order_status_id' => $request->status_id]);
+
+        return back()->with('success', __("mall.updated_successffully"));
+    }
+
+    public function updatePayment(Request $request)
+    {
+        Order::findOrFail($request->id)->update([
+            'payment_type' => $request->payment_type,
+            'payment_status' => $request->payment_status,
+        ]);
+
+        return back()->with('success', __("mall.updated_successffully"));
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

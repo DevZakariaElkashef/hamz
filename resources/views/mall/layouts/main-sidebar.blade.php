@@ -39,6 +39,7 @@
                     </svg><span class="side-menu__label">{{ __('mall.home') }}</span><span
                         class="badge badge-success side-badge">1</span></a>
             </li>
+
             <li class="side-item side-item-category">Resources</li>
 
 
@@ -222,6 +223,93 @@
                     {{-- <span class="badge badge-danger side-badge">New</span> --}}
                 </a>
             </li>
+
+            <li class="side-item side-item-category">{{ __('mall.reports') }}</li>
+
+            <li class="side-item side-item-category">{{ __('mall.reports') }}</li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
+                    <span class="side-menu__label">{{ __('mall.Sales_report') }}</span>
+                    <i class="angle fe fe-chevron-down"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item"
+                            href="{{ route('mall.reports.allProductSales') }}">{{ __('mall.Product_Sales') }}</a>
+                    </li>
+                    <li><a class="slide-item"
+                            href="{{ route('mall.reports.allVendorSales') }}">{{ __('mall.Vendor_Sales') }}</a></li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
+                    <span class="side-menu__label">{{ __('mall.Order_report') }}</span>
+                    <i class="angle fe fe-chevron-down"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li>
+                        <a class="slide-item"
+                            href="{{ route('mall.reports.orderStatus') }}">{{ __('mall.Order_Status') }}
+                        </a>
+                        </li>
+                    <li>
+                        <a class="slide-item"
+                            href="{{ route('mall.reports.allOrderDetails') }}">{{ __('mall.Order_Details') }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
+                    <span class="side-menu__label">{{ __('mall.Customer_report') }}</span>
+                    <i class="angle fe fe-chevron-down"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item"
+                            href="{{ route('mall.reports.customerActivity') }}">{{ __('mall.Customer_Activity') }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
+                    <span class="side-menu__label">{{ __('mall.Inventory_report') }}</span>
+                    <i class="angle fe fe-chevron-down"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item"
+                            href="{{ route('mall.reports.lowStockAlerts') }}">{{ __('mall.Low_Stock_Alerts') }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
+                    <span class="side-menu__label">{{ __('mall.Returns_report') }}</span>
+                    <i class="angle fe fe-chevron-down"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item"
+                            href="{{ route('mall.reports.returns') }}">{{ __('mall.Returns') }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
+                    <span class="side-menu__label">{{ __('mall.Financial_report') }}</span>
+                    <i class="angle fe fe-chevron-down"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item"
+                            href="{{ route('mall.reports.profitLoss') }}">{{ __('mall.Profit_Loss') }}</a></li>
+                </ul>
+            </li>
+
+
+
         </ul>
     </div>
 </aside>

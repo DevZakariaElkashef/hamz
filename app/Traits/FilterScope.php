@@ -42,6 +42,12 @@ trait FilterScope
       });
     }
 
+    if ($request->filled('order_section_id')) {
+        $query->whereHas('store', function($store) use($request) {
+            $store->where('section_id', $request->order_section_id);
+        });
+    }
+
 
     return $query;
   }

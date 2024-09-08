@@ -36,6 +36,7 @@
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
+
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
@@ -44,6 +45,16 @@
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
+            <div class="mb-3 mb-xl-0 ml-3">
+                <div class="btn-group dropdown">
+                    <button type="button" class="btn btn-danger" id="deleteOrderBtn"
+                        data-url="{{ route('mall.orders.destroy', $order->id) }}" data-toggle="modal"
+                        data-target="#deleteModal" data-placement="top" data-toggle="tooltip"
+                        title="{{ __('mall.delete') }} ">
+                        {{ __('mall.delete') }} </button>
+                </div>
+            </div>
+
             <div class="mb-3 mb-xl-0 ml-3">
                 <div class="btn-group dropdown">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModalChangeStatusOrder"
@@ -80,10 +91,104 @@
     <!-- /breadcrumb -->
 @endsection
 @section('content')
-    <!-- row -->
+    <div class="modal fade " id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form method="POST" id="deleteProductForm" enctype="multipart/form-data">
+                @csrf
+                @method('delete')
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h6 class="modal-title">{{ __('mall.delete') }}</h6><button aria-label="Close" class="close"
+                            data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ __('mall.Are you sure!') }}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn ripple btn-danger" type="submit">{{ __('mall.delete') }}</button>
+                        <button class="btn ripple btn-secondary" data-dismiss="modal"
+                            type="button">{{ __('mall.Close') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal fade " id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="{{ route('mall.orderitems.store') }}" id="addProductModalvalid"
+                enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" id="id" name="id" value="{{ $order->id }}">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> {{ __('mall.add_product') }}</h4>
+                        <h5>{{ __('mall.Change_Order_Status') }}</h5>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row row-sm">
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">{{ __('mall.product') }}: <span
+                                            class="tx-danger">*</span></label>
+                                    <div class="parsley-select " id="slWrapperis_active">
+                                        <select class="form-control selectwithoutsearch"
+                                            data-parsley-class-handler="#slWrapperis_active"
+                                            data-parsley-errors-container="#slErrorContaineris_active"
+                                            data-placeholder="{{ __('mall.select') }}" id="status_id" name="product_id"
+                                            required="">
+                                            <option value="  ">
+                                                {{ __('mall.select') }}
+                                            </option>
+                                            @foreach ($products->reject(function ($product) use ($order) {
+            return $order->orderItems->pluck('product_id')->contains($product->id);
+        }) as $product)
+                                                <option value="{{ $product->id }}">
+                                                    {{ $product->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div id="slErrorContaineris_active">
+                                            @if ($errors->ModalChangeStatusOrderbag->has('product_id'))
+                                                <span
+                                                    class="tx-danger">{{ $errors->ModalChangeStatusOrderbag->first('product_id') }}
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="qty">{{ __('mall.qty') }}</label>
+                                    <input class="form-control" type="number" name="qty" id="qty">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn ripple btn-primary" id="modal_changeorder_submit_button"
+                            type="submit">{{ __('mall.add_product') }}</button>
+                        <button class="btn ripple btn-secondary" data-dismiss="modal"
+                            type="button">{{ __('mall.Close') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
     <div class="modal fade " id="ModalChangeStatusOrder" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form method="POST" id="ModalChangeStatusOrdervalid" enctype="multipart/form-data" action="">
+            <form method="POST" id="ModalChangeStatusOrdervalid" enctype="multipart/form-data"
+                action="{{ route('mall.orders.updateStatus') }}">
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{ $order->id }}">
                 <div class="modal-content ">
@@ -110,7 +215,7 @@
                                             </option>
                                             @foreach ($orderStatuses as $order_status)
                                                 <option value="{{ $order_status->id }}"
-                                                    {{ $order->status_id == $order_status->id ? 'selected' : '' }}>
+                                                    {{ $order->order_status_id == $order_status->id ? 'selected' : '' }}>
                                                     {{ $order_status->name }}
                                                 </option>
                                             @endforeach
@@ -146,7 +251,8 @@
     <div class="modal fade " id="ModalChangeMethodStatusOrder" tabindex="-1" role="dialog" aria-hidden="true">
 
         <div class="modal-dialog" role="document">
-            <form method="POST" id="ModalMethodStatusOrdervalid" enctype="multipart/form-data" action="#">
+            <form method="POST" id="ModalMethodStatusOrdervalid" enctype="multipart/form-data"
+                action="{{ route('mall.orders.updatePayment') }}">
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{ $order->id }}">
                 <div class="modal-content ">
@@ -157,6 +263,38 @@
                     <div class="modal-body">
 
                         <div class="row row-sm">
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">{{ __('mall.payment_method') }}: <span
+                                            class="tx-danger">*</span></label>
+                                    <div class="parsley-select " id="slWrapperis_active">
+                                        <select class="form-control selectwithoutsearch"
+                                            data-parsley-class-handler="#slWrapperis_active"
+                                            data-parsley-errors-container="#slErrorContaineris_activepaymentstatus"
+                                            data-placeholder="{{ __('mall.select') }}" id="payment_type"
+                                            name="payment_type" required="">
+                                            <option value=" ">
+                                                {{ __('mall.select') }}
+                                            </option>
+                                            @foreach ($paymentMethods as $payment)
+                                                <option value="{{ $payment['id'] }}"
+                                                    {{ $order->payment_type == $payment['id'] ? 'selected' : '' }}>
+                                                    {{ $payment['name'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div id="slErrorContaineris_activepaymentstatus">
+                                            @if ($errors->ModalChangeMethodStatusOrderbag->has('payment_type'))
+                                                <span
+                                                    class="tx-danger">{{ $errors->ModalChangeMethodStatusOrderbag->first('payment_type') }}
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="col-12">
                                 <div class="form-group">
@@ -189,8 +327,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -280,7 +416,6 @@
         </div>
         <div class="col-lg-8">
             <div class="row row-sm">
-
                 <div class="col-sm-12 col-xl-4 col-lg-12 col-md-12">
                     <div class="card ">
                         <div class="card-body">
@@ -304,7 +439,6 @@
                             <div class="counter-status d-flex md-mb-0">
                                 <div class="counter-icon bg-danger-transparent">
                                     <i class="icon-rocket text-success"></i>
-
                                 </div>
                                 <div class="mr-auto">
                                     <h2 class="tx-14 mt-2" style="font-weight:bold">{{ __('mall.Order_Status') }}
@@ -356,12 +490,6 @@
                                             class="las la-file-invoice-dollar tx-20 mr-1"></i></span> <span
                                         class="hidden-xs">{{ __('mall.Payment_Method') }}</span> </a>
                             </li>
-
-                            {{-- <li class="">
-                                <a href="#rating" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i
-                                            class="lar la-star tx-20 mr-1"></i></span> <span
-                                        class="hidden-xs">{{ __('mall.Order_evaluation') }}</span> </a>
-                            </li> --}}
                         </ul>
                     </div>
                     <div class="tab-content border-left border-bottom border-right border-top-0 p-4">
@@ -426,8 +554,13 @@
                                                     <td>
                                                         <button type="submit"
                                                             class="btn btn-primary">{{ __('mall.update') }}</button>
-                                                        <a href="#"
-                                                            class="btn btn-danger">{{ __('mall.delete') }}</a>
+                                                        <a href="#" id="deleteproductItem"
+                                                            data-url="{{ route('mall.orderitems.destroy', $order_item->id) }}"
+                                                            data-toggle="modal" data-target="#deleteModal"
+                                                            class="btn btn-danger">
+                                                            {{ __('mall.delete') }}
+                                                        </a>
+
                                                     </td>
                                                 </form>
                                             </tr>
@@ -438,7 +571,8 @@
                                 <div style="text-align: end;" class="mt-3">
 
                                     <!-- Button to Add New Row -->
-                                    <button id="add-row-btn" class="btn btn-success">{{ __('mall.add_item') }}</button>
+                                    <button id="add_product" data-toggle="modal" data-target="#addProductModal"
+                                        class="btn btn-success">{{ __('mall.add_product') }}</button>
                                 </div>
 
 
@@ -446,13 +580,8 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="profile">
-                            <div class="row">
-                                <div id="maporder"></div>
+                            <p class="text-center my-3">{{ $order->address }}</p>
 
-
-
-
-                            </div>
                         </div>
                         <div class="tab-pane" id="settings">
                             <div style="text-align: center" class="tx-16"><button type="button"
@@ -463,9 +592,6 @@
 
 
                         </div>
-                        {{-- <div class="tab-pane" id="rating">
-
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -597,96 +723,59 @@
     <script src="{{ URL::asset('assets/js/gallery.js') }}"></script>
     <script>
         $(document).ready(function() {
-    // Get CSRF token from meta tag
-    const csrfToken = $('meta[name="csrf-token"]').attr('content');
+            // Get CSRF token from meta tag
+            const csrfToken = '{{ csrf_token() }}';
 
-    // Event listener for dynamically updating product price, image, and total
-    $(document).on('change', '.product-select', function() {
-        const selectedProductId = $(this).val();
-        const row = $(this).closest('tr');
+            // Event listener for dynamically updating product price, image, and total
+            $(document).on('change', '.product-select', function() {
+                const selectedProductId = $(this).val();
+                const row = $(this).closest('tr');
 
-        // Fetch product details via API
-        fetch(`/mall/fetch-products/${selectedProductId}`)
-            .then(response => response.json())
-            .then(data => {
-                // Update the product image
-                row.find('.product-image').attr('src', data.image);
+                // Fetch product details via API
+                fetch(`/mall/fetch-products/${selectedProductId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the product image
+                        row.find('.product-image').attr('src', data.image);
 
-                // Update the price input field
-                row.find('.price-input').val(data.price);
+                        // Update the price input field
+                        row.find('.price-input').val(data.price);
 
-                // Recalculate the total
+                        // Recalculate the total
+                        const qty = row.find('.qty-input').val();
+                        const total = qty * data.price;
+                        row.find('.total').text(total);
+                    })
+                    .catch(error => console.error('Error fetching product details:', error));
+            });
+
+            // Event listener for qty and price input changes
+            $(document).on('input', '.qty-input, .price-input', function() {
+                const row = $(this).closest('tr');
                 const qty = row.find('.qty-input').val();
-                const total = qty * data.price;
+                const price = row.find('.price-input').val();
+                const total = qty * price;
                 row.find('.total').text(total);
-            })
-            .catch(error => console.error('Error fetching product details:', error));
-    });
+            });
 
-    // Event listener for qty and price input changes
-    $(document).on('input', '.qty-input, .price-input', function() {
-        const row = $(this).closest('tr');
-        const qty = row.find('.qty-input').val();
-        const price = row.find('.price-input').val();
-        const total = qty * price;
-        row.find('.total').text(total);
-    });
 
-    // Add new row on button click
-    $('#add-row-btn').on('click', function() {
-        const uniqueId = Date.now(); // Use timestamp for unique ID
-        const newRow = `
-    <tr>
-        <form id="form-${uniqueId}" action="{{ route('mall.orderitems.store') }}" method="POST">
-            <input type="hidden" name="_token" value="${csrfToken}">
-            <td>
-                <div class="media">
-                    <div class="card-aside-img">
-                        <img src="" alt="img" class="h-60 w-60 product-image">
-                    </div>
-                    <div class="media-body">
-                        <div class="card-item-desc mt-0">
-                            <h6 class="font-weight-semibold mt-0 text-uppercase">
-                                <select name="product_id" class="form-control select2 product-select">
-                                    <option value="" disabled selected>Select Product</option>
-                                    @foreach ($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                    @endforeach
-                                </select>
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="form-group" style="text-align: center">
-                    <input type="number" name="qty" class="form-control qty-input" style="width: 100px" value="1">
-                </div>
-            </td>
-            <td class="text-center text-lg text-medium">
-                <input type="number" name="price" class="form-control price-input" style="width: 100px" value="">
-            </td>
-            <td class="text-center text-lg text-medium total">
-                0
-            </td>
-            <td>
-                <button type="button" id="btn-${uniqueId}" class="btn btn-primary btn-store">{{ __('mall.submit') }}</button>
-                <a href="#" class="btn btn-danger">{{ __('mall.delete') }}</a>
-            </td>
-        </form>
-    </tr>
-    `;
-        $('#order-items-body').append(newRow);
-    });
+            // Submit handler for dynamically added rows
+            $(document).on('click', '.btn-store', function(e) {
+                e.preventDefault();
+                const uniqueId = $(this).attr('id').split('-')[1];
+                const form = $(`#form-${uniqueId}`);
+                form.submit(); // Submit the specific form
+            });
+        });
 
-    // Submit handler for dynamically added rows
-    $(document).on('click', '.btn-store', function(e) {
-        e.preventDefault();
-        const uniqueId = $(this).attr('id').split('-')[1];
-        const form = $(`#form-${uniqueId}`);
-        form.submit(); // Submit the specific form
-    });
-});
+        $(document).on('click', '#deleteproductItem', function() {
+            // $('#deleteModal').modal('show');
+            $('#deleteProductForm').attr('action', $(this).data('url'));
+        });
 
+        $(document).on('click', '#deleteOrderBtn', function() {
+            // $('#deleteModal').modal('show');
+            $('#deleteProductForm').attr('action', $(this).data('url'));
+        });
     </script>
 @endsection

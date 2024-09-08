@@ -121,13 +121,9 @@ return
         'parent_category' => 'Parent Category',
         'select' => 'select',
         'store' => "store",
-
-
-
         'create_city' => 'Create City',
         'cities' => 'Cities',
         'edit_city' => 'Edit City',
-
         'create_product' => 'Create Product',
         'products' => 'Products',
         'edit_product' => 'Edit Product',
@@ -191,32 +187,23 @@ return
         'options' => 'options',
         'create_option' => 'Create Option',
         'edit_option' => 'Edit Option',
-
         'enter_value' => 'Enter Value',
         'brands' => 'Brands',
         'create_brand' => 'Create Brand',
         'edit_brand' => 'Edit Brand',
         'is_required' => "Is Required",
         'additional_price' => 'Additional Price',
-
         'inventory' => 'Inventory',
         'export' => 'Export',
         'import' => 'Import',
-
-
         'export_to_excel' => 'Export To Excel',
         'date' => 'Date',
         'city' => 'City',
         'owner' => 'Owner',
-
         'start_offer_date' => 'Start Offer Date',
         'end_offer_date' => 'End Offer Date',
         'download_example' => 'Download Example',
         'select_file' => 'Select File',
-
-
-
-
         'phone_exists' => 'Phone Is not Exists',
         'client' => 'Client',
         'payment_status' => 'Payment Status',
@@ -247,17 +234,51 @@ return
         'Order_evaluation' => 'Order Evaluation',
         'product' => 'product',
         'Product_Add_Category' => 'Product Add Category',
-
-
         'orders' => 'orders',
         'show' => 'show',
         'email' => 'email',
         'Subtotal' => 'Subtotal',
         'discount' => 'discount',
         'Payment_Details' => 'Payment Details',
+        'update' => 'update',
+        'add_product' => 'Add Product',
+        'reports' => 'Reports',
 
 
-        'update' => 'update'
+        'Product_Sales' => 'Product Sales',
+        'Vendor_Sales' => 'Vendor Sales',
+        'Sales_report' => 'Sales report',
+        'Quantity_Sold' => 'Quantity Sold',
+        'Total_Sales' => 'Total_Sales',
+        'Vendor_Name' => 'Vendor Name',
+        'Product_Sales' => 'Product ales',
+        'Time_Period_Sales' => 'Time Period Sales',
+        'Category_Sales' => 'Category Sales',
+        'Revenue_report' => 'Revenue report',
+        'Vendor_Revenue' => 'Vendor Revenue',
+        'Time_Period_Revenue' => 'Time Period Revenue',
+        'Order_report' => 'Order report',
+        'Order_Status' => 'Order Status',
+        'Order_Details' => 'Order Details',
+        'Delayed_Shipments' => 'Delayed Shipments',
+        'Customer_report' => 'Customer report',
+        'Customer_Activity' => 'Customer Activity',
+        'New_Customers' => 'New Customers',
+        'Inventory_report' => 'Inventory report',
+        'Stock_Levels' => 'Stock Levels',
+        'Low_Stock_Alerts' => 'Low Stock Alerts',
+        'Returns_report' => 'Returns report',
+        'Returns' => 'Returns',
+        'Financial_report' => 'Financial report',
+        'Profit_Loss' => 'Profit Loss',
+        'total_orders' => 'total_orders',
+
+
+        'Customer_ID' => 'Customer ID',
+        'Customer_Name' => 'Customer Name',
+        ''
+
+
 
 
     ];
