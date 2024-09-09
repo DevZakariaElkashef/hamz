@@ -226,8 +226,6 @@
 
             <li class="side-item side-item-category">{{ __('mall.reports') }}</li>
 
-            <li class="side-item side-item-category">{{ __('mall.reports') }}</li>
-
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
                     <span class="side-menu__label">{{ __('mall.Sales_report') }}</span>
@@ -296,19 +294,6 @@
                     </li>
                 </ul>
             </li>
-
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}">
-                    <span class="side-menu__label">{{ __('mall.Financial_report') }}</span>
-                    <i class="angle fe fe-chevron-down"></i>
-                </a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item"
-                            href="{{ route('mall.reports.profitLoss') }}">{{ __('mall.Profit_Loss') }}</a></li>
-                </ul>
-            </li>
-
-
 
         </ul>
     </div>

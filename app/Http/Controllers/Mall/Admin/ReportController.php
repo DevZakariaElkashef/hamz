@@ -102,25 +102,12 @@ class ReportController extends Controller
     // Report of all returns
     public function returnsReport()
     {
-        $returns = OrderItem::where('is_returned', true) // Assuming you have an is_returned column
+        $items = OrderItem::whereHas('order', function ($order) {
+            $order->where("order_status_id", 5);
+        })
             ->with('product')
             ->get();
 
-        return view('reports.returns', compact('returns'));
-    }
-
-    // Financial Performance Reports
-
-    // Profit and loss report
-    public function profitAndLossReport()
-    {
-        // Calculation logic here
-        // Assuming you have cost and revenue fields to calculate profit and loss
-        $profitAndLoss = [
-            'total_profit' => 10000, // Placeholder calculation
-            'total_loss' => 5000
-        ];
-
-        return view('reports.profit_and_loss', compact('profitAndLoss'));
+        return view('mall.reports.returns', compact('items'));
     }
 }
