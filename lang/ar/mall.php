@@ -284,7 +284,21 @@ return
         'Returns' => 'العائدات',
         'Financial_report' => 'التقرير المالي',
         'Profit_Loss' => 'الأرباح والخسائر',
-        'total_orders' => 'إجمالي الطلبات'
+        'total_orders' => 'إجمالي الطلبات',
+        'coupons' => 'كوبونات الخصم',
+        'create_coupon' => 'إنشاء كوبون خصم',
+        'edit_coupon' => 'تعديل كوبون الخصم',
+        'code' => 'الرمز',
+        'used_times' => 'عدد مرات الاستخدام',
+        'max_usage' => 'الحد الأقصى للاستخدام',
+        'enter_code' => 'أدخل الرمز',
+        'enter_max_usage' => 'أدخل الحد الأقصى للاستخدام',
+        'enter_discount' => 'أدخل الخصم',
+        'mall' => 'المولات',
+        'welcome_dashboard' => 'اهلا وسهلا بك في لوحة التحكم',
+        'stars' => 'نجوم',
+        'reviews' => 'التقييم',
+        'comment' => 'التعليق'
 
 
 

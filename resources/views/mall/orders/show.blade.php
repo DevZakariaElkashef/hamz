@@ -490,6 +490,11 @@
                                             class="las la-file-invoice-dollar tx-20 mr-1"></i></span> <span
                                         class="hidden-xs">{{ __('mall.Payment_Method') }}</span> </a>
                             </li>
+                            <li class="">
+                                <a href="#reviews" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i
+                                            class="las la-file-invoice-dollar tx-20 mr-1"></i></span> <span
+                                        class="hidden-xs">{{ __('mall.reviews') }}</span> </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="tab-content border-left border-bottom border-right border-top-0 p-4">
@@ -589,8 +594,14 @@
                                     {{ $order->payment_method }}
                                 </button>
                             </div>
+                        </div>
+                        <div class="tab-pane" id="reviews">
+                            <div style="text-align: center" class="tx-16">
 
+                                    <h5> {{ __('mall.stars') }} : {{ $order->orderReview->stars ?? 0}}</h5>
+                                    <h5> {{ __('mall.comment') }} : {{ $order->orderReview->comment ?? ''}}</h5>
 
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -29,6 +29,12 @@ trait FilterScope
     if ($request->filled('attribute_id')) {
       $query->where('attribute_id', $request->attribute_id);
     }
+    if ($request->filled('category_id')) {
+      $query->where('category_id', $request->category_id);
+    }
+    if ($request->filled('brand_id')) {
+      $query->where('brand_id', $request->brand_id);
+    }
 
     if ($request->filled('product_section_id')) {
       $query->whereHas('store', function ($store) use ($request) {

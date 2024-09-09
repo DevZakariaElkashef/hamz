@@ -24,7 +24,7 @@
         <div class="d-flex my-xl-auto right-content">
 
             <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('mall.products.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active'), 'category_id' => request('category_id'), 'brand_id' => request('brand_id')]) }}"
+                <a href="{{ route('mall.reports.lowStockAlertsExport', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active'), 'category_id' => request('category_id'), 'brand_id' => request('brand_id')]) }}"
                     class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('mall.export_to_excel') }}">
                     {{ __('mall.export') }}
                     <i class="mdi mdi-download"></i>
@@ -37,7 +37,7 @@
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
             </div>
             <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('mall.products.index') }}" class="btn btn-warning  btn-icon ml-2"><i
+                <a href="{{ route('mall.reports.lowStockAlerts') }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
         </div>
@@ -46,58 +46,8 @@
 @endsection
 @section('content')
     <!-- Modal effects -->
-    <div class="modal" id="importmodal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content modal-content-demo">
-                <div class="modal-header">
-                    <h6 class="modal-title">{{ __('mall.import') }}</h6><button aria-label="Close" class="close"
-                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <form method="POST" id="importForm" action="{{ route('mall.products.import') }}"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="file">{{ __('mall.select_file') }}</label>
-                            <input type="file" class="form-control" accept=".xlsx" id="file" name="file">
-                        </div>
-                        <div class="mt-3">
-                            <a href="{{ asset('imports/products.xlsx') }}" download
-                                class="btn btn-warning">{{ __('mall.download_example') }}</a>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn ripple btn-primary" type="submit">{{ __('mall.import') }}</button>
-                        <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="deletemodal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content modal-content-demo">
-                <div class="modal-header">
-                    <h6 class="modal-title">{{ __('mall.delete') }}</h6><button aria-label="Close" class="close"
-                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <form method="POST" id="deleteForm">
-                    @csrf
-                    @method('delete')
-                    <input type="hidden" name="ids" id="selectionIdsInput">
-                    <div class="modal-body">
-                        <h6 class="text-center">{{ __('mall.Are_you_sure') }}</h6>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn ripple btn-danger" type="submit">{{ __('mall.delete') }}</button>
-                        <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
+
 
     <div class="modal" id="filterModal">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -106,7 +56,7 @@
                     <h6 class="modal-title">{{ __('mall.filter') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                {{-- <form method="get" action="{{ route('mall.products.index') }}">
+                <form method="get" action="{{ route('mall.reports.lowStockAlerts') }}">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('mall.start_date') }}</label>
@@ -173,7 +123,7 @@
                         <button class="btn ripple btn-secondary" data-dismiss="modal"
                             type="button">{{ __('mall.Close') }}</button>
                     </div>
-                </form> --}}
+                </form>
             </div>
         </div>
     </div>
@@ -190,8 +140,9 @@
                             <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
                                 data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
                                 data-url="{{ route('mall.products.delete') }}">{{ __('mall.delete') }}</a>
-                            <input type="text" id="searchInput" data-url="{{ route('mall.products.search') }}"
-                                class="form-control" placeholder="{{ __('mall.search') }}">
+                            <input type="text" id="searchReport"
+                                data-url="{{ route('mall.reports.lowStockAlertsSearch') }}" class="form-control"
+                                placeholder="{{ __('mall.search') }}">
                             <div class="custom-select-wrapper mx-1">
                                 <select id="showPerPage" class="custom-select"
                                     data-url="{{ route('mall.products.index') }}" onchange="updatePageSize()">
@@ -206,29 +157,7 @@
                 </div>
                 <div class="card-body">
                     <div id="tableFile">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>{{ __('mall.id') }}</th>
-                                        <th>{{ __('mall.product') }}</th>
-                                        <th>{{ __('mall.qty') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($products as $product)
-                                        <tr>
-                                            <td>{{ $product->id }}</td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->qty }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-
-
-
-                        </div>
+                        @include('mall.reports.products.low_stock_alerts_table')
                     </div>
                 </div>
             </div>
@@ -250,4 +179,18 @@
     <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
 
     @include('mall.products._dynamic_selector')
+    <script>
+        $(document).on('input', '#searchReport', function() {
+            $.ajax({
+                type: "GET",
+                url: $(this).data('url'),
+                data: {
+                    search: $(this).val()
+                },
+                success: function(response) {
+                    $('#tableFile').html(response);
+                }
+            });
+        })
+    </script>
 @endsection

@@ -276,8 +276,23 @@ return
 
         'Customer_ID' => 'Customer ID',
         'Customer_Name' => 'Customer Name',
-        ''
 
+
+        'coupons' => 'Coupons',
+        'create_coupon' => 'Create Coupon',
+        'edit_coupon' => 'Edit Coupon',
+        'code' => 'code',
+        'used_times' => 'used times',
+        'max_usage' => 'max_usage',
+        'enter_code' => 'Enter Code',
+        'enter_max_usage' => 'Enter Max Usage',
+        'enter_discount' => 'Enter Discount',
+        'comment' => 'Comment',
+
+        'mall' => 'Mall',
+        'welcome_dashboard' => 'Hi, welcome back!',
+        'stars' => 'Stars',
+        'reviews' => 'Reviews'
 
 
 
