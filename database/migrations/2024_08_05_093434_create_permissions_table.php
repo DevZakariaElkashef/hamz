@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('app', ['mall', 'booth', 'coupons', 'earn', 'resale', 'rfoof', 'all']);
+            $table->enum('app', ['mall', 'booth', 'stores', 'coupons', 'earn', 'resale', 'rfoof', 'all']);
             $table->softDeletes();
             $table->timestamps();
         });

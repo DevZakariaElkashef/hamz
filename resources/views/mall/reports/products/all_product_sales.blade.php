@@ -126,7 +126,7 @@
                 </div>
                 <div class="card-body">
                     <div id="tableFile">
-                        @include('mall.reports.all_product_sales_table')
+                        @include('mall.reports.products.all_product_sales_table')
                     </div>
                 </div>
             </div>
