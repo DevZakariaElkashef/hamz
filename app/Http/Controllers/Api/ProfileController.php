@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mall\Api;
+namespace App\Http\Controllers\Api;
 
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;

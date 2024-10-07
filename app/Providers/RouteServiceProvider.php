@@ -46,6 +46,16 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/mall/web.php'));
             /** End Mall Routes */
 
+            /** Begain Earn Routes */
+            Route::middleware('api')
+            ->prefix('earn/api')
+            ->group(base_path('routes/earn/api.php'));
+
+            Route::middleware('web')
+            ->prefix('earn')
+            ->group(base_path('routes/earn/web.php'));
+            /** End Earn Routes */
+
 
         });
     }

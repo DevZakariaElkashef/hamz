@@ -118,6 +118,5 @@ class RoleSeeder extends Seeder
         $mallPermissions = Permission::stores()->get();
         $mallSellerRole = Role::where('name', 'mall-seller')->first();
         $mallSellerRole->permissions()->sync($mallPermissions);
-
     }
 }

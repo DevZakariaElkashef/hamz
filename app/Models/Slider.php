@@ -21,6 +21,16 @@ class Slider extends Model
         return $this->attributes['name_' . app()->getLocale()];
     }
 
+    public function scopeFixed($query)
+    {
+        return $query->where('is_fixed', 1);
+    }
+
+    public function scopeScrollable($query)
+    {
+        return $query->where('is_fixed', 0);
+    }
+
     public function scopeSearch($query, $search)
     {
         return $query->where('name_ar', 'like', "%$search%")

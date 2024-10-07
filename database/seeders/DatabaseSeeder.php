@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             SliderSeeder::class,
             OrderStatusSeeder::class,
             SectionSeeder::class,
+            VideoSeeder::class
         ]);
     }
 }
