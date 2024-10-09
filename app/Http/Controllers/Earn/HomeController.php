@@ -25,8 +25,12 @@ class HomeController extends Controller
         $videos = Video::query()
             ->earn()
             ->active()
-            ->whereDoesntHave('viewed', function ($query) use ($request) {
-                $query->where('user_id', $request->user()->id); // Assuming the user is authenticated
+            ->where(function ($q) use ($request) {
+                $q->whereDoesntHave('viewed', function ($query) use ($request) {
+                    $query->where('user_id', $request->user()->id); // Assuming the user is authenticated
+                })->orWhereHas('viewed', function ($view) use ($request) {
+                    $view->where('user_id', $request->user()->id)->where('status', 0);
+                });
             })
             ->when($request->category_id, function ($query) use ($request) {
                 $query->where('category_id', $request->category_id);

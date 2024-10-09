@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('video_id')->nullable()->constrained()->onDelete('cascade');
+            $table->tinyInteger('status')->default(0)->comment('0 => start watching, 1 => watched');
             $table->softDeletes();
             $table->timestamps();
         });

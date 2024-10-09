@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->decimal('wallet')->default(0);
             $table->rememberToken();
             $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
             $table->enum('app', ['mall', 'booth', 'coupons', 'earn', 'resale', 'rfoof', 'all']);

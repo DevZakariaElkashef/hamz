@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function viewes()
+    {
+        return $this->hasMany(View::class);
+    }
 }

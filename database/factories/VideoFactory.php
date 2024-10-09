@@ -23,7 +23,9 @@ class VideoFactory extends Factory
             'path' => str_replace(['public', '\\'], ['', '/'], 'public/uploads/videos/' . fake()->uuid() . '.mp4'),
             'seller_id' => rand(1, 10),
             'category_id' => Category::factory(),
-            'reward_amount' => rand(10, 100)
+            'reward_amount' => rand(10, 100),
+            'duration' => fake()->randomFloat(),
+            'app' => 'earn'
         ];
     }
 }

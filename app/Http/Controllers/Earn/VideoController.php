@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Earn;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Earn\VideoResource;
-use App\Models\Video;
+use App\Repositories\Earn\VideoRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -12,36 +12,34 @@ class VideoController extends Controller
 {
     use ApiResponse;
 
+    protected $videoRepository;
+
+    public function __construct(VideoRepository $videoRepository)
+    {
+        $this->videoRepository = $videoRepository;
+    }
+
     public function index(Request $request)
     {
-        $videos = Video::query()
-            ->earn()
-            ->active()
-            ->whereDoesntHave('viewed', function ($query) use ($request) {
-                $query->where('user_id', $request->user()->id); // Assuming the user is authenticated
-            })
-            ->when($request->category_id, function ($query) use ($request) {
-                $query->where('category_id', $request->category_id);
-            })
-            ->get();
-
+        $videos = $this->videoRepository->getVideos($request);
         $data = VideoResource::collection($videos);
-        return $this->sendResponse(200, $videos);
+        return $this->sendResponse(200, $data);
     }
 
     public function show(Request $request, $id)
     {
-        $video = Video::find($id);
+        $video = $this->videoRepository->getVideoById($id);
         if (!$video) {
             return $this->sendResponse(404, '', __("Not Found"));
         }
 
-        $check = $video->viewed->where('user_id', $request->user()->id)->first();
+        $check = $video->viewed()->where('user_id', $request->user()->id)->where('status', 1)->first();
+
         if ($check) {
-            return $this->sendResponse(403, '', __("Already Seen!"));
+            return $this->sendResponse(400, '', __("earn.already_watched"));
         }
 
-        $video->viewed()->create(['user_id' => $request->user()->id]);
+        $this->videoRepository->startWatchingVideo($request, $video);
         $data = new VideoResource($video);
 
         return $this->sendResponse(200, $data);
@@ -49,26 +47,29 @@ class VideoController extends Controller
 
     public function next(Request $request)
     {
-        $video = Video::query()
-            ->earn()
-            ->active()
-            ->whereDoesntHave('viewed', function ($query) use ($request) {
-                $query->where('user_id', $request->user()->id);
-            })
-            ->first();
-
-        if ($video) {
-
-            $check = $video->viewed->where('user_id', $request->user()->id)->first();
-            if ($check) {
-                return $this->sendResponse(403, '', __("Already Seen!"));
-            }
-
-            $video->viewed()->create(['user_id' => $request->user()->id]);
+        $video = $this->videoRepository->getNextVideo($request);
+        if (!$video) {
+            return $this->sendResponse(404, '', __("earn.there_is_not_videos_at_the_moment"));
         }
 
+        $this->videoRepository->startWatchingVideo($request, $video);
         $data = new VideoResource($video);
-        $message = $video ? '' : __("earn.there_is_not_videos_at_the_moment");
-        return $this->sendResponse(200, $data, $message);
+
+        return $this->sendResponse(200, $data);
+    }
+
+    public function finish(Request $request, $id)
+    {
+        $result = $this->videoRepository->finishVideo($request, $id);
+
+        if ($result === null) {
+            return $this->sendResponse(404, '', __("Not Found"));
+        } elseif ($result === 'already_watched') {
+            return $this->sendResponse(400, '', __("earn.already_watched"));
+        } elseif ($result === 'watch_first') {
+            return $this->sendResponse(400, '', __("earn.watch_video_first"));
+        }
+
+        return $this->sendResponse(200, '', __('earn.you_won', ['x' => $result]));
     }
 }
