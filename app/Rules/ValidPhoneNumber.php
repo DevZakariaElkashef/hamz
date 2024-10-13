@@ -20,7 +20,7 @@ class ValidPhoneNumber implements ValidationRule
         $pattern = '/^0\d{9}$/'; // Matches a number starting with '0' and followed by exactly 9 digits
 
         if (!preg_match($pattern, $value)) {
-            $fail(__('mall.invalid_phone_format'));
+            $fail(__('main.invalid_phone_format'));
         }
     }
 }

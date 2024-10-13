@@ -38,9 +38,9 @@ class AllProductSalesReportExport implements FromCollection, WithHeadings, Shoul
     public function headings(): array
     {
         return [
-            __("mall.product"),
-            __('mall.Quantity_Sold'),
-            __("mall.Total_Sales")
+            __("main.product"),
+            __('main.Quantity_Sold'),
+            __("main.Total_Sales")
         ];
     }
 }

@@ -11,6 +11,6 @@ class ImageController extends Controller
     public function destroy(Request $request)
     {
         Image::where("id", $request->image_id)->delete();
-        return back()->with('success', __("mall.delete_successffully"));
+        return back()->with('success', __("main.delete_successffully"));
     }
 }

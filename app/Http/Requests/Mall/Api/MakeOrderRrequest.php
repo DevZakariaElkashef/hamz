@@ -36,12 +36,12 @@ class MakeOrderRrequest extends BaseApiRequest
     public function messages(): array
     {
         return [
-            'address.required' => __('mall.address_is_required'),
-            'lat.required' => __('mall.lat_id_required'),
-            'lng.required' => __('mall.lng_id_required'),
-            'delivery_type.required' => __('mall.delivery_type_id_required'),
-            'transaction_id.required' => __('mall.transaction_id_id_required'),
-            'cart_id.required' => __('mall.cart_id_required'),
+            'address.required' => __('main.address_is_required'),
+            'lat.required' => __('main.lat_id_required'),
+            'lng.required' => __('main.lng_id_required'),
+            'delivery_type.required' => __('main.delivery_type_id_required'),
+            'transaction_id.required' => __('main.transaction_id_id_required'),
+            'cart_id.required' => __('main.cart_id_required'),
 
         ];
     }

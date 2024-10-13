@@ -45,7 +45,7 @@ class CityController extends Controller
         try {
             Excel::import(new CityImport, $request->file('file'));
 
-            return back()->with('success', __("mall.created_successfully"));
+            return back()->with('success', __("main.created_successfully"));
         } catch (ValidationException $e) {
             // Get the first failure from the exception
             $failure = $e->failures()[0];
@@ -75,7 +75,7 @@ class CityController extends Controller
     public function store(CityRequest $request)
     {
         $this->cityRepository->store($request); // store city
-        return to_route('mall.cities.index')->with('success', __("mall.created_successffully"));
+        return to_route('mall.cities.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -99,7 +99,7 @@ class CityController extends Controller
         $city->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("mall.updated_successffully")
+            'message' => __("main.updated_successffully")
         ]);
     }
 
@@ -109,7 +109,7 @@ class CityController extends Controller
     public function update(CityRequest $request, City $city)
     {
         $this->cityRepository->update($request, $city);
-        return to_route('mall.cities.index')->with('success', __("mall.updated_successffully"));
+        return to_route('mall.cities.index')->with('success', __("main.updated_successffully"));
     }
 
     /**
@@ -118,12 +118,12 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         $this->cityRepository->delete($city);
-        return to_route('mall.cities.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.cities.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->cityRepository->deleteSelection($request);
-        return to_route('mall.cities.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.cities.index')->with('success', __("main.delete_successffully"));
     }
 }

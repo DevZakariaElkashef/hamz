@@ -1,6 +1,7 @@
 <?php
-use App\Http\Controllers\Earn\HomeController;
-use App\Http\Controllers\Earn\VideoController;
+
+use App\Http\Controllers\Earn\Api\HomeController;
+use App\Http\Controllers\Earn\Api\VideoController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('home', [HomeController::class, 'index']);

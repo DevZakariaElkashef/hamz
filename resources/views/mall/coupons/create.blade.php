@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.create_coupon') }}
+    {{ __('main.create_coupon') }}
 @endsection
 @section('css')
     <!--- Internal Select2 css-->
@@ -11,16 +11,16 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h5 class="content-title mb-0 my-auto">{{ __('mall.home') }}</h5>
+                <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.coupons.index') }}">{{ __('mall.coupons') }}</a></span>
+                        href="{{ route('mall.coupons.index') }}">{{ __('main.coupons') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.coupons.create') }}">{{ __('mall.create_coupon') }}</a></span>
+                        href="{{ route('mall.coupons.create') }}">{{ __('main.create_coupon') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.coupons.index') }}" class="btn btn-secondary ">{{ __('mall.back') }}</a>
+                <a href="{{ route('mall.coupons.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('mall.coupons') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.coupons') }}</h4>
                     </div>
                 </div>
                 <div class="card-body">
@@ -42,26 +42,26 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.code') }}: <span class="tx-danger">*</span></label>
-                                <input class="form-control" name="code" placeholder="{{ __('mall.enter_code') }}"
+                                <label class="form-label">{{ __('main.code') }}: <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="code" placeholder="{{ __('main.enter_code') }}"
                                     required="" type="text" value="{{ old('code') }}">
                                 @error('code')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.discount') }}: <span
+                                <label class="form-label">{{ __('main.discount') }}: <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="discount" placeholder="{{ __('mall.enter_discount') }}"
+                                <input class="form-control" name="discount" placeholder="{{ __('main.enter_discount') }}"
                                     required="" type="number" value="{{ old('discount') }}">
                                 @error('discount')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.max_usage') }}: <span
+                                <label class="form-label">{{ __('main.max_usage') }}: <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="max_usage" placeholder="{{ __('mall.enter_max_usage') }}"
+                                <input class="form-control" name="max_usage" placeholder="{{ __('main.enter_max_usage') }}"
                                     required="" type="number" value="{{ old('max_usage') }}">
                                 @error('max_usage')
                                     <div class="text-danger">{{ $message }}</div>
@@ -73,12 +73,12 @@
 
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.status') }}: <span class="tx-danger">*</span></label>
+                                <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
                                     <option value="0" @if (old('is_active') == 0) selected @endif>
-                                        {{ __('mall.not_active') }}</option>
+                                        {{ __('main.not_active') }}</option>
                                     <option value="1" @if (old('is_active') == 1) selected @endif>
-                                        {{ __('mall.active') }}</option>
+                                        {{ __('main.active') }}</option>
                                 </select>
                                 @error('is_active')
                                     <div class="text-danger">{{ $message }}</div>
@@ -86,8 +86,8 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.start_date') }}:</label>
-                                <input class="form-control" name="start_date" placeholder="{{ __('mall.enter_start_at') }}"
+                                <label class="form-label">{{ __('main.start_date') }}:</label>
+                                <input class="form-control" name="start_date" placeholder="{{ __('main.enter_start_at') }}"
                                     type="date" value="{{ old('start_date') }}">
                                 @error('start_date')
                                     <div class="text-danger">{{ $message }}</div>
@@ -95,8 +95,8 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('mall.end_date') }}:</label>
-                                <input class="form-control" name="end_date" placeholder="{{ __('mall.enter_end_date') }}"
+                                <label class="form-label">{{ __('main.end_date') }}:</label>
+                                <input class="form-control" name="end_date" placeholder="{{ __('main.enter_end_date') }}"
                                     type="date" value="{{ old('end_date') }}">
                                 @error('end_date')
                                     <div class="text-danger">{{ $message }}</div>
@@ -106,7 +106,7 @@
 
                             <div class="col-12 mg-t-10 mg-sm-t-25">
                                 <button class="btn btn-main-primary pd-x-20"
-                                    type="submit">{{ __('mall.submit') }}</button>
+                                    type="submit">{{ __('main.submit') }}</button>
                             </div>
                         </div>
                     </form>

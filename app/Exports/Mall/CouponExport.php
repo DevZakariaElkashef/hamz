@@ -36,13 +36,13 @@ class CouponExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            __("mall.id"),
-            __("mall.code"),
-            __("mall.discount"),
-            __("mall.max_usage"),
-            __('mall.used_times'),
-            __("mall.start_date"),
-            __('mall.end_date')
+            __("main.id"),
+            __("main.code"),
+            __("main.discount"),
+            __("main.max_usage"),
+            __('main.used_times'),
+            __("main.start_date"),
+            __('main.end_date')
         ];
     }
 }

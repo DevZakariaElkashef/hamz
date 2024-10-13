@@ -25,6 +25,6 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $user->update($request->validated());
-        return $this->sendResponse(200, '', __("mall.updated_successffully"));
+        return $this->sendResponse(200, '', __("main.updated_successffully"));
     }
 }

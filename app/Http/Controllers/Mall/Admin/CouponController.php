@@ -45,7 +45,7 @@ class CouponController extends Controller
         try {
             Excel::import(new CouponImport, $request->file('file'));
 
-            return back()->with('success', __("mall.created_successfully"));
+            return back()->with('success', __("main.created_successfully"));
         } catch (ValidationException $e) {
             // Get the first failure from the exception
             $failure = $e->failures()[0];
@@ -75,7 +75,7 @@ class CouponController extends Controller
     public function store(CouponRequest $request)
     {
         $this->couponRepository->coupon($request); // coupon coupon
-        return to_route('mall.coupons.index')->with('success', __("mall.created_successffully"));
+        return to_route('mall.coupons.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -100,7 +100,7 @@ class CouponController extends Controller
     public function update(CouponRequest $request, Coupon $coupon)
     {
         $this->couponRepository->update($request, $coupon);
-        return to_route('mall.coupons.index')->with('success', __("mall.updated_successffully"));
+        return to_route('mall.coupons.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Coupon $coupon)
@@ -108,7 +108,7 @@ class CouponController extends Controller
         $coupon->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("mall.updated_successffully")
+            'message' => __("main.updated_successffully")
         ]);
     }
 
@@ -118,12 +118,12 @@ class CouponController extends Controller
     public function destroy(Coupon $coupon)
     {
         $this->couponRepository->delete($coupon);
-        return to_route('mall.coupons.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.coupons.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->couponRepository->deleteSelection($request);
-        return to_route('mall.coupons.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.coupons.index')->with('success', __("main.delete_successffully"));
     }
 }

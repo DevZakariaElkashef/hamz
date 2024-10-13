@@ -26,7 +26,7 @@ class BrandExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'id' => $brand->id,
                 'name' => $brand->name,
                 'store' => $brand->store->name ?? '',
-                'status' => $brand->is_active ? __("mall.active") : __("mall.not_active"),
+                'status' => $brand->is_active ? __("main.active") : __("main.not_active"),
                 'date' => $brand->created_at->format('Y-m-d'),
             ];
         });
@@ -35,11 +35,11 @@ class BrandExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            __('mall.id'),
-            __('mall.name'),
-            __('mall.store'),
-            __('mall.status'),
-            __('mall.date'),
+            __('main.id'),
+            __('main.name'),
+            __('main.store'),
+            __('main.status'),
+            __('main.date'),
         ];
     }
 }

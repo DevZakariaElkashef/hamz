@@ -27,7 +27,7 @@ class CategoryExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'name' => $cateogry->name,
                 'parent' => $cateogry->parent->name ?? '',
                 'store' => $cateogry->store->name ?? '',
-                'status' => $cateogry->is_active ? __("mall.active") : __("mall.not_active"),
+                'status' => $cateogry->is_active ? __("main.active") : __("main.not_active"),
                 'date' => $cateogry->created_at->format('Y-m-d'),
             ];
         });
@@ -36,12 +36,12 @@ class CategoryExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            __('mall.id'),
-            __('mall.name'),
-            __('mall.parent_category'),
-            __('mall.store'),
-            __('mall.status'),
-            __('mall.date'),
+            __('main.id'),
+            __('main.name'),
+            __('main.parent_category'),
+            __('main.store'),
+            __('main.status'),
+            __('main.date'),
         ];
     }
 }

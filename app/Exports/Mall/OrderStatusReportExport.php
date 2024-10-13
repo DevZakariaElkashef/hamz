@@ -51,8 +51,8 @@ class OrderStatusReportExport implements FromCollection, WithHeadings, ShouldAut
     public function headings(): array
     {
         return [
-            __('mall.status'),
-            __('mall.total_orders')
+            __('main.status'),
+            __('main.total_orders')
         ];
     }
 }

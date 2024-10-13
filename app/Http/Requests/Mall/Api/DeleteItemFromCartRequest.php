@@ -30,10 +30,10 @@ class DeleteItemFromCartRequest extends BaseApiRequest
     public function messages(): array
     {
         return [
-            'product_id.required' => __('mall.product_id_required'),
-            'product_id.exists' => __('mall.product_id_exists'),
-            'cart_id.required' => __('mall.cart_id_required'),
-            'cart_id.exists' => __('mall.cart_id_exists'),
+            'product_id.required' => __('main.product_id_required'),
+            'product_id.exists' => __('main.product_id_exists'),
+            'cart_id.required' => __('main.cart_id_required'),
+            'cart_id.exists' => __('main.cart_id_exists'),
         ];
     }
 }

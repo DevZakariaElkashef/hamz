@@ -19,13 +19,13 @@ class CartRepository
             $item->update([
                 'qty' => $request->qty
             ]);
-            $message = __("mall.quantaty_updated");
+            $message = __("main.quantaty_updated");
         } else {
             $cart->items()->create([
                 'product_id' => $request->product_id,
                 'qty' => $request->qty
             ]);
-            $message = __("mall.added_to_cart_success");
+            $message = __("main.added_to_cart_success");
         }
 
         return $message;
@@ -35,6 +35,6 @@ class CartRepository
     {
         $cart = Cart::find($request->cart_id);
         $cart->items()->where('product_id', $request->product_id)->forceDelete();
-        return __("mall.delete_successffully");
+        return __("main.delete_successffully");
     }
 }

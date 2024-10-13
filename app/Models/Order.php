@@ -16,23 +16,23 @@ class Order extends Model
 
     public function getPaymentMethodAttribute()
     {
-        return $this->attributes['payment_type'] ? __('mall.wallet') : __('mall.online');
+        return $this->attributes['payment_type'] ? __('main.wallet') : __('main.online');
     }
 
     public function getPaymentConditionAttribute()
     {
         switch ($this->attributes['payment_type']) {
             case 0:
-                return __("mall.pending");
+                return __("main.pending");
                 break;
             case 1:
-                return __("mall.paid");
+                return __("main.paid");
                 break;
             case 2:
-                return __("mall.faild");
+                return __("main.faild");
                 break;
             default:
-                return __("mall.unknown");
+                return __("main.unknown");
                 break;
         }
     }

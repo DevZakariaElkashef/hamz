@@ -3,9 +3,9 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>{{ __('mall.Vendor_Name') }}</th>
-                <th>{{ __('mall.Quantity_Sold') }}</th>
-                <th>{{ __('mall.Total_Sales') }}</th>
+                <th>{{ __('main.Vendor_Name') }}</th>
+                <th>{{ __('main.Quantity_Sold') }}</th>
+                <th>{{ __('main.Total_Sales') }}</th>
             </tr>
         </thead>
         <tbody>

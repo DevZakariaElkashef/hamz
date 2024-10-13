@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.products') }}
+    {{ __('main.products') }}
 @endsection
 @section('css')
     <!---Internal Owl Carousel css-->
@@ -16,17 +16,17 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto"><a href="{{ route('mall.home') }}"
-                        class="text-dark">{{ __('mall.home') }}</a></h5>
+                        class="text-dark">{{ __('main.home') }}</a></h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.reports.allOrderDetails') }}">{{ __('mall.Product_Sales') }}</a></span>
+                        href="{{ route('mall.reports.allOrderDetails') }}">{{ __('main.Product_Sales') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
 
             <div class="pr-1 mb-3 mb-xl-0">
                 <a href="{{ route('mall.reports.allOrderDetailsExport', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'section_id' => request('section_id'), 'store_id' => request('store_id'),]) }}"
-                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('mall.export_to_excel') }}">
-                    {{ __('mall.export') }}
+                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
+                    {{ __('main.export') }}
                     <i class="mdi mdi-download"></i>
                 </a>
 
@@ -49,26 +49,26 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">{{ __('mall.filter') }}</h6><button aria-label="Close" class="close"
+                    <h6 class="modal-title">{{ __('main.filter') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form method="get" action="{{ route('mall.reports.allOrderDetails') }}">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="start_at">{{ __('mall.start_date') }}</label>
+                            <label for="start_at">{{ __('main.start_date') }}</label>
                             <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at"
                                 class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="end_at">{{ __('mall.end_date') }}</label>
+                            <label for="end_at">{{ __('main.end_date') }}</label>
                             <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at"
                                 class="form-control">
                         </div>
 
                         <div class="form-group">
-                            <label for="sectionId">{{ __('mall.section') }}</label>
+                            <label for="sectionId">{{ __('main.section') }}</label>
                             <select id="sectionId" name="section_id" class="form-control">
-                                <option value="">{{ __('mall.all') }}</option>
+                                <option value="">{{ __('main.all') }}</option>
                                 @foreach ($sections as $section)
                                     <option value="{{ $section->id }}" @if (request('section_id') == $section->id) selected @endif>
                                         {{ $section->name }}</option>
@@ -76,9 +76,9 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="storeId">{{ __('mall.store') }}</label>
+                            <label for="storeId">{{ __('main.store') }}</label>
                             <select id="storeId" name="store_id" class="form-control">
-                                <option value="">{{ __('mall.all') }}</option>
+                                <option value="">{{ __('main.all') }}</option>
                                 @foreach ($stores as $store)
                                     <option value="{{ $store->id }}">{{ $store->name }}</option>
                                 @endforeach
@@ -86,9 +86,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn ripple btn-primary" type="submit">{{ __('mall.filter') }}</button>
+                        <button class="btn ripple btn-primary" type="submit">{{ __('main.filter') }}</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
+                            type="button">{{ __('main.Close') }}</button>
                     </div>
                 </form>
             </div>
@@ -102,7 +102,7 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('mall.products') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.products') }}</h4>
                     </div>
                 </div>
                 <div class="card-body">

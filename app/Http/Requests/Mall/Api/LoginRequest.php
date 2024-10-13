@@ -36,9 +36,9 @@ class LoginRequest extends BaseApiRequest
     public function messages()
     {
         return [
-            'phone.required' => __('mall.phone_required'),
-            'phone.exists' => __('mall.phone_exists'),
-            'password.required' => __('mall.password_required'),
+            'phone.required' => __('main.phone_required'),
+            'phone.exists' => __('main.phone_exists'),
+            'password.required' => __('main.password_required'),
         ];
     }
 }

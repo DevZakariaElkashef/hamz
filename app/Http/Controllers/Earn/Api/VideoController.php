@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Earn;
+namespace App\Http\Controllers\Earn\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Earn\VideoResource;
@@ -36,7 +36,7 @@ class VideoController extends Controller
         $check = $video->viewed()->where('user_id', $request->user()->id)->where('status', 1)->first();
 
         if ($check) {
-            return $this->sendResponse(400, '', __("earn.already_watched"));
+            return $this->sendResponse(400, '', __("main.already_watched"));
         }
 
         $this->videoRepository->startWatchingVideo($request, $video);
@@ -49,7 +49,7 @@ class VideoController extends Controller
     {
         $video = $this->videoRepository->getNextVideo($request);
         if (!$video) {
-            return $this->sendResponse(404, '', __("earn.there_is_not_videos_at_the_moment"));
+            return $this->sendResponse(404, '', __("main.there_is_not_videos_at_the_moment"));
         }
 
         $this->videoRepository->startWatchingVideo($request, $video);
@@ -65,11 +65,11 @@ class VideoController extends Controller
         if ($result === null) {
             return $this->sendResponse(404, '', __("Not Found"));
         } elseif ($result === 'already_watched') {
-            return $this->sendResponse(400, '', __("earn.already_watched"));
+            return $this->sendResponse(400, '', __("main.already_watched"));
         } elseif ($result === 'watch_first') {
-            return $this->sendResponse(400, '', __("earn.watch_video_first"));
+            return $this->sendResponse(400, '', __("main.watch_video_first"));
         }
 
-        return $this->sendResponse(200, '', __('earn.you_won', ['x' => $result]));
+        return $this->sendResponse(200, '', __('main.you_won', ['x' => $result]));
     }
 }

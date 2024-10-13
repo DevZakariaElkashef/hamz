@@ -37,13 +37,13 @@ class FavouriteController extends Controller
         $check = Favourite::where('product_id', $request->product_id)->first();
         if ($check) {
             $check->delete();
-            $message = __("mall.product_delete_from_favourite");
+            $message = __("main.product_delete_from_favourite");
         } else {
             Favourite::create([
                 'user_id' => $request->user()->id,
                 'product_id' => $request->product_id
             ]);
-            $message = __("mall.product_added_to_favourite");
+            $message = __("main.product_added_to_favourite");
         }
 
         return $this->sendResponse(200, '', $message);
@@ -54,13 +54,13 @@ class FavouriteController extends Controller
         $check = Favourite::where('store_id', $request->store_id)->first();
         if ($check) {
             $check->delete();
-            $message = __("mall.store_delete_from_favourite");
+            $message = __("main.store_delete_from_favourite");
         } else {
             Favourite::create([
                 'user_id' => $request->user()->id,
                 'store_id' => $request->store_id
             ]);
-            $message = __("mall.store_added_to_favourite");
+            $message = __("main.store_added_to_favourite");
         }
         return $this->sendResponse(200, '', $message);
     }

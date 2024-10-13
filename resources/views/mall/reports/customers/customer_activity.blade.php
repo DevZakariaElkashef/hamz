@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.products') }}
+    {{ __('main.products') }}
 @endsection
 @section('css')
     <!---Internal Owl Carousel css-->
@@ -16,17 +16,17 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto"><a href="{{ route('mall.home') }}"
-                        class="text-dark">{{ __('mall.home') }}</a></h5>
+                        class="text-dark">{{ __('main.home') }}</a></h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.reports.customerActivity') }}">{{ __('mall.Product_Sales') }}</a></span>
+                        href="{{ route('mall.reports.customerActivity') }}">{{ __('main.Product_Sales') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
 
             <div class="pr-1 mb-3 mb-xl-0">
                 <a href="{{ route('mall.reports.customerActivityExport', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active'), 'category_id' => request('category_id'), 'brand_id' => request('brand_id')]) }}"
-                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('mall.export_to_excel') }}">
-                    {{ __('mall.export') }}
+                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
+                    {{ __('main.export') }}
                     <i class="mdi mdi-download"></i>
                 </a>
 
@@ -48,12 +48,12 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('mall.products') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.products') }}</h4>
                         <div class="d-flex">
 
                             <input type="text" id="searchReport"
                                 data-url="{{ route('mall.reports.customerActivitySearch') }}" class="form-control"
-                                placeholder="{{ __('mall.search') }}">
+                                placeholder="{{ __('main.search') }}">
                             <div class="custom-select-wrapper mx-1">
                                 <select id="showPerPage" class="custom-select"
                                     data-url="{{ route('mall.reports.customerActivity') }}" onchange="updatePageSize()">

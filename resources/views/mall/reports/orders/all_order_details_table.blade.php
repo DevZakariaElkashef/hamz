@@ -2,11 +2,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>{{ __('mall.Order_number') }}</th>
-                <th>{{ __('mall.product') }}</th>
-                <th>{{ __('mall.qty') }}</th>
-                <th>{{ __('mall.price') }}</th>
-                <th>{{ __('mall.total') }}</th>
+                <th>{{ __('main.Order_number') }}</th>
+                <th>{{ __('main.product') }}</th>
+                <th>{{ __('main.qty') }}</th>
+                <th>{{ __('main.price') }}</th>
+                <th>{{ __('main.total') }}</th>
             </tr>
         </thead>
         <tbody>

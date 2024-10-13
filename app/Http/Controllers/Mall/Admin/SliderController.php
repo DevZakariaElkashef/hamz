@@ -45,7 +45,7 @@ class SliderController extends Controller
     public function store(SliderRequest $request)
     {
         $this->sliderRepository->store($request); // store slider
-        return to_route('mall.sliders.index')->with('success', __("mall.created_successffully"));
+        return to_route('mall.sliders.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -70,7 +70,7 @@ class SliderController extends Controller
     public function update(SliderRequest $request, Slider $slider)
     {
         $this->sliderRepository->update($request, $slider);
-        return to_route('mall.sliders.index')->with('success', __("mall.updated_successffully"));
+        return to_route('mall.sliders.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Slider $slider)
@@ -78,7 +78,7 @@ class SliderController extends Controller
         $slider->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("mall.updated_successffully")
+            'message' => __("main.updated_successffully")
         ]);
     }
 
@@ -88,12 +88,12 @@ class SliderController extends Controller
     public function destroy(Slider $slider)
     {
         $this->sliderRepository->delete($slider);
-        return to_route('mall.sliders.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.sliders.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->sliderRepository->deleteSelection($request);
-        return to_route('mall.sliders.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.sliders.index')->with('success', __("main.delete_successffully"));
     }
 }

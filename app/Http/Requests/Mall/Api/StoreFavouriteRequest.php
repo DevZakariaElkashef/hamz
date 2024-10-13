@@ -29,8 +29,8 @@ class StoreFavouriteRequest extends BaseApiRequest
     public function messages()
     {
         return [
-            'store.required' => __('mall.store_required'),
-            'store.exists' => __('mall.store_exists'),
+            'store.required' => __('main.store_required'),
+            'store.exists' => __('main.store_exists'),
         ];
     }
 }

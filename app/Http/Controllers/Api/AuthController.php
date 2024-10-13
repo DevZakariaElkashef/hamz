@@ -34,34 +34,34 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $otp = $this->authRepository->register($request->validated());
-        return $this->sendResponse(200, $otp, __("mall.acount_created_check_otp"));
+        return $this->sendResponse(200, $otp, __("main.acount_created_check_otp"));
     }
 
     public function verifyOtp(VerifiyRequest $request)
     {
         $verified = $this->authRepository->verify($request->all());
         if ($verified) {
-            return $this->sendResponse(200, '', __("mall.account_verified_success"));
+            return $this->sendResponse(200, '', __("main.account_verified_success"));
         }
-        return $this->sendResponse(200, '', __("mall.error_accoure"));
+        return $this->sendResponse(200, '', __("main.error_accoure"));
     }
 
     public function sendOtp(SendOtpRequest $request)
     {
         $sended = $this->authRepository->sendOtp($request->validated());
         if ($sended) {
-            return $this->sendResponse(200, '', __("mall.otp_send_success"));
+            return $this->sendResponse(200, '', __("main.otp_send_success"));
         }
-        return $this->sendResponse(200, '', __("mall.error_accoure"));
+        return $this->sendResponse(200, '', __("main.error_accoure"));
     }
 
     public function updatePassword(forgetPasswordRequest $request)
     {
         $udpated = $this->authRepository->updatePassword($request->validated());
         if ($udpated) {
-            return $this->sendResponse(200, '', __("mall.updated_successffully"));
+            return $this->sendResponse(200, '', __("main.updated_successffully"));
         }
-        return $this->sendResponse(200, '', __("mall.error_accoure"));
+        return $this->sendResponse(200, '', __("main.error_accoure"));
     }
 
     public function logout(Request $request)
@@ -69,6 +69,6 @@ class AuthController extends Controller
         $user = $request->user();
         $this->authRepository->logout($user);
 
-        return $this->sendResponse(200, '', __("mall.logout_success"));
+        return $this->sendResponse(200, '', __("main.logout_success"));
     }
 }

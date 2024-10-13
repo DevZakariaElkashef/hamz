@@ -41,16 +41,16 @@ class AllVendorSalesReportExport implements FromCollection, WithHeadings, Should
                     'total_sale' =>  $item->total_sales,
                 ];
             });
-            
+
             return $sales;
     }
 
     public function headings(): array
     {
         return [
-            __('mall.store'),
-            __('mall.Quantity_Sold'),
-            __('mall.Total_Sales')
+            __('main.store'),
+            __('main.Quantity_Sold'),
+            __('main.Total_Sales')
         ];
     }
 }

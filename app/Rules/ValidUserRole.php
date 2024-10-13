@@ -27,7 +27,7 @@ class ValidUserRole implements ValidationRule
         $user = User::where('phone', $this->phone)->first();
 
         if (!$user || !in_array($user->role_id, [2, 3])) {
-            $fail(__('mall.invalid_role'));
+            $fail(__('main.invalid_role'));
         }
     }
 }

@@ -24,7 +24,7 @@ class LowStockAlertsReportExport implements FromCollection, WithHeadings, Should
             return [
                 'id' => $product->id,
                 'name' => $product->name,
-                'status' => $product->is_active ? __("mall.active") : __("mall.not_active"),
+                'status' => $product->is_active ? __("main.active") : __("main.not_active"),
                 'qty' => $product->qty,
             ];
         });
@@ -33,10 +33,10 @@ class LowStockAlertsReportExport implements FromCollection, WithHeadings, Should
     public function headings(): array
     {
         return [
-            __('mall.id'),
-            __('mall.name'),
-            __("mall.status"),
-            __('mall.qty')
+            __('main.id'),
+            __('main.name'),
+            __("main.status"),
+            __('main.qty')
         ];
     }
 }

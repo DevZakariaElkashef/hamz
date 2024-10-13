@@ -3,8 +3,8 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>{{ __('mall.status') }}</th>
-                <th>{{ __('mall.total_orders') }}</th>
+                <th>{{ __('main.status') }}</th>
+                <th>{{ __('main.total_orders') }}</th>
             </tr>
         </thead>
         <tbody>

@@ -47,7 +47,7 @@ class CategoryController extends Controller
         try {
             Excel::import(new CategoryImport, $request->file('file'));
 
-            return back()->with('success', __("mall.created_successfully"));
+            return back()->with('success', __("main.created_successfully"));
         } catch (ValidationException $e) {
             // Get the first failure from the exception
             $failure = $e->failures()[0];
@@ -95,7 +95,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $this->categoryRepository->store($request); // store category
-        return to_route('mall.categories.index')->with('success', __("mall.created_successffully"));
+        return to_route('mall.categories.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -122,7 +122,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $this->categoryRepository->update($request, $category);
-        return to_route('mall.categories.index')->with('success', __("mall.updated_successffully"));
+        return to_route('mall.categories.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Category $category)
@@ -130,7 +130,7 @@ class CategoryController extends Controller
         $category->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("mall.updated_successffully")
+            'message' => __("main.updated_successffully")
         ]);
     }
 
@@ -140,12 +140,12 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $this->categoryRepository->delete($category);
-        return to_route('mall.categories.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.categories.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->categoryRepository->deleteSelection($request);
-        return to_route('mall.categories.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.categories.index')->with('success', __("main.delete_successffully"));
     }
 }

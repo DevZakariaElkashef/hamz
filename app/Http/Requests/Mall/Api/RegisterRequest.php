@@ -33,21 +33,21 @@ class RegisterRequest extends BaseApiRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('mall.name.required'),
-            'name.string' => __('mall.name.string'),
-            'name.max' => __('mall.name.max'),
+            'name.required' => __('main.name.required'),
+            'name.string' => __('main.name.string'),
+            'name.max' => __('main.name.max'),
 
-            'email.required' => __('mall.email.required'),
-            'email.email' => __('mall.email.email'),
-            'email.unique' => __('mall.email.unique'),
+            'email.required' => __('main.email.required'),
+            'email.email' => __('main.email.email'),
+            'email.unique' => __('main.email.unique'),
 
-            'phone.required' => __('mall.phone.required'),
-            'phone.unique' => __('mall.phone.unique'),
-            'phone.phone_format' => __('mall.phone.phone_format'),
+            'phone.required' => __('main.phone.required'),
+            'phone.unique' => __('main.phone.unique'),
+            'phone.phone_format' => __('main.phone.phone_format'),
 
-            'password.required' => __('mall.password.required'),
-            'password.min' => __('mall.password.min'),
-            'password.max' => __('mall.password.max'),
+            'password.required' => __('main.password.required'),
+            'password.min' => __('main.password.min'),
+            'password.max' => __('main.password.max'),
         ];
     }
 }
