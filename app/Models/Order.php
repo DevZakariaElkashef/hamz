@@ -24,16 +24,12 @@ class Order extends Model
         switch ($this->attributes['payment_type']) {
             case 0:
                 return __("main.pending");
-                break;
             case 1:
                 return __("main.paid");
-                break;
             case 2:
                 return __("main.faild");
-                break;
             default:
                 return __("main.unknown");
-                break;
         }
     }
 
