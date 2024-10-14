@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Earn\api;
+namespace App\Http\Controllers\Earn\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Earn\Api\StoreWithdrowRequest;

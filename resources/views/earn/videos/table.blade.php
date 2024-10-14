@@ -19,14 +19,14 @@
                     <td>{{ $video->title }}</td>
                     <td>{{ $video->reward_amount . __('main.sar') }}</td>
                     <td>
-                        <a href="{{ asset($video->url) }}">{{ __("main.show") }}</a>
+                        <a href="{{ asset($video->path) }}" target="_blank">{{ __("main.show") }}</a>
                     </td>
                     <td>
                         <label class="custom-toggle-switch">
                             <input type="checkbox" class="custom-toggle-input" data-id="{{ $video->id }}"
                                 data-url="{{ route('earn.video.toggleStatus', $video->id) }}"
                                 {{ $video->is_active ? 'checked' : '' }}>
-                            <span class="custom-toggle-video"></span>
+                            <span class="custom-toggle-slider"></span>
                         </label>
                     </td>
 

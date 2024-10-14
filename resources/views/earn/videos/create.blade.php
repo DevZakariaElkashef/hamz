@@ -44,30 +44,33 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.name') }}(AR): <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_ar" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') }}">
-                                @error('name_ar')
+                                <input class="form-control" name="title_ar" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('title_ar') }}">
+                                @error('title_ar')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.name') }}(EN): <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_en" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') }}">
-                                @error('name_en')
+                                <input class="form-control" name="title_en" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('title_en') }}">
+                                @error('title_en')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.url') }}:</label>
-                                <input class="form-control" name="url" placeholder="{{ __('main.enter_name') }}"
-                                    type="url" value="{{ old('url') }}">
-                                @error('url')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+
+                            <div class="col-md-6 form-group mt-4">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
+                                    <input class="custom-file-input" required id="customFile" type="file" name="thumbnail">
+                                    @error('thumbnail')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
+
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
@@ -82,15 +85,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-12 form-group mt-4">
-                                <div class="custom-file">
-                                    <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
-                                    <input class="custom-file-input" required id="customFile" type="file" name="image">
-                                    @error('image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+
 
                             <div class="col-12 mg-t-10 mg-sm-t-25">
                                 <button class="btn btn-main-primary pd-x-20"

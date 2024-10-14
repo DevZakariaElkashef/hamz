@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title_ar');
             $table->string('title_en');
             $table->string('path');
+            $table->string('thumbnail')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->decimal('reward_amount');
