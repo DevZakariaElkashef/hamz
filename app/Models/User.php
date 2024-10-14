@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(View::class);
     }
+
+    public function withdrows()
+    {
+        return $this->hasMany(Withdrow::class);
+    }
 }

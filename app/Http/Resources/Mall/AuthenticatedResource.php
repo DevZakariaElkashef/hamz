@@ -18,8 +18,9 @@ class AuthenticatedResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name ?? '',
             'email' => $this->email ?? '',
-            'phone' => $this->phone ?? '',
+            'phone' => (string) $this->phone ?? '',
             'image' => $this->image ? asset($this->image) : '',
+            'wallet' => (string) $this->wallet ?? 0,
             'token' => 'Bearer ' . $this->createToken('Api')->plainTextToken
         ];
     }

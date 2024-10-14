@@ -281,7 +281,11 @@ return
         'welcome_dashboard' => 'اهلا وسهلا بك في لوحة التحكم',
         'stars' => 'نجوم',
         'reviews' => 'التقييم',
-        'comment' => 'التعليق'
-
+        'comment' => 'التعليق',
+        'walletr_is_empty' => 'المحفظة لا يوجد بها رصيد',
+        'you_dont_have_enough_money' => 'لا تمتلك المال الكافى',
+        'withdrow_sent_to_admin' => 'تم ارسال طلب السحب الى الإدارة',
+        'confirmed' => 'مؤكدة',
+        'sar' => 'ر.س'
 
     ];

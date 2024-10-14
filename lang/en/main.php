@@ -287,6 +287,14 @@ return
         'mall' => 'Mall',
         'welcome_dashboard' => 'Hi, welcome back!',
         'stars' => 'Stars',
-        'reviews' => 'Reviews'
+        'reviews' => 'Reviews',
+
+
+
+        'walletr_is_empty' => 'walletr is empty',
+        'you_dont_have_enough_money' => 'you dont have enough money',
+        'withdrow_sent_to_admin' => 'withdrow sent to admin',
+        'confirmed' => 'Confirmed',
+        'sar' => 'sar'
 
     ];

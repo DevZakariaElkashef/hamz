@@ -18,9 +18,10 @@ class UserProfileResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name ?? '',
             'email' => $this->email ?? '',
-            'phone' => $this->phone ?? '',
+            'phone' => (string) $this->phone ?? '',
+            'wallet' => (string) $this->wallet ?? 0,
             'image' => $this->image ? asset($this->image) : '',
-            
+
         ];
     }
 }
