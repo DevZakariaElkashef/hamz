@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Earn\Admin\VideoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Earn\Admin\HomeController;
 use App\Http\Controllers\Mall\Admin\ImageController;
@@ -34,4 +35,12 @@ Route::as('earn.')->group(function () {
     Route::get('categories-by-store', [CategoryController::class, 'getCategoriesBystore'])->name('categories.byStore');
     Route::get('categories-by-section', [CategoryController::class, 'getCategoriesBySection'])->name('categories.bySection');
     Route::delete('delete-categories', [CategoryController::class, 'delete'])->name('categories.delete');
+
+
+    /**start Slider Routes */
+    Route::resource('videos', VideoController::class);
+    Route::get('search-videos', [VideoController::class, 'search'])->name('videos.search');
+    Route::get('videos-toggle-status/{slider}', [VideoController::class, 'toggleStatus'])->name('video.toggleStatus');
+    Route::delete('delete-videos', [VideoController::class, 'delete'])->name('videos.delete');
+    /**end Slider Routes */
 });
