@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Earn\Admin;
 
+use App\Models\Category;
 use App\Models\Video;
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Earn\Web\VideoRequest;
@@ -34,9 +36,11 @@ class VideoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view("earn.videos.create");
+        $categories = DB::select('SELECT * FROM categories WHERE `app` = "earn" AND `is_active` = 1');
+        // $categories = Category::earn()->where('user_id', $request->user()->id)->active()->get();
+        return view("earn.videos.create", compact('categories'));
     }
 
     /**
@@ -61,7 +65,9 @@ class VideoController extends Controller
      */
     public function edit(Video $video)
     {
-        return view('earn.videos.edit', compact('video'));
+        $categories = DB::select('SELECT * FROM categories WHERE `app` = "earn" AND `is_active` = 1');
+        // $categories = Category::earn()->where('user_id', $request->user()->id)->active()->get();
+        return view('earn.videos.edit', compact('video', 'categories'));
     }
 
     /**

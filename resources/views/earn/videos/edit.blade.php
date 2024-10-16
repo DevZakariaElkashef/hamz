@@ -45,30 +45,54 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.name') }}(AR): <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_ar" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') ?? $video->name_ar }}">
-                                @error('name_ar')
+                                <input class="form-control" name="title_ar" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('title_ar', $video->title_ar) ?? $video->title_ar }}">
+                                @error('title_ar')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.name') }}(EN): <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_en" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') ?? $video->name_en }}">
-                                @error('name_en')
+                                <input class="form-control" name="title_en" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('title_en', $video->title_en) ?? $video->title_en }}">
+                                @error('title_en')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.url') }}:</label>
-                                <input class="form-control" name="url" placeholder="{{ __('main.enter_name') }}"
-                                    type="url" value="{{ old('url') ?? $video->url }}">
-                                @error('url')
+                                <label class="form-label">{{ __('main.duration') }}:</label>
+                                <input class="form-control" name="duration" readonly id="durationInput"
+                                    placeholder="{{ __('main.duration') }}" type="text"
+                                    value="{{ old('duration', $video->duration) }}">
+                                @error('duration')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.reword_amount') }}: <span
+                                        class="tx-danger">*</span></label>
+                                <input class="form-control" name="reword_amount"
+                                    placeholder="{{ __('main.enter_reword_amount') }}" required="" type="number"
+                                    value="{{ old('reword_amount', $video->reword_amount) }}">
+                                @error('reword_amount')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mt-4">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="customFile">{{ __('main.thumbnail') }}</label>
+                                    <input class="custom-file-input" id="customFile" type="file"
+                                        accept=".jpg,.png,.jpeg" name="thumbnail">
+                                    @error('thumbnail')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
@@ -83,14 +107,44 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-12 form-group mt-4">
+
+
+
+                            <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
-                                    <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
-                                    <input class="custom-file-input" id="customFile" type="file" name="image">
-                                    @error('image')
+                                    <label class="custom-file-label" for="customFile">{{ __('main.video') }}</label>
+                                    <input class="custom-file-input" id="customFileVideo" type="file"
+                                        accept=".mp4" name="path">
+                                    @error('video')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.category') }}: <span
+                                        class="tx-danger">*</span></label>
+                                <select required class="form-control" name="category_id">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            @if (old('category_id', $video->category_id) == $category->id) selected @endif>
+                                            {{ $category->{'name_' . app()->getLocale()} }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="my-3 preview-video">
+                                <!-- Video preview will be displayed here -->
+                                <video width="300" controls>
+                                    <source src="{{ asset($video->path) }}" type="video/mp4">
+                                    {{ __("Your browser does not support the video tag.") }}
+                                </video>
+
                             </div>
 
                             <div class="col-12 mg-t-10 mg-sm-t-25">
@@ -117,4 +171,33 @@
     <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
     <!-- Internal Form-validation js -->
     <script src="{{ URL::asset('assets/js/form-validation.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('customFileVideo').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file && file.type === 'video/mp4') {
+                    const videoPreviewContainer = document.querySelector('.preview-video');
+                    const durationInput = document.getElementById('durationInput');
+
+                    videoPreviewContainer.innerHTML = ''; // Clear any existing preview
+                    durationInput.value = ''; // Clear the duration input
+
+                    const video = document.createElement('video');
+                    video.width = 300; // Set video width
+                    video.controls = true; // Add controls (play, pause, etc.)
+                    video.src = URL.createObjectURL(file);
+
+                    // When video metadata (such as duration) is loaded
+                    video.addEventListener('loadedmetadata', function() {
+                        // Set the video duration (in seconds) to the input field
+                        const duration = video.duration;
+                        durationInput.value = duration.toFixed(
+                        2); // Format duration with 2 decimal places
+                    });
+
+                    videoPreviewContainer.appendChild(video);
+                }
+            });
+        });
+    </script>
 @endsection

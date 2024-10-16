@@ -5,7 +5,7 @@
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
                 <th>{{ __('main.id') }}</th>
                 <th>{{ __('main.name') }}</th>
-                <th>{{ __('main.amount') }}</th>
+                <th>{{ __('main.reword_amount') }}</th>
                 <th>{{ __('main.url') }}</th>
                 <th>{{ __('main.status') }}</th>
                 <th>{{ __('main.actions') }}</th>
@@ -17,7 +17,7 @@
                     <th class="text-end p-1"><input type="checkbox" class="checkbox-input" value="{{ $video->id }}"></th>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $video->title }}</td>
-                    <td>{{ $video->reward_amount . __('main.sar') }}</td>
+                    <td>{{ $video->reword_amount . __('main.sar') }}</td>
                     <td>
                         <a href="{{ asset($video->path) }}" target="_blank">{{ __("main.show") }}</a>
                     </td>
@@ -29,8 +29,6 @@
                             <span class="custom-toggle-slider"></span>
                         </label>
                     </td>
-
-
 
                     <td>
                         <a href="{{ route('earn.videos.edit', $video->id) }}"

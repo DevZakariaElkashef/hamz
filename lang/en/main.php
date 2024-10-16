@@ -295,6 +295,19 @@ return
         'you_dont_have_enough_money' => 'you dont have enough money',
         'withdrow_sent_to_admin' => 'withdrow sent to admin',
         'confirmed' => 'Confirmed',
-        'sar' => 'sar'
+        'sar' => 'sar',
+
+
+        "videos" => "videos",
+        "create_video" => "create_video",,
+        "duration" => "duration",
+        "enter_duration" => "enter_duration",
+        "reword_amount" => "reword_amount",
+        "enter_reword_amount" => "enter_reword_amount",
+        "thumbnail" => "thumbnail",
+        "video" => "video",
+        "Your browser does not support the video tag." => "Your browser does not support the video tag.",
+        "edit_video" => "edit_video"
+
 
     ];

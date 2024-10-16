@@ -11,7 +11,7 @@ class VideoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class VideoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title_ar' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
+            'duration' => 'required',
+            'reword_amount' => 'required',
+            'thumbnail' => 'nullable|file|mimes:png,jpg,jpeg',
+            'path' => 'nullable|file',
+            'is_active' => 'required|boolean'
         ];
     }
 }

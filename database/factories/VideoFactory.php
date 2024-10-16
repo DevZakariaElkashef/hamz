@@ -24,7 +24,7 @@ class VideoFactory extends Factory
             'thumbnail' => str_replace(['public', '\\'], ['', '/'], fake()->image('public/uploads/videos', 640, 480, 'art4muslim')),
             'seller_id' => rand(1, 10),
             'category_id' => Category::factory(),
-            'reward_amount' => rand(10, 100),
+            'reword_amount' => rand(10, 100),
             'duration' => fake()->randomFloat(),
             'app' => 'earn'
         ];
