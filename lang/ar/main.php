@@ -296,5 +296,22 @@ return
     "video" => "فيديو",
     "Your browser does not support the video tag." => "متصفحك لا يدعم وسم الفيديو.",
     "edit_video" => "تعديل الفيديو",
+    "already_watched" => "تمت المشاهدة بالفعل",
+    "canceled" => "ملغي",
+    "failed" => "فشل",
+    "withdrows" => "سحوبات",
+    "amount" => "المبلغ",
+    "iban" => "رقم الآيبان",
+    'edit_withdrow' => 'تعديل عملية السحب',
+    'there_is_not_videos_at_the_moment' => 'لا يوجد فيديوهات فى الوقت الحالى',
+    'you_won' => 'لقد ربحت مبلغ من المال بقمة :x ريال',
+    'watch_video_first' => 'الرجاء مشاهده الفيديو اولا',
+    'user' => "مستخدم",
+    'watched_at' => "تاريخ المشاهدة",
+    "is_watched" => "تمت المشاهدة",
+    "views" => "المشاهدات",
+    "watched" => "تمت المشاهدة",
+"not_watched" => "لم تتم المشاهدة",
+
 
 ];

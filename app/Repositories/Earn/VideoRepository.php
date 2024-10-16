@@ -40,6 +40,8 @@ class VideoRepository
             return 'already_watched';
         }
 
+
+
         $check = $video->viewed()
             ->where('user_id', $user->id)
             ->where('status', 0)
@@ -50,12 +52,12 @@ class VideoRepository
         }
 
         $user->update([
-            'wallet' => $user->wallet + $video->reward_amount,
+            'wallet' => $user->wallet + $video->reword_amount,
         ]);
 
         $check->update(['status' => 1]);
 
-        return $video->reward_amount;
+        return $video->reword_amount;
     }
 
     public function startWatchingVideo($request, $video)

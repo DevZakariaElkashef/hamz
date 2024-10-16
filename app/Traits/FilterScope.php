@@ -26,6 +26,10 @@ trait FilterScope
             $query->where('section_id', $request->section_id);
         }
 
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
         if ($request->filled('attribute_id')) {
             $query->where('attribute_id', $request->attribute_id);
         }
