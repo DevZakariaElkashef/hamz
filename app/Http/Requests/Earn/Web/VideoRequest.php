@@ -27,7 +27,7 @@ class VideoRequest extends FormRequest
             'duration' => 'required',
             'reword_amount' => 'required',
             'thumbnail' => 'nullable|file|mimes:png,jpg,jpeg',
-            'path' => 'nullable|file',
+            'path' => 'nullable|url',
             'is_active' => 'required|boolean'
         ];
     }

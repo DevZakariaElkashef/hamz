@@ -63,8 +63,8 @@
                             <!-- Video Duration Input Field -->
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.duration') }}:</label>
-                                <input class="form-control" name="duration" readonly id="durationInput"
-                                    placeholder="{{ __('main.duration') }}" type="text"
+                                <input class="form-control" name="duration" id="duration"
+                                    placeholder="{{ __('main.duration') }}" type="number"
                                     value="{{ old('duration') }}">
                                 @error('duration')
                                     <div class="text-danger">{{ $message }}</div>
@@ -111,12 +111,11 @@
 
 
 
-                            <div class="col-md-6 form-group mt-4">
+                            <div class="col-md-6 form-group">
                                 <div class="custom-file">
-                                    <label class="custom-file-label" for="customFile">{{ __('main.video') }}</label>
-                                    <input class="custom-file-input" required id="customFileVideo" type="file"
-                                        accept=".mp4" name="path">
-                                    @error('video')
+                                    <label class="path" for="path">{{ __('main.url') }}</label>
+                                    <input class="form-control" required id="path" type="url" name="path" value="{{ old('path') }}">
+                                    @error('path')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

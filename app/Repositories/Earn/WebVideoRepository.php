@@ -37,9 +37,6 @@ class WebVideoRepository
             $data['thumbnail'] =  $this->uploadImage($request->file('thumbnail'), 'videos');
         }
 
-        if ($request->hasFile('path')) {
-            $data['path'] =  $this->uploadImage($request->file('path'), 'videos');
-        }
         return Video::create($data);
     }
 
@@ -52,9 +49,7 @@ class WebVideoRepository
         if ($request->hasFile('thumbnail')) {
             $data['thumbnail'] =  $this->uploadImage($request->file('thumbnail'), 'videos', $video->thumbnail);
         }
-        if ($request->hasFile('path')) {
-            $data['path'] =  $this->uploadImage($request->file('path'), 'videos', $video->path);
-        }
+
         $video->update($data);
         return $video;
     }

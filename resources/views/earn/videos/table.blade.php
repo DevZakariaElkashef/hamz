@@ -19,7 +19,7 @@
                     <td>{{ $video->title }}</td>
                     <td>{{ $video->reword_amount . __('main.sar') }}</td>
                     <td>
-                        <a href="{{ asset($video->path) }}" target="_blank">{{ __("main.show") }}</a>
+                        <a href="{{ $video->path }}" target="_blank">{{ __("main.show") }}</a>
                     </td>
                     <td>
                         <label class="custom-toggle-switch">

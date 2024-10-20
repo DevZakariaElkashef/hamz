@@ -63,8 +63,8 @@
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.duration') }}:</label>
-                                <input class="form-control" name="duration" readonly id="durationInput"
-                                    placeholder="{{ __('main.duration') }}" type="text"
+                                <input class="form-control" name="duration" id="duration"
+                                    placeholder="{{ __('main.duration') }}" type="number"
                                     value="{{ old('duration', $video->duration) }}">
                                 @error('duration')
                                     <div class="text-danger">{{ $message }}</div>
@@ -110,12 +110,11 @@
 
 
 
-                            <div class="col-md-6 form-group mt-4">
+                            <div class="col-md-6 form-group">
                                 <div class="custom-file">
-                                    <label class="custom-file-label" for="customFile">{{ __('main.video') }}</label>
-                                    <input class="custom-file-input" id="customFileVideo" type="file"
-                                        accept=".mp4" name="path">
-                                    @error('video')
+                                    <label class="" for="path">{{ __('main.url') }}</label>
+                                    <input class="form-control" id="path" type="url" name="path" value="{{ $video->path }}">
+                                    @error('path')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -136,15 +135,6 @@
                                 @error('category_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
-
-                            <div class="my-3 preview-video">
-                                <!-- Video preview will be displayed here -->
-                                <video width="300" controls>
-                                    <source src="{{ asset($video->path) }}" type="video/mp4">
-                                    {{ __("Your browser does not support the video tag.") }}
-                                </video>
-
                             </div>
 
                             <div class="col-12 mg-t-10 mg-sm-t-25">
@@ -171,33 +161,4 @@
     <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
     <!-- Internal Form-validation js -->
     <script src="{{ URL::asset('assets/js/form-validation.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('customFileVideo').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file && file.type === 'video/mp4') {
-                    const videoPreviewContainer = document.querySelector('.preview-video');
-                    const durationInput = document.getElementById('durationInput');
-
-                    videoPreviewContainer.innerHTML = ''; // Clear any existing preview
-                    durationInput.value = ''; // Clear the duration input
-
-                    const video = document.createElement('video');
-                    video.width = 300; // Set video width
-                    video.controls = true; // Add controls (play, pause, etc.)
-                    video.src = URL.createObjectURL(file);
-
-                    // When video metadata (such as duration) is loaded
-                    video.addEventListener('loadedmetadata', function() {
-                        // Set the video duration (in seconds) to the input field
-                        const duration = video.duration;
-                        durationInput.value = duration.toFixed(
-                        2); // Format duration with 2 decimal places
-                    });
-
-                    videoPreviewContainer.appendChild(video);
-                }
-            });
-        });
-    </script>
 @endsection
