@@ -6,6 +6,7 @@ use App\Http\Controllers\Earn\Admin\ViewController;
 use App\Http\Controllers\Earn\Admin\VideoController;
 use App\Http\Controllers\Mall\Admin\ImageController;
 use App\Http\Controllers\Earn\Admin\SliderController;
+use App\Http\Controllers\Earn\Admin\PackageController;
 use App\Http\Controllers\Earn\Admin\CategoryController;
 use App\Http\Controllers\Earn\Admin\WithdrowController;
 
@@ -40,9 +41,17 @@ Route::as('earn.')->group(function () {
 
 
     /**start Slider Routes */
+    Route::resource('packages', PackageController::class);
+    Route::get('search-packages', [PackageController::class, 'search'])->name('packages.search');
+    Route::get('packages-toggle-status/{package}', [PackageController::class, 'toggleStatus'])->name('package.toggleStatus');
+    Route::delete('delete-packages', [PackageController::class, 'delete'])->name('packages.delete');
+    /**end Slider Routes */
+
+
+    /**start Slider Routes */
     Route::resource('videos', VideoController::class);
     Route::get('search-videos', [VideoController::class, 'search'])->name('videos.search');
-    Route::get('videos-toggle-status/{slider}', [VideoController::class, 'toggleStatus'])->name('video.toggleStatus');
+    Route::get('videos-toggle-status/{video}', [VideoController::class, 'toggleStatus'])->name('video.toggleStatus');
     Route::delete('delete-videos', [VideoController::class, 'delete'])->name('videos.delete');
     /**end Slider Routes */
 

@@ -52,7 +52,7 @@ class VideoRepository
         }
 
         $user->update([
-            'wallet' => $user->wallet + $video->reword_amount,
+            'watch_and_earn_wallet' => $user->watch_and_earn_wallet + $video->reword_amount,
         ]);
 
         $check->update(['status' => 1]);
