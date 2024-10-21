@@ -6,6 +6,7 @@ use App\Models\Store;
 use App\Models\Section;
 use App\Observers\StoreObserver;
 use App\Observers\SectionObserver;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Model::shouldBeStrict(app()->isLocal());
+        
         Paginator::useBootstrapFive();
 
         Section::observe(SectionObserver::class);

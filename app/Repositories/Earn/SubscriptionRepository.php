@@ -17,7 +17,7 @@ class SubscriptionRepository
 
     public function index($request)
     {
-        $subscriptions = Subscription::filter($request)->earn()->paginate($request->per_page ?? $this->limit);
+        $subscriptions = Subscription::filter($request)->paginate($request->per_page ?? $this->limit);
 
         return $subscriptions;
     }
@@ -25,7 +25,7 @@ class SubscriptionRepository
 
     public function search($request)
     {
-        return Subscription::earn()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        return Subscription::search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

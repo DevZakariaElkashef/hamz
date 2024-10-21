@@ -14,6 +14,14 @@ class Package extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name_ar', 'like', "%$search%")
+                ->orWhere('name_en', 'like', "%$search%")
+                ->orWhere('views', 'like', "%$search%")
+                ->orWhere('price', 'like', "%$search%");
+    }
+
     public function getNameAttribute()
     {
         return $this->attributes['name_' . app()->getLocale()];

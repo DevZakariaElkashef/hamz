@@ -75,7 +75,7 @@ class SubscriptionController extends Controller
 
     public function toggleStatus(Request $request, Subscription $subscription)
     {
-        $subscription->update(['is_active' => $request->is_active]);
+        $subscription->update(['status' => $request->status]);
         return response()->json([
             'success' => true,
             'message' => __("main.updated_successffully")
