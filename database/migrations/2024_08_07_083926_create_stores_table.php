@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('lng')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->decimal('wallet')->nullable();
+            $table->string('iban');
+            $table->boolean('has_delivery')->nullable();
             $table->foreignId('section_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
