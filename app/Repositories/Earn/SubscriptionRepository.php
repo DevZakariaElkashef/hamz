@@ -34,6 +34,8 @@ class SubscriptionRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'subscriptions');
         }
+        unset($data['_token']);
+        $data['app'] = 'earn';
         return Subscription::create($data);
     }
 
@@ -44,6 +46,7 @@ class SubscriptionRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'subscriptions', $subscription->image);
         }
+        unset($data['_token'], $data['_method']);
         $subscription->update($data);
         return $subscription;
     }

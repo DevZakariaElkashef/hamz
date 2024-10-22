@@ -35,7 +35,8 @@ class SectionRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'sections');
         }
-
+        $data['app'] = 'mall';
+        unset($data['_token']);
         return Section::create($data);
     }
 
@@ -47,7 +48,7 @@ class SectionRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'sections', $section->image);
         }
-
+        unset($data['_token'], $data['_method']);
         $section->update($data);
 
         return $section;

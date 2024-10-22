@@ -34,6 +34,7 @@ class ViewRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'views');
         }
+        unset($data['_token']);
         return View::create($data);
     }
 
@@ -44,6 +45,7 @@ class ViewRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'views', $view->image);
         }
+        unset($data['_token'], $data['_method']);
         $view->update($data);
         return $view;
     }

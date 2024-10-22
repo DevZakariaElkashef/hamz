@@ -37,6 +37,8 @@ class CategoryRepository
         if (!is_numeric($data['parent_id'])) {
             unset($data['parent_id']);
         }
+        $data['app'] = 'earn';
+        unset($data['_token']);
         return Category::create($data);
     }
 
@@ -50,6 +52,7 @@ class CategoryRepository
         if (!is_numeric($data['parent_id'])) {
             $data['parent_id'] = null;
         }
+        unset($data['_token'], $data['_method']);
         $category->update($data);
         return $category;
     }

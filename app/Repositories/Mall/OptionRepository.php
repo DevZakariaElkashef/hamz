@@ -31,6 +31,8 @@ class OptionRepository
     public function store($request)
     {
         $data = $request->all();
+        $data['app'] = 'mall';
+        unset($data['_token']);
         return Option::create($data);
     }
 
@@ -38,6 +40,7 @@ class OptionRepository
     public function update($request, $option)
     {
         $data = $request->all();
+        unset($data['_token'], $data['_method']);
         $option->update($data);
         return $option;
     }

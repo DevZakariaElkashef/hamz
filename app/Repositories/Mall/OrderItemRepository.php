@@ -36,12 +36,14 @@ class OrderItemRepository
     public function createOrderItem(array $data)
     {
         // Create a new order item
+        unset($data['_token']);
         return OrderItem::create($data);
     }
 
     public function updateOrderItem(OrderItem $orderItem, array $data)
     {
         // Update an existing order item
+        unset($data['_token'], $data['_method']);
         $orderItem->update($data);
     }
 

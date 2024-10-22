@@ -33,6 +33,7 @@ class PackageRepository
         $data = $request->except('image');
         $data['color'] = fake()->hexColor();
         $data['app'] = 'earn';
+        unset($data['_token']);
         return Package::create($data);
     }
 
@@ -43,6 +44,7 @@ class PackageRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'packages', $package->image);
         }
+        unset($data['_token'], $data['_method']);
         $package->update($data);
         return $package;
     }

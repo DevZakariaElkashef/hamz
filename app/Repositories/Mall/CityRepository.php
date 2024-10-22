@@ -34,6 +34,7 @@ class CityRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'cities');
         }
+        unset($data['_token']);
         return City::create($data);
     }
 
@@ -44,6 +45,7 @@ class CityRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'cities', $city->image);
         }
+        unset($data['_token'], $data['_method']);
         $city->update($data);
         return $city;
     }

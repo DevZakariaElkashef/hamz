@@ -37,7 +37,7 @@ class StoreRepository
         }
 
         $data['appp'] = 'mall';
-
+        unset($data['_token']);
         $store = Store::create($data);
 
         if ($request->has('images')) {
@@ -76,7 +76,7 @@ class StoreRepository
         if (!$request->has('pick_up')) {
             $store->update(['pick_up' => 0]);
         }
-
+        unset($data['_token'], $data['_method']);
         $store->update($data);
 
         return $store;

@@ -36,8 +36,8 @@ class CouponRepository
             $data['image'] =  $this->uploadImage($request->file('image'), 'coupons');
         }
 
-        $data['appp'] = 'mall';
-
+        $data['app'] = 'mall';
+        unset($data['_token']);
         $coupon = Coupon::create($data);
 
         if ($request->has('images')) {
@@ -76,7 +76,7 @@ class CouponRepository
         if (!$request->has('pick_up')) {
             $coupon->update(['pick_up' => 0]);
         }
-
+        unset($data['_token'], $data['_method']);
         $coupon->update($data);
 
         return $coupon;

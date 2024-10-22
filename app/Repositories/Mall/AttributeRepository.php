@@ -31,6 +31,8 @@ class AttributeRepository
     public function store($request)
     {
         $data = $request->all();
+        $data['app'] = 'mall';
+        unset($data['_token']);
         return Attribute::create($data);
     }
 
@@ -38,6 +40,7 @@ class AttributeRepository
     public function update($request, $attribute)
     {
         $data = $request->all();
+        unset($data['_token'], $data['_method']);
         $attribute->update($data);
         return $attribute;
     }

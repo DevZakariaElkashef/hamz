@@ -36,7 +36,8 @@ class WebVideoRepository
         if ($request->hasFile('thumbnail')) {
             $data['thumbnail'] =  $this->uploadImage($request->file('thumbnail'), 'videos');
         }
-
+        $data['app'] = 'earn';
+        unset($data['_token']);
         return Video::create($data);
     }
 
@@ -49,7 +50,7 @@ class WebVideoRepository
         if ($request->hasFile('thumbnail')) {
             $data['thumbnail'] =  $this->uploadImage($request->file('thumbnail'), 'videos', $video->thumbnail);
         }
-
+        unset($data['_token'], $data['_method']);
         $video->update($data);
         return $video;
     }

@@ -36,8 +36,8 @@ class BrandRepository
             $data['image'] =  $this->uploadImage($request->file('image'), 'brands');
         }
 
-        $data['appp'] = 'mall';
-
+        $data['app'] = 'mall';
+        unset($data['_token']);
         $brand = Brand::create($data);
 
         return $brand;
@@ -51,7 +51,7 @@ class BrandRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'brands', $brand->image);
         }
-
+        unset($data['_token'], $data['_method']);
         $brand->update($data);
 
         return $brand;

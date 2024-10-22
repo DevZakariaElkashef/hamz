@@ -36,6 +36,7 @@ class WithdrowRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'withdrows');
         }
+        unset($data['_token']);
         return Withdrow::create($data);
     }
 
@@ -46,6 +47,7 @@ class WithdrowRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'withdrows', $withdrow->image);
         }
+        unset($data['_token'], $data['_method']);
         $withdrow->update($data);
         return $withdrow;
     }
