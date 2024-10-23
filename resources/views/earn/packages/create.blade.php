@@ -78,7 +78,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-12k form-group mg-b-0">
+                            <div class="col-md-12 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
                                     <option value="0" @if (old('is_active') == 0) selected @endif>

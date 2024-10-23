@@ -7,7 +7,7 @@
                 <th>{{ __('main.name') }}</th>
                 <th>{{ __('main.phone') }}</th>
                 <th>{{ __('main.email') }}</th>
-                <th>{{ __('main.ContactType') }}</th>
+                <th>{{ __('main.Contact_Types') }}</th>
                 <th>{{ __('main.message') }}</th>
                 <th>{{ __('main.is_readed') }}</th>
                 <th>{{ __('main.actions') }}</th>
