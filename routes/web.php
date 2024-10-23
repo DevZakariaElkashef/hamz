@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SocialController;
+use App\Http\Controllers\Admin\TermController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ContactTypeController;
@@ -32,3 +36,22 @@ Route::get('search-contacts', [ContactUsController::class, 'search'])->name('con
 Route::get('contacts-toggle-status/{contact}', [ContactUsController::class, 'toggleStatus'])->name('contact.toggleStatus');
 Route::delete('delete-contacts', [ContactUsController::class, 'delete'])->name('contacts.delete');
 /**end Slider Routes */
+
+
+Route::resource('applications', SettingController::class)->only('index', 'update');
+Route::resource('abouts', AboutController::class)->only('index', 'update');
+
+/**start Slider Routes */
+Route::resource('socials', SocialController::class);
+Route::get('search-socials', [socialController::class, 'search'])->name('socials.search');
+Route::get('socials-toggle-status/{social}', [socialController::class, 'toggleStatus'])->name('social.toggleStatus');
+Route::delete('delete-socials', [socialController::class, 'delete'])->name('socials.delete');
+/**end Slider Routes */
+
+/**start Slider Routes */
+Route::resource('terms', TermController::class);
+Route::get('search-terms', [TermController::class, 'search'])->name('terms.search');
+Route::get('terms-toggle-status/{term}', [TermController::class, 'toggleStatus'])->name('term.toggleStatus');
+Route::delete('delete-terms', [TermController::class, 'delete'])->name('terms.delete');
+/**end Slider Routes */
+

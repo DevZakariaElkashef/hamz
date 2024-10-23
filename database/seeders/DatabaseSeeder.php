@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
             SectionSeeder::class,
             VideoSeeder::class,
             ContactTypeSeeder::class,
+            ApplicationSeeder::class,
+            AboutSeeder::class,
+            TermSeeder::class
         ]);
     }
 }

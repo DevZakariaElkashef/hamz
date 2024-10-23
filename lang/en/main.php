@@ -348,4 +348,19 @@ return
     "subscriptions" => "subscriptions",
     "package" => "package",
     "transaction_id" => "transaction_id",
+
+    "Applications" => "Applications",
+    "settings" => "settings",
+    "about_us" => "About Us",
+    "socials" => "Socials",
+    'commission' => "Commission",
+    "content" => 'content',
+    "create_social" => "create_social",
+    'icon' => "icon",
+    "edit_social" => "edit_social",
+    "term_and_conditions" => "term And Conditions",
+    "item" => "item",
+    "enter_item" => "enter_item",
+    "create_term" => "create_term",
+    "edit_term" => "edit_term"
 ];

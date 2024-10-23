@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\Cart;
-use App\Models\Product;
-
 function checkFavouriteProduct($user, $id)
 {
     if ($user && $id) {
@@ -53,4 +50,21 @@ function distance($lat1, $lng1, $lat2, $lng2)
     $distance = $earthRadius * $c;
 
     return $distance;
+}
+
+function isActiveRoute($route, $params = [], $class = 'active')
+{
+    if (is_array($route)) {
+        foreach ($route as $r) {
+            if (Route::is($r) && empty(array_diff_assoc($params, request()->query()))) {
+                return $class;
+            }
+        }
+    } else {
+        if (Route::is($route) && empty(array_diff_assoc($params, request()->query()))) {
+            return $class;
+        }
+    }
+
+    return '';
 }

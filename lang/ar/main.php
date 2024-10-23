@@ -348,4 +348,19 @@ return
     "package" => "الباقة",
     "transaction_id" => "رقم المعاملة",
 
+    "Applications" => "التطبيقات",
+    "settings" => "الإعدادات",
+    "about_us" => "معلومات عنا",
+    "socials" => "وسائل التواصل الاجتماعي",
+    'commission' => "العمولة",
+    "content" => "المحتوى",
+    "create_social" => "إنشاء وسيلة تواصل اجتماعي",
+    'icon' => "الأيقونة",
+    "edit_social" => "تعديل وسيلة تواصل اجتماعي",
+    "term_and_conditions" => "الشروط والأحكام",
+    "item" => "عنصر",
+    "enter_item" => "أدخل العنصر",
+    "create_term" => "إنشاء شرط",
+    "edit_term" => "تعديل الشرط",
+
 ];
