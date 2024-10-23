@@ -40,6 +40,14 @@ trait FilterScope
             $query->where('brand_id', $request->brand_id);
         }
 
+        if ($request->filled('read_at')) {
+            if ($request->read_at == 1) {
+                $query->whereNotNull('read_at');
+            } else {
+                $query->whereNull('read_at');
+            }
+        }
+
         if ($request->filled('product_section_id')) {
             $query->whereHas('store', function ($store) use ($request) {
                 $store->where('section_id', $request->product_section_id);
