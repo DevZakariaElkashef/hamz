@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\ContactUsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ContactUsController;
+use App\Http\Controllers\Admin\ContactTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 })->name('home');
+
+/**start Slider Routes */
+Route::resource('contactTypes', ContactTypeController::class);
+Route::get('search-contactTypes', [ContactTypeController::class, 'search'])->name('contactTypes.search');
+Route::get('contactTypes-toggle-status/{contactType}', [ContactTypeController::class, 'toggleStatus'])->name('contacttype.toggleStatus');
+Route::delete('delete-contactTypes', [ContactTypeController::class, 'delete'])->name('contactTypes.delete');
+/**end Slider Routes */
 
 /**start Slider Routes */
 Route::resource('contacts', ContactUsController::class);

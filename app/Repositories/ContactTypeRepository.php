@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Contact;
+use App\Models\contactType;
 use App\Traits\ImageUploadTrait;
 
-class ContactRepository
+class ContactTypeRepository
 {
     use ImageUploadTrait;
     protected $limit;
@@ -17,45 +17,44 @@ class ContactRepository
 
     public function index($request)
     {
-        $contacts = Contact::with('contactType')->filter($request)->paginate($request->per_page ?? $this->limit);
+        $contactTypes = contactType::filter($request)->paginate($request->per_page ?? $this->limit);
 
-        return $contacts;
+        return $contactTypes;
     }
 
 
     public function search($request)
     {
-        return Contact::search($request->search)->paginate($request->per_page ?? $this->limit);
+        return contactType::search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)
     {
-        $data = $request->except('image');
-        $data['app'] = 'all';
+        $data = $request->all();
         unset($data['_token']);
-        return Contact::create($data);
+        return contactType::create($data);
     }
 
 
-    public function update($request, $contact)
+    public function update($request, $contactType)
     {
         $data = $request->all();
         unset($data['_token'], $data['_method']);
-        $contact->update($data);
-        return $contact;
+        $contactType->update($data);
+        return $contactType;
     }
 
 
-    public function delete($contact)
+    public function delete($contactType)
     {
-        $contact->delete();
+        $contactType->delete();
         return true;
     }
 
     public function deleteSelection($request)
     {
         $ids = explode(',', $request->ids);
-        Contact::whereIn('id', $ids)->delete();
+        contactType::whereIn('id', $ids)->delete();
         return true;
     }
 }
