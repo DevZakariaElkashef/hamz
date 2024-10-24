@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Mall\Api;
 
 use App\Rules\ValidPhoneNumber;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends BaseApiRequest
 {
@@ -24,9 +24,17 @@ class RegisterRequest extends BaseApiRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'phone' => ['required', new ValidPhoneNumber(), 'unique:users,phone'],
-            'password' => 'required|min:8|max:255'
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->whereNull('deleted_at'),
+            ],
+            'phone' => [
+                'required',
+                new ValidPhoneNumber(),
+                Rule::unique('users')->whereNull('deleted_at'),
+            ],
+            'password' => 'required|string|min:8|max:255',
         ];
     }
 

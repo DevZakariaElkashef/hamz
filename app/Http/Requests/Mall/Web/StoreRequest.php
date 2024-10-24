@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Mall\Web;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -26,7 +27,10 @@ class StoreRequest extends FormRequest
             'name_en' => 'required|string|max:255',
             'description_ar' => 'required|string|max:60000',
             'description_en' => 'required|string|max:60000',
-            'phone' => 'required|unique:stores,phone,' . $this->id,
+            'phone' => [
+                'required',
+                Rule::unique('stores')->ignore($this->id)->whereNull('deleted_at'),
+            ],
             'section_id' => 'required|exists:sections,id',
             'city_id' => 'required|exists:cities,id',
             'user_id' => 'required|exists:users,id',

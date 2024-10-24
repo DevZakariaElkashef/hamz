@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\TermController;
@@ -54,4 +55,14 @@ Route::get('search-terms', [TermController::class, 'search'])->name('terms.searc
 Route::get('terms-toggle-status/{term}', [TermController::class, 'toggleStatus'])->name('term.toggleStatus');
 Route::delete('delete-terms', [TermController::class, 'delete'])->name('terms.delete');
 /**end Slider Routes */
+
+
+    /**start Slider Routes */
+    Route::resource('clients', ClientController::class);
+    Route::get('search-clients', [ClientController::class, 'search'])->name('clients.search');
+    Route::get('clients-toggle-status/{client}', [ClientController::class, 'toggleStatus'])->name('clients.toggleStatus');
+    Route::get('clients-export', [ClientController::class, 'export'])->name('clients.export');
+    Route::post('clients-import', [ClientController::class, 'import'])->name('clients.import');
+    Route::delete('delete-clients', [ClientController::class, 'delete'])->name('clients.delete');
+    /**end Slider Routes */
 
