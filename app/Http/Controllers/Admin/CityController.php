@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mall\Admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\City;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Exports\Mall\CityExport;
 use App\Imports\Mall\CityImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Repositories\Mall\CityRepository;
+use App\Repositories\CityRepository;
 use App\Http\Requests\Mall\Web\CityRequest;
 use Maatwebsite\Excel\Validators\ValidationException;
 
@@ -26,13 +26,13 @@ class CityController extends Controller
     public function index(Request $request)
     {
         $cities = $this->cityRepository->index($request);
-        return view('mall.cities.index', compact('cities'));
+        return view('cities.index', compact('cities'));
     }
 
     public function search(Request $request)
     {
         $cities = $this->cityRepository->search($request);
-        return view('mall.cities.table', compact('cities'))->render();
+        return view('cities.table', compact('cities'))->render();
     }
 
     public function export(Request $request)
@@ -66,7 +66,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view("mall.cities.create");
+        return view("cities.create");
     }
 
     /**
@@ -75,7 +75,7 @@ class CityController extends Controller
     public function store(CityRequest $request)
     {
         $this->cityRepository->store($request); // store city
-        return to_route('mall.cities.index')->with('success', __("main.created_successffully"));
+        return to_route('cities.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -83,7 +83,7 @@ class CityController extends Controller
      */
     public function show(string $id)
     {
-        return to_route('mall.cities.edit');
+        return to_route('cities.edit');
     }
 
     /**
@@ -91,7 +91,7 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
-        return view('mall.cities.edit', compact('city'));
+        return view('cities.edit', compact('city'));
     }
 
     public function toggleStatus(Request $request, City $city)
@@ -109,7 +109,7 @@ class CityController extends Controller
     public function update(CityRequest $request, City $city)
     {
         $this->cityRepository->update($request, $city);
-        return to_route('mall.cities.index')->with('success', __("main.updated_successffully"));
+        return to_route('cities.index')->with('success', __("main.updated_successffully"));
     }
 
     /**
@@ -118,12 +118,12 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         $this->cityRepository->delete($city);
-        return to_route('mall.cities.index')->with('success', __("main.delete_successffully"));
+        return to_route('cities.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->cityRepository->deleteSelection($request);
-        return to_route('mall.cities.index')->with('success', __("main.delete_successffully"));
+        return to_route('cities.index')->with('success', __("main.delete_successffully"));
     }
 }

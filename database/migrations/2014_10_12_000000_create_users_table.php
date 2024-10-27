@@ -23,7 +23,6 @@ return new class extends Migration
             $table->decimal('watch_and_earn_wallet')->default(0);
             $table->rememberToken();
             $table->foreignId('city_id')->nullable()->constrained()->onDelete('set null');
-            $table->enum('app', ['mall', 'booth', 'coupons', 'earn', 'resale', 'rfoof', 'all']);
             $table->timestamps();
         });
     }

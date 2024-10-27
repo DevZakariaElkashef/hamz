@@ -1,4 +1,4 @@
-@extends('mall.layouts.master')
+@extends('layouts.master')
 @section('title')
     {{ __('main.cities') }}
 @endsection
@@ -15,7 +15,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h5 class="content-title mb-0 my-auto"><a href="{{ route('mall.home') }}"
+                <h5 class="content-title mb-0 my-auto"><a href="{{ route('home') }}"
                         class="text-dark">{{ __('main.home') }}</a></h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
                         href="{{ route('cities.index') }}">{{ __('main.cities') }}</a></span>

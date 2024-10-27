@@ -1,4 +1,4 @@
-@extends('mall.layouts.master')
+@extends('layouts.master')
 @section('title')
     {{ __('main.edit_city') }}
 @endsection

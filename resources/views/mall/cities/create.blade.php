@@ -13,14 +13,14 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.cities.index') }}">{{ __('main.cities') }}</a></span>
+                        href="{{ route('cities.index') }}">{{ __('main.cities') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.cities.create') }}">{{ __('main.create_city') }}</a></span>
+                        href="{{ route('cities.create') }}">{{ __('main.create_city') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.cities.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
+                <a href="{{ route('cities.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('mall.cities.store') }}" data-parsley-validate=""
+                    <form method="post" action="{{ route('cities.store') }}" data-parsley-validate=""
                         enctype="multipart/form-data">
                         @csrf
                         <div class="row">

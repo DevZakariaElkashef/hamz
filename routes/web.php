@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ContactUsController;
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ContactTypeController;
 
 /*
@@ -39,7 +40,6 @@ Route::get('contacts-toggle-status/{contact}', [ContactUsController::class, 'tog
 Route::delete('delete-contacts', [ContactUsController::class, 'delete'])->name('contacts.delete');
 /**end Slider Routes */
 
-
 Route::resource('applications', SettingController::class)->only('index', 'update');
 Route::resource('abouts', AboutController::class)->only('index', 'update');
 
@@ -57,23 +57,29 @@ Route::get('terms-toggle-status/{term}', [TermController::class, 'toggleStatus']
 Route::delete('delete-terms', [TermController::class, 'delete'])->name('terms.delete');
 /**end Slider Routes */
 
+/**start Slider Routes */
+Route::resource('clients', ClientController::class);
+Route::get('search-clients', [ClientController::class, 'search'])->name('clients.search');
+Route::get('clients-toggle-status/{client}', [ClientController::class, 'toggleStatus'])->name('clients.toggleStatus');
+Route::get('clients-export', [ClientController::class, 'export'])->name('clients.export');
+Route::post('clients-import', [ClientController::class, 'import'])->name('clients.import');
+Route::delete('delete-clients', [ClientController::class, 'delete'])->name('clients.delete');
+/**end Slider Routes */
 
-    /**start Slider Routes */
-    Route::resource('clients', ClientController::class);
-    Route::get('search-clients', [ClientController::class, 'search'])->name('clients.search');
-    Route::get('clients-toggle-status/{client}', [ClientController::class, 'toggleStatus'])->name('clients.toggleStatus');
-    Route::get('clients-export', [ClientController::class, 'export'])->name('clients.export');
-    Route::post('clients-import', [ClientController::class, 'import'])->name('clients.import');
-    Route::delete('delete-clients', [ClientController::class, 'delete'])->name('clients.delete');
-    /**end Slider Routes */
+/**start Slider Routes */
+Route::resource('vendors', VendorController::class);
+Route::get('search-vendors', [VendorController::class, 'search'])->name('vendors.search');
+Route::get('vendors-toggle-status/{vendor}', [VendorController::class, 'toggleStatus'])->name('vendors.toggleStatus');
+Route::get('vendors-export', [VendorController::class, 'export'])->name('vendors.export');
+Route::post('vendors-import', [VendorController::class, 'import'])->name('vendors.import');
+Route::delete('delete-vendors', [VendorController::class, 'delete'])->name('vendors.delete');
+/**end Slider Routes */
 
-
-    /**start Slider Routes */
-    Route::resource('vendors', VendorController::class);
-    Route::get('search-vendors', [VendorController::class, 'search'])->name('vendors.search');
-    Route::get('vendors-toggle-status/{vendor}', [VendorController::class, 'toggleStatus'])->name('vendors.toggleStatus');
-    Route::get('vendors-export', [VendorController::class, 'export'])->name('vendors.export');
-    Route::post('vendors-import', [VendorController::class, 'import'])->name('vendors.import');
-    Route::delete('delete-vendors', [VendorController::class, 'delete'])->name('vendors.delete');
-    /**end Slider Routes */
-
+/**start Slider Routes */
+Route::resource('cities', CityController::class);
+Route::get('search-cities', [CityController::class, 'search'])->name('cities.search');
+Route::get('cities-toggle-status/{city}', [CityController::class, 'toggleStatus'])->name('cities.toggleStatus');
+Route::get('cities-export', [CityController::class, 'export'])->name('cities.export');
+Route::post('cities-import', [CityController::class, 'import'])->name('cities.import');
+Route::delete('delete-cities', [CityController::class, 'delete'])->name('cities.delete');
+/**end Slider Routes */

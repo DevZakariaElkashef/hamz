@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Mall;
+namespace App\Repositories;
 
 use App\Models\City;
 use App\Traits\ImageUploadTrait;
@@ -17,7 +17,7 @@ class CityRepository
 
     public function index($request)
     {
-        $cities = City::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
+        $cities = City::filter($request)->paginate($request->per_page ?? $this->limit);
 
         return $cities;
     }
@@ -25,7 +25,7 @@ class CityRepository
 
     public function search($request)
     {
-        return City::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        return City::search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

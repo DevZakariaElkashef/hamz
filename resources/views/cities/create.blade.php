@@ -1,6 +1,6 @@
-@extends('mall.layouts.master')
+@extends('layouts.master')
 @section('title')
-    {{ __('main.edit_city') }}
+    {{ __('main.create_city') }}
 @endsection
 @section('css')
     <!--- Internal Select2 css-->
@@ -15,7 +15,7 @@
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
                         href="{{ route('cities.index') }}">{{ __('main.cities') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('cities.edit', $city->id) }}">{{ __('main.edit_city') }}</a></span>
+                        href="{{ route('cities.create') }}">{{ __('main.create_city') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -37,16 +37,15 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('cities.update', $city->id) }}" data-parsley-validate=""
+                    <form method="post" action="{{ route('cities.store') }}" data-parsley-validate=""
                         enctype="multipart/form-data">
-                        @method('PUT')
                         @csrf
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.name') }}(AR): <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="name_ar" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') ?? $city->name_ar }}">
+                                    required="" type="text" value="{{ old('name_ar') }}">
                                 @error('name_ar')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -55,19 +54,18 @@
                                 <label class="form-label">{{ __('main.name') }}(EN): <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="name_en" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') ?? $city->name_en }}">
+                                    required="" type="text" value="{{ old('name_en') }}">
                                 @error('name_en')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active', $city->is_active) == 0) selected @endif>
+                                    <option value="0" @if (old('is_active') == 0) selected @endif>
                                         {{ __('main.not_active') }}</option>
-                                    <option value="1" @if (old('is_active', $city->is_active) == 1) selected @endif>
+                                    <option value="1" @if (old('is_active') == 1) selected @endif>
                                         {{ __('main.active') }}</option>
                                 </select>
                                 @error('is_active')
@@ -75,7 +73,7 @@
                                 @enderror
                             </div>
 
-                        <div class="col-12 mg-t-10 mg-sm-t-25">
+                            <div class="col-12 mg-t-10 mg-sm-t-25">
                                 <button class="btn btn-main-primary pd-x-20"
                                     type="submit">{{ __('main.submit') }}</button>
                             </div>

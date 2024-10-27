@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model
 {
-    use HasFactory, AppScope, ActiveScope, FilterScope, SoftDeletes;
+    use HasFactory, ActiveScope, FilterScope, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 

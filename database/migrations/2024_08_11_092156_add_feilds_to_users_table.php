@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('device_token')->nullable();
             $table->string('otp')->nullable();
             $table->boolean('is_active')->default(0);
-
             $table->index('otp');
         });
     }
