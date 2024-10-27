@@ -3,17 +3,10 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ClientRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,8 +14,26 @@ class ClientRequest extends FormRequest
      */
     public function rules(): array
     {
+        $required = match ($this->id) {
+            null => 'required',
+            default => 'nullable',
+        };
+
         return [
-            //
+            'name' => 'required|string|max:255',
+            'email' => [
+                'nullable',
+                Rule::unique('users')->ignore($this->id),
+            ],
+            'phone' => [
+                'required',
+                Rule::unique('users')->ignore($this->id),
+            ],
+            'password' => $required . '|min:8|max:255',
+            'city_id' => 'nullable|exists:cities,id',
+            'image' => 'nullable|mimes:png,jpg,jpeg',
+            'is_active' => 'required|boolean',
+
         ];
     }
 }

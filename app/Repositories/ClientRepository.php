@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\City;
-use App\Models\Client;
 use App\Models\User;
 use App\Traits\ImageUploadTrait;
 
@@ -31,7 +30,6 @@ class ClientRepository
         return $cities;
     }
 
-
     public function search($request)
     {
         return User::where('role_id', 2)->search($request->search)->paginate($request->per_page ?? $this->limit);
@@ -41,25 +39,26 @@ class ClientRepository
     {
         $data = $request->except('image');
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'clients');
+            $data['image'] = $this->uploadImage($request->file('image'), 'clients');
         }
         $data['role_id'] = 2;
         unset($data['_token']);
         return User::create($data);
     }
 
-
     public function update($request, $client)
     {
         $data = $request->except('image');
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'clients', $client->image);
+            $data['image'] = $this->uploadImage($request->file('image'), 'clients', $client->image);
         }
-        unset($data['_token'], $data['_method']);
+        unset($data['_token'], $data['_method'], $data['id']);
+        if (!$data['password']) {
+            unset($data['password']);
+        }
         $client->update($data);
         return $client;
     }
-
 
     public function delete($client)
     {

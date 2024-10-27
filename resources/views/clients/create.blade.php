@@ -42,33 +42,51 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.name') }}(AR): <span
+                                <label class="form-label">{{ __('main.name') }} <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_ar" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') }}">
-                                @error('name_ar')
+                                <input class="form-control" name="name" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('name') }}">
+                                @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.name') }}(EN): <span
-                                        class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_en" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') }}">
-                                @error('name_en')
+                                <label class="form-label">{{ __('main.email') }}</label>
+                                <input class="form-control" name="email" placeholder="{{ __('main.enter_email') }}"
+                                    type="email" value="{{ old('email') }}">
+                                @error('email')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.phone') }} <span
+                                    class="tx-danger">*</span></label>
+                                <input class="form-control" name="phone" placeholder="{{ __('main.enter_phone') }}"
+                                    type="number" required="" value="{{ old('phone') }}">
+                                @error('phone')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.store') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control select2" name="store_id">
-                                    @foreach ($stores as $store)
-                                        <option value="{{ $store->id }}"
-                                            @if (old('store_id') == $store->id) selected @endif>{{ $store->name }}</option>
+                                <label class="form-label">{{ __('main.password') }} <span
+                                    class="tx-danger">*</span></label>
+                                <input class="form-control" name="password" placeholder="{{ __('main.enter_password') }}"
+                                    type="password" required="" value="{{ old('password') }}">
+                                @error('password')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.city') }}: <span class="tx-danger">*</span></label>
+                                <select required class="form-control select2" name="city_id">
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->id }}"
+                                            @if (old('city_id') == $city->id) selected @endif>{{ $city->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('store_id')
+                                @error('city_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -89,7 +107,7 @@
                             <div class="col-md-12 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
-                                    <input class="custom-file-input" required id="customFile" type="file" name="image">
+                                    <input class="custom-file-input" id="customFile" type="file" name="image">
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

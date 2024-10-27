@@ -29,7 +29,7 @@ class UpdateProfileRequest extends BaseApiRequest
             'email' => [
                 'nullable',
                 'email',
-                Rule::unique('users', 'email')->ignore($userId)
+                Rule::unique('users', 'email')->ignore($userId)->whereNull('deleted_at')
             ],
             'password' => [
                 'nullable',

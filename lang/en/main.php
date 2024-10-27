@@ -362,5 +362,8 @@ return
     "item" => "item",
     "enter_item" => "enter_item",
     "create_term" => "create_term",
-    "edit_term" => "edit_term"
+    "edit_term" => "edit_term",
+
+    "enter_password" => "enter_password",
+    "password" => "password"
 ];

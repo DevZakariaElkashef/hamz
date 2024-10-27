@@ -67,7 +67,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view("clients.create");
+        $cities = $this->clientRepository->cities();
+        return view("clients.create", compact('cities'));
     }
 
     /**
@@ -92,7 +93,8 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        return view('clients.edit', compact('client'));
+        $cities = $this->clientRepository->cities();
+        return view('clients.edit', compact('client', 'cities'));
     }
 
     public function toggleStatus(Request $request, Client $client)

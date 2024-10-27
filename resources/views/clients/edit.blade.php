@@ -37,39 +37,55 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('clients.update', $client->id) }}"
-                        data-parsley-validate="" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('clients.update', $client->id) }}" data-parsley-validate=""
+                        enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
+                        <input type="hidden" name="id" value="{{ $client->id }}">
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.name') }}(AR): <span
-                                        class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_ar" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') ?? $client->name_ar }}">
-                                @error('name_ar')
+                                <label class="form-label">{{ __('main.name') }} <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="name" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('name') ?? $client->name }}">
+                                @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.name') }}(EN): <span
-                                        class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_en" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') ?? $client->name_en }}">
-                                @error('name_en')
+                                <label class="form-label">{{ __('main.email') }}</label>
+                                <input class="form-control" name="email" placeholder="{{ __('main.enter_mail') }}"
+                                    type="email" value="{{ old('email') ?? $client->email }}">
+                                @error('email')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.phone') }} <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="phone" placeholder="{{ __('main.enter_phone') }}"
+                                    required="" type="text" value="{{ old('phone') ?? $client->phone }}">
+                                @error('phone')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.store') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control select2" name="store_id">
-                                    @foreach ($stores as $store)
-                                        <option value="{{ $store->id }}"
-                                            @if (old('store_id', $client->store_id) == $store->id) selected @endif>{{ $store->name }}</option>
+                                <label class="form-label">{{ __('main.password') }}</label>
+                                <input class="form-control" name="password" placeholder="{{ __('main.enter_password') }}"
+                                    type="password">
+                                @error('password')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.city') }}: <span class="tx-danger">*</span></label>
+                                <select required class="form-control select2" name="city_id">
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->id }}"
+                                            @if (old('city_id', $client->city_id) == $city->id) selected @endif>{{ $city->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('store_id')
+                                @error('city_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
