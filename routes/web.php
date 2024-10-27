@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialController;
-use App\Http\Controllers\Admin\TermController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\VendorController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ContactTypeController;
 
@@ -64,5 +65,15 @@ Route::delete('delete-terms', [TermController::class, 'delete'])->name('terms.de
     Route::get('clients-export', [ClientController::class, 'export'])->name('clients.export');
     Route::post('clients-import', [ClientController::class, 'import'])->name('clients.import');
     Route::delete('delete-clients', [ClientController::class, 'delete'])->name('clients.delete');
+    /**end Slider Routes */
+
+
+    /**start Slider Routes */
+    Route::resource('vendors', VendorController::class);
+    Route::get('search-vendors', [VendorController::class, 'search'])->name('vendors.search');
+    Route::get('vendors-toggle-status/{vendor}', [VendorController::class, 'toggleStatus'])->name('vendors.toggleStatus');
+    Route::get('vendors-export', [VendorController::class, 'export'])->name('vendors.export');
+    Route::post('vendors-import', [VendorController::class, 'import'])->name('vendors.import');
+    Route::delete('delete-vendors', [VendorController::class, 'delete'])->name('vendors.delete');
     /**end Slider Routes */
 
