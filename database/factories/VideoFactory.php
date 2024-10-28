@@ -21,7 +21,7 @@ class VideoFactory extends Factory
             'title_ar' => fake()->sentence(),
             'title_en' => fake()->sentence(),
             'path' => fake()->url(),
-            'thumbnail' => str_replace(['public', '\\'], ['', '/'], fake()->image('public/uploads/videos', 640, 480, 'art4muslim')),
+            // 'thumbnail' => str_replace(['public', '\\'], ['', '/'], fake()->image('public/uploads/videos', 640, 480, 'art4muslim')),
             'seller_id' => rand(1, 10),
             'category_id' => Category::factory(),
             'reword_amount' => rand(10, 100),

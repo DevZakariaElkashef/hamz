@@ -6,6 +6,7 @@
                 <th>{{ __('main.id') }}</th>
                 <th>{{ __('main.name') }}</th>
                 <th>{{ __('main.reword_amount') }}</th>
+                <th>{{ __('main.views') }}</th>
                 <th>{{ __('main.url') }}</th>
                 <th>{{ __('main.status') }}</th>
                 <th>{{ __('main.actions') }}</th>
@@ -18,6 +19,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $video->title }}</td>
                     <td>{{ $video->reword_amount . __('main.sar') }}</td>
+                    <td>{{ $video->viewed_count }}</td>
                     <td>
                         <a href="{{ $video->path }}" target="_blank">{{ __("main.show") }}</a>
                     </td>

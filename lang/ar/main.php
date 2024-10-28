@@ -363,4 +363,15 @@ return
     "create_term" => "إنشاء شرط",
     "edit_term" => "تعديل الشرط",
 
+    "enter_password" => "أدخل كلمة المرور",
+    "password" => "كلمة المرور",
+    "Total_Videos" => "إجمالي الفيديوهات",
+    "Total_Views" => "إجمالي المشاهدات",
+    "Your_Most_Watching_Vides" => "الفيديوهات الأكثر مشاهدة لديك",
+    "Your_Most_UnWatching_Vides" => "الفيديوهات الأقل مشاهدة لديك",
+    'show_more' => 'عرض المزيد',
+    'subscripe' => "اشترك",
+    'expired' => 'منتهي الصلاحية',
+    'cancelled' => 'ملغى',
+
 ];

@@ -365,5 +365,13 @@ return
     "edit_term" => "edit_term",
 
     "enter_password" => "enter_password",
-    "password" => "password"
+    "password" => "password",
+    "Total_Videos" => "Total Videos",
+    "Total_Views" => "Total Views",
+    "Your_Most_Watching_Vides" => "Your Most Watching Vides",
+    "Your_Most_UnWatching_Vides" => "Your Most UnWatching Vides",
+    'show_more' => 'show more',
+    'subscripe' => "subscripe",
+    'expired' => 'expired',
+    'cancelled' => 'cancelled'
 ];

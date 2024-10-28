@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SubscripeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Earn\Admin\HomeController;
 use App\Http\Controllers\Earn\Admin\ViewController;
@@ -78,5 +79,12 @@ Route::as('earn.')->group(function () {
     Route::get('search-withdrows', [WithdrowController::class, 'search'])->name('withdrows.search');
     Route::get('withdrows-toggle-status/{withdrow}', [WithdrowController::class, 'toggleStatus'])->name('withdrow.toggleStatus');
     Route::delete('delete-withdrows', [WithdrowController::class, 'delete'])->name('withdrows.delete');
+    /**end Slider Routes */
+
+    /**start Slider Routes */
+    Route::resource('subscripe', SubscripeController::class)->only('create', 'store');
+    Route::get('subscripe-callback', [SubscripeController::class, 'callBack'])->name('subscripe.callback');
+    Route::get('subscripe-success', [SubscripeController::class, 'success'])->name('subscripe.success');
+    Route::get('subscripe-error', [SubscripeController::class, 'error'])->name('subscripe.error');
     /**end Slider Routes */
 });
