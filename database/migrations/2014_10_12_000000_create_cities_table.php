@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name_ar')->nullable();
             $table->string('name_en')->nullable();
             $table->boolean('is_active')->default(1);
-            $table->enum('app', ['mall', 'booth', 'coupons', 'earn', 'resale', 'rfoof', 'all']);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -28,10 +28,10 @@ class UpdateCartRequest extends BaseApiRequest
     public function messages(): array
     {
         return [
-            'qty.required' => __('mall.qty_required'),
-            'qty.gt' => __('mall.qty_gt'),
-            'product_id.required' => __('mall.product_id_required'),
-            'product_id.exists' => __('mall.product_id_exists'),
+            'qty.required' => __('main.qty_required'),
+            'qty.gt' => __('main.qty_gt'),
+            'product_id.required' => __('main.product_id_required'),
+            'product_id.exists' => __('main.product_id_exists'),
         ];
     }
 }

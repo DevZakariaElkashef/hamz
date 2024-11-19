@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.home') }}
+{{ __("main.home") }}
 @endsection
 @section('css')
     <!--  Owl-carousel css-->
@@ -13,7 +13,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{ __('mall.welcome_dashboard') }}</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{ __('main.welcome_dashboard') }}</h2>
             </div>
         </div>
         <div class="main-dashboard-header-right">

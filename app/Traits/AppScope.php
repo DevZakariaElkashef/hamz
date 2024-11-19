@@ -6,32 +6,32 @@ trait AppScope
 {
     public function scopeMall($query)
     {
-        return $query->whereIn('app', ['mall', 'all']);
+        return $query->whereIn('app', ['mall']);
     }
 
     public function scopeBooth($query)
     {
-        return $query->whereIn('app', ['booth', 'all']);
+        return $query->whereIn('app', ['booth']);
     }
 
     public function scopeCoupons($query)
     {
-        return $query->whereIn('app', ['coupons', 'all']);
+        return $query->whereIn('app', ['coupons']);
     }
 
     public function scopeEarn($query)
     {
-        return $query->whereIn('app', ['earn', 'all']);
+        return $query->whereIn('app', ['earn']);
     }
 
     public function scopeResale($query)
     {
-        return $query->whereIn('app', ['resale', 'all']);
+        return $query->whereIn('app', ['resale']);
     }
 
     public function scopeRfoof($query)
     {
-        return $query->whereIn('app', ['rfoof', 'all']);
+        return $query->whereIn('app', ['rfoof']);
     }
 
     public function scopeAllApps($query)

@@ -33,9 +33,9 @@ class CustomerActivityReportExport implements FromCollection, WithHeadings, Shou
     public function headings(): array
     {
         return [
-            __("mall.client"),
-            __("mall.phone"),
-            __("mall.total_orders")
+            __("main.client"),
+            __("main.phone"),
+            __("main.total_orders")
         ];
     }
 

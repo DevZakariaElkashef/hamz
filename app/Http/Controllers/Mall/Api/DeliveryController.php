@@ -32,7 +32,7 @@ class DeliveryController extends Controller
             return $this->sendResponse(200, $data);
         }
 
-        return $this->sendResponse(400, [], __("mall.fill_cart_first"));
+        return $this->sendResponse(400, [], __("main.fill_cart_first"));
     }
 
     public function calcDelivery(CalcDeliveryRequest $request)

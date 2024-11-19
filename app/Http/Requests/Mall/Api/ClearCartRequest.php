@@ -29,8 +29,8 @@ class ClearCartRequest extends BaseApiRequest
     public function messages(): array
     {
         return [
-            'cart_id.required' => __('mall.cart_id_required'),
-            'cart_id.exists' => __('mall.cart_id_exists'),
+            'cart_id.required' => __('main.cart_id_required'),
+            'cart_id.exists' => __('main.cart_id_exists'),
         ];
     }
 }

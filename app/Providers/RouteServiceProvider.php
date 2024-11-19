@@ -63,6 +63,26 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/rfoof/web.php'));
             /** End rfoof Routes */
 
+            /** Begain Earn Routes */
+            Route::middleware('api')
+            ->prefix('earn/api')
+            ->group(base_path('routes/earn/api.php'));
+
+            Route::middleware('web')
+            ->prefix('earn')
+            ->group(base_path('routes/earn/web.php'));
+            /** End Earn Routes */
+
+            /** Begain Coupons Routes */
+            Route::middleware('api')
+            ->prefix('coupons/api')
+            ->group(base_path('routes/coupons/api.php'));
+
+            Route::middleware('web')
+            ->prefix('coupons')
+            ->group(base_path('routes/coupons/web.php'));
+            /** End Coupons Routes */
+
 
         });
     }

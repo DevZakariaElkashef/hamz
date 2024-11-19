@@ -3,9 +3,9 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>{{ __('mall.client') }}</th>
-                <th>{{ __('mall.phone') }}</th>
-                <th>{{ __('mall.total_orders') }}</th>
+                <th>{{ __('main.client') }}</th>
+                <th>{{ __('main.phone') }}</th>
+                <th>{{ __('main.total_orders') }}</th>
 
             </tr>
         </thead>

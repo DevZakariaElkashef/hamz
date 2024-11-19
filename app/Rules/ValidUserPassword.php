@@ -30,7 +30,7 @@ class ValidUserPassword implements ValidationRule
         $user = User::where('phone', $this->phone)->first();
 
         if (!$user || !Hash::check($this->password, $user->password)) {
-            $fail(__('mall.invalid_password'));
+            $fail(__('main.invalid_password'));
         }
     }
 }

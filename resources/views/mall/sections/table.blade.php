@@ -3,11 +3,11 @@
         <thead>
             <tr>
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
-                <th>{{ __('mall.id') }}</th>
-                <th>{{ __('mall.name') }}</th>
-                <th>{{ __('mall.image') }}</th>
-                <th>{{ __('mall.status') }}</th>
-                <th>{{ __('mall.actions') }}</th>
+                <th>{{ __('main.id') }}</th>
+                <th>{{ __('main.name') }}</th>
+                <th>{{ __('main.image') }}</th>
+                <th>{{ __('main.status') }}</th>
+                <th>{{ __('main.actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -33,12 +33,12 @@
                     </td>
                     <td>
                         <a href="{{ route('mall.sections.edit', $section->id) }}"
-                            class="btn btn-secondary">{{ __('mall.edit') }}</a>
+                            class="btn btn-secondary">{{ __('main.edit') }}</a>
 
                         <a href="#" class="btn btn-danger delete-btn" data-toggle="modal"
                             data-effect="effect-flip-vertical"
                             data-url="{{ route('mall.sections.destroy', $section->id) }}"
-                            data-target="#deletemodal">{{ __('mall.delete') }}</a>
+                            data-target="#deletemodal">{{ __('main.delete') }}</a>
                     </td>
                 </tr>
             @endforeach

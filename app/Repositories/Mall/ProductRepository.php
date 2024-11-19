@@ -39,6 +39,7 @@ class ProductRepository
         }
 
         // Create the product
+        unset($data['_token']);
         $product = Product::create($data);
 
         // Handle multiple images upload
@@ -86,6 +87,7 @@ class ProductRepository
         }
 
         // Update the product details
+        unset($data['_token'], $data['_method']);
         $product->update($data);
 
         // Handle additional images

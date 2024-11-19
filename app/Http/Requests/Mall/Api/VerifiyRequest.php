@@ -29,8 +29,8 @@ class VerifiyRequest extends BaseApiRequest
     public function messages()
     {
         return [
-            'otp.required' => __('mall.otp_required'),
-            'otp.exists' => __('mall.otp_not_found'),
+            'otp.required' => __('main.otp_required'),
+            'otp.exists' => __('main.otp_not_found'),
         ];
     }
 }

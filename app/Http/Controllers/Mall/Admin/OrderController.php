@@ -62,7 +62,7 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         $this->orderRepository->store($request); // store order
-        return to_route('mall.orders.index')->with('success', __("mall.created_successffully"));
+        return to_route('mall.orders.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -75,26 +75,26 @@ class OrderController extends Controller
         $paymentStatus = [
             [
                 'id' => 0,
-                'name' => __("mall.pending")
+                'name' => __("main.pending")
             ],
             [
                 'id' => 1,
-                'name' => __("mall.paid")
+                'name' => __("main.paid")
             ],
             [
                 'id' => 2,
-                'name' => __("mall.faild")
+                'name' => __("main.faild")
             ]
         ];
 
         $paymentMethods = [
             [
                 'id' => 0,
-                'name' => __('mall.online')
+                'name' => __('main.online')
             ],
             [
                 'id' => 1,
-                'name' => __('mall.wallet')
+                'name' => __('main.wallet')
             ]
         ];
 
@@ -115,7 +115,7 @@ class OrderController extends Controller
     public function update(OrderRequest $request, Order $order)
     {
         $this->orderRepository->update($request, $order);
-        return to_route('mall.orders.index')->with('success', __("mall.updated_successffully"));
+        return to_route('mall.orders.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Order $order)
@@ -123,7 +123,7 @@ class OrderController extends Controller
         $order->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("mall.updated_successffully")
+            'message' => __("main.updated_successffully")
         ]);
     }
 
@@ -131,7 +131,7 @@ class OrderController extends Controller
     {
         Order::findOrFail($request->id)->update(['order_status_id' => $request->status_id]);
 
-        return back()->with('success', __("mall.updated_successffully"));
+        return back()->with('success', __("main.updated_successffully"));
     }
 
     public function updatePayment(Request $request)
@@ -141,7 +141,7 @@ class OrderController extends Controller
             'payment_status' => $request->payment_status,
         ]);
 
-        return back()->with('success', __("mall.updated_successffully"));
+        return back()->with('success', __("main.updated_successffully"));
     }
 
 
@@ -152,12 +152,12 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $this->orderRepository->delete($order);
-        return to_route('mall.orders.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.orders.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->orderRepository->deleteSelection($request);
-        return to_route('mall.orders.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.orders.index')->with('success', __("main.delete_successffully"));
     }
 }

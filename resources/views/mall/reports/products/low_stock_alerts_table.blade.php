@@ -2,10 +2,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>{{ __('mall.id') }}</th>
-                <th>{{ __('mall.product') }}</th>
-                <th>{{ __('mall.status') }}</th>
-                <th>{{ __('mall.qty') }}</th>
+                <th>{{ __('main.id') }}</th>
+                <th>{{ __('main.product') }}</th>
+                <th>{{ __('main.status') }}</th>
+                <th>{{ __('main.qty') }}</th>
             </tr>
         </thead>
         <tbody>

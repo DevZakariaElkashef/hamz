@@ -18,8 +18,7 @@ class RoleSeeder extends Seeder
         $roles = [
             ['name' => 'super-admin', 'app' => 'all'],
             ['name' => 'client', 'app' => 'all'],
-            ['name' => 'mall-seller', 'app' => 'all'],
-            ['name' => 'booth-seller', 'app' => 'all'],
+            ['name' => 'seller', 'app' => 'all'],
         ];
 
         foreach ($roles as $role) {
@@ -116,8 +115,7 @@ class RoleSeeder extends Seeder
 
         // Attach all permissions to the mall-seller role
         $mallPermissions = Permission::stores()->get();
-        $mallSellerRole = Role::where('name', 'mall-seller')->first();
+        $mallSellerRole = Role::where('name', 'seller')->first();
         $mallSellerRole->permissions()->sync($mallPermissions);
-
     }
 }

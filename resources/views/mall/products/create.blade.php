@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.create_product') }}
+    {{ __('main.create_product') }}
 @endsection
 @section('css')
     <!--- Internal Select2 css-->
@@ -91,16 +91,16 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h5 class="content-title mb-0 my-auto">{{ __('mall.home') }}</h5>
+                <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.products.index') }}">{{ __('mall.products') }}</a></span>
+                        href="{{ route('mall.products.index') }}">{{ __('main.products') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.products.create') }}">{{ __('mall.create_product') }}</a></span>
+                        href="{{ route('mall.products.create') }}">{{ __('main.create_product') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.products.index') }}" class="btn btn-secondary ">{{ __('mall.back') }}</a>
+                <a href="{{ route('mall.products.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
             </div>
         </div>
     </div>
@@ -113,7 +113,7 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('mall.products') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.products') }}</h4>
                     </div>
                 </div>
                 <form id="createProductForm" method="post" action="{{ route('mall.products.store') }}"
@@ -121,27 +121,27 @@
                     @csrf
                     <div class="card-body">
                         <div class="main-content-label mg-b-5">
-                            {{ __('mall.create_product') }}
+                            {{ __('main.create_product') }}
                         </div>
                         <div id="wizard1">
-                            <h3>{{ __('mall.General_Information') }}</h3>
+                            <h3>{{ __('main.General_Information') }}</h3>
                             <section>
                                 <div class="row">
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.name') }}(AR): <span
+                                        <label class="form-label">{{ __('main.name') }}(AR): <span
                                                 class="tx-danger">*</span></label>
                                         <input class="form-control" name="name_ar"
-                                            placeholder="{{ __('mall.enter_name') }}" required="" type="text"
+                                            placeholder="{{ __('main.enter_name') }}" required="" type="text"
                                             value="{{ old('name_ar') }}">
                                         @error('name_ar')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.name') }}(EN): <span
+                                        <label class="form-label">{{ __('main.name') }}(EN): <span
                                                 class="tx-danger">*</span></label>
                                         <input class="form-control" name="name_en"
-                                            placeholder="{{ __('mall.enter_name') }}" required="" type="text"
+                                            placeholder="{{ __('main.enter_name') }}" required="" type="text"
                                             value="{{ old('name_en') }}">
                                         @error('name_en')
                                             <div class="text-danger">{{ $message }}</div>
@@ -149,18 +149,18 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.description') }}(AR): <span
+                                        <label class="form-label">{{ __('main.description') }}(AR): <span
                                                 class="tx-danger">*</span></label>
-                                        <textarea class="form-control" name="description_ar" placeholder="{{ __('mall.enter_description') }}" required=""> {{ old('description_ar') }} </textarea>
+                                        <textarea class="form-control" name="description_ar" placeholder="{{ __('main.enter_description') }}" required=""> {{ old('description_ar') }} </textarea>
                                         @error('description_ar')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.description') }}(EN): <span
+                                        <label class="form-label">{{ __('main.description') }}(EN): <span
                                                 class="tx-danger">*</span></label>
-                                        <textarea class="form-control" name="description_en" placeholder="{{ __('mall.enter_description') }}" required=""> {{ old('description_en') }} </textarea>
+                                        <textarea class="form-control" name="description_en" placeholder="{{ __('main.enter_description') }}" required=""> {{ old('description_en') }} </textarea>
                                         @error('description_en')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -168,9 +168,9 @@
 
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.price') }}:</label>
+                                        <label class="form-label">{{ __('main.price') }}:</label>
                                         <input class="form-control" type="number" name="price"
-                                            placeholder="{{ __('mall.enter_price') }}" type="price"
+                                            placeholder="{{ __('main.enter_price') }}" type="price"
                                             value="{{ old('price') }}">
                                         @error('price')
                                             <div class="text-danger">{{ $message }}</div>
@@ -178,9 +178,9 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.offer') }}:</label>
+                                        <label class="form-label">{{ __('main.offer') }}:</label>
                                         <input class="form-control" type="number" name="offer"
-                                            placeholder="{{ __('mall.enter_offer') }}" type="offer"
+                                            placeholder="{{ __('main.enter_offer') }}" type="offer"
                                             value="{{ old('offer') }}">
                                         @error('offer')
                                             <div class="text-danger">{{ $message }}</div>
@@ -188,9 +188,9 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.start_offer_date') }}:</label>
+                                        <label class="form-label">{{ __('main.start_offer_date') }}:</label>
                                         <input class="form-control" type="date" name="start_offer_date"
-                                            placeholder="{{ __('mall.enter_start_offer_date') }}" type="start_offer_date"
+                                            placeholder="{{ __('main.enter_start_offer_date') }}" type="start_offer_date"
                                             value="{{ old('start_offer_date') }}">
                                         @error('start_offer_date')
                                             <div class="text-danger">{{ $message }}</div>
@@ -198,9 +198,9 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.end_offer_date') }}:</label>
+                                        <label class="form-label">{{ __('main.end_offer_date') }}:</label>
                                         <input class="form-control" type="date" name="end_offer_date"
-                                            placeholder="{{ __('mall.enter_end_offer_date') }}" type="end_offer_date"
+                                            placeholder="{{ __('main.enter_end_offer_date') }}" type="end_offer_date"
                                             value="{{ old('end_offer_date') }}">
                                         @error('end_offer_date')
                                             <div class="text-danger">{{ $message }}</div>
@@ -209,9 +209,9 @@
 
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.inventory') }}:</label>
+                                        <label class="form-label">{{ __('main.inventory') }}:</label>
                                         <input class="form-control" type="number" name="qty"
-                                            placeholder="{{ __('mall.enter_qty') }}" type="qty"
+                                            placeholder="{{ __('main.enter_qty') }}" type="qty"
                                             value="{{ old('qty') }}">
                                         @error('qty')
                                             <div class="text-danger">{{ $message }}</div>
@@ -219,9 +219,9 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.section') }}: </label>
+                                        <label class="form-label">{{ __('main.section') }}: </label>
                                         <select class="form-control select2" name="section_id" id="sectionId">
-                                            <option selected>{{ __('mall.select') }}</option>
+                                            <option selected>{{ __('main.select') }}</option>
                                             @foreach ($sections as $section)
                                                 <option value="{{ $section->id }}"
                                                     @if (old('section_id') == $section->id) selected @endif>{{ $section->name }}
@@ -235,9 +235,9 @@
 
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.store') }}: </label>
+                                        <label class="form-label">{{ __('main.store') }}: </label>
                                         <select class="form-control select2" name="store_id" id="storeId">
-                                            <option selected>{{ __('mall.select') }}</option>
+                                            <option selected>{{ __('main.select') }}</option>
                                             @foreach ($stores as $store)
                                                 <option value="{{ $store->id }}"
                                                     @if (old('store_id') == $store->id) selected @endif>{{ $store->name }}
@@ -250,9 +250,9 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.category') }}: </label>
+                                        <label class="form-label">{{ __('main.category') }}: </label>
                                         <select class="form-control select2" name="category_id" id="categoryId">
-                                            <option selected>{{ __('mall.select') }}</option>
+                                            <option selected>{{ __('main.select') }}</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     @if (old('category_id') == $category->id) selected @endif>{{ $category->name }}
@@ -265,9 +265,9 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.brand') }}: </label>
+                                        <label class="form-label">{{ __('main.brand') }}: </label>
                                         <select class="form-control select2" name="brand_id" id="brandId">
-                                            <option selected>{{ __('mall.select') }}</option>
+                                            <option selected>{{ __('main.select') }}</option>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->id }}"
                                                     @if (old('brand_id') == $brand->id) selected @endif>{{ $brand->name }}
@@ -280,13 +280,13 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('mall.status') }}: <span
+                                        <label class="form-label">{{ __('main.status') }}: <span
                                                 class="tx-danger">*</span></label>
                                         <select required class="form-control" name="is_active">
                                             <option value="0" @if (old('is_active') == 0) selected @endif>
-                                                {{ __('mall.not_active') }}</option>
+                                                {{ __('main.not_active') }}</option>
                                             <option value="1" @if (old('is_active') == 1) selected @endif>
-                                                {{ __('mall.active') }}</option>
+                                                {{ __('main.active') }}</option>
                                         </select>
                                         @error('is_active')
                                             <div class="text-danger">{{ $message }}</div>
@@ -295,15 +295,15 @@
 
                                 </div>
                             </section>
-                            <h3>{{ __('mall.product_attributes') }}</h3>
+                            <h3>{{ __('main.product_attributes') }}</h3>
                             <section>
                                 <div class="attibutes">
                                     <div class="attribute row align-items-center">
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="Attribute">{{ __('mall.attribute') }}</label>
+                                                <label for="Attribute">{{ __('main.attribute') }}</label>
                                                 <select name="attributes[]" id="Attribute" class="form-control">
-                                                    <option selected disabled>{{ __('mall.select') }}</option>
+                                                    <option selected disabled>{{ __('main.select') }}</option>
                                                     @foreach ($attributes as $attribute)
                                                         <option value="{{ $attribute->id }}">{{ $attribute->name }}
                                                         </option>
@@ -313,10 +313,10 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="option">{{ __('mall.options') }}</label>
+                                                <label for="option">{{ __('main.options') }}</label>
                                                 <select name="options[]" id="option"
                                                     class="form-control optionSelect">
-                                                    <option selected disabled>{{ __('mall.select') }}</option>
+                                                    <option selected disabled>{{ __('main.select') }}</option>
                                                     @foreach ($options as $option)
                                                         <option value="{{ $option->id }}">{{ $option->value }}
                                                         </option>
@@ -330,14 +330,14 @@
                                                     <input checked="" class="isRequiredCheckbox" name="is_required[]"
                                                         type="checkbox">
                                                     <span>
-                                                        {{ __('mall.is_required') }}
+                                                        {{ __('main.is_required') }}
                                                     </span>
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="price">{{ __('mall.additional_price') }}</label>
+                                                <label for="price">{{ __('main.additional_price') }}</label>
                                                 <input type="number" class="form-control" name="costs[]" value="0"
                                                     id="price">
                                             </div>
@@ -348,13 +348,13 @@
                                     </div>
                                 </div>
                             </section>
-                            <h3>{{ __('mall.product_images') }}</h3>
+                            <h3>{{ __('main.product_images') }}</h3>
                             <section>
                                 <div class="row">
                                     <div class="col-md-12 form-group mt-4">
                                         <div class="custom-file">
                                             <label class="custom-file-label"
-                                                for="customFile">{{ __('mall.image') }}</label>
+                                                for="customFile">{{ __('main.image') }}</label>
                                             <input class="custom-file-input" required id="customFile" type="file"
                                                 name="image">
                                             @error('image')
@@ -366,7 +366,7 @@
                                     <div class="col-md-12 form-group mt-4">
                                         <div class="custom-file">
                                             <label class="custom-file-label"
-                                                for="customFileMulti">{{ __('mall.images') }}</label>
+                                                for="customFileMulti">{{ __('main.images') }}</label>
                                             <input class="custom-file-input" multiple id="customFileMulti" type="file"
                                                 name="images[]" accept="image/*">
                                             @error('images')

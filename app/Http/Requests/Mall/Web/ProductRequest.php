@@ -48,59 +48,59 @@ class ProductRequest extends FormRequest
     public function messages(): array
 {
     return [
-        '_token.required' => __('mall.token_required'),
-        'name_ar.required' => __('mall.name_ar_required'),
-        'name_ar.string' => __('mall.name_ar_string'),
-        'name_ar.max' => __('mall.name_ar_max'),
+        '_token.required' => __('main.token_required'),
+        'name_ar.required' => __('main.name_ar_required'),
+        'name_ar.string' => __('main.name_ar_string'),
+        'name_ar.max' => __('main.name_ar_max'),
 
-        'name_en.required' => __('mall.name_en_required'),
-        'name_en.string' => __('mall.name_en_string'),
-        'name_en.max' => __('mall.name_en_max'),
+        'name_en.required' => __('main.name_en_required'),
+        'name_en.string' => __('main.name_en_string'),
+        'name_en.max' => __('main.name_en_max'),
 
-        'description_ar.required' => __('mall.description_ar_required'),
-        'description_ar.string' => __('mall.description_ar_string'),
+        'description_ar.required' => __('main.description_ar_required'),
+        'description_ar.string' => __('main.description_ar_string'),
 
-        'description_en.required' => __('mall.description_en_required'),
-        'description_en.string' => __('mall.description_en_string'),
+        'description_en.required' => __('main.description_en_required'),
+        'description_en.string' => __('main.description_en_string'),
 
-        'price.required' => __('mall.price_required'),
-        'price.numeric' => __('mall.price_numeric'),
-        'price.min' => __('mall.price_min'),
+        'price.required' => __('main.price_required'),
+        'price.numeric' => __('main.price_numeric'),
+        'price.min' => __('main.price_min'),
 
-        'offer.numeric' => __('mall.offer_numeric'),
-        'offer.min' => __('mall.offer_min'),
-        'offer.max' => __('mall.offer_max'),
+        'offer.numeric' => __('main.offer_numeric'),
+        'offer.min' => __('main.offer_min'),
+        'offer.max' => __('main.offer_max'),
 
-        'start_offer_date.required' => __('mall.start_offer_date_required'),
-        'start_offer_date.date' => __('mall.start_offer_date_date'),
-        'start_offer_date.after_or_equal' => __('mall.start_offer_date_after_or_equal'),
+        'start_offer_date.required' => __('main.start_offer_date_required'),
+        'start_offer_date.date' => __('main.start_offer_date_date'),
+        'start_offer_date.after_or_equal' => __('main.start_offer_date_after_or_equal'),
 
-        'end_offer_date.required' => __('mall.end_offer_date_required'),
-        'end_offer_date.date' => __('mall.end_offer_date_date'),
-        'end_offer_date.after' => __('mall.end_offer_date_after'),
+        'end_offer_date.required' => __('main.end_offer_date_required'),
+        'end_offer_date.date' => __('main.end_offer_date_date'),
+        'end_offer_date.after' => __('main.end_offer_date_after'),
 
-        'qty.required' => __('mall.qty_required'),
-        'qty.integer' => __('mall.qty_integer'),
-        'qty.min' => __('mall.qty_min'),
+        'qty.required' => __('main.qty_required'),
+        'qty.integer' => __('main.qty_integer'),
+        'qty.min' => __('main.qty_min'),
 
-        'section_id.required' => __('mall.section_id_required'),
-        'section_id.exists' => __('mall.section_id_exists'),
+        'section_id.required' => __('main.section_id_required'),
+        'section_id.exists' => __('main.section_id_exists'),
 
-        'store_id.required' => __('mall.store_id_required'),
-        'store_id.exists' => __('mall.store_id_exists'),
+        'store_id.required' => __('main.store_id_required'),
+        'store_id.exists' => __('main.store_id_exists'),
 
-        'category_id.required' => __('mall.category_id_required'),
-        'category_id.exists' => __('mall.category_id_exists'),
+        'category_id.required' => __('main.category_id_required'),
+        'category_id.exists' => __('main.category_id_exists'),
 
-        'brand_id.required' => __('mall.brand_id_required'),
-        'brand_id.exists' => __('mall.brand_id_exists'),
+        'brand_id.required' => __('main.brand_id_required'),
+        'brand_id.exists' => __('main.brand_id_exists'),
 
-        'is_active.required' => __('mall.is_active_required'),
-        'is_active.boolean' => __('mall.is_active_boolean'),
+        'is_active.required' => __('main.is_active_required'),
+        'is_active.boolean' => __('main.is_active_boolean'),
 
-        'image.image' => __('mall.image_image'),
-        'image.mimes' => __('mall.image_mimes'),
-        'image.max' => __('mall.image_max'),
+        'image.image' => __('main.image_image'),
+        'image.mimes' => __('main.image_mimes'),
+        'image.max' => __('main.image_max'),
     ];
 }
 

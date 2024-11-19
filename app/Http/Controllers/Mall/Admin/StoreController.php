@@ -55,7 +55,7 @@ class StoreController extends Controller
         try {
             Excel::import(new StoreImport, $request->file('file'));
 
-            return back()->with('success', __("mall.created_successfully"));
+            return back()->with('success', __("main.created_successfully"));
         } catch (ValidationException $e) {
             // Get the first failure from the exception
             $failure = $e->failures()[0];
@@ -88,7 +88,7 @@ class StoreController extends Controller
     public function store(StoreRequest $request)
     {
         $this->storeRepository->store($request); // store store
-        return to_route('mall.stores.index')->with('success', __("mall.created_successffully"));
+        return to_route('mall.stores.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -116,7 +116,7 @@ class StoreController extends Controller
     public function update(StoreRequest $request, Store $store)
     {
         $this->storeRepository->update($request, $store);
-        return to_route('mall.stores.index')->with('success', __("mall.updated_successffully"));
+        return to_route('mall.stores.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Store $store)
@@ -124,7 +124,7 @@ class StoreController extends Controller
         $store->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("mall.updated_successffully")
+            'message' => __("main.updated_successffully")
         ]);
     }
 
@@ -134,12 +134,12 @@ class StoreController extends Controller
     public function destroy(Store $store)
     {
         $this->storeRepository->delete($store);
-        return to_route('mall.stores.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.stores.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->storeRepository->deleteSelection($request);
-        return to_route('mall.stores.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.stores.index')->with('success', __("main.delete_successffully"));
     }
 }

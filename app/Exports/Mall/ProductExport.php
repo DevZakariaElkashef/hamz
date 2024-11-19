@@ -35,7 +35,7 @@ class ProductExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'category' => $product->category->name ?? '',
                 'store' => $product->store->name ?? '',
                 'section' => $product->store->section->name ?? '',
-                'status' => $product->is_active ? __("mall.active") : __("mall.not_active"),
+                'status' => $product->is_active ? __("main.active") : __("main.not_active"),
                 'date' => $product->created_at->format('Y-m-d'),
             ];
         });
@@ -44,21 +44,21 @@ class ProductExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            __('mall.id'),
-            __('mall.name'),
-            __('mall.description'),
-            __('mall.price'),
-            __('mall.offer'),
-            __('mall.start_offer_date'),
-            __('mall.end_offer_date'),
-            __('mall.qty'),
-            __('mall.parent_category'),
-            __('mall.brand'),
-            __('mall.category'),
-            __('mall.store'),
-            __('mall.section'),
-            __('mall.status'),
-            __('mall.date'),
+            __('main.id'),
+            __('main.name'),
+            __('main.description'),
+            __('main.price'),
+            __('main.offer'),
+            __('main.start_offer_date'),
+            __('main.end_offer_date'),
+            __('main.qty'),
+            __('main.parent_category'),
+            __('main.brand'),
+            __('main.category'),
+            __('main.store'),
+            __('main.section'),
+            __('main.status'),
+            __('main.date'),
         ];
     }
 }

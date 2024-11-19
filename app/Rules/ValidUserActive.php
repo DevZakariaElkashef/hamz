@@ -25,7 +25,7 @@ class ValidUserActive implements ValidationRule
         $user = User::where('phone', $this->phone)->first();
 
         if (!$user || !$user->is_active) {
-            $fail(__('mall.plz_active_your_account'));
+            $fail(__('main.plz_active_your_account'));
         }
     }
 }

@@ -29,7 +29,7 @@ class UpdateProfileRequest extends BaseApiRequest
             'email' => [
                 'nullable',
                 'email',
-                Rule::unique('users', 'email')->ignore($userId)
+                Rule::unique('users', 'email')->ignore($userId)->whereNull('deleted_at')
             ],
             'password' => [
                 'nullable',
@@ -43,8 +43,8 @@ class UpdateProfileRequest extends BaseApiRequest
     public function messages()
     {
         return [
-            'email.unique' => __('mall.email_already_taken'),
-            'password.confirmed' => __('mall.password_confirmation_mismatch'),
+            'email.unique' => __('main.email_already_taken'),
+            'password.confirmed' => __('main.password_confirmation_mismatch'),
         ];
     }
 }

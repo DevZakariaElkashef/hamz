@@ -20,12 +20,12 @@ class SectionExport implements FromCollection, WithHeadings, ShouldAutoSize
      */
     public function collection()
     {
-        
+
         return Section::filter($this->request)->mall()->get()->map(function ($section) {
             return [
                 'id' => $section->id,
                 'name' => $section->name,
-                'status' => $section->is_active ? __("mall.active") : __("mall.not_active"),
+                'status' => $section->is_active ? __("main.active") : __("main.not_active"),
                 'created_at' => $section->created_at->format('Y-m-d H:i:s'),
             ];
         });
@@ -35,10 +35,10 @@ class SectionExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            __("mall.id"),
-            __("mall.name"),
-            __("mall.status"),
-            __("mall.date")
+            __("main.id"),
+            __("main.name"),
+            __("main.status"),
+            __("main.date")
         ];
     }
 }

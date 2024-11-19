@@ -36,7 +36,7 @@ class CartController extends Controller
 
         $cart = Cart::find($id);
         if (!$cart) {
-            return $this->sendResponse(404, __('mall.cart_not_found'));
+            return $this->sendResponse(404, __('main.cart_not_found'));
         }
         $data = new CartResource($cart);
         return $this->sendResponse(200, $data);
@@ -60,6 +60,6 @@ class CartController extends Controller
         $cart = Cart::find($request->cart_id);
         $cart->items()->forceDelete();
         $cart->forceDelete();
-        return $this->sendResponse(200, '', __("mall.delete_successffully"));
+        return $this->sendResponse(200, '', __("main.delete_successffully"));
     }
 }

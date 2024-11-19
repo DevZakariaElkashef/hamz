@@ -37,7 +37,7 @@ class OrderItemController extends Controller
         // Recalculate and update order totals
         $this->orderItemRepository->calculateOrderTotals($order);
 
-        return back()->with('success', __('mall.added_successfully'));
+        return back()->with('success', __('main.added_successfully'));
     }
 
     public function update(Request $request, $id)
@@ -53,7 +53,7 @@ class OrderItemController extends Controller
         // Recalculate and update order totals
         $this->orderItemRepository->calculateOrderTotals($order);
 
-        return back()->with('success', __('mall.updated_successfully'));
+        return back()->with('success', __('main.updated_successfully'));
     }
 
     public function destroy($id)
@@ -69,6 +69,6 @@ class OrderItemController extends Controller
         // Recalculate and update order totals
         $this->orderItemRepository->calculateOrderTotals($order);
 
-        return back()->with('success', __('mall.deleted_successfully'));
+        return back()->with('success', __('main.deleted_successfully'));
     }
 }

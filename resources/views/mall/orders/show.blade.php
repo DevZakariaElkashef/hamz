@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.View_order_details') }} # {{ $order->id }}
+    {{ __('main.View_order_details') }} # {{ $order->id }}
 @endsection
 @section('css')
     <style type="text/css">
@@ -40,7 +40,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">{{ __('mall.View_order_details') }} # {{ $order->id }}</h4>
+                <h4 class="content-title mb-0 my-auto">{{ __('main.View_order_details') }} # {{ $order->id }}</h4>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0"> </span>
             </div>
         </div>
@@ -50,16 +50,16 @@
                     <button type="button" class="btn btn-danger" id="deleteOrderBtn"
                         data-url="{{ route('mall.orders.destroy', $order->id) }}" data-toggle="modal"
                         data-target="#deleteModal" data-placement="top" data-toggle="tooltip"
-                        title="{{ __('mall.delete') }} ">
-                        {{ __('mall.delete') }} </button>
+                        title="{{ __('main.delete') }} ">
+                        {{ __('main.delete') }} </button>
                 </div>
             </div>
 
             <div class="mb-3 mb-xl-0 ml-3">
                 <div class="btn-group dropdown">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModalChangeStatusOrder"
-                        data-placement="top" data-toggle="tooltip" title="{{ __('mall.Change_Order_Status') }} ">
-                        {{ __('mall.Change_Order_Status') }} </button>
+                        data-placement="top" data-toggle="tooltip" title="{{ __('main.Change_Order_Status') }} ">
+                        {{ __('main.Change_Order_Status') }} </button>
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                 <div class="btn-group dropdown">
                     <button type="button" class="btn btn-primary " data-toggle="modal"
                         data-target="#ModalChangeMethodStatusOrder" data-placement="top" data-toggle="tooltip"
-                        title="{{ __('mall.Change_payment_status') }} ">{{ __('mall.Change_payment_status') }}</button>
+                        title="{{ __('main.Change_payment_status') }} ">{{ __('main.Change_payment_status') }}</button>
                 </div>
             </div>
 
@@ -77,13 +77,13 @@
                 <div class="btn-group dropdown">
                     <a href="{{ route('mall.invoices.show', $order) }}" target="_blank" class="btn btn-dark "
                         data-placement="top" data-toggle="tooltip"
-                        title="{{ __('mall.Bill') }} ">{{ __('mall.Bill') }}</a>
+                        title="{{ __('main.Bill') }} ">{{ __('main.Bill') }}</a>
                 </div>
             </div>
 
 
             <div class="pr-1 mb-3 mb-xl-0 ml-3">
-                <a href="{{ route('mall.orders.index') }}" class="btn btn-secondary ">{{ __('mall.back') }}</a>
+                <a href="{{ route('mall.orders.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
             </div>
 
         </div>
@@ -98,16 +98,16 @@
                 @method('delete')
                 <div class="modal-content ">
                     <div class="modal-header">
-                        <h6 class="modal-title">{{ __('mall.delete') }}</h6><button aria-label="Close" class="close"
+                        <h6 class="modal-title">{{ __('main.delete') }}</h6><button aria-label="Close" class="close"
                             data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        {{ __('mall.Are you sure!') }}
+                        {{ __('main.Are you sure!') }}
                     </div>
                     <div class="modal-footer">
-                        <button class="btn ripple btn-danger" type="submit">{{ __('mall.delete') }}</button>
+                        <button class="btn ripple btn-danger" type="submit">{{ __('main.delete') }}</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
+                            type="button">{{ __('main.Close') }}</button>
                     </div>
                 </div>
             </form>
@@ -123,8 +123,8 @@
                 <input type="hidden" id="id" name="id" value="{{ $order->id }}">
                 <div class="modal-content ">
                     <div class="modal-header">
-                        <h4 class="modal-title"> {{ __('mall.add_product') }}</h4>
-                        <h5>{{ __('mall.Change_Order_Status') }}</h5>
+                        <h4 class="modal-title"> {{ __('main.add_product') }}</h4>
+                        <h5>{{ __('main.Change_Order_Status') }}</h5>
                     </div>
                     <div class="modal-body">
 
@@ -132,16 +132,16 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label class="form-label">{{ __('mall.product') }}: <span
+                                    <label class="form-label">{{ __('main.product') }}: <span
                                             class="tx-danger">*</span></label>
                                     <div class="parsley-select " id="slWrapperis_active">
                                         <select class="form-control selectwithoutsearch"
                                             data-parsley-class-handler="#slWrapperis_active"
                                             data-parsley-errors-container="#slErrorContaineris_active"
-                                            data-placeholder="{{ __('mall.select') }}" id="status_id" name="product_id"
+                                            data-placeholder="{{ __('main.select') }}" id="status_id" name="product_id"
                                             required="">
                                             <option value="  ">
-                                                {{ __('mall.select') }}
+                                                {{ __('main.select') }}
                                             </option>
                                             @foreach ($products->reject(function ($product) use ($order) {
             return $order->orderItems->pluck('product_id')->contains($product->id);
@@ -166,7 +166,7 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="qty">{{ __('mall.qty') }}</label>
+                                    <label for="qty">{{ __('main.qty') }}</label>
                                     <input class="form-control" type="number" name="qty" id="qty">
                                 </div>
                             </div>
@@ -175,9 +175,9 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn ripple btn-primary" id="modal_changeorder_submit_button"
-                            type="submit">{{ __('mall.add_product') }}</button>
+                            type="submit">{{ __('main.add_product') }}</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
+                            type="button">{{ __('main.Close') }}</button>
                     </div>
                 </div>
             </form>
@@ -193,8 +193,8 @@
                 <input type="hidden" id="id" name="id" value="{{ $order->id }}">
                 <div class="modal-content ">
                     <div class="modal-header">
-                        <h4 class="modal-title"> {{ __('mall.Order_number') }} {{ $order->id }}</h4>
-                        <h5>{{ __('mall.Change_Order_Status') }}</h5>
+                        <h4 class="modal-title"> {{ __('main.Order_number') }} {{ $order->id }}</h4>
+                        <h5>{{ __('main.Change_Order_Status') }}</h5>
                     </div>
                     <div class="modal-body">
 
@@ -202,16 +202,16 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label class="form-label">{{ __('mall.Order_Status') }}: <span
+                                    <label class="form-label">{{ __('main.Order_Status') }}: <span
                                             class="tx-danger">*</span></label>
                                     <div class="parsley-select " id="slWrapperis_active">
                                         <select class="form-control selectwithoutsearch"
                                             data-parsley-class-handler="#slWrapperis_active"
                                             data-parsley-errors-container="#slErrorContaineris_active"
-                                            data-placeholder="{{ __('mall.select') }}" id="status_id" name="status_id"
+                                            data-placeholder="{{ __('main.select') }}" id="status_id" name="status_id"
                                             required="">
                                             <option value="  ">
-                                                {{ __('mall.select') }}
+                                                {{ __('main.select') }}
                                             </option>
                                             @foreach ($orderStatuses as $order_status)
                                                 <option value="{{ $order_status->id }}"
@@ -239,9 +239,9 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn ripple btn-primary" id="modal_changeorder_submit_button"
-                            type="submit">{{ __('mall.edit') }}</button>
+                            type="submit">{{ __('main.edit') }}</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
+                            type="button">{{ __('main.Close') }}</button>
                     </div>
                 </div>
             </form>
@@ -257,8 +257,8 @@
                 <input type="hidden" id="id" name="id" value="{{ $order->id }}">
                 <div class="modal-content ">
                     <div class="modal-header">
-                        <h4 class="modal-title"> {{ __('mall.Order_number') }} {{ $order->id }}</h4>
-                        <h5>{{ __('mall.Change_payment_status') }}</h5>
+                        <h4 class="modal-title"> {{ __('main.Order_number') }} {{ $order->id }}</h4>
+                        <h5>{{ __('main.Change_payment_status') }}</h5>
                     </div>
                     <div class="modal-body">
 
@@ -266,16 +266,16 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label class="form-label">{{ __('mall.payment_method') }}: <span
+                                    <label class="form-label">{{ __('main.payment_method') }}: <span
                                             class="tx-danger">*</span></label>
                                     <div class="parsley-select " id="slWrapperis_active">
                                         <select class="form-control selectwithoutsearch"
                                             data-parsley-class-handler="#slWrapperis_active"
                                             data-parsley-errors-container="#slErrorContaineris_activepaymentstatus"
-                                            data-placeholder="{{ __('mall.select') }}" id="payment_type"
+                                            data-placeholder="{{ __('main.select') }}" id="payment_type"
                                             name="payment_type" required="">
                                             <option value=" ">
-                                                {{ __('mall.select') }}
+                                                {{ __('main.select') }}
                                             </option>
                                             @foreach ($paymentMethods as $payment)
                                                 <option value="{{ $payment['id'] }}"
@@ -298,16 +298,16 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label class="form-label">{{ __('mall.payment_status') }}: <span
+                                    <label class="form-label">{{ __('main.payment_status') }}: <span
                                             class="tx-danger">*</span></label>
                                     <div class="parsley-select " id="slWrapperis_active">
                                         <select class="form-control selectwithoutsearch"
                                             data-parsley-class-handler="#slWrapperis_active"
                                             data-parsley-errors-container="#slErrorContaineris_activepaymentstatus"
-                                            data-placeholder="{{ __('mall.select') }}" id="payment_status"
+                                            data-placeholder="{{ __('main.select') }}" id="payment_status"
                                             name="payment_status" required="">
                                             <option value="  ">
-                                                {{ __('mall.select') }}
+                                                {{ __('main.select') }}
                                             </option>
                                             @foreach ($paymentStatus as $payment_status)
                                                 <option value="{{ $payment_status['id'] }}"
@@ -331,9 +331,9 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn ripple btn-primary" id="modal_changemethodstatus_submit_button"
-                            type="submit">{{ __('mall.edit') }}</button>
+                            type="submit">{{ __('main.edit') }}</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
+                            type="button">{{ __('main.Close') }}</button>
                     </div>
                 </div>
             </form>
@@ -359,7 +359,7 @@
                                         {{ $order->user->phone }} </p>
                                 </div>
                             </div><br />
-                            <h6>{{ __('mall.Note') }}</h6>
+                            <h6>{{ __('main.Note') }}</h6>
                             <div class="main-profile-bio">
                                 {{ $order->note }}
                             </div><!-- main-profile-bio -->
@@ -369,15 +369,15 @@
                                 <table class="table table-invoice border text-md-nowrap mb-0">
                                     <tbody>
                                         <tr>
-                                            <td>{{ __('mall.number_products') }}</td>
+                                            <td>{{ __('main.number_products') }}</td>
                                             <td colspan="2">{{ $order->orderItems->count() }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('mall.Total_Products') }}</td>
+                                            <td>{{ __('main.Total_Products') }}</td>
                                             <td colspan="2">{{ $order->sub_total }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('mall.Coupon_Discount_Value') }} ({{ $order->discount }}%)</td>
+                                            <td>{{ __('main.Coupon_Discount_Value') }} ({{ $order->discount }}%)</td>
                                             <td colspan="2">
                                                 @if ($order->discount > 0)
                                                     @php
@@ -391,16 +391,16 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('mall.Delivery_value') }}</td>
+                                            <td>{{ __('main.Delivery_value') }}</td>
                                             <td colspan="2">{{ floatval($order->delivery) }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('mall.added_tax') }}</td>
+                                            <td>{{ __('main.added_tax') }}</td>
                                             <td colspan="2">{{ floatval($order->tax) }}</td>
                                         </tr>
                                         <tr>
-                                            <td class=" tx-uppercase tx-bold tx-inverse">{{ __('mall.total') }}
+                                            <td class=" tx-uppercase tx-bold tx-inverse">{{ __('main.total') }}
                                             </td>
                                             <td colspan="2">
                                                 <h4 class="tx-primary tx-bold">{{ floatval($order->total) }}</h4>
@@ -424,7 +424,7 @@
                                     <i class="icon-clock text-primary"></i>
                                 </div>
                                 <div class="mr-auto">
-                                    <h2 class="tx-14 " style="font-weight:bold">{{ __('mall.date') }}</h2>
+                                    <h2 class="tx-14 " style="font-weight:bold">{{ __('main.date') }}</h2>
                                     <h5 class="mb-0 tx-15 mb-1 mt-1">
                                         {{ $order->created_at->format('d/m/Y') }}<br />{{ $order->created_at->format('h:i:s A') }}
                                     </h5>
@@ -441,7 +441,7 @@
                                     <i class="icon-rocket text-success"></i>
                                 </div>
                                 <div class="mr-auto">
-                                    <h2 class="tx-14 mt-2" style="font-weight:bold">{{ __('mall.Order_Status') }}
+                                    <h2 class="tx-14 mt-2" style="font-weight:bold">{{ __('main.Order_Status') }}
                                     </h2>
                                     <h5 class="mb-0 tx-15 mb-1 mt-1">
                                         {{ $order->orderStatus->name }}
@@ -460,7 +460,7 @@
                                 </div>
                                 <div class="mr-auto">
                                     <h2 class="tx-14 mt-2" style="font-weight:bold">
-                                        {{ __('mall.payment_status') }}</h2>
+                                        {{ __('main.payment_status') }}</h2>
                                     <h5 class="mb-0 tx-15 mb-1 mt-1">
                                         {{ $order->payment_condition }}
                                     </h5>
@@ -478,22 +478,22 @@
                             <li class="active">
                                 <a href="#home" data-toggle="tab" aria-expanded="true"> <span class="visible-xs"><i
                                             class="las la-shopping-cart tx-20 mr-1"></i></span> <span
-                                        class="hidden-xs">{{ __('mall.Order_Products') }}</span> </a>
+                                        class="hidden-xs">{{ __('main.Order_Products') }}</span> </a>
                             </li>
                             <li class="">
                                 <a href="#profile" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i
                                             class="las la-map-marker-alt tx-20 mr-1"></i></span> <span
-                                        class="hidden-xs">{{ __('mall.Delivery_Address') }}</span> </a>
+                                        class="hidden-xs">{{ __('main.Delivery_Address') }}</span> </a>
                             </li>
                             <li class="">
                                 <a href="#settings" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i
                                             class="las la-file-invoice-dollar tx-20 mr-1"></i></span> <span
-                                        class="hidden-xs">{{ __('mall.Payment_Method') }}</span> </a>
+                                        class="hidden-xs">{{ __('main.Payment_Method') }}</span> </a>
                             </li>
                             <li class="">
                                 <a href="#reviews" data-toggle="tab" aria-expanded="false"> <span class="visible-xs"><i
                                             class="las la-file-invoice-dollar tx-20 mr-1"></i></span> <span
-                                        class="hidden-xs">{{ __('mall.reviews') }}</span> </a>
+                                        class="hidden-xs">{{ __('main.reviews') }}</span> </a>
                             </li>
                         </ul>
                     </div>
@@ -504,11 +504,11 @@
                                 <table class="table table-bordered table-hover mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('mall.product') }}</th>
-                                            <th class="w-150">{{ __('mall.qty') }}</th>
-                                            <th>{{ __('mall.price') }}</th>
-                                            <th>{{ __('mall.total') }}</th>
-                                            <th>{{ __('mall.actions') }}</th>
+                                            <th>{{ __('main.product') }}</th>
+                                            <th class="w-150">{{ __('main.qty') }}</th>
+                                            <th>{{ __('main.price') }}</th>
+                                            <th>{{ __('main.total') }}</th>
+                                            <th>{{ __('main.actions') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="order-items-body">
@@ -558,12 +558,12 @@
                                                     </td>
                                                     <td>
                                                         <button type="submit"
-                                                            class="btn btn-primary">{{ __('mall.update') }}</button>
+                                                            class="btn btn-primary">{{ __('main.update') }}</button>
                                                         <a href="#" id="deleteproductItem"
                                                             data-url="{{ route('mall.orderitems.destroy', $order_item->id) }}"
                                                             data-toggle="modal" data-target="#deleteModal"
                                                             class="btn btn-danger">
-                                                            {{ __('mall.delete') }}
+                                                            {{ __('main.delete') }}
                                                         </a>
 
                                                     </td>
@@ -577,7 +577,7 @@
 
                                     <!-- Button to Add New Row -->
                                     <button id="add_product" data-toggle="modal" data-target="#addProductModal"
-                                        class="btn btn-success">{{ __('mall.add_product') }}</button>
+                                        class="btn btn-success">{{ __('main.add_product') }}</button>
                                 </div>
 
 
@@ -598,8 +598,8 @@
                         <div class="tab-pane" id="reviews">
                             <div style="text-align: center" class="tx-16">
 
-                                    <h5> {{ __('mall.stars') }} : {{ $order->orderReview->stars ?? 0}}</h5>
-                                    <h5> {{ __('mall.comment') }} : {{ $order->orderReview->comment ?? ''}}</h5>
+                                    <h5> {{ __('main.stars') }} : {{ $order->orderReview->stars ?? 0}}</h5>
+                                    <h5> {{ __('main.comment') }} : {{ $order->orderReview->comment ?? ''}}</h5>
 
                             </div>
                         </div>

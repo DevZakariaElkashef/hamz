@@ -87,6 +87,6 @@ class OrderController extends Controller
         $cart->forceDelete();
 
 
-        return $this->sendResponse(200, '', __("mall.order_created_success"));
+        return $this->sendResponse(200, '', __("main.order_created_success"));
     }
 }

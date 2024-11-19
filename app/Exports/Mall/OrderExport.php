@@ -40,16 +40,16 @@ class OrderExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            __('mall.id'),
-            __('mall.date'),
-            __('mall.client'),
-            __('mall.phone'),
-            __('mall.payment_method'),
-            __('mall.payment_status'),
-            __('mall.total'),
-            __('mall.status'),
-            __('mall.section'),
-            __('mall.store'),
+            __('main.id'),
+            __('main.date'),
+            __('main.client'),
+            __('main.phone'),
+            __('main.payment_method'),
+            __('main.payment_status'),
+            __('main.total'),
+            __('main.status'),
+            __('main.section'),
+            __('main.store'),
         ];
     }
 }

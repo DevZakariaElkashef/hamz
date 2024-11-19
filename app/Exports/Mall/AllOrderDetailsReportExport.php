@@ -60,11 +60,11 @@ class AllOrderDetailsReportExport implements FromCollection, WithHeadings, Shoul
     public function headings(): array
     {
         return [
-            __("mall.Order_number"),
-            __('mall.product'),
-            __('mall.qty'),
-            __('mall.price'),
-            __('mall.total')
+            __("main.Order_number"),
+            __('main.product'),
+            __('main.qty'),
+            __('main.price'),
+            __('main.total')
         ];
     }
 }

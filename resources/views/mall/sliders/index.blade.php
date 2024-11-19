@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-    {{ __('mall.sliders') }}
+    {{ __('main.sliders') }}
 @endsection
 @section('css')
     <!---Internal Owl Carousel css-->
@@ -16,13 +16,13 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto"><a href="{{ route('mall.home') }}"
-                        class="text-dark">{{ __('mall.home') }}</a></h5>
+                        class="text-dark">{{ __('main.home') }}</a></h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.sliders.index') }}">{{ __('mall.sliders') }}</a></span>
+                        href="{{ route('mall.sliders.index') }}">{{ __('main.sliders') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
-            
+
             <div class="pr-1 mb-3 mb-xl-0">
                 <button type="button" class="btn btn-info btn-icon ml-2" data-target="#filterModal" data-toggle="modal"
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
@@ -32,7 +32,7 @@
                         class="mdi mdi-refresh"></i></a>
             </div>
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.sliders.create') }}" class="btn btn-primary ">{{ __('mall.create') }}</a>
+                <a href="{{ route('mall.sliders.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">{{ __('mall.delete') }}</h6><button aria-label="Close" class="close"
+                    <h6 class="modal-title">{{ __('main.delete') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form method="POST" id="deleteForm">
@@ -52,12 +52,12 @@
                     @method('delete')
                     <input type="hidden" name="ids" id="selectionIdsInput">
                     <div class="modal-body">
-                        <h6 class="text-center">{{ __('mall.Are_you_sure') }}</h6>
+                        <h6 class="text-center">{{ __('main.Are_you_sure') }}</h6>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn ripple btn-danger" type="submit">{{ __('mall.delete') }}</button>
+                        <button class="btn ripple btn-danger" type="submit">{{ __('main.delete') }}</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
+                            type="button">{{ __('main.Close') }}</button>
                     </div>
                 </form>
             </div>
@@ -68,32 +68,32 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">{{ __('mall.filter') }}</h6><button aria-label="Close" class="close"
+                    <h6 class="modal-title">{{ __('main.filter') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <form method="get" action="{{ route('mall.sliders.index') }}">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="start_at">{{ __('mall.start_date') }}</label>
+                            <label for="start_at">{{ __('main.start_date') }}</label>
                             <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="end_at">{{ __('mall.end_date') }}</label>
+                            <label for="end_at">{{ __('main.end_date') }}</label>
                             <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="is_active">{{ __('mall.status') }}</label>
+                            <label for="is_active">{{ __('main.status') }}</label>
                             <select name="is_active" class="form-control">
-                                <option value="">{{ __('mall.all') }}</option>
-                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('mall.not_active') }}</option>
-                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('mall.active') }}</option>
+                                <option value="">{{ __('main.all') }}</option>
+                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('main.not_active') }}</option>
+                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('main.active') }}</option>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn ripple btn-primary" type="submit">{{ __('mall.filter') }}</button>
+                        <button class="btn ripple btn-primary" type="submit">{{ __('main.filter') }}</button>
                         <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('mall.Close') }}</button>
+                            type="button">{{ __('main.Close') }}</button>
                     </div>
                 </form>
             </div>
@@ -106,14 +106,14 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('mall.sliders') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.sliders') }}</h4>
                         <div class="d-flex align-items-center">
                             <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
                                 data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
-                                data-url="{{ route('mall.sliders.delete') }}">{{ __('mall.delete') }}</a>
+                                data-url="{{ route('mall.sliders.delete') }}">{{ __('main.delete') }}</a>
 
                             <input type="text" id="searchInput" data-url="{{ route('mall.sliders.search') }}"
-                                class="form-control mx-1" placeholder="{{ __('mall.search') }}">
+                                class="form-control mx-1" placeholder="{{ __('main.search') }}">
 
                             <div class="custom-select-wrapper mx-1">
                                 <select id="showPerPage" class="custom-select"

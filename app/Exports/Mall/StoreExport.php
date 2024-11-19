@@ -34,7 +34,7 @@ class StoreExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'section' => $store->section->name ?? '',
                 'latitude' => $store->lat,
                 'longitude' => $store->lng,
-                'status' => $store->is_active ? __("mall.active") : __("mall.not_active"),
+                'status' => $store->is_active ? __("main.active") : __("main.not_active"),
                 'date' => $store->created_at,
             ];
         });
@@ -43,18 +43,18 @@ class StoreExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            __("mall.id"),
-            __("mall.name"),
-            __("mall.description"),
-            __("mall.phone"),
-            __("mall.address"),
-            __("mall.city"),
-            __("mall.owner"),
-            __("mall.section"),
-            __("mall.lat"),
-            __("mall.lng"),
-            __("mall.status"),
-            __("mall.date")
+            __("main.id"),
+            __("main.name"),
+            __("main.description"),
+            __("main.phone"),
+            __("main.address"),
+            __("main.city"),
+            __("main.owner"),
+            __("main.section"),
+            __("main.lat"),
+            __("main.lng"),
+            __("main.status"),
+            __("main.date")
         ];
     }
 }

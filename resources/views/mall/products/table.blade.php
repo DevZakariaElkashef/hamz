@@ -3,17 +3,17 @@
         <thead>
             <tr>
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
-                <th>{{ __('mall.id') }}</th>
-                <th>{{ __('mall.name') }}</th>
-                <th>{{ __('mall.section') }}</th>
-                <th>{{ __('mall.store') }}</th>
-                <th>{{ __('mall.category') }}</th>
-                <th>{{ __('mall.brand') }}</th>
-                <th>{{ __('mall.price') }}</th>
-                <th>{{ __('mall.inventory') }}</th>
+                <th>{{ __('main.id') }}</th>
+                <th>{{ __('main.name') }}</th>
+                <th>{{ __('main.section') }}</th>
+                <th>{{ __('main.store') }}</th>
+                <th>{{ __('main.category') }}</th>
+                <th>{{ __('main.brand') }}</th>
+                <th>{{ __('main.price') }}</th>
+                <th>{{ __('main.inventory') }}</th>
 
-                <th>{{ __('mall.status') }}</th>
-                <th>{{ __('mall.actions') }}</th>
+                <th>{{ __('main.status') }}</th>
+                <th>{{ __('main.actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -45,12 +45,12 @@
                     </td>
                     <td>
                         <a href="{{ route('mall.products.edit', $product->id) }}"
-                            class="btn btn-secondary">{{ __('mall.edit') }}</a>
+                            class="btn btn-secondary">{{ __('main.edit') }}</a>
 
                         <a href="#" class="btn btn-danger delete-btn" data-toggle="modal"
                             data-effect="effect-flip-vertical"
                             data-url="{{ route('mall.products.destroy', $product->id) }}"
-                            data-target="#deletemodal">{{ __('mall.delete') }}</a>
+                            data-target="#deletemodal">{{ __('main.delete') }}</a>
                     </td>
                 </tr>
             @endforeach

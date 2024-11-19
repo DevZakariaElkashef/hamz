@@ -47,7 +47,7 @@ class SectionController extends Controller
         try {
             Excel::import(new SectionImport, $request->file('file'));
 
-            return back()->with('success', __("mall.created_successfully"));
+            return back()->with('success', __("main.created_successfully"));
         } catch (ValidationException $e) {
             // Get the first failure from the exception
             $failure = $e->failures()[0];
@@ -77,7 +77,7 @@ class SectionController extends Controller
     public function store(SectionRequest $request)
     {
         $this->sectionRepository->store($request); // store section
-        return to_route('mall.sections.index')->with('success', __("mall.created_successffully"));
+        return to_route('mall.sections.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -102,7 +102,7 @@ class SectionController extends Controller
     public function update(SectionRequest $request, Section $section)
     {
         $this->sectionRepository->update($request, $section);
-        return to_route('mall.sections.index')->with('success', __("mall.updated_successffully"));
+        return to_route('mall.sections.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Section $section)
@@ -110,7 +110,7 @@ class SectionController extends Controller
         $section->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("mall.updated_successffully")
+            'message' => __("main.updated_successffully")
         ]);
     }
 
@@ -120,12 +120,12 @@ class SectionController extends Controller
     public function destroy(Section $section)
     {
         $this->sectionRepository->delete($section);
-        return to_route('mall.sections.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.sections.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->sectionRepository->deleteSelection($request);
-        return to_route('mall.sections.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.sections.index')->with('success', __("main.delete_successffully"));
     }
 }

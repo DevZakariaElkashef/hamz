@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Traits\ActiveScope;
+use App\Traits\FilterScope;
 use App\Traits\ImageAttribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, ActiveScope, ImageAttribute, Notifiable;
+    use HasApiTokens, HasFactory, FilterScope, ActiveScope, ImageAttribute, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -74,5 +75,15 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function viewes()
+    {
+        return $this->hasMany(View::class);
+    }
+
+    public function withdrows()
+    {
+        return $this->hasMany(Withdrow::class);
     }
 }

@@ -20,7 +20,7 @@ class OrderResource extends JsonResource
             'store_image' => $this->store ? asset($this->store->image) : '',
             'status' => $this->orderStatus->name ?? '',
             'total' => (string) $this->total ?? '',
-            'day' => __('mall.' . $this->created_at->format('l')),
+            'day' => __('main.' . $this->created_at->format('l')),
             'date' => $this->created_at->format('d M Y')
         ];
     }

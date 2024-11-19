@@ -66,7 +66,7 @@ class BrandController extends Controller
         try {
             Excel::import(new BrandImport, $request->file('file'));
 
-            return back()->with('success', __("mall.created_successfully"));
+            return back()->with('success', __("main.created_successfully"));
         } catch (ValidationException $e) {
             // Get the first failure from the exception
             $failure = $e->failures()[0];
@@ -100,7 +100,7 @@ class BrandController extends Controller
     public function store(BrandRequest $request)
     {
         $this->brandRepository->brand($request); // brand brand
-        return to_route('mall.brands.index')->with('success', __("mall.created_successffully"));
+        return to_route('mall.brands.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -129,7 +129,7 @@ class BrandController extends Controller
     public function update(BrandRequest $request, Brand $brand)
     {
         $this->brandRepository->update($request, $brand);
-        return to_route('mall.brands.index')->with('success', __("mall.updated_successffully"));
+        return to_route('mall.brands.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Brand $brand)
@@ -137,7 +137,7 @@ class BrandController extends Controller
         $brand->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("mall.updated_successffully")
+            'message' => __("main.updated_successffully")
         ]);
     }
 
@@ -147,12 +147,12 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         $this->brandRepository->delete($brand);
-        return to_route('mall.brands.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.brands.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->brandRepository->deleteSelection($request);
-        return to_route('mall.brands.index')->with('success', __("mall.delete_successffully"));
+        return to_route('mall.brands.index')->with('success', __("main.delete_successffully"));
     }
 }

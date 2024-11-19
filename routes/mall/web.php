@@ -3,7 +3,6 @@
 use App\Http\Controllers\Mall\Admin\AttributeController;
 use App\Http\Controllers\Mall\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Mall\Admin\CityController;
 use App\Http\Controllers\Mall\Admin\HomeController;
 use App\Http\Controllers\Mall\Admin\ImageController;
 use App\Http\Controllers\Mall\Admin\StoreController;
@@ -43,15 +42,6 @@ Route::as('mall.')->group(function () {
     Route::delete('delete-sections', [SectionController::class, 'delete'])->name('sections.delete');
     /**end Slider Routes */
 
-
-    /**start Slider Routes */
-    Route::resource('cities', CityController::class);
-    Route::get('search-cities', [CityController::class, 'search'])->name('cities.search');
-    Route::get('cities-toggle-status/{city}', [CityController::class, 'toggleStatus'])->name('cities.toggleStatus');
-    Route::get('cities-export', [CityController::class, 'export'])->name('cities.export');
-    Route::post('cities-import', [CityController::class, 'import'])->name('cities.import');
-    Route::delete('delete-cities', [CityController::class, 'delete'])->name('cities.delete');
-    /**end Slider Routes */
 
 
     /**start Slider Routes */

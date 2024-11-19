@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ __('mall.Bill') }}</title>
+    <title>{{ __('main.Bill') }}</title>
 
     <!--==============================
  Google Fonts
@@ -48,8 +48,8 @@
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <h1 class="big-title">{{ __('mall.Bill') }}</h1>
-                                    <p class="invoice-number"><b>{{ __('mall.Order_number') }} </b>#{{ $order->id }}
+                                    <h1 class="big-title">{{ __('main.Bill') }}</h1>
+                                    <p class="invoice-number"><b>{{ __('main.Order_number') }} </b>#{{ $order->id }}
                                     </p>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-auto">
                                 <div class="invoice-right">
-                                    <b>{{ __('mall.address') }}</b>
+                                    <b>{{ __('main.address') }}</b>
                                     <address>
                                         {{ $order->address }}
                                     </address>
@@ -97,9 +97,9 @@
                         <table class="invoice-table table-style1">
                             <thead>
                                 <tr>
-                                    <td><b>{{ __('mall.client') }} </b> {{ $order->user->name }}</td>
-                                    <td><b>{{ __('mall.phone') }} </b> {{ $order->user->phone }}</td>
-                                    <td><b>{{ __('mall.email') }} </b> {{ $order->user->email }}</td>
+                                    <td><b>{{ __('main.client') }} </b> {{ $order->user->name }}</td>
+                                    <td><b>{{ __('main.phone') }} </b> {{ $order->user->phone }}</td>
+                                    <td><b>{{ __('main.email') }} </b> {{ $order->user->email }}</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,17 +108,17 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <p class="table-title text-center"><b>{{ __('mall.View_order_details') }}</b></p>
+                        <p class="table-title text-center"><b>{{ __('main.View_order_details') }}</b></p>
                         <table class="invoice-table table-stripe4 theme-color">
                             <thead>
                                 <tr>
-                                    <th colspan="2">{{ __('mall.id') }} {{ $order->id }}</th>
-                                    <th colspan="2">{{ __('mall.date') }} {{ $order->created_at->format('Y-m-d') }}</th>
+                                    <th colspan="2">{{ __('main.id') }} {{ $order->id }}</th>
+                                    <th colspan="2">{{ __('main.date') }} {{ $order->created_at->format('Y-m-d') }}</th>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('mall.product') }}</th>
-                                    <th>{{ __('mall.qty') }}</th>
-                                    <th>{{ __('mall.price') }}</th>
+                                    <th>{{ __('main.product') }}</th>
+                                    <th>{{ __('main.qty') }}</th>
+                                    <th>{{ __('main.price') }}</th>
 
                                 </tr>
                             </thead>
@@ -143,23 +143,23 @@
                             <div class="col-auto">
                                 <table class="total-table">
                                     <tr>
-                                        <th>{{ __('mall.Subtotal') }}</th>
+                                        <th>{{ __('main.Subtotal') }}</th>
                                         <td>{{ $order->sub_total }}</td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('mall.added_tax') }}</th>
+                                        <th>{{ __('main.added_tax') }}</th>
                                         <td>{{ $order->tax }}</td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('mall.Delivery_value') }}</th>
+                                        <th>{{ __('main.Delivery_value') }}</th>
                                         <td>{{ $order->delivery }}</td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('mall.discount') }}</th>
+                                        <th>{{ __('main.discount') }}</th>
                                         <td>{{ $order->tax }}</td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('mall.total') }}</th>
+                                        <th>{{ __('main.total') }}</th>
                                         <td>{{ $order->total }}</td>
                                     </tr>
                                 </table>

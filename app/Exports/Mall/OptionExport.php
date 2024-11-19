@@ -26,7 +26,7 @@ class OptionExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'id' => $option->id,
                 'name' => $option->value,
                 'attribute' => $option->attribute->name,
-                'status' => $option->is_active ? __("mall.active") : __("mall.not_active"),
+                'status' => $option->is_active ? __("main.active") : __("main.not_active"),
                 'date' => $option->created_at->format('Y-m-d'),
             ];
         });
@@ -35,11 +35,11 @@ class OptionExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            __('mall.id'),
-            __('mall.name'),
-            __('mall.attribute'),
-            __('mall.status'),
-            __('mall.date'),
+            __('main.id'),
+            __('main.name'),
+            __('main.attribute'),
+            __('main.status'),
+            __('main.date'),
         ];
     }
 }

@@ -29,8 +29,8 @@ class ProductFavouriteRequest extends BaseApiRequest
     public function messages()
     {
         return [
-            'product_id.required' => __('mall.product_required'),
-            'product_id.exists' => __('mall.product_exists'),
+            'product_id.required' => __('main.product_required'),
+            'product_id.exists' => __('main.product_exists'),
 
         ];
     }

@@ -3,16 +3,16 @@
         <thead>
             <tr>
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
-                <th>{{ __('mall.id') }}</th>
-                <th>{{ __('mall.date') }}</th>
-                <th>{{ __('mall.client') }}</th>
-            <th>{{ __('mall.payment_method') }}</th>
-            <th>{{ __('mall.payment_status') }}</th>
-                <th>{{ __('mall.total') }}</th>
-                <th>{{ __('mall.status') }}</th>
-                <th>{{ __('mall.section') }}</th>
-                <th>{{ __('mall.store') }}</th>
-                <th>{{ __('mall.actions') }}</th>
+                <th>{{ __('main.id') }}</th>
+                <th>{{ __('main.date') }}</th>
+                <th>{{ __('main.client') }}</th>
+            <th>{{ __('main.payment_method') }}</th>
+            <th>{{ __('main.payment_status') }}</th>
+                <th>{{ __('main.total') }}</th>
+                <th>{{ __('main.status') }}</th>
+                <th>{{ __('main.section') }}</th>
+                <th>{{ __('main.store') }}</th>
+                <th>{{ __('main.actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -40,12 +40,12 @@
                     <td>{{ $order->store->name }}</td>
                     <td>
                         <a href="{{ route('mall.orders.show', $order->id) }}"
-                            class="btn btn-primary">{{ __('mall.show') }}</a>
+                            class="btn btn-primary">{{ __('main.show') }}</a>
 
                         <a href="#" class="btn btn-danger delete-btn" data-toggle="modal"
                             data-effect="effect-flip-vertical"
                             data-url="{{ route('mall.orders.destroy', $order->id) }}"
-                            data-target="#deletemodal">{{ __('mall.delete') }}</a>
+                            data-target="#deletemodal">{{ __('main.delete') }}</a>
                     </td>
                 </tr>
             @endforeach

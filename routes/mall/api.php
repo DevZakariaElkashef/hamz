@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Mall\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mall\Api\CartController;
 use App\Http\Controllers\Mall\Api\DeliveryController;
@@ -9,7 +8,6 @@ use App\Http\Controllers\Mall\Api\HomeController;
 use App\Http\Controllers\Mall\Api\OrderController;
 use App\Http\Controllers\Mall\Api\StoreController;
 use App\Http\Controllers\Mall\Api\ProductController;
-use App\Http\Controllers\Mall\Api\ProfileController;
 use App\Http\Controllers\Mall\Api\SectionController;
 
 // =============================================================================
@@ -19,16 +17,6 @@ Route::get('home', [HomeController::class, 'index']);
 // =============================================================================
 
 
-
-// =============================================================================
-//                           AUTH ROUTES FOR GUEST USERS
-// =============================================================================
-Route::post('login', [AuthController::class, 'login']);             // User login
-Route::post('register', [AuthController::class, 'register']);       // User registration
-Route::post('verify_otp', [AuthController::class, 'verifyOtp']);    // OTP verification
-Route::post('send_otp', [AuthController::class, 'sendOtp']);        // Send OTP
-Route::post('forget_password', [AuthController::class, 'updatePassword']); // Password reset
-// =============================================================================
 
 
 
@@ -67,13 +55,7 @@ Route::get('products/{product}', [ProductController::class, 'show']); // Show de
 // =============================================================================
 Route::middleware(['api', 'auth:sanctum'])->group(function () {
 
-    // -------------------------------
-    //          AUTH USER ROUTES
-    // -------------------------------
-    Route::post('logout', [AuthController::class, 'logout']);          // User logout
-    Route::get('get_profile', [ProfileController::class, 'index']);   // Get user profile
-    Route::post('update_profile', [ProfileController::class, 'update']); // Update user profile
-    // -------------------------------
+
 
 
 

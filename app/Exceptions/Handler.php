@@ -57,12 +57,12 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         // Check if the exception is an AuthenticationException and the request URL starts with 'mall/api'
-        if ($exception instanceof AuthenticationException && $request->is('mall/api/*')) {
-            return $this->sendResponse(401, '', __("mall.unauthenticated"));
+        if ($exception instanceof AuthenticationException && $request->is('*/api/*')) {
+            return $this->sendResponse(401, '', __("main.unauthenticated"));
         }
         // check if ther is not found exception
-        if ($exception instanceof NotFoundHttpException && $request->is('mall/api/*')) {
-            return $this->sendResponse(401, '', __("mall.not_found_exeption"));
+        if ($exception instanceof NotFoundHttpException && $request->is('*/api/*')) {
+            return $this->sendResponse(401, '', __("main.not_found_exeption"));
         }
 
         return parent::render($request, $exception);

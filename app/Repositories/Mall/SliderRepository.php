@@ -34,6 +34,8 @@ class SliderRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'sliders');
         }
+        $data['app'] = 'mall';
+        unset($data['_token']);
         return Slider::create($data);
     }
 
@@ -44,6 +46,7 @@ class SliderRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'sliders', $slider->image);
         }
+        unset($data['_token'], $data['_method']);
         $slider->update($data);
         return $slider;
     }
