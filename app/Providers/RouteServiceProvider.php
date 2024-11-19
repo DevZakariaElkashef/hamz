@@ -44,7 +44,24 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
             ->prefix('mall')
             ->group(base_path('routes/mall/web.php'));
-            /** End Mall Routes */
+            /** Begain used_market Routes */
+            Route::middleware('api')
+            ->prefix('usedMarket/api')
+            ->group(base_path('routes/usedMarket/api.php'));
+
+            Route::middleware('web')
+            ->prefix('usedMarket')
+            ->group(base_path('routes/usedMarket/web.php'));
+            /** End used_market Routes */
+            /** Begain rfoof Routes */
+            Route::middleware('api')
+            ->prefix('rfoof/api')
+            ->group(base_path('routes/rfoof/api.php'));
+
+            Route::middleware('web')
+            ->prefix('rfoof')
+            ->group(base_path('routes/rfoof/web.php'));
+            /** End rfoof Routes */
 
 
         });

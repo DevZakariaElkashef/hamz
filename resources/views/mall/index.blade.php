@@ -1,6 +1,6 @@
 @extends('mall.layouts.master')
 @section('title')
-{{ __("mall.home") }}
+    {{ __('mall.home') }}
 @endsection
 @section('css')
     <!--  Owl-carousel css-->
@@ -25,7 +25,7 @@
                     <i class="typcn typcn-star active"></i>
                     <i class="typcn typcn-star active"></i>
                     <i class="typcn typcn-star"></i>
-                     <span>(14,873)</span>
+                    <span>(14,873)</span>
                 </div>
             </div>
             <div>

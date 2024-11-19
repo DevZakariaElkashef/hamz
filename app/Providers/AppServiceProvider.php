@@ -8,6 +8,7 @@ use App\Observers\StoreObserver;
 use App\Observers\SectionObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        View::composer('*', 'App\Http\ViewComposer\SettingComposer');
     }
 
     /**
