@@ -27,7 +27,7 @@
     @include('mall.layouts.main-sidebar')
     <!-- main-content -->
     <div class="main-content app-content">
-        @include('mall.layouts.main-header')
+        @include('layouts.main-header')
 
         <!-- container -->
         <div class="container-fluid">

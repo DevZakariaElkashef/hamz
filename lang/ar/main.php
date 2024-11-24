@@ -373,5 +373,19 @@ return
     'subscripe' => "اشترك",
     'expired' => 'منتهي الصلاحية',
     'cancelled' => 'ملغى',
+    'role_not_allowed' => 'غير مسموح لك بالدخول',
+
+    'Please_sign_in_to_continue.' => "يرجى تسجيل الدخول للمتابعة.",
+    'Enter_your_email' => 'أدخل بريدك الإلكتروني',
+    'Send' => 'إرسال',
+    'Enter_your_password' => "أدخل كلمة المرور الخاصة بك",
+    'Remember_me' => "تذكرني",
+    'login' => 'تسجيل الدخول',
+    'Forgot_password?' => 'هل نسيت كلمة المرور؟',
+    'Forgot_Password!' => 'نسيت كلمة المرور!',
+    'Please_Enter_Your_Email' => "يرجى إدخال بريدك الإلكتروني",
+    'Send_me_back' => "أعدني",
+    'Forget_it' => "انس الأمر",
+    'to_the_sign_in_screen.' => 'إلى شاشة تسجيل الدخول.',
 
 ];

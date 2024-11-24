@@ -23,7 +23,7 @@
     @include('coupon.layouts.main-sidebar')
     <!-- main-content -->
     <div class="main-content app-content">
-        @include('coupon.layouts.main-header')
+        @include('layouts.main-header')
         <!-- container -->
         <div class="container-fluid">
             @yield('page-header')
