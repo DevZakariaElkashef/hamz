@@ -7,7 +7,7 @@ use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class RoleSeeder extends Seeder
+class StoresRoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,8 +27,8 @@ class RoleSeeder extends Seeder
 
         // Define stores permissions
         $permissions = [
-            ['name' => 'dashboard.index', 'app' => 'mall'],
-            ['name' => 'dashboard.index', 'app' => 'booth'],
+            ['name' => 'view-mall-dashboard.index', 'app' => 'mall'],
+            ['name' => 'view-booth-dashboard.index', 'app' => 'booth'],
 
             ['name' => 'sliders.index', 'app' => 'stores'],
             ['name' => 'sliders.create', 'app' => 'stores'],

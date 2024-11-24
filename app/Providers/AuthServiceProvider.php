@@ -4,8 +4,8 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Permission;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,16 +27,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Permission::get()->map(function($permission) {
-        //     Gate::define($permission->name, function ($user) use ($permission) {
-        //         return $user->hasPermission($permission->name);
-        //     });
-        // });
+        Permission::get()->map(function ($permission) {
+            Gate::define($permission->name, function ($user) use ($permission) {
+                return $user->hasPermission($permission->name);
+            });
+        });
 
-        // Gate::after(function($user, $ability) {
-        //     if($user->role->name_en == 'super-admin') {
-        //         return true;
-        //     }
-        // });
+        Gate::after(function ($user, $ability) {
+            if ($user->role->name_en == 'super-admin') {
+                return true;
+            }
+        });
     }
 }
