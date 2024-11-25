@@ -14,6 +14,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $this->authorize('view-mall-dashboard.index');
         $customerRating = floor(OrderReview::avg('stars'));
         $totalSale = Order::mall()->where('order_status_id', 4)->sum('total');
         $allSales = Order::mall()->where('order_status_id', 4)->count();
@@ -22,7 +23,7 @@ class HomeController extends Controller
         $productsCount = Product::active()->mall()->count();
         $ordersCount = Order::mall()->count();
         $couponsCount = Coupon::mall()->active()->count();
-        
+
 
 
         return view("mall.index", compact('customerRating'));

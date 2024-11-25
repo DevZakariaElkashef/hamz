@@ -21,22 +21,28 @@
                         href="{{ route('mall.attributes.index') }}">{{ __('main.attributes') }}</a></span>
             </div>
         </div>
-        <div class="d-flex my-xl-auto right-content">
-            <div class="pr-1 mb-3 mb-xl-0">
-                <a class="btn btn-success  ml-2" data-target="#importmodal" data-toggle="modal"
-                    data-effect="effect-flip-vertical">
-                    {{ __('main.import') }}
-                    <i class="mdi mdi-upload"></i>
-                </a>
-            </div>
-            <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('mall.attributes.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active')]) }}"
-                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
-                    {{ __('main.export') }}
-                    <i class="mdi mdi-download"></i>
-                </a>
 
-            </div>
+        <div class="d-flex my-xl-auto right-content">
+            @can('mall.attributes.import')
+                <div class="pr-1 mb-3 mb-xl-0">
+                    <a class="btn btn-success  ml-2" data-target="#importmodal" data-toggle="modal"
+                        data-effect="effect-flip-vertical">
+                        {{ __('main.import') }}
+                        <i class="mdi mdi-upload"></i>
+                    </a>
+                </div>
+            @endcan
+
+            @can('mall.attributes.export')
+                <div class="pr-1 mb-3 mb-xl-0">
+                    <a href="{{ route('mall.attributes.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active')]) }}"
+                        class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
+                        {{ __('main.export') }}
+                        <i class="mdi mdi-download"></i>
+                    </a>
+                </div>
+            @endcan
+
             <div class="pr-1 mb-3 mb-xl-0">
                 <button type="button" class="btn btn-info btn-icon ml-2" data-target="#filterModal" data-toggle="modal"
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
@@ -45,9 +51,12 @@
                 <a href="{{ route('mall.attributes.index') }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
-            <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.attributes.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
-            </div>
+
+            @can('mall.attributes.create')
+                <div class="mb-3 mb-xl-0">
+                    <a href="{{ route('mall.attributes.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
+                </div>
+            @endcan
         </div>
     </div>
     <!-- breadcrumb -->

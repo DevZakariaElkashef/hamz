@@ -15,6 +15,13 @@ class SliderController extends Controller
     public function __construct(SliderRepository $sliderRepository)
     {
         $this->sliderRepository = $sliderRepository;
+
+
+        // autherization
+        $this->middleware('can:mall.sliders.index')->only('index');
+        $this->middleware('can:mall.sliders.create')->only(['create', 'store']);
+        $this->middleware('can:mall.sliders.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.sliders.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

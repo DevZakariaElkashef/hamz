@@ -17,7 +17,7 @@ class BrandRepository
 
     public function index($request)
     {
-        $brands = Brand::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
+        $brands = Brand::filter($request)->mall()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $brands;
     }

@@ -376,8 +376,6 @@ return
     'cancelled' => 'cancelled',
     'role_not_allowed' => 'role not allowed',
 
-
-
     'Please_sign_in_to_continue.' => "Please sign in to continue.",
     'Enter_your_email' => 'Enter your email',
     'Send' => 'Send',
@@ -389,5 +387,5 @@ return
     'Please_Enter_Your_Email' => "Please Enter Your Email",
     'Send_me_back' => "Send me back",
     'Forget_it' => "Forget it",
-    'to_the_sign_in_screen.' => 'to the sign in screen.'
+    'to_the_sign_in_screen.' => 'to the sign in screen.',
 ];

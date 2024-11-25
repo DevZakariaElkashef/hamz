@@ -20,6 +20,14 @@ class CategoryController extends Controller
     public function __construct(CategoryRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
+
+        // autherization
+        $this->middleware('can:mall.categories.index')->only('index');
+        $this->middleware('can:mall.categories.create')->only(['create', 'store']);
+        $this->middleware('can:mall.categories.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.categories.delete')->only('destroy');
+        $this->middleware('can:mall.categories.export')->only('export');
+        $this->middleware('can:mall.categories.import')->only('import');
     }
     /**
      * Display a listing of the resource.

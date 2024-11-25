@@ -12,11 +12,6 @@ class Permission extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function scopeStores($query)
-    {
-        return $query->where('app', 'stores');
-    }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_permission')->withTimestamps();

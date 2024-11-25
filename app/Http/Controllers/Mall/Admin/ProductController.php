@@ -25,6 +25,14 @@ class ProductController extends Controller
     public function __construct(ProductRepository $productRepository)
     {
         $this->productRepository = $productRepository;
+
+        // autherization
+        $this->middleware('can:mall.products.index')->only('index');
+        $this->middleware('can:mall.products.create')->only(['create', 'store']);
+        $this->middleware('can:mall.products.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.products.delete')->only('destroy');
+        $this->middleware('can:mall.products.export')->only('export');
+        $this->middleware('can:mall.products.import')->only('import');
     }
     /**
      * Display a listing of the resource.

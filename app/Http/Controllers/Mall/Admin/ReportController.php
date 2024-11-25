@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
-use App\Models\User;
-use App\Models\Brand;
-use App\Models\Order;
-use App\Models\Store;
-use App\Models\Product;
-use App\Models\Section;
-use App\Models\Category;
-use App\Models\OrderItem;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\Mall\OrderStatusReportExport;
-use App\Exports\Mall\AllVendorSalesReportExport;
-use App\Exports\Mall\LowStockAlertsReportExport;
 use App\Exports\Mall\AllOrderDetailsReportExport;
 use App\Exports\Mall\AllProductSalesReportExport;
+use App\Exports\Mall\AllVendorSalesReportExport;
 use App\Exports\Mall\CustomerActivityReportExport;
+use App\Exports\Mall\LowStockAlertsReportExport;
+use App\Exports\Mall\OrderStatusReportExport;
+use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
+use App\Models\Section;
+use App\Models\Store;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -28,6 +28,14 @@ class ReportController extends Controller
     public function __construct()
     {
         $this->limit = config('app.pg_limit');
+
+        // autherization
+        $this->middleware('can:mall.report.product_sales')->only(['allProductSalesReport', 'searchAllProductSalesReport', 'exportAllProductSalesReport']);
+        $this->middleware('can:mall.report.vendor_sales')->only(['allVendorSalesReport', 'searchAllVendorSalesReport', 'exportAllVendorSalesReport']);
+        $this->middleware('can:mall.report.order_status')->only(['orderStatusReport', 'exportOrderStatusReport']);
+        $this->middleware('can:mall.report.order_details')->only(['allOrderDetailsReport', 'searchAllOrderDetailsReport', 'exportAllOrderDetailsReport']);
+        $this->middleware('can:mall.report.customer_activity')->only(['customerActivityReport', 'searchCustomerActivityReport', 'exportCustomerActivityReport']);
+        $this->middleware('can:mall.report.low_stock_alert')->only(['lowStockAlertsReport', 'searchLowStockAlertsReport', 'exportLowStockAlertsReport']);
     }
 
     // Report of all product sales
@@ -59,8 +67,6 @@ class ReportController extends Controller
     {
         return Excel::download(new AllProductSalesReportExport($request), 'product_reports.xlsx');
     }
-
-
 
     // Report of sales for all vendors (stores)
     public function allVendorSalesReport(Request $request)
@@ -110,7 +116,6 @@ class ReportController extends Controller
         return Excel::download(new AllVendorSalesReportExport($request), 'vendor_reports.xlsx');
     }
 
-
     // Report of all order statuses
     public function orderStatusReport(Request $request)
     {
@@ -134,7 +139,6 @@ class ReportController extends Controller
             ->groupBy('status')
             ->paginate($request->per_page ?? $this->limit);
 
-
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
 
@@ -146,9 +150,6 @@ class ReportController extends Controller
     {
         return Excel::download(new OrderStatusReportExport($request), 'order_statuses.xlsx');
     }
-
-
-
 
     // Report of all order details
     public function allOrderDetailsReport(Request $request)
@@ -180,7 +181,6 @@ class ReportController extends Controller
             ->paginate($request->per_page ?? $this->limit);
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
-
 
         return view('mall.reports.orders.all_order_details', compact('orders', 'sections', 'stores'));
     }
@@ -226,7 +226,6 @@ class ReportController extends Controller
     {
         return Excel::download(new CustomerActivityReportExport($request), 'clients.xlsx');
     }
-
 
     // Report of low stock alerts
     public function lowStockAlertsReport(Request $request)

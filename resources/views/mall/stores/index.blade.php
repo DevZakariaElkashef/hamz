@@ -22,21 +22,26 @@
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
-            <div class="pr-1 mb-3 mb-xl-0">
-                <a class="btn btn-success  ml-2" data-target="#importmodal" data-toggle="modal"
-                    data-effect="effect-flip-vertical">
-                    {{ __('main.import') }}
-                    <i class="mdi mdi-upload"></i>
-                </a>
-            </div>
-            <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('mall.stores.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active')]) }}"
-                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
-                    {{ __('main.export') }}
-                    <i class="mdi mdi-download"></i>
-                </a>
+            @can('mall.stores.import')
+                <div class="pr-1 mb-3 mb-xl-0">
+                    <a class="btn btn-success  ml-2" data-target="#importmodal" data-toggle="modal"
+                        data-effect="effect-flip-vertical">
+                        {{ __('main.import') }}
+                        <i class="mdi mdi-upload"></i>
+                    </a>
+                </div>
+            @endcan
 
-            </div>
+            @can('mall.stores.export')
+                <div class="pr-1 mb-3 mb-xl-0">
+                    <a href="{{ route('mall.stores.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active')]) }}"
+                        class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
+                        {{ __('main.export') }}
+                        <i class="mdi mdi-download"></i>
+                    </a>
+                </div>
+            @endcan
+
             <div class="pr-1 mb-3 mb-xl-0">
                 <button type="button" class="btn btn-info btn-icon ml-2" data-target="#filterModal" data-toggle="modal"
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
@@ -45,9 +50,12 @@
                 <a href="{{ route('mall.stores.index') }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
-            <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.stores.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
-            </div>
+
+            @can('mall.stores.create')
+                <div class="mb-3 mb-xl-0">
+                    <a href="{{ route('mall.stores.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
+                </div>
+            @endcan
         </div>
     </div>
     <!-- breadcrumb -->
@@ -61,7 +69,8 @@
                     <h6 class="modal-title">{{ __('main.import') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form method="POST" id="importForm" action="{{ route('mall.stores.import') }}" enctype="multipart/form-data">
+                <form method="POST" id="importForm" action="{{ route('mall.stores.import') }}"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -69,7 +78,8 @@
                             <input type="file" class="form-control" accept=".xlsx" id="file" name="file">
                         </div>
                         <div class="mt-3">
-                            <a href="{{ asset("imports/stores.xlsx") }}" download class="btn btn-warning">{{ __('main.download_example') }}</a>
+                            <a href="{{ asset('imports/stores.xlsx') }}" download
+                                class="btn btn-warning">{{ __('main.download_example') }}</a>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -127,17 +137,21 @@
                             <label for="is_active">{{ __('main.status') }}</label>
                             <select name="is_active" class="form-control">
                                 <option value="">{{ __('main.all') }}</option>
-                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('main.not_active') }}</option>
-                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('main.active') }}</option>
+                                <option value="0" @if (request('is_active') == '0') selected @endif>
+                                    {{ __('main.not_active') }}</option>
+                                <option value="1" @if (request('is_active') == '1') selected @endif>
+                                    {{ __('main.active') }}</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="start_at">{{ __('main.start_date') }}</label>
-                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at" class="form-control">
+                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at"
+                                class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="end_at">{{ __('main.end_date') }}</label>
-                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at" class="form-control">
+                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at"
+                                class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">

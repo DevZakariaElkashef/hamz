@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
-use App\Models\City;
-use App\Models\User;
-use App\Models\Brand;
-use App\Models\Store;
-use App\Models\Section;
-use Illuminate\Http\Request;
 use App\Exports\Mall\BrandExport;
-use App\Imports\Mall\BrandImport;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Repositories\Mall\BrandRepository;
 use App\Http\Requests\Mall\Web\BrandRequest;
+use App\Imports\Mall\BrandImport;
+use App\Models\Brand;
+use App\Models\City;
+use App\Models\Section;
+use App\Models\Store;
+use App\Models\User;
+use App\Repositories\Mall\BrandRepository;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class BrandController extends Controller
@@ -23,6 +23,14 @@ class BrandController extends Controller
     public function __construct(BrandRepository $brandRepository)
     {
         $this->brandRepository = $brandRepository;
+
+        // autherization
+        $this->middleware('can:mall.brands.index')->only('index');
+        $this->middleware('can:mall.brands.create')->only(['create', 'store']);
+        $this->middleware('can:mall.brands.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.brands.delete')->only('destroy');
+        $this->middleware('can:mall.brands.export')->only('export');
+        $this->middleware('can:mall.brands.import')->only('import');
     }
     /**
      * Display a listing of the resource.
@@ -43,7 +51,7 @@ class BrandController extends Controller
 
     public function getBrandsBySection(Request $request)
     {
-        $items = Brand::whereHas('store', function ($store) use($request) {
+        $items = Brand::whereHas('store', function ($store) use ($request) {
             $store->where("section_id", $request->sectionId);
         })->get();
 
@@ -89,7 +97,7 @@ class BrandController extends Controller
     {
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
-        $cities = City::mall()->active()->get();
+        $cities = City::active()->get();
         $stores = Store::mall()->active()->get();
         return view("mall.brands.create", compact('sections', 'users', 'cities', 'stores'));
     }
@@ -118,7 +126,7 @@ class BrandController extends Controller
     {
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
-        $cities = City::mall()->active()->get();
+        $cities = City::active()->get();
         $stores = Store::mall()->active()->get();
         return view('mall.brands.edit', compact('brand', 'sections', 'users', 'cities', 'stores'));
     }
@@ -137,7 +145,7 @@ class BrandController extends Controller
         $brand->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("main.updated_successffully")
+            'message' => __("main.updated_successffully"),
         ]);
     }
 

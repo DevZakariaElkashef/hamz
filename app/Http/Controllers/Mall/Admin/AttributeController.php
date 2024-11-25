@@ -19,6 +19,14 @@ class AttributeController extends Controller
     public function __construct(AttributeRepository $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
+
+        // autherization
+        $this->middleware('can:mall.attributes.index')->only('index');
+        $this->middleware('can:mall.attributes.create')->only(['create', 'store']);
+        $this->middleware('can:mall.attributes.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.attributes.delete')->only('destroy');
+        $this->middleware('can:mall.attributes.export')->only('export');
+        $this->middleware('can:mall.attributes.import')->only('import');
     }
     /**
      * Display a listing of the resource.

@@ -19,6 +19,14 @@ class CouponController extends Controller
     public function __construct(CouponRepository $couponRepository)
     {
         $this->couponRepository = $couponRepository;
+
+        // autherization
+        $this->middleware('can:mall.coupons.index')->only('index');
+        $this->middleware('can:mall.coupons.create')->only(['create', 'store']);
+        $this->middleware('can:mall.coupons.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.coupons.delete')->only('destroy');
+        $this->middleware('can:mall.coupons.export')->only('export');
+        $this->middleware('can:mall.coupons.import')->only('import');
     }
     /**
      * Display a listing of the resource.

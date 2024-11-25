@@ -20,6 +20,14 @@ class OptionController extends Controller
     public function __construct(OptionRepository $optionRepository)
     {
         $this->optionRepository = $optionRepository;
+
+        // autherization
+        $this->middleware('can:mall.options.index')->only('index');
+        $this->middleware('can:mall.options.create')->only(['create', 'store']);
+        $this->middleware('can:mall.options.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.options.delete')->only('destroy');
+        $this->middleware('can:mall.options.export')->only('export');
+        $this->middleware('can:mall.options.import')->only('import');
     }
     /**
      * Display a listing of the resource.

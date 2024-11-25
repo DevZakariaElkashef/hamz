@@ -20,6 +20,12 @@ class SectionController extends Controller
     public function __construct(SectionRepository $sectionRepository)
     {
         $this->sectionRepository = $sectionRepository;
+
+        // autherization
+        $this->middleware('can:mall.sections.index')->only('index');
+        $this->middleware('can:mall.sections.create')->only(['create', 'store']);
+        $this->middleware('can:mall.sections.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.sections.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

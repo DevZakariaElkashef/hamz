@@ -20,9 +20,8 @@
                     <td>{{ $category->name }}</td>
                     <td>
                         <a href="{{ asset($category->image) }}" download>
-                            <img src="{{ asset($category->image) }}"
-                                style="display: inline-block; border-radius: 50%;" width="40"
-                                height="40" alt="">
+                            <img src="{{ asset($category->image) }}" style="display: inline-block; border-radius: 50%;"
+                                width="40" height="40" alt="">
                         </a>
                     </td>
                     <td>
