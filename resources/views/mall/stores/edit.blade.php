@@ -14,7 +14,7 @@
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
                         href="{{ route('mall.stores.index') }}">{{ __('main.stores') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('mall.stores.create') }}">{{ __('main.create_store') }}</a></span>
+                        href="{{ route('mall.stores.create') }}">{{ __('main.edit_store') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -202,7 +202,8 @@
                             <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
-                                    <input class="custom-file-input" accept="image/*" id="customFile" type="file" name="image">
+                                    <input class="custom-file-input" accept="image/*" id="customFile" type="file"
+                                        name="image">
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

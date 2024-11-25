@@ -8,6 +8,7 @@
                 <th>{{ __('main.image') }}</th>
                 <th>{{ __('main.url') }}</th>
                 <th>{{ __('main.status') }}</th>
+                <th>{{ __('main.fixed') }}</th>
                 <th>{{ __('main.actions') }}</th>
             </tr>
         </thead>
@@ -24,11 +25,22 @@
                         </a>
                     </td>
                     <td>{{ $slider->url }}</td>
+
+
                     <td>
                         <label class="custom-toggle-switch">
                             <input type="checkbox" class="custom-toggle-input" data-id="{{ $slider->id }}"
                                 data-url="{{ route('mall.slider.toggleStatus', $slider->id) }}"
                                 {{ $slider->is_active ? 'checked' : '' }}>
+                            <span class="custom-toggle-slider"></span>
+                        </label>
+                    </td>
+
+                    <td>
+                        <label class="custom-toggle-switch">
+                            <input type="checkbox" class="custom-toggle-input custom-toggle-input-is-fixed" data-id="{{ $slider->id }}"
+                                data-url="{{ route('mall.slider.toggleFixedStatus', $slider->id) }}"
+                                {{ $slider->is_fixed ? 'checked' : '' }}>
                             <span class="custom-toggle-slider"></span>
                         </label>
                     </td>

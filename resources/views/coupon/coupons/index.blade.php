@@ -174,7 +174,6 @@
                                     <option value="100" @if (request('per_page') && request('per_page') == 100) selected @endif>100</option>
                                 </select>
                             </div>
-
                         </div>
 
                     </div>

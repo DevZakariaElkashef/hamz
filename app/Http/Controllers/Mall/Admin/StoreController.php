@@ -78,7 +78,7 @@ class StoreController extends Controller
     {
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
-        $cities = City::mall()->active()->get();
+        $cities = City::active()->get();
         return view("mall.stores.create", compact('sections', 'users', 'cities'));
     }
 
@@ -106,7 +106,7 @@ class StoreController extends Controller
     {
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
-        $cities = City::mall()->active()->get();
+        $cities = City::active()->get();
         return view('mall.stores.edit', compact('store', 'sections', 'users', 'cities'));
     }
 

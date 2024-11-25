@@ -10,7 +10,6 @@ use App\Models\Product;
 use App\Models\Section;
 use App\Models\Slider;
 use App\Traits\ApiResponse;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -18,10 +17,12 @@ class HomeController extends Controller
 
     public function index()
     {
+        $ad = Slider::mall()->fixed()->first();
+        
         $data = [
-            'ad' => '',
+            'ad' => $ad ? new SliderResource($ad) : null,
             'sliders' => SliderResource::collection(Slider::mall()->active()->get()),
-            'sections' => SectionResource::collection(Section::mall()->active()->latest()->take(4)->get()),
+            'sections' => SectionResource::collection(Section::mall()->active()->with('stores')->latest()->take(4)->get()),
             'most_recent' => ProductInHomeResource::collection(Product::mall()->active()->latest()->take(4)->get()),
             'most_sale' => [],
         ];

@@ -111,9 +111,16 @@
                             $('.success-toast').fadeOut(function() {
                                 $(this).addClass(
                                     'd-none'
-                                    ); // Add d-none after fade out completes
+                                ); // Add d-none after fade out completes
                             });
                         }, 1000);
+
+                        if (response.refresh) {
+                            // You don't need to reload the page anymore, just update the checkboxes
+                            var me = switchElement[0]; // Get the clicked element
+                            $('.custom-toggle-input-is-fixed').not(me).prop('checked',
+                                false); // Uncheck all other elements
+                        }
                     }
                 }
             });

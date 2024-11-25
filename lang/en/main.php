@@ -388,4 +388,7 @@ return
     'Send_me_back' => "Send me back",
     'Forget_it' => "Forget it",
     'to_the_sign_in_screen.' => 'to the sign in screen.',
+    'fixed' => 'fixed',
+    'no' => 'No',
+    'yes' => "Yes",
 ];

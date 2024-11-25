@@ -22,7 +22,6 @@ class SliderRepository
         return $sliders;
     }
 
-
     public function search($request)
     {
         return Slider::mall()->search($request->search)->paginate($request->per_page ?? $this->limit);
@@ -32,25 +31,39 @@ class SliderRepository
     {
         $data = $request->except('image');
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'sliders');
+            $data['image'] = $this->uploadImage($request->file('image'), 'sliders');
         }
         $data['app'] = 'mall';
         unset($data['_token']);
-        return Slider::create($data);
-    }
+        $slider = Slider::create($data);
 
+        if ($slider->is_fixed) {
+            $this->updateOtherSliders($slider->id);
+        }
+
+        return $slider;
+    }
 
     public function update($request, $slider)
     {
         $data = $request->except('image');
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'sliders', $slider->image);
+            $data['image'] = $this->uploadImage($request->file('image'), 'sliders', $slider->image);
         }
         unset($data['_token'], $data['_method']);
         $slider->update($data);
+
+        if ($slider->is_fixed) {
+            $this->updateOtherSliders($slider->id);
+        }
+
         return $slider;
     }
 
+    public function updateOtherSliders(int $currentSliderId): void
+    {
+        Slider::whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
+    }
 
     public function delete($slider)
     {

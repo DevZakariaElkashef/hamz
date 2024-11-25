@@ -82,7 +82,20 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-12 form-group mt-4">
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.fixed') }}: <span class="tx-danger">*</span></label>
+                                <select required class="form-control" name="is_fixed">
+                                    <option value="0" @if (old('is_fixed') == 0) selected @endif>
+                                        {{ __('main.no') }}</option>
+                                    <option value="1" @if (old('is_fixed') == 1) selected @endif>
+                                        {{ __('main.yes') }}</option>
+                                </select>
+                                @error('is_fixed')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
                                     <input class="custom-file-input" required id="customFile" type="file" name="image">

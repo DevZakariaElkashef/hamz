@@ -86,4 +86,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Withdrow::class);
     }
+
+    public function store()
+    {
+        return $this->hasOne(Store::class);
+    }
 }

@@ -16,7 +16,6 @@ class SliderController extends Controller
     {
         $this->sliderRepository = $sliderRepository;
 
-
         // autherization
         $this->middleware('can:mall.sliders.index')->only('index');
         $this->middleware('can:mall.sliders.create')->only(['create', 'store']);
@@ -85,7 +84,22 @@ class SliderController extends Controller
         $slider->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("main.updated_successffully")
+            'message' => __("main.updated_successffully"),
+        ]);
+    }
+
+    public function toggleFixedStatus(Request $request, Slider $slider)
+    {
+        $slider->update(['is_fixed' => $request->is_active]);
+
+        if ($request->is_active) {
+            $this->sliderRepository->updateOtherSliders($slider->id);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __("main.updated_successffully"),
+            'refresh' => true,
         ]);
     }
 

@@ -387,5 +387,8 @@ return
     'Send_me_back' => "أعدني",
     'Forget_it' => "انس الأمر",
     'to_the_sign_in_screen.' => 'إلى شاشة تسجيل الدخول.',
+    'fixed' => 'الثابت',
+    'no' => 'لا',
+    'yes' => "نعم",
 
 ];
