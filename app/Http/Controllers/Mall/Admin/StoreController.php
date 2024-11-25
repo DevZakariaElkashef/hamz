@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
-use App\Models\City;
-use App\Models\User;
-use App\Models\Store;
-use App\Models\Section;
-use Illuminate\Http\Request;
 use App\Exports\Mall\StoreExport;
-use App\Imports\Mall\StoreImport;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Repositories\Mall\StoreRepository;
 use App\Http\Requests\Mall\Web\StoreRequest;
+use App\Imports\Mall\StoreImport;
+use App\Models\City;
+use App\Models\Section;
+use App\Models\Store;
+use App\Models\User;
+use App\Repositories\Mall\StoreRepository;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class StoreController extends Controller
@@ -102,8 +102,10 @@ class StoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Store $store)
+    public function edit(Request $request, Store $store)
     {
+        abort_if($request->user()->role_id == 3 && $store->user_id != $request->user()->id, 403);
+
         $sections = Section::active()->mall()->get();
         $users = User::active()->get();
         $cities = City::active()->get();
@@ -124,7 +126,7 @@ class StoreController extends Controller
         $store->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("main.updated_successffully")
+            'message' => __("main.updated_successffully"),
         ]);
     }
 

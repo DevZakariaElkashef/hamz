@@ -141,21 +141,22 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.sellers') }}: <span
-                                        class="tx-danger">*</span></label>
-                                <select required class="form-control select2" name="user_id">
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}"
-                                            @if (old('user_id', $store->user_id) == $user->id) selected @endif>
-                                            {{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('user_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
+                            @if (auth()->user()->role_id !== 3)
+                                <div class="col-md-6 form-group mg-b-0">
+                                    <label class="form-label">{{ __('main.sellers') }}: <span
+                                            class="tx-danger">*</span></label>
+                                    <select required class="form-control select2" name="user_id">
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}"
+                                                @if (old('user_id', $store->user_id) == $user->id) selected @endif>
+                                                {{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('user_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endif
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.lat') }}: <span class="tx-danger">*</span></label>
