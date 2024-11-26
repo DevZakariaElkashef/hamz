@@ -391,4 +391,5 @@ return
     'fixed' => 'fixed',
     'no' => 'No',
     'yes' => "Yes",
+    'enter_iban' => 'enter_iban',
 ];

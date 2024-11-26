@@ -112,6 +112,15 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.iban') }}: <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="iban" placeholder="{{ __('main.enter_iban') }}"
+                                    required="" type="text" value="{{ old('iban') ?? $store->iban }}">
+                                @error('iban')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.sections') }}: <span
                                         class="tx-danger">*</span></label>
                                 <select required class="form-control select2" name="section_id">
