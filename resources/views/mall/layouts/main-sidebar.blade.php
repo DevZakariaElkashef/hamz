@@ -14,7 +14,7 @@
                 alt="logo"></a>
     </div>
     <div class="main-sidemenu">
-        <div class="app-sidebar__user clearfix">
+        {{-- <div class="app-sidebar__user clearfix">
             <div class="dropdown user-pro-body">
                 <div class="">
                     <img alt="user-img" class="avatar avatar-xl brround"
@@ -26,7 +26,7 @@
                     <span class="mb-0 text-muted">Premium Member</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <ul class="side-menu">
             <li class="side-item side-item-category">{{ __('main.Main') }}</li>
             <li class="slide">
@@ -316,8 +316,8 @@
                 <li class="side-item side-item-category">{{ __('main.settings') }}</li>
 
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('mall.stores.edit', auth()->user()->store->id) }}"><svg xmlns="http://www.w3.org/2000/svg"
-                            class="side-menu__icon" viewBox="0 0 24 24">
+                    <a class="side-menu__item" href="{{ route('mall.stores.edit', auth()->user()->store->id) }}"><svg
+                            xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0V0z" fill="none" />
                             <path d="M5 5h4v6H5zm10 8h4v6h-4zM5 17h4v2H5zM15 5h4v2h-4z" opacity=".3" />
                             <path
@@ -325,7 +325,6 @@
                         </svg><span class="side-menu__label">{{ __('main.settings') }}</span><span
                             class="badge badge-success side-badge">1</span></a>
                 </li>
-
             @endif
 
         </ul>

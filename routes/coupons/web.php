@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Mall\Admin\ImageController;
-use App\Http\Controllers\Coupon\Admin\HomeController;
-use App\Http\Controllers\Coupon\Admin\CouponController;
 use App\Http\Controllers\Coupon\Admin\CategoryController;
+use App\Http\Controllers\Coupon\Admin\CouponController;
+use App\Http\Controllers\Coupon\Admin\HomeController;
+use App\Http\Controllers\Coupon\Admin\SliderController;
+use App\Http\Controllers\Mall\Admin\ImageController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('coupon.home');
 
@@ -13,6 +14,14 @@ Route::delete('delete-image', [ImageController::class, 'destroy'])->name('images
 // images
 
 Route::as('coupon.')->group(function () {
+
+    /**start Slider Routes */
+    Route::resource('sliders', SliderController::class);
+    Route::get('search-sliders', [SliderController::class, 'search'])->name('sliders.search');
+    Route::get('sliders-toggle-status/{slider}', [SliderController::class, 'toggleStatus'])->name('slider.toggleStatus');
+    Route::get('sliders-toggle-fixed-status/{slider}', [SliderController::class, 'toggleFixedStatus'])->name('slider.toggleFixedStatus');
+    Route::delete('delete-sliders', [SliderController::class, 'delete'])->name('sliders.delete');
+    /**end Slider Routes */
 
     /**start Slider Routes */
     Route::resource('categories', CategoryController::class);
@@ -24,8 +33,6 @@ Route::as('coupon.')->group(function () {
     Route::get('categories-by-section', [CategoryController::class, 'getCategoriesBySection'])->name('categories.bySection');
     Route::delete('delete-categories', [CategoryController::class, 'delete'])->name('categories.delete');
     /**end Slider Routes */
-
-
 
     /**start Slider Routes */
     Route::resource('coupons', CouponController::class);
