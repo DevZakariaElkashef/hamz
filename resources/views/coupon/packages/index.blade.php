@@ -1,6 +1,6 @@
-@extends('earn.layouts.master')
+@extends('coupon.layouts.master')
 @section('title')
-    {{ __('main.categories') }}
+    {{ __('main.packages') }}
 @endsection
 @section('css')
     <!---Internal Owl Carousel css-->
@@ -15,77 +15,31 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h5 class="content-title mb-0 my-auto"><a href="{{ route('earn.home') }}"
+                <h5 class="content-title mb-0 my-auto"><a href="{{ route('coupon.home') }}"
                         class="text-dark">{{ __('main.home') }}</a></h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('earn.categories.index') }}">{{ __('main.categories') }}</a></span>
+                        href="{{ route('coupon.packages.index') }}">{{ __('main.packages') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
-            @can('earn.categories.import')
-                <div class="pr-1 mb-3 mb-xl-0">
-                    <a class="btn btn-success  ml-2" data-target="#importmodal" data-toggle="modal"
-                        data-effect="effect-flip-vertical">
-                        {{ __('main.import') }}
-                        <i class="mdi mdi-upload"></i>
-                    </a>
-                </div>
-            @endcan
-            @can('earn.categories.export')
-                <div class="pr-1 mb-3 mb-xl-0">
-                    <a href="{{ route('earn.categories.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active'), 'store_id' => request('store_id')]) }}"
-                        class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
-                        {{ __('main.export') }}
-                        <i class="mdi mdi-download"></i>
-                    </a>
-                </div>
-            @endcan
+
             <div class="pr-1 mb-3 mb-xl-0">
                 <button type="button" class="btn btn-info btn-icon ml-2" data-target="#filterModal" data-toggle="modal"
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
             </div>
             <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('earn.categories.index') }}" class="btn btn-warning  btn-icon ml-2"><i
+                <a href="{{ route('coupon.packages.index') }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
-            @can('earn.categories.create')
-                <div class="mb-3 mb-xl-0">
-                    <a href="{{ route('earn.categories.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
-                </div>
-            @endcan
+            <div class="mb-3 mb-xl-0">
+                <a href="{{ route('coupon.packages.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
+            </div>
         </div>
     </div>
     <!-- breadcrumb -->
 @endsection
 @section('content')
     <!-- Modal effects -->
-    <div class="modal" id="importmodal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content modal-content-demo">
-                <div class="modal-header">
-                    <h6 class="modal-title">{{ __('main.import') }}</h6><button aria-label="Close" class="close"
-                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <form method="POST" id="importForm" action="{{ route('earn.categories.import') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="file">{{ __('main.select_file') }}</label>
-                            <input type="file" class="form-control" accept=".xlsx" id="file" name="file">
-                        </div>
-                        <div class="mt-3">
-                            <a href="{{ asset("imports/categories.xlsx") }}" download class="btn btn-warning">{{ __('main.download_example') }}</a>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn ripple btn-primary" type="submit">{{ __('main.import') }}</button>
-                        <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('main.Close') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="modal" id="deletemodal">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
@@ -117,36 +71,22 @@
                     <h6 class="modal-title">{{ __('main.filter') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form method="get" action="{{ route('earn.categories.index') }}">
+                <form method="get" action="{{ route('coupon.packages.index') }}">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('main.start_date') }}</label>
-                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at"
-                                class="form-control">
+                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="end_at">{{ __('main.end_date') }}</label>
-                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at"
-                                class="form-control">
+                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="is_active">{{ __('main.status') }}</label>
                             <select name="is_active" class="form-control">
                                 <option value="">{{ __('main.all') }}</option>
-                                <option value="0" @if (request('is_active') == '0') selected @endif>
-                                    {{ __('main.not_active') }}</option>
-                                <option value="1" @if (request('is_active') == '1') selected @endif>
-                                    {{ __('main.active') }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="store_id">{{ __('main.store') }}</label>
-                            <select name="store_id" class="form-control">
-                                <option value="">{{ __('main.all') }}</option>
-                                @foreach ($stores as $store)
-                                    <option value="{{ $store->id }}" @if (request('store_id') == $store->id) selected @endif>
-                                        {{ $store->name }}</option>
-                                @endforeach
+                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('main.not_active') }}</option>
+                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('main.active') }}</option>
                             </select>
                         </div>
                     </div>
@@ -166,28 +106,32 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('main.categories') }}</h4>
-                        <div class="d-flex">
+                        <h4 class="card-title mg-b-0">{{ __('main.packages') }}</h4>
+                        <div class="d-flex align-items-center">
                             <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
                                 data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
-                                data-url="{{ route('earn.categories.delete') }}">{{ __('main.delete') }}</a>
-                            <input type="text" id="searchInput" data-url="{{ route('earn.categories.search') }}"
-                                class="form-control" placeholder="{{ __('main.search') }}">
+                                data-url="{{ route('coupon.packages.delete') }}">{{ __('main.delete') }}</a>
+
+                            <input type="text" id="searchInput" data-url="{{ route('coupon.packages.search') }}"
+                                class="form-control mx-1" placeholder="{{ __('main.search') }}">
+
                             <div class="custom-select-wrapper mx-1">
                                 <select id="showPerPage" class="custom-select"
-                                    data-url="{{ route('earn.categories.index') }}" onchange="updatePageSize()">
+                                    data-url="{{ route('coupon.packages.index') }}" onchange="updatePageSize()">
                                     <option value="10" @if (request('per_page') && request('per_page') == 10) selected @endif>10</option>
                                     <option value="25" @if (request('per_page') && request('per_page') == 25) selected @endif>25</option>
                                     <option value="50" @if (request('per_page') && request('per_page') == 50) selected @endif>50</option>
                                     <option value="100" @if (request('per_page') && request('per_page') == 100) selected @endif>100</option>
                                 </select>
                             </div>
+
                         </div>
+
                     </div>
                 </div>
                 <div class="card-body">
                     <div id="tableFile">
-                        @include('earn.categories.table')
+                        @include('coupon.packages.table')
                     </div>
                 </div>
             </div>

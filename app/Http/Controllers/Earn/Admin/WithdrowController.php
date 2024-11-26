@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Earn\Admin;
 
-use App\Models\Withdrow;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Withdrow;
 use App\Repositories\Earn\WithdrowRepository;
+use Illuminate\Http\Request;
 
 class WithdrowController extends Controller
 {
@@ -14,6 +14,9 @@ class WithdrowController extends Controller
     public function __construct(WithdrowRepository $withdrowRepository)
     {
         $this->withdrowRepository = $withdrowRepository;
+
+        // autherization
+        $this->middleware('can:earn.withdrows.index');
     }
     /**
      * Display a listing of the resource.

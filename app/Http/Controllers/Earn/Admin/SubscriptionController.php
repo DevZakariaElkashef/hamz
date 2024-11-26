@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Earn\Admin;
 
-use App\Models\Subscription;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Earn\SubscriptionRepository;
 use App\Http\Requests\Earn\Web\SubscriptionRequest;
+use App\Models\Subscription;
+use App\Repositories\Earn\SubscriptionRepository;
+use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
@@ -15,6 +15,9 @@ class SubscriptionController extends Controller
     public function __construct(SubscriptionRepository $subscriptionRepository)
     {
         $this->subscriptionRepository = $subscriptionRepository;
+
+        // autherization
+        $this->middleware('can:earn.subscriptions.index');
     }
     /**
      * Display a listing of the resource.
@@ -78,7 +81,7 @@ class SubscriptionController extends Controller
         $subscription->update(['status' => $request->status]);
         return response()->json([
             'success' => true,
-            'message' => __("main.updated_successffully")
+            'message' => __("main.updated_successffully"),
         ]);
     }
 

@@ -17,7 +17,7 @@ class WebVideoRepository
 
     public function index($request)
     {
-        $videos = Video::filter($request)->earn()->paginate($request->per_page ?? $this->limit);
+        $videos = Video::filter($request)->earn()->withCount('viewed')->paginate($request->per_page ?? $this->limit);
 
         return $videos;
     }

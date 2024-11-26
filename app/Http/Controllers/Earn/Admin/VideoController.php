@@ -17,6 +17,12 @@ class VideoController extends Controller
     public function __construct(WebVideoRepository $videoRepository)
     {
         $this->videoRepository = $videoRepository;
+
+        // autherization
+        $this->middleware('can:earn.videos.index')->only('index');
+        $this->middleware('can:earn.videos.create')->only(['create', 'store']);
+        $this->middleware('can:earn.videos.update')->only(['edit', 'update']);
+        $this->middleware('can:earn.videos.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

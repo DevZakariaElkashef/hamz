@@ -3,7 +3,6 @@
 namespace App\Repositories\Earn;
 
 use App\Models\Video;
-use App\Traits\ApiResponse;
 
 class VideoRepository
 {
@@ -39,8 +38,6 @@ class VideoRepository
         if ($alreadyWatched) {
             return 'already_watched';
         }
-
-
 
         $check = $video->viewed()
             ->where('user_id', $user->id)

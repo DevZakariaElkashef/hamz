@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Coupon\Admin\CategoryController;
-use App\Http\Controllers\Coupon\Admin\CouponController;
-use App\Http\Controllers\Coupon\Admin\HomeController;
-use App\Http\Controllers\Coupon\Admin\SliderController;
-use App\Http\Controllers\Mall\Admin\ImageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Mall\Admin\ImageController;
+use App\Http\Controllers\Coupon\Admin\HomeController;
+use App\Http\Controllers\Coupon\Admin\CouponController;
+use App\Http\Controllers\Coupon\Admin\SliderController;
+use App\Http\Controllers\Coupon\Admin\PackageController;
+use App\Http\Controllers\Coupon\Admin\CategoryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('coupon.home');
 
@@ -41,5 +42,14 @@ Route::as('coupon.')->group(function () {
     Route::get('coupons-export', [CouponController::class, 'export'])->name('coupons.export');
     Route::post('coupons-import', [CouponController::class, 'import'])->name('coupons.import');
     Route::delete('delete-coupons', [CouponController::class, 'delete'])->name('coupons.delete');
+    /**end Slider Routes */
+
+
+
+    /**start Slider Routes */
+    Route::resource('packages', PackageController::class);
+    Route::get('search-packages', [PackageController::class, 'search'])->name('packages.search');
+    Route::get('packages-toggle-status/{package}', [PackageController::class, 'toggleStatus'])->name('package.toggleStatus');
+    Route::delete('delete-packages', [PackageController::class, 'delete'])->name('packages.delete');
     /**end Slider Routes */
 });

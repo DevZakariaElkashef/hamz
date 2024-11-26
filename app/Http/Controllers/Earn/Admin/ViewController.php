@@ -15,6 +15,9 @@ class ViewController extends Controller
     public function __construct(ViewRepository $viewRepository)
     {
         $this->viewRepository = $viewRepository;
+
+        // autherization
+        $this->middleware(middleware: 'can:earn.views.index');
     }
     /**
      * Display a listing of the resource.

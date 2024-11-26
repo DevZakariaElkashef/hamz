@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Earn\Admin;
+namespace App\Http\Controllers\Coupon\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Earn\Web\PackageRequest;
+use App\Http\Requests\Coupon\Web\PackageRequest;
 use App\Models\Package;
-use App\Repositories\Earn\PackageRepository;
+use App\Repositories\Coupon\PackageRepository;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -17,10 +17,10 @@ class PackageController extends Controller
         $this->packageRepository = $packageRepository;
 
         // autherization
-        $this->middleware('can:earn.packages.index')->only('index');
-        $this->middleware('can:earn.packages.create')->only(['create', 'store']);
-        $this->middleware('can:earn.packages.update')->only(['edit', 'update']);
-        $this->middleware('can:earn.packages.delete')->only('destroy');
+        $this->middleware('can:coupon.packages.index')->only('index');
+        $this->middleware('can:coupon.packages.create')->only(['create', 'store']);
+        $this->middleware('can:coupon.packages.update')->only(['edit', 'update']);
+        $this->middleware('can:coupon.packages.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -28,13 +28,13 @@ class PackageController extends Controller
     public function index(Request $request)
     {
         $packages = $this->packageRepository->index($request);
-        return view('earn.packages.index', compact('packages'));
+        return view('coupon.packages.index', compact('packages'));
     }
 
     public function search(Request $request)
     {
         $packages = $this->packageRepository->search($request);
-        return view('earn.packages.table', compact('packages'))->render();
+        return view('coupon.packages.table', compact('packages'))->render();
     }
 
     /**
@@ -42,7 +42,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view("earn.packages.create");
+        return view("coupon.packages.create");
     }
 
     /**
@@ -51,7 +51,7 @@ class PackageController extends Controller
     public function store(PackageRequest $request)
     {
         $this->packageRepository->store($request); // store package
-        return to_route('earn.packages.index')->with('success', __("main.created_successffully"));
+        return to_route('coupon.packages.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -59,7 +59,7 @@ class PackageController extends Controller
      */
     public function show(string $id)
     {
-        return to_route('earn.packages.edit');
+        return to_route('coupon.packages.edit');
     }
 
     /**
@@ -67,7 +67,7 @@ class PackageController extends Controller
      */
     public function edit(Package $package)
     {
-        return view('earn.packages.edit', compact('package'));
+        return view('coupon.packages.edit', compact('package'));
     }
 
     /**
@@ -76,7 +76,7 @@ class PackageController extends Controller
     public function update(PackageRequest $request, Package $package)
     {
         $this->packageRepository->update($request, $package);
-        return to_route('earn.packages.index')->with('success', __("main.updated_successffully"));
+        return to_route('coupon.packages.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Package $package)
@@ -94,12 +94,12 @@ class PackageController extends Controller
     public function destroy(Package $package)
     {
         $this->packageRepository->delete($package);
-        return to_route('earn.packages.index')->with('success', __("main.delete_successffully"));
+        return to_route('coupon.packages.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->packageRepository->deleteSelection($request);
-        return to_route('earn.packages.index')->with('success', __("main.delete_successffully"));
+        return to_route('coupon.packages.index')->with('success', __("main.delete_successffully"));
     }
 }

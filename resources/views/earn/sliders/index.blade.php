@@ -31,9 +31,11 @@
                 <a href="{{ route('earn.sliders.index') }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
-            <div class="mb-3 mb-xl-0">
-                <a href="{{ route('earn.sliders.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
-            </div>
+            @can('earn.sliders.create')
+                <div class="mb-3 mb-xl-0">
+                    <a href="{{ route('earn.sliders.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
+                </div>
+            @endcan
         </div>
     </div>
     <!-- breadcrumb -->
@@ -75,18 +77,22 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('main.start_date') }}</label>
-                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at" class="form-control">
+                            <input type="date" name="start_at" value="{{ request('start_at') }}" id="start_at"
+                                class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="end_at">{{ __('main.end_date') }}</label>
-                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at" class="form-control">
+                            <input type="date" name="end_at" value="{{ request('end_at') }}" id="end_at"
+                                class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="is_active">{{ __('main.status') }}</label>
                             <select name="is_active" class="form-control">
                                 <option value="">{{ __('main.all') }}</option>
-                                <option value="0" @if(request('is_active') == '0') selected @endif>{{ __('main.not_active') }}</option>
-                                <option value="1" @if(request('is_active') == '1') selected @endif>{{ __('main.active') }}</option>
+                                <option value="0" @if (request('is_active') == '0') selected @endif>
+                                    {{ __('main.not_active') }}</option>
+                                <option value="1" @if (request('is_active') == '1') selected @endif>
+                                    {{ __('main.active') }}</option>
                             </select>
                         </div>
                     </div>

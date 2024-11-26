@@ -15,6 +15,12 @@ class SliderController extends Controller
     public function __construct(SliderRepository $sliderRepository)
     {
         $this->sliderRepository = $sliderRepository;
+
+        // autherization
+        $this->middleware('can:earn.sliders.index')->only('index');
+        $this->middleware('can:earn.sliders.create')->only(['create', 'store']);
+        $this->middleware('can:earn.sliders.update')->only(['edit', 'update']);
+        $this->middleware('can:earn.sliders.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -78,7 +84,7 @@ class SliderController extends Controller
         $slider->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
-            'message' => __("main.updated_successffully")
+            'message' => __("main.updated_successffully"),
         ]);
     }
 
