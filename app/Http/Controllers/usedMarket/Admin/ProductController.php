@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Notification;
 use App\Models\Product;
 use App\Models\SubCategory;
-use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -33,7 +32,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         $product->update([
-            'status' => 2
+            'status' => 2,
         ]);
         $title = 'رفض الاعلان';
         $messageDataUser = 'نعتذر علي رفض الاعلان برجاء التواصل مع الاداره';
@@ -55,7 +54,7 @@ class ProductController extends Controller
 
         $ads->update([
             'status' => 1,
-            'verify' => 1
+            'verify' => 1,
         ]);
         $title = 'موافقه علي الاعلان';
         $messageDataUser = 'تم الموافقه علي الاعلان بنجاح و ظهوره في التطبيق';
@@ -78,7 +77,7 @@ class ProductController extends Controller
 
         $ads->update([
             'status' => 3,
-            'verify' => 0
+            'verify' => 0,
         ]);
         $messageData = 'تم تمييز الاعلان الخاص بك بنجاح';
         $title = 'تمييز الاعلان';
@@ -99,7 +98,7 @@ class ProductController extends Controller
 
         $ads->update([
             'status' => 4,
-            'verify' => 0
+            'verify' => 0,
         ]);
         $messageData = 'تم حظر الاعلان الخاص بك برجاء التواصل مع الاداره ';
         $title = 'حظر الاعلان';
