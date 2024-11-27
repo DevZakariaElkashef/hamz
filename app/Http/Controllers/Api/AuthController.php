@@ -28,7 +28,12 @@ class AuthController extends Controller
     {
         $user = $this->authRepository->login($request->phone, $request->device_token);
         $user = new AuthenticatedResource($user);
-        return $this->sendResponse(200, $user);
+        $data = [
+            'user' => $user,
+            'isActive' => (bool) $user->is_active
+        ];
+        
+        return $this->sendResponse(200, $data);
     }
 
     public function register(RegisterRequest $request)

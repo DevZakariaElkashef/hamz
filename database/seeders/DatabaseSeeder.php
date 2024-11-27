@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             UsedMarktRoleSeeder::class,
             CouponRoleSeeder::class,
             CountrySeeder::class,
+            AdvertiserCharactersSeeder::class,
             DirectionSeeder::class,
             ProductStatusSeeder::class,
             CitySeeder::class,

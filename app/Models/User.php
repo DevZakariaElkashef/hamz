@@ -91,4 +91,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Store::class);
     }
+
+    public function advertisercharacter()
+    {
+        return $this->belongsTo(AdvertiserCharacter::class, 'advertisercharacter_id');
+    }
 }
