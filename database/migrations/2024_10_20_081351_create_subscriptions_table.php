@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('package_id')->constrained()->onDelete('cascade');
             $table->tinyInteger('status')->comment("0=> 'pending', 1=> 'active', 2=> 'expired', 3=> 'cancelled'");
             $table->string('transaction_id')->nullable();
+            $table->enum('app', ['mall', 'booth', 'coupons', 'earn', 'resale', 'rfoof', 'all']);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -7,6 +7,7 @@ use App\Http\Controllers\Coupon\Admin\CouponController;
 use App\Http\Controllers\Coupon\Admin\SliderController;
 use App\Http\Controllers\Coupon\Admin\PackageController;
 use App\Http\Controllers\Coupon\Admin\CategoryController;
+use App\Http\Controllers\Coupon\Admin\SubscriptionController;
 
 Route::get('/', [HomeController::class, 'index'])->name('coupon.home');
 
@@ -44,12 +45,17 @@ Route::as('coupon.')->group(function () {
     Route::delete('delete-coupons', [CouponController::class, 'delete'])->name('coupons.delete');
     /**end Slider Routes */
 
-
-
     /**start Slider Routes */
     Route::resource('packages', PackageController::class);
     Route::get('search-packages', [PackageController::class, 'search'])->name('packages.search');
     Route::get('packages-toggle-status/{package}', [PackageController::class, 'toggleStatus'])->name('package.toggleStatus');
     Route::delete('delete-packages', [PackageController::class, 'delete'])->name('packages.delete');
+    /**end Slider Routes */
+
+    /**start Slider Routes */
+    Route::resource('subscriptions', SubscriptionController::class);
+    Route::get('search-subscriptions', [SubscriptionController::class, 'search'])->name('subscriptions.search');
+    Route::get('subscriptions-toggle-status/{subscription}', [SubscriptionController::class, 'toggleStatus'])->name('subscription.toggleStatus');
+    Route::delete('delete-subscriptions', [SubscriptionController::class, 'delete'])->name('subscriptions.delete');
     /**end Slider Routes */
 });

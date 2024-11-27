@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Earn;
+namespace App\Repositories\Coupon;
 
 use App\Models\Subscription;
 use App\Traits\ImageUploadTrait;
@@ -17,7 +17,7 @@ class SubscriptionRepository
 
     public function index($request)
     {
-        $subscriptions = Subscription::filter($request)->earn()->paginate($request->per_page ?? $this->limit);
+        $subscriptions = Subscription::filter($request)->coupons()->paginate($request->per_page ?? $this->limit);
 
         return $subscriptions;
     }
@@ -25,7 +25,7 @@ class SubscriptionRepository
 
     public function search($request)
     {
-        return Subscription::search($request->search)->earn()->paginate($request->per_page ?? $this->limit);
+        return Subscription::search($request->search)->coupons()->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)
@@ -35,7 +35,7 @@ class SubscriptionRepository
             $data['image'] =  $this->uploadImage($request->file('image'), 'subscriptions');
         }
         unset($data['_token']);
-        $data['app'] = 'earn';
+        $data['app'] = 'coupon';
         return Subscription::create($data);
     }
 
