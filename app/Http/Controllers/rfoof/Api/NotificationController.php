@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\usedMarket\Api;
+namespace App\Http\Controllers\rfoof\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\usedMarket\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\User\ChangePasswordRequest;
-use App\Http\Requests\Api\User\LoginRequest;
-use App\Http\Requests\Api\User\RegisterRequest;
-use App\Http\Requests\Api\User\ResendCodeRequest;
-use App\Http\Requests\Api\User\ResetPasswordRequest;
-use App\Http\Requests\Api\User\UpdatePasswordRequest;
-use App\Http\Requests\Api\User\UpdateProfileRequest;
-use App\Http\Requests\Api\User\VerifyOtpRequest;
-use App\Http\Resources\Api\UserResource;
-use App\Traits\GeneralTrait;
-use App\Traits\ImageUploadTrait;
 use App\Models\Otp;
 use App\Models\User;
+use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\Usedmarket\UserResource;
+use App\Http\Requests\Usedmarket\Api\LoginRequest;
+use App\Http\Requests\Usedmarket\Api\RegisterRequest;
+use App\Http\Requests\Usedmarket\Api\VerifyOtpRequest;
+use App\Http\Requests\Usedmarket\Api\ResendCodeRequest;
+use App\Http\Requests\Usedmarket\Api\ResetPasswordRequest;
+use App\Http\Requests\Usedmarket\Api\UpdateProfileRequest;
+use App\Http\Requests\Usedmarket\Api\ChangePasswordRequest;
+use App\Http\Requests\Usedmarket\Api\UpdatePasswordRequest;
 
 class AuthController extends Controller
 {

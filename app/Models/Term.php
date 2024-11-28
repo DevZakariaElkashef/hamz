@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\AppScope;
 use App\Traits\FilterScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +14,11 @@ class Term extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function getItemAttribute()
+    {
+        return $this->attributes['item_' . app()->getLocale()];
+    }
+
+    public function value()
     {
         return $this->attributes['item_' . app()->getLocale()];
     }

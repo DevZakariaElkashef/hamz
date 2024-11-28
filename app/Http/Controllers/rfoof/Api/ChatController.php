@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\usedMarket\Api;
+namespace App\Http\Controllers\rfoof\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -42,7 +42,7 @@ class ChatController extends Controller
     public function sendMessage(Request $request)
     {
         try{
-            $product = Products::find($request->product_id);
+            $product = Product::find($request->product_id);
             if($product->user_id == $request->user()->id)
             {
                 $message = Chat::find($request->chat_id);
@@ -53,7 +53,7 @@ class ChatController extends Controller
                     'product_id' => $request->product_id,
                     'type' => 'reply'
                 ]);
-                $firebase = new \App\Http\Controllers\Web\FireBasePushNotification();
+                $firebase = new FireBasePushNotification();
                 $this->to($message->user->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
             else
@@ -65,7 +65,7 @@ class ChatController extends Controller
                     'seller_id' => $product->user_id,
                     'type' => 'sending'
                 ]);
-                $firebase = new \App\Http\Controllers\Web\FireBasePushNotification();
+                $firebase = new FireBasePushNotification();
                 $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
             return $this->returnSuccess(200, __('api.sendMessage'));

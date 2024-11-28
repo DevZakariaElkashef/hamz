@@ -42,7 +42,7 @@ class ProductController extends Controller
             ]);
 
             // Create the product with the merged data
-            $product = Products::create($data);
+            $product = Product::create($data);
             foreach ($request->images as $image) {
                 $imageName = rand(11111, 99999) . '_ads.' . $image->extension();
                 $this->uploadImage($image, $imageName, 'ads');
@@ -59,7 +59,7 @@ class ProductController extends Controller
     public function updateProduct(UpdateRequest $request)
     {
         try {
-            $product = Products::find($request->product_id);
+            $product = Product::find($request->product_id);
             $address = $this->getAddressFromLatLong($request->lat, $request->long);
             // Merge additional data into the request data
             $data = array_merge($request->all(), [
@@ -96,7 +96,7 @@ class ProductController extends Controller
     public function deleteProduct(Request $request)
     {
         try{
-            $product = Products::find($request->product_id);
+            $product = Product::find($request->product_id);
             $product->delete();
             return $this->returnSuccess(200, __('api.deleteProduct'));
         } catch (\Throwable $e) {
@@ -137,7 +137,7 @@ class ProductController extends Controller
     {
         try{
             $seller = User::find($request->seller_id);
-            $products = ProductResource::collection(Products::where(['user_id' => $request->seller_id])->latest()->paginate(10));
+            $products = ProductResource::collection(Product::where(['user_id' => $request->seller_id])->latest()->paginate(10));
             return $this->returnData("data", ["seller" => new UserResource($seller), 'products' => $products], __('api.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -146,7 +146,7 @@ class ProductController extends Controller
     public function myAds(Request $request)
     {
         try{
-            $products = ProductResource::collection(Products::where(['user_id' => $request->user()->id])->latest()->paginate(10));
+            $products = ProductResource::collection(Product::where(['user_id' => $request->user()->id])->latest()->paginate(10));
             return $this->returnData("data", ['products' => $products], __('api.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());

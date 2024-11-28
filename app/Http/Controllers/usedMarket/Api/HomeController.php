@@ -51,7 +51,7 @@ class HomeController extends Controller
                 'id' => 0,
                 'name' => app()->getLocale() == 'ar' ? 'الكل' : 'All',
                 'image' => "",
-                'products' => ProductResource::collection(Products::latest()->get())
+                'products' => ProductResource::collection(Product::latest()->get())
             ];
 
             // Merge the arrays
@@ -157,7 +157,7 @@ class HomeController extends Controller
    public function filter(Request $request)
 {
     try {
-        $products = Products::query();
+        $products = Product::query();
 
         // Filter by category if it's not 0
         if($request->category_id != 0) {

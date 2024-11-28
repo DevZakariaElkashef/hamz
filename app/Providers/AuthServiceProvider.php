@@ -33,10 +33,10 @@ class AuthServiceProvider extends ServiceProvider
             });
         });
 
-        // Gate::after(function ($user, $ability) {
-        //     if ($user->role->name == 'super-admin') {
-        //         return true;
-        //     }
-        // });
+        Gate::after(function ($user, $ability) {
+            if ($user->role->name == 'super-admin') {
+                return true;
+            }
+        });
     }
 }

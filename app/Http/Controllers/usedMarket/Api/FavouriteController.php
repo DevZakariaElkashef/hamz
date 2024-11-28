@@ -20,7 +20,7 @@ class FavouriteController extends Controller
     public function getFavourities(Request $request)
     {
         try{
-            $products = ProductResource::collection(Products::whereHas('favourities', function ($query) use($request){
+            $products = ProductResource::collection(Product::whereHas('favourities', function ($query) use($request){
                 $query->where('user_id', $request->user()->id);
             })->latest()->paginate(10));
             return $this->returnData("data", ["products" => $products], __('api.returnData'));

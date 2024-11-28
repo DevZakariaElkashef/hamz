@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        View::composer('*', 'App\Http\ViewComposer\SettingComposer');
+        // View::composer('*', 'App\Http\ViewComposer\SettingComposer');
     }
 
     /**
@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Model::shouldBeStrict(app()->isLocal());
-        
+
         Paginator::useBootstrapFive();
 
         Section::observe(SectionObserver::class);

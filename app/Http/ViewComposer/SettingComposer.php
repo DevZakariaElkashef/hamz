@@ -19,6 +19,6 @@ class SettingComposer
      */
     public function compose(View $view)
     {
-        // $view->with("setting", Settings::first());
+        // $view->with("setting", Setting::first());
     }
 }

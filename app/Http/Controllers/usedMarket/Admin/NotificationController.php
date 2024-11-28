@@ -40,7 +40,7 @@ class NotificationController extends Controller
                 if ($request->phone_message) {
                     if($user->device_token)
                     {
-                        $firebase = new \App\Http\Controllers\Web\FireBasePushNotification();
+                        $firebase = new FireBasePushNotification();
                         $firebase->to($user->device_token, $request->message_ar, $request->title_ar);
                     }
                 }
@@ -55,7 +55,7 @@ class NotificationController extends Controller
                 if ($request->phone_message) {
                     if($user->device_token)
                     {
-                        $firebase = new \App\Http\Controllers\Web\FireBasePushNotification();
+                        $firebase = new FireBasePushNotification();
                         $firebase->to($user->device_token, $request->message_ar, $request->title_ar);
                     }
                 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\usedMarket\Api;
+namespace App\Http\Controllers\rfoof\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\HomeResources;
@@ -34,7 +34,7 @@ class DataController extends Controller
     {
         try {
            $cities = CityResource::collection(City::get());
-           $cars = HomeResources::collection(Cars::get());
+           $cars = HomeResources::collection(Car::get());
            $colors = ColorResource::collection(Color::get());
             return $this->returnData("data", ['cars' => $cars, 'colors' => $colors, 'cities' => $cities], __('api.returnData'));
         } catch (\Throwable $th) {
@@ -115,7 +115,7 @@ class DataController extends Controller
     public function generalCars()
     {
         try {
-            $cars = HomeResources::collection(Cars::get());
+            $cars = HomeResources::collection(Car::get());
             return $this->returnData("data", ["cars" => $cars], __('api.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());

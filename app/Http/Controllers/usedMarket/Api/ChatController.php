@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\usedMarket\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use App\Http\Controllers\FireBasePushNotification;
+use App\Http\Resources\Usedmarket\ChatResource;
+use App\Models\Chat;
+use App\Models\Product;
 use App\Traits\GeneralTrait;
 use App\Traits\ImageUploadTrait;
-use App\Models\Chat;
-use App\Http\Resources\Api\ChatResource;
-use App\Models\Products;
-use Illuminate\Support\Facades\DB;
 use Google\Auth\Credentials\ServiceAccountCredentials;
 use Google\Auth\HttpHandler\HttpHandlerFactory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
@@ -26,13 +27,13 @@ class ChatController extends Controller
         App::setLocale(request()->header('lang') ?? 'ar');
         $jsonPath = storage_path('app/firebase-service-account.json');
 
-    // Provide the path where you stored the json token, in my case, I stored it in database
+        // Provide the path where you stored the json token, in my case, I stored it in database
         $creadentials = new ServiceAccountCredentials($this->scope, $jsonPath);
         $this->token = $creadentials->fetchAuthToken(HttpHandlerFactory::build());
     }
     public function getMessages(Request $request)
     {
-        try{
+        try {
             $messages = ChatResource::collection(Chat::where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
             return $this->returnData("data", ['messages' => $messages], __('api.returnData'));
         } catch (\Throwable $e) {
@@ -41,35 +42,34 @@ class ChatController extends Controller
     }
     public function sendMessage(Request $request)
     {
-        try{
-            $product = Products::find($request->product_id);
-            if($product->user_id == $request->user()->id)
-            {
+        try {
+            $product = Product::find($request->product_id);
+            if ($product->user_id == $request->user()->id) {
                 $message = Chat::find($request->chat_id);
                 Chat::create([
                     'message' => $request->message,
                     'user_id' => $message->user_id,
                     'seller_id' => $request->user()->id,
                     'product_id' => $request->product_id,
-                    'type' => 'reply'
+                    'type' => 'reply',
                 ]);
-                $firebase = new \App\Http\Controllers\Web\FireBasePushNotification();
+                $firebase = new FireBasePushNotification();
                 $this->to($message->user->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
-            }
-            else
-            {
+            } else {
                 $message = Chat::create([
                     'message' => $request->message,
                     'user_id' => $request->user()->id,
                     'product_id' => $request->product_id,
                     'seller_id' => $product->user_id,
-                    'type' => 'sending'
+                    'type' => 'sending',
                 ]);
-                $firebase = new \App\Http\Controllers\Web\FireBasePushNotification();
+                $firebase = new FireBasePushNotification();
                 $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
             return $this->returnSuccess(200, __('api.sendMessage'));
+
             $messages = ChatResource::collection(Chat::where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
+
             return $this->returnData("data", ['messages' => $messages], __('api.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -78,22 +78,22 @@ class ChatController extends Controller
 
     public function getChats(Request $request)
     {
-        try{
+        try {
             $lastMessagesUsers = Chat::select('chats.*')->where('user_id', $request->user()->id)
                 ->join(DB::raw('(SELECT product_id, MAX(created_at) as last_message_time
-                                 FROM chats
-                                 GROUP BY product_id) as latest_chats'), function ($join) {
+                                FROM chats
+                                GROUP BY product_id) as latest_chats'), function ($join) {
                     $join->on('chats.product_id', '=', 'latest_chats.product_id')
-                         ->on('chats.created_at', '=', 'latest_chats.last_message_time');
+                        ->on('chats.created_at', '=', 'latest_chats.last_message_time');
                 })
                 ->get();
 
             $lastMessagesChats = Chat::select('chats.*')->where('seller_id', $request->user()->id)
                 ->join(DB::raw('(SELECT product_id, MAX(created_at) as last_message_time
-                                 FROM chats
-                                 GROUP BY product_id) as latest_chats'), function ($join) {
+                                FROM chats
+                                GROUP BY product_id) as latest_chats'), function ($join) {
                     $join->on('chats.product_id', '=', 'latest_chats.product_id')
-                         ->on('chats.created_at', '=', 'latest_chats.last_message_time');
+                        ->on('chats.created_at', '=', 'latest_chats.last_message_time');
                 })
                 ->get();
             // Combine both message sets
@@ -101,7 +101,7 @@ class ChatController extends Controller
 
             // Sort messages by last_message_time in descending order
             $messages = $messages->sortByDesc('last_message_time')->values()->all();
-                 $messages = ChatResource::collection($messages);
+            $messages = ChatResource::collection($messages);
             return $this->returnData("data", ["cahts" => $messages], __('api.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -112,7 +112,7 @@ class ChatController extends Controller
         $data = [
             'token' => $device,
             'title' => $title,
-            'body' => $body
+            'body' => $body,
         ];
 
         return $this->send($data);
@@ -122,7 +122,7 @@ class ChatController extends Controller
     {
         $headers = [
             'Authorization: Bearer ' . $this->token['access_token'],
-            'Content-Type: application/json'
+            'Content-Type: application/json',
         ];
 
         $fields = [
@@ -130,9 +130,9 @@ class ChatController extends Controller
                 'token' => $data['token'],
                 'notification' => [
                     'title' => $data['title'],
-                    'body' => $data['body']
-                ]
-            ]
+                    'body' => $data['body'],
+                ],
+            ],
         ];
 
         $fields = json_encode($fields);

@@ -2,26 +2,22 @@
 
 namespace App\Http\Controllers\usedMarket\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\User\HomeResources;
-use App\Http\Resources\User\ColorResource;
-use App\Http\Resources\Api\CityResource;
-use App\Http\Resources\Api\SplashResource;
-use App\Http\Resources\Api\helpCenterResource;
-use App\Http\Requests\Contact\ContactRequest;
-use App\Traits\GeneralTrait;
-use App\Models\Contacts;
-use App\Models\About;
-use App\Models\Cars;
+use App\Models\Car;
 use App\Models\City;
-use App\Models\HelpCenter;
+use App\Models\Term;
+use App\Models\About;
 use App\Models\Color;
-use App\Models\Terms;
-use App\Models\Splach;
-use App\Models\Policies;
+use App\Models\Contact;
+use App\Models\Policie;
 use App\Models\Setting;
+use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Usedmarket\CityResource;
+use App\Http\Resources\Usedmarket\ColorResource;
+use App\Http\Resources\Usedmarket\HomeResources;
+use App\Http\Requests\Usedmarket\Api\ContactRequest;
 
 class DataController extends Controller
 {
@@ -33,9 +29,9 @@ class DataController extends Controller
     public function dataRgister()
     {
         try {
-           $cities = CityResource::collection(City::get());
-           $cars = HomeResources::collection(Cars::get());
-           $colors = ColorResource::collection(Color::get());
+            $cities = CityResource::collection(City::get());
+            $cars = HomeResources::collection(Car::get());
+            $colors = ColorResource::collection(Color::get());
             return $this->returnData("data", ['cars' => $cars, 'colors' => $colors, 'cities' => $cities], __('api.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
@@ -53,7 +49,7 @@ class DataController extends Controller
     public function terms()
     {
         try {
-            $terms = Terms::first();
+            $terms = Term::first();
             return $this->returnData("data", ['terms' => $terms->value()], __('api.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
@@ -62,7 +58,7 @@ class DataController extends Controller
     public function policies()
     {
         try {
-            $policies = Policies::first();
+            $policies = Policie::first();
             return $this->returnData("data", ['policies' => $policies->value()], __('api.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
@@ -70,35 +66,35 @@ class DataController extends Controller
     }
     public function splaches()
     {
-        try {
-            $splaches = Splach::get();
+        // try {
+        //     $splaches = Splach::get();
 
-            return $this->returnData("data", ['splaches' => SplashResource::collection($splaches)], __('api.returnData'));
-        } catch (\Throwable $th) {
-            return $this->returnError(403, $th->getMessage());
-        }
+        //     return $this->returnData("data", ['splaches' => SplashResource::collection($splaches)], __('api.returnData'));
+        // } catch (\Throwable $th) {
+        //     return $this->returnError(403, $th->getMessage());
+        // }
     }
     public function helpCenter()
     {
-        try {
-            $splaches = HelpCenter::get();
+        // try {
+        //     $splaches = HelpCenter::get();
 
-            return $this->returnData("data", ['helpCenter' => helpCenterResource::collection($splaches)], __('api.returnData'));
-        } catch (\Throwable $th) {
-            return $this->returnError(403, $th->getMessage());
-        }
+        //     return $this->returnData("data", ['helpCenter' => helpCenterResource::collection($splaches)], __('api.returnData'));
+        // } catch (\Throwable $th) {
+        //     return $this->returnError(403, $th->getMessage());
+        // }
     }
     public function searchHelpCenter(Request $request)
     {
-        try {
-            $splaches = HelpCenter::where(function($query) use($request){
-                $query->where('title_ar', 'LIKE', '%' . $request->search . '%')->orWhere('title_en', 'LIKE', '%' . $request->search . '%')->orWhere('title_ku', 'LIKE', '%' . $request->search . '%');
-            })->get();
+        // try {
+        //     $splaches = HelpCenter::where(function ($query) use ($request) {
+        //         $query->where('title_ar', 'LIKE', '%' . $request->search . '%')->orWhere('title_en', 'LIKE', '%' . $request->search . '%')->orWhere('title_ku', 'LIKE', '%' . $request->search . '%');
+        //     })->get();
 
-            return $this->returnData("data", ['helpCenter' => helpCenterResource::collection($splaches)], __('api.returnData'));
-        } catch (\Throwable $th) {
-            return $this->returnError(403, $th->getMessage());
-        }
+        //     return $this->returnData("data", ['helpCenter' => helpCenterResource::collection($splaches)], __('api.returnData'));
+        // } catch (\Throwable $th) {
+        //     return $this->returnError(403, $th->getMessage());
+        // }
     }
     public function info()
     {
@@ -115,7 +111,7 @@ class DataController extends Controller
     public function generalCars()
     {
         try {
-            $cars = HomeResources::collection(Cars::get());
+            $cars = HomeResources::collection(Car::get());
             return $this->returnData("data", ["cars" => $cars], __('api.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
@@ -133,7 +129,7 @@ class DataController extends Controller
     public function contactUs(ContactRequest $request)
     {
         try {
-            Contacts::create($request->all());
+            Contact::create($request->all());
 
             return $this->returnSuccess(200, __('api.contactSuccess'));
         } catch (\Throwable $th) {
