@@ -21,13 +21,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['api']], function () {
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('verifyCode', [AuthController::class, 'verifyCode']);
-    Route::post('verifyCodePassword', [AuthController::class, 'verifyCodePassword']);
-    Route::post('resendCode', [AuthController::class, 'resendCode']);
-    Route::post('resetPassword', [AuthController::class, 'resetPassword']);
-    Route::post('changePassword', [AuthController::class, 'changePassword']);
-    Route::post('login', [AuthController::class, 'login']);
     Route::get('home', [HomeController::class, 'home']);
     Route::get('categories', [HomeController::class, 'categories']);
     Route::get('otherCategories', [HomeController::class, 'otherCategories']);
@@ -43,11 +36,6 @@ Route::group(['middleware' => ['api']], function () {
 
 });
 Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('deleteAccount', [AuthController::class, 'deleteAccount']);
-    Route::get('getProfileData', [AuthController::class, 'getProfileData']);
-    Route::post('updateProfile', [AuthController::class, 'updateProfile']);
-    Route::post('updatePassword', [AuthController::class, 'updatePassword']);
     Route::post('addProduct', [ProductController::class, 'addProduct']);
     Route::post('updateProduct', [ProductController::class, 'updateProduct']);
     Route::get('deleteImage', [ProductController::class, 'deleteImage']);

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\usedMarket\Api\category;
+namespace App\Http\Requests\usedMarket\category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class AddRequest extends FormRequest
         return [
             'name_ar' => 'required|string',
             'name_en' => 'required|string',
-            'image' => 'required|file|mimes:png,jpg,jpeg'
+            'image' => 'nullable|file',
+            'category_id' => 'required|exists:categories,id'
         ];
     }
 }

@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\usedMarket\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\AddRequest;
-use App\Http\Requests\Product\UpdateRequest;
-use App\Traits\GeneralTrait;
-use App\Traits\ImageUploadTrait;
+use App\Models\User;
+use App\Models\Image;
+use App\Models\Product;
 use App\Traits\MapTrait;
-use App\Models\Images;
-use App\Models\Products;
 use App\Models\Commenets;
 use App\Models\Complains;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use App\Http\Resources\Api\ProductResource;
-use App\Http\Resources\Api\UserResource;
+use App\Traits\GeneralTrait;
+use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Usedmarket\UserResource;
+use App\Http\Resources\Usedmarket\ProductResource;
+use App\Http\Requests\usedMarket\Product\AddRequest;
+use App\Http\Requests\usedMarket\Product\UpdateRequest;
 
 class ProductController extends Controller
 {
@@ -46,7 +46,7 @@ class ProductController extends Controller
             foreach ($request->images as $image) {
                 $imageName = rand(11111, 99999) . '_ads.' . $image->extension();
                 $this->uploadImage($image, $imageName, 'ads');
-                Images::create([
+                Image::create([
                     'product_id' => $product->id,
                     'image' => $imageName,
                 ]);
@@ -72,7 +72,7 @@ class ProductController extends Controller
                 foreach ($request->images as $image) {
                     $imageName = rand(11111, 99999) . '_ads.' . $image->extension();
                     $this->uploadImage($image, $imageName, 'ads');
-                    Images::create([
+                    Image::create([
                         'product_id' => $product->id,
                         'image' => $imageName,
                     ]);
@@ -86,7 +86,7 @@ class ProductController extends Controller
     public function deleteImage(Request $request)
     {
         try{
-            $product = Images::find($request->image_id);
+            $product = Image::find($request->image_id);
             $product->delete();
             return $this->returnSuccess(200, __('api.deleteImage'));
         } catch (\Throwable $e) {

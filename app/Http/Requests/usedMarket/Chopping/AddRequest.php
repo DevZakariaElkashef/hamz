@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\usedMarket\Api\SubCategory;
+namespace App\Http\Requests\usedMarket\Chopping;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +24,6 @@ class AddRequest extends FormRequest
         return [
             'name_ar' => 'required|string',
             'name_en' => 'required|string',
-            'image' => 'required|file|mimes:png,jpg,jpeg',
-            'category_id' => 'required|exists:categories,id'
         ];
     }
 }

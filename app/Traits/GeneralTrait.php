@@ -99,9 +99,9 @@ trait GeneralTrait
             return "E018";
         } elseif ($input == "name_en") {
             return "E019";
-        } elseif ($input == "desc_ar") {
+        } elseif ($input == "description_ar") {
             return "E020";
-        } elseif ($input == "desc_en") {
+        } elseif ($input == "description_en") {
             return "E021";
         } elseif ($input == "date") {
             return "E022";

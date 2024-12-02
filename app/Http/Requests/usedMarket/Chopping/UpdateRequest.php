@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\usedMarket\Api\category;
+namespace App\Http\Requests\usedMarket\Chopping;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'name_ar' => 'required|string',
             'name_en' => 'required|string',
-            'image' => 'nullable|file|mimes:png,jpg,jpeg',
-            'category_id' => 'required|exists:categories,id'
+            'chipping_id' => 'required|exists:choppings,id'
         ];
     }
 }

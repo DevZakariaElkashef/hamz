@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Usedmarket\Api;
+namespace App\Http\Requests\usedMarket\Api;
 
 use App\Traits\GeneralTrait;
 use Illuminate\Foundation\Http\FormRequest;

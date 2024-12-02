@@ -26,4 +26,9 @@ class City extends Model
         return $query->where('name_ar', 'like', "%$search%")
                 ->orWhere('name_en', 'like', "%$search%");
     }
+
+    public function title()
+    {
+        return $this->attributes['name_' . app()->getLocale()];
+    }
 }

@@ -1,19 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Usedmarket\Api;
+namespace App\Http\Requests\usedMarket\Api;
 
+use App\Traits\GeneralTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class RegisterRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
+    use GeneralTrait;
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +18,21 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string',
+            'email' => 'nullable|email|unique:users,email',
+            'phone' => 'required|unique:users,phone',
+            'password' => 'required',
+            'code' => 'required',
+            'image' => 'nullable|file|mimes:png,jpg,jpeg',
+            'val_license' => 'required|string',
+            'advertisercharacter_id' => 'required|exists:advertiser_characters,id',
         ];
+    }
+
+
+    protected function failedValidation(Validator $validator): void
+    {
+        $code = $this->returnCodeAccordingToInput($validator);
+        throw new HttpResponseException($this->returnValidationError($code, $validator));
     }
 }

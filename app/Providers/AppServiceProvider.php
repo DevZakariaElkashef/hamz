@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Model::shouldBeStrict(app()->isLocal());
+        // Model::shouldBeStrict(app()->isLocal());
 
         Paginator::useBootstrapFive();
 

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\usedMarket\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Traits\GeneralTrait;
-use Illuminate\Support\Facades\App;
+use App\Models\Product;
 use App\Models\Favourite;
-use App\Models\Products;
-use App\Http\Resources\Api\ProductResource;
+use App\Traits\GeneralTrait;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Usedmarket\ProductResource;
 
 class FavouriteController extends Controller
 {

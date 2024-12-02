@@ -16,6 +16,11 @@ class Product extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function name()
+    {
+        return $this->attributes['name_' . app()->getLocale()];
+    }
+
     public function getNameAttribute()
     {
         return $this->attributes['name_' . app()->getLocale()];
@@ -26,29 +31,44 @@ class Product extends Model
         return $this->attributes['description_' . app()->getLocale()];
     }
 
+    public function desc()
+    {
+        return $this->attributes['description_' . app()->getLocale()];
+    }
+
+    public function direction()
+    {
+        return $this->belongsTo(Direction::class, 'direction_id');
+    }
+
+    public function getAddress()
+    {
+        return $this->attributes['address_' . app()->getLocale()];
+    }
+
     public function scopeSearch($query, $search)
     {
         return $query->where('name_ar', 'like', "%$search%")
-                ->orWhere('name_en', 'like', "%$search%")
-                ->orWhere('description_ar', 'like', "%$search%")
-                ->orWhere('description_en', 'like', "%$search%")
-                ->orWhere('price', 'like', "%$search%")
-                ->orWhere('offer', 'like', "%$search%")
-                ->orWhere('start_offer_date', 'like', "%$search%")
-                ->orWhere('end_offer_date', 'like', "%$search%")
-                ->orWhere('qty', 'like', "%$search%")
-                ->orWhereHas('brand', function($brand) use($search) {
-                    $brand->where('name_ar', 'like', "%$search%")
-                        ->orWhere('name_en', 'like', "%$search%");
-                })
-                ->orWhereHas('category', function($category) use($search) {
-                    $category->where('name_ar', 'like', "%$search%")
-                        ->orWhere('name_en', 'like', "%$search%");
-                })
-                ->orWhereHas('category.store', function($store) use($search) {
-                    $store->where('name_ar', 'like', "%$search%")
-                        ->orWhere('name_en', 'like', "%$search%");
-                });
+            ->orWhere('name_en', 'like', "%$search%")
+            ->orWhere('description_ar', 'like', "%$search%")
+            ->orWhere('description_en', 'like', "%$search%")
+            ->orWhere('price', 'like', "%$search%")
+            ->orWhere('offer', 'like', "%$search%")
+            ->orWhere('start_offer_date', 'like', "%$search%")
+            ->orWhere('end_offer_date', 'like', "%$search%")
+            ->orWhere('qty', 'like', "%$search%")
+            ->orWhereHas('brand', function ($brand) use ($search) {
+                $brand->where('name_ar', 'like', "%$search%")
+                    ->orWhere('name_en', 'like', "%$search%");
+            })
+            ->orWhereHas('category', function ($category) use ($search) {
+                $category->where('name_ar', 'like', "%$search%")
+                    ->orWhere('name_en', 'like', "%$search%");
+            })
+            ->orWhereHas('category.store', function ($store) use ($search) {
+                $store->where('name_ar', 'like', "%$search%")
+                    ->orWhere('name_en', 'like', "%$search%");
+            });
     }
 
     public function getCalcPriceAttribute()
@@ -123,5 +143,31 @@ class Product extends Model
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+    public function favourities()
+    {
+        return $this->hasMany(Favourite::class, 'product_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+    public function subCategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function ProductSatus()
+    {
+        return $this->belongsTo(ProductStatus::class, 'product_status_id');
     }
 }

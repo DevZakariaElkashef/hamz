@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Usedmarket\Api;
+namespace App\Http\Requests\usedMarket\Api;
 
 use App\Traits\GeneralTrait;
 use Illuminate\Foundation\Http\FormRequest;
@@ -10,7 +10,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 class ChangePasswordRequest extends FormRequest
 {
     use GeneralTrait;
-    
+
     /**
      * Get the validation rules that apply to the request.
      *

@@ -151,11 +151,11 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label class="form-label" for="desc">{{ __('admin.desc_ar') }}<span
+                                    <label class="form-label" for="desc">{{ __('admin.description_ar') }}<span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <textarea class="form-control @error('desc_ar') is-invalid @enderror" id="description" name="desc_ar"
-                                        placeholder="{{ __('admin.desc_ar') }}">{{ old('desc_ar') }}</textarea>
-                                    @error('desc_ar')
+                                    <textarea class="form-control @error('description_ar') is-invalid @enderror" id="description" name="description_ar"
+                                        placeholder="{{ __('admin.description_ar') }}">{{ old('description_ar') }}</textarea>
+                                    @error('description_ar')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -164,11 +164,11 @@
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label class="form-label" for="desc">{{ __('admin.desc_en') }}<span
+                                    <label class="form-label" for="desc">{{ __('admin.description_en') }}<span
                                             class="text-danger fw-bolder">*</span></label>
-                                    <textarea class="form-control @error('desc_en') is-invalid @enderror" id="description_en" name="desc_en"
-                                        placeholder="{{ __('admin.desc_en') }}">{{ old('desc_en') }}</textarea>
-                                    @error('desc_en')
+                                    <textarea class="form-control @error('description_en') is-invalid @enderror" id="description_en" name="description_en"
+                                        placeholder="{{ __('admin.description_en') }}">{{ old('description_en') }}</textarea>
+                                    @error('description_en')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\usedMarket\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Notification;
+use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use App\Traits\GeneralTrait;
-use App\Http\Resources\Api\NotificationResource;
-use App\Models\Notification;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Usedmarket\NotificationResource;
 
 class NotificationController extends Controller
 {
