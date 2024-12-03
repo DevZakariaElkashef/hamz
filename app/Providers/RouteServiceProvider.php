@@ -66,16 +66,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/usedMarket/web.php'));
             /** End used_market Routes */
 
-            /** Begain rfoof Routes */
-            Route::middleware('api')
-                ->prefix('rfoof/api')
-                ->group(base_path('routes/rfoof/api.php'));
-
-            Route::middleware('web')
-                ->prefix('rfoof')
-                ->group(base_path('routes/rfoof/web.php'));
-            /** End rfoof Routes */
-
             /** Begain Earn Routes */
             Route::middleware('api')
                 ->prefix('earn/api')
