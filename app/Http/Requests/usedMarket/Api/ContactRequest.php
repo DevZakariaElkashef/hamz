@@ -20,7 +20,7 @@ class ContactRequest extends FormRequest
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required|email',
-            'subject' => 'required',
+            'contact_type_id' => 'required|exists:contact_types,id',
             'message' => 'required'
         ];
     }

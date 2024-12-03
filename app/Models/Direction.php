@@ -12,4 +12,15 @@ class Direction extends Model
     use HasFactory, AppScope, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function name()
+    {
+        return $this->attributes['name_' . app()->getLocale()];
+    }
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'direction_id');
+    }
 }

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->text('comment');
             $table->tinyInteger('rate')->default(1);
-            $table->foreignId('seller_id')->constrained('users')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->foreignId('user_id')->constrained('users')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->foreignId('product_id')->constrained('products')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreignId('seller_id')->nullable()->constrained('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->enum('app', ['mall', 'booth', 'coupons', 'earn', 'resale', 'rfoof', 'all']);
             $table->softDeletes();
             $table->timestamps();

@@ -392,4 +392,32 @@ return
     'no' => 'No',
     'yes' => "Yes",
     'enter_iban' => 'enter_iban',
+
+
+
+    'regiser' => 'regiser',
+    'codeNotFound' => 'codeNotFound',
+    'verifyCodePassword' => 'verifyCodePassword',
+    'changePassword' => 'changePassword',
+    'passwordOrPhoneIsWrong' => 'passwordOrPhoneIsWrong',
+    'logout' => 'logout',
+    'deleteAccount' => 'deleteAccount',
+    'returnData' => 'returnData',
+    'updateProfile' => 'updateProfile',
+    'notCorrecetPassword' => 'notCorrecetPassword',
+    'sendMessage' => 'sendMessage',
+    'contactSuccess' => 'contactSuccess',
+    'deleteFavourite' => 'deleteFavourite',
+    'addfavourite' => 'addfavourite',
+    'deleteNotifications' => 'deleteNotifications',
+    'addProduct' => 'addProduct',
+    'updateProduct' => 'updateProduct',
+    'deleteImage' => 'deleteImage',
+    'deleteProduct' => 'deleteProduct',
+    'addComplain' => 'addComplain',
+    'addCommenet' => 'addCommenet',
+
+
+
+
 ];

@@ -2,37 +2,37 @@
 
 namespace App\Http\Controllers\rfoof\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\CarPushResource;
-use App\Http\Resources\Api\CityResource;
-use App\Http\Resources\Api\ColorResource;
-use App\Http\Resources\Api\CountryResource;
-use App\Http\Resources\Api\FuelTypeResource;
-use App\Http\Resources\Api\HomeResource;
-use App\Http\Resources\Api\MarkaResource;
-use App\Http\Resources\Api\ModelResource;
-use App\Http\Resources\Api\ProductResource;
-use App\Http\Resources\Api\ProductStatusResource;
-use App\Http\Resources\Api\TypeResource;
-use App\Http\Resources\Api\CategoryResource;
-use App\Http\Resources\Api\SubCategoryResource;
-use App\Http\Resources\Api\DirectionResource;
-use App\Traits\GeneralTrait;
-use App\Models\CarPush;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\Direction;
 use App\Models\City;
-use App\Models\Color;
-use App\Models\Country;
-use App\Models\FuelType;
-use App\Models\Marka;
-use App\Models\ModelTypes;
-use App\Models\Products;
-use App\Models\ProductStatus;
 use App\Models\Type;
+use App\Models\Color;
+use App\Models\Marka;
+use App\Models\CarPush;
+use App\Models\Country;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\FuelType;
+use App\Models\Direction;
+use App\Models\ModelTypes;
+use App\Models\SubCategory;
+use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
+use App\Models\ProductStatus;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Usedmarket\CityResource;
+use App\Http\Resources\Usedmarket\HomeResource;
+use App\Http\Resources\Usedmarket\TypeResource;
+use App\Http\Resources\Usedmarket\ColorResource;
+use App\Http\Resources\Usedmarket\MarkaResource;
+use App\Http\Resources\Usedmarket\ModelResource;
+use App\Http\Resources\Usedmarket\CarPushResource;
+use App\Http\Resources\Usedmarket\CountryResource;
+use App\Http\Resources\Usedmarket\ProductResource;
+use App\Http\Resources\Usedmarket\CategoryResource;
+use App\Http\Resources\Usedmarket\FuelTypeResource;
+use App\Http\Resources\Usedmarket\DirectionResource;
+use App\Http\Resources\Usedmarket\SubCategoryResource;
+use App\Http\Resources\Usedmarket\ProductStatusResource;
 
 class HomeController extends Controller
 {
@@ -57,7 +57,7 @@ class HomeController extends Controller
             // Merge the arrays
             $mergedData = array_merge($data, $products);
 
-            return $this->returnData("data", ["products" => $mergedData], __('api.returnData'));
+            return $this->returnData("data", ["products" => $mergedData], __('main.returnData'));
 
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -67,7 +67,7 @@ class HomeController extends Controller
     {
         try {
             $countries = CountryResource::collection(Country::get());
-            return $this->returnData("data", ["countries" => $countries], __('api.returnData'));
+            return $this->returnData("data", ["countries" => $countries], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -76,7 +76,7 @@ class HomeController extends Controller
     {
         try {
             $cities = CityResource::collection(City::where('country_id', $request->country_id)->get());
-            return $this->returnData("data", ["cities" => $cities], __('api.returnData'));
+            return $this->returnData("data", ["cities" => $cities], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -97,7 +97,7 @@ class HomeController extends Controller
             // Merge the arrays
             $mergedData = array_merge($data, $categories);
 
-            return $this->returnData("data", ["categories" => $mergedData], __('api.returnData'));
+            return $this->returnData("data", ["categories" => $mergedData], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -106,7 +106,7 @@ class HomeController extends Controller
     {
         try {
             $categories = CategoryResource::collection(Category::whereIn('id', [3,4,5,6])->get());
-            return $this->returnData("data", ["categories" => $categories], __('api.returnData'));
+            return $this->returnData("data", ["categories" => $categories], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -115,7 +115,7 @@ class HomeController extends Controller
     {
         try {
             $subCategories = SubCategoryResource::collection(SubCategory::where('category_id', $request->category_id)->get());
-            return $this->returnData("data", ["subCategories" => $subCategories], __('api.returnData'));
+            return $this->returnData("data", ["subCategories" => $subCategories], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -131,7 +131,7 @@ class HomeController extends Controller
             $productStatus = ProductStatusResource::collection(ProductStatus::get());
             $carPush = CarPushResource::collection(CarPush::get());
             $directions = DirectionResource::collection(Direction::get());
-            return $this->returnData("data", ["marka" => $marka, 'models' => $models, 'types' => $types, 'colors' => $colors, 'fuelTypes' => $fuelTypes, 'productStatus' => $productStatus, 'carPush' => $carPush, 'directions' => $directions], __('api.returnData'));
+            return $this->returnData("data", ["marka" => $marka, 'models' => $models, 'types' => $types, 'colors' => $colors, 'fuelTypes' => $fuelTypes, 'productStatus' => $productStatus, 'carPush' => $carPush, 'directions' => $directions], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -147,7 +147,7 @@ class HomeController extends Controller
             {
                 $models = ModelResource::collection(ModelTypes::where('sub_category_id', $request->sub_category_id)->get());
             }
-            return $this->returnData("data", ["models" => $models], __('api.returnData'));
+            return $this->returnData("data", ["models" => $models], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -214,7 +214,7 @@ class HomeController extends Controller
             $products = ProductResource::collection($products->latest()->paginate(30));
         }
 
-        return $this->returnData("data", ["products" => $products], __('api.returnData'));
+        return $this->returnData("data", ["products" => $products], __('main.returnData'));
 
     } catch (\Throwable $e) {
         return $this->returnError(403, $e->getMessage());

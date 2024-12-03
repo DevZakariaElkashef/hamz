@@ -51,7 +51,7 @@ class ProductController extends Controller
                     'image' => $imageName,
                 ]);
             }
-            return $this->returnSuccess(200, __('api.addProduct'));
+            return $this->returnSuccess(200, __('main.addProduct'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -78,7 +78,7 @@ class ProductController extends Controller
                     ]);
                 }
             }
-            return $this->returnSuccess(200, __('api.updateProduct'));
+            return $this->returnSuccess(200, __('main.updateProduct'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -88,7 +88,7 @@ class ProductController extends Controller
         try{
             $product = Image::find($request->image_id);
             $product->delete();
-            return $this->returnSuccess(200, __('api.deleteImage'));
+            return $this->returnSuccess(200, __('main.deleteImage'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -98,7 +98,7 @@ class ProductController extends Controller
         try{
             $product = Product::find($request->product_id);
             $product->delete();
-            return $this->returnSuccess(200, __('api.deleteProduct'));
+            return $this->returnSuccess(200, __('main.deleteProduct'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -112,7 +112,7 @@ class ProductController extends Controller
                 'user_id' => $request->user()->id,
             ]);
 
-            return $this->returnSuccess(200, __('api.addComplain'));
+            return $this->returnSuccess(200, __('main.addComplain'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -127,7 +127,7 @@ class ProductController extends Controller
                 'user_id' => $request->user()->id,
             ]);
 
-            return $this->returnSuccess(200, __('api.addCommenet'));
+            return $this->returnSuccess(200, __('main.addCommenet'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -138,7 +138,7 @@ class ProductController extends Controller
         try{
             $seller = User::find($request->seller_id);
             $products = ProductResource::collection(Product::where(['user_id' => $request->seller_id])->latest()->paginate(10));
-            return $this->returnData("data", ["seller" => new UserResource($seller), 'products' => $products], __('api.returnData'));
+            return $this->returnData("data", ["seller" => new UserResource($seller), 'products' => $products], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -147,7 +147,7 @@ class ProductController extends Controller
     {
         try{
             $products = ProductResource::collection(Product::where(['user_id' => $request->user()->id])->latest()->paginate(10));
-            return $this->returnData("data", ['products' => $products], __('api.returnData'));
+            return $this->returnData("data", ['products' => $products], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }

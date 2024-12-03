@@ -57,7 +57,7 @@ class HomeController extends Controller
             // Merge the arrays
             $mergedData = array_merge($data, $products);
 
-            return $this->returnData("data", ["products" => $mergedData], __('api.returnData'));
+            return $this->returnData("data", ["products" => $mergedData], __('main.returnData'));
 
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -67,7 +67,7 @@ class HomeController extends Controller
     {
         try {
             $countries = CountryResource::collection(Country::get());
-            return $this->returnData("data", ["countries" => $countries], __('api.returnData'));
+            return $this->returnData("data", ["countries" => $countries], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -76,7 +76,7 @@ class HomeController extends Controller
     {
         try {
             $cities = CityResource::collection(City::where('country_id', $request->country_id)->get());
-            return $this->returnData("data", ["cities" => $cities], __('api.returnData'));
+            return $this->returnData("data", ["cities" => $cities], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -96,7 +96,7 @@ class HomeController extends Controller
             // Merge the arrays
             $mergedData = array_merge($data, $categories);
 
-            return $this->returnData("data", ["categories" => $mergedData], __('api.returnData'));
+            return $this->returnData("data", ["categories" => $mergedData], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -105,7 +105,7 @@ class HomeController extends Controller
     {
         try {
             $categories = CategoryResource::collection(Category::whereIn('id', [3, 4, 5, 6])->get());
-            return $this->returnData("data", ["categories" => $categories], __('api.returnData'));
+            return $this->returnData("data", ["categories" => $categories], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -114,7 +114,7 @@ class HomeController extends Controller
     {
         try {
             $subCategories = SubCategoryResource::collection(SubCategory::where('category_id', $request->category_id)->get());
-            return $this->returnData("data", ["subCategories" => $subCategories], __('api.returnData'));
+            return $this->returnData("data", ["subCategories" => $subCategories], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -130,7 +130,7 @@ class HomeController extends Controller
             $productStatus = ProductStatusResource::collection(ProductStatus::get());
             $carPush = CarPushResource::collection(CarPush::get());
             $directions = DirectionResource::collection(Direction::get());
-            return $this->returnData("data", ["marka" => $marka, 'models' => $models, 'types' => $types, 'colors' => $colors, 'fuelTypes' => $fuelTypes, 'productStatus' => $productStatus, 'carPush' => $carPush, 'directions' => $directions], __('api.returnData'));
+            return $this->returnData("data", ["marka" => $marka, 'models' => $models, 'types' => $types, 'colors' => $colors, 'fuelTypes' => $fuelTypes, 'productStatus' => $productStatus, 'carPush' => $carPush, 'directions' => $directions], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -143,7 +143,7 @@ class HomeController extends Controller
             } else {
                 $models = ModelResource::collection(ModelTypes::where('sub_category_id', $request->sub_category_id)->get());
             }
-            return $this->returnData("data", ["models" => $models], __('api.returnData'));
+            return $this->returnData("data", ["models" => $models], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -207,7 +207,7 @@ class HomeController extends Controller
                 $products = ProductResource::collection($products->latest()->paginate(30));
             }
 
-            return $this->returnData("data", ["products" => $products], __('api.returnData'));
+            return $this->returnData("data", ["products" => $products], __('main.returnData'));
 
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());

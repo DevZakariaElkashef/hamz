@@ -34,7 +34,7 @@ class ChatController extends Controller
     {
         try{
             $messages = ChatResource::collection(Chat::where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
-            return $this->returnData("data", ['messages' => $messages], __('api.returnData'));
+            return $this->returnData("data", ['messages' => $messages], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -68,9 +68,9 @@ class ChatController extends Controller
                 $firebase = new FireBasePushNotification();
                 $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
-            return $this->returnSuccess(200, __('api.sendMessage'));
+            return $this->returnSuccess(200, __('main.sendMessage'));
             $messages = ChatResource::collection(Chat::where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
-            return $this->returnData("data", ['messages' => $messages], __('api.returnData'));
+            return $this->returnData("data", ['messages' => $messages], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -102,7 +102,7 @@ class ChatController extends Controller
             // Sort messages by last_message_time in descending order
             $messages = $messages->sortByDesc('last_message_time')->values()->all();
                  $messages = ChatResource::collection($messages);
-            return $this->returnData("data", ["cahts" => $messages], __('api.returnData'));
+            return $this->returnData("data", ["cahts" => $messages], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }

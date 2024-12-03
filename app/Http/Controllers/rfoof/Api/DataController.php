@@ -36,7 +36,7 @@ class DataController extends Controller
            $cities = CityResource::collection(City::get());
            $cars = HomeResources::collection(Car::get());
            $colors = ColorResource::collection(Color::get());
-            return $this->returnData("data", ['cars' => $cars, 'colors' => $colors, 'cities' => $cities], __('api.returnData'));
+            return $this->returnData("data", ['cars' => $cars, 'colors' => $colors, 'cities' => $cities], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -45,7 +45,7 @@ class DataController extends Controller
     {
         try {
             $about = About::first();
-            return $this->returnData("data", ['about' => $about->value()], __('api.returnData'));
+            return $this->returnData("data", ['about' => $about->value()], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -54,7 +54,7 @@ class DataController extends Controller
     {
         try {
             $terms = Terms::first();
-            return $this->returnData("data", ['terms' => $terms->value()], __('api.returnData'));
+            return $this->returnData("data", ['terms' => $terms->value()], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -63,7 +63,7 @@ class DataController extends Controller
     {
         try {
             $policies = Policies::first();
-            return $this->returnData("data", ['policies' => $policies->value()], __('api.returnData'));
+            return $this->returnData("data", ['policies' => $policies->value()], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -73,7 +73,7 @@ class DataController extends Controller
         try {
             $splaches = Splach::get();
 
-            return $this->returnData("data", ['splaches' => SplashResource::collection($splaches)], __('api.returnData'));
+            return $this->returnData("data", ['splaches' => SplashResource::collection($splaches)], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -83,7 +83,7 @@ class DataController extends Controller
         try {
             $splaches = HelpCenter::get();
 
-            return $this->returnData("data", ['helpCenter' => helpCenterResource::collection($splaches)], __('api.returnData'));
+            return $this->returnData("data", ['helpCenter' => helpCenterResource::collection($splaches)], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -95,7 +95,7 @@ class DataController extends Controller
                 $query->where('title_ar', 'LIKE', '%' . $request->search . '%')->orWhere('title_en', 'LIKE', '%' . $request->search . '%')->orWhere('title_ku', 'LIKE', '%' . $request->search . '%');
             })->get();
 
-            return $this->returnData("data", ['helpCenter' => helpCenterResource::collection($splaches)], __('api.returnData'));
+            return $this->returnData("data", ['helpCenter' => helpCenterResource::collection($splaches)], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -107,7 +107,7 @@ class DataController extends Controller
             $user_random_key = request()->user() ? request()->user()->user_random_key : "";
             $setting = Setting::first();
             $shareLink = 'استعمل رمز الدعوة الخاص بي ' . $user_random_key . ' و احصل علي 1000 IQD دينار لرحلتك الاولي، حمل التطبيق الان ';
-            return $this->returnData("data", ['phone' => $setting->phone, 'email' => $setting->email, 'whatsapp' => $setting->whatsapp, 'support_id' => $user_id, 'shareLink' => $shareLink, 'quests' => asset('uploads/' . $setting->quests)], __('api.returnData'));
+            return $this->returnData("data", ['phone' => $setting->phone, 'email' => $setting->email, 'whatsapp' => $setting->whatsapp, 'support_id' => $user_id, 'shareLink' => $shareLink, 'quests' => asset('uploads/' . $setting->quests)], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -116,7 +116,7 @@ class DataController extends Controller
     {
         try {
             $cars = HomeResources::collection(Car::get());
-            return $this->returnData("data", ["cars" => $cars], __('api.returnData'));
+            return $this->returnData("data", ["cars" => $cars], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -125,7 +125,7 @@ class DataController extends Controller
     {
         try {
             $cities = CityResource::collection(City::get());
-            return $this->returnData("data", ["cities" => $cities], __('api.returnData'));
+            return $this->returnData("data", ["cities" => $cities], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }
@@ -135,7 +135,7 @@ class DataController extends Controller
         try {
             Contacts::create($request->all());
 
-            return $this->returnSuccess(200, __('api.contactSuccess'));
+            return $this->returnSuccess(200, __('main.contactSuccess'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }

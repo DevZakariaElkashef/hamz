@@ -20,7 +20,7 @@ class NotificationController extends Controller
     {
         try{
             $notifications = NotificationResource::collection(Notification::where('user_id', request()->user()->id)->latest()->get());
-            return $this->returnData("data", ["notifications" => $notifications], __('api.returnData'));
+            return $this->returnData("data", ["notifications" => $notifications], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -42,7 +42,7 @@ class NotificationController extends Controller
     {
         try{
             Notification::where('id', $request->notification_id)->delete();
-            return $this->returnSuccess(200, __('api.deleteNotifications'));
+            return $this->returnSuccess(200, __('main.deleteNotifications'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }

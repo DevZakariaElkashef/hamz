@@ -23,7 +23,7 @@ class FavouriteController extends Controller
             $products = ProductResource::collection(Product::whereHas('favourities', function ($query) use($request){
                 $query->where('user_id', $request->user()->id);
             })->latest()->paginate(10));
-            return $this->returnData("data", ["products" => $products], __('api.returnData'));
+            return $this->returnData("data", ["products" => $products], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }
@@ -35,10 +35,10 @@ class FavouriteController extends Controller
             if($favourite)
             {
                 $favourite->delete();
-                return $this->returnSuccess(200, __('api.deleteFavourite'));
+                return $this->returnSuccess(200, __('main.deleteFavourite'));
             }
             favourite::create(['product_id' => $request->product_id, 'user_id' => $request->user()->id]);
-            return $this->returnSuccess(200, __('api.addfavourite'));
+            return $this->returnSuccess(200, __('main.addfavourite'));
 
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
