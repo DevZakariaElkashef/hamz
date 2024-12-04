@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index($status)
     {
-        $products = Product::resale()->whereHas('images')->where('status', $status)->latest()->paginate();
+        $products = Product::usedMarket()->whereHas('images')->where('status', $status)->latest()->paginate();
         return view('usedMarket.products.index', compact('products', 'status'));
     }
     public function verify(Request $request)
@@ -42,6 +42,7 @@ class ProductController extends Controller
             'message' => $messageDataUser,
             'user_id' => $product->user_id,
             'product_id' => $product->id,
+            'app' => 'resale'
         ]);
 
         $this->to($product->user->device_token, $messageDataUser, $title);
@@ -64,6 +65,7 @@ class ProductController extends Controller
             'message' => $messageDataUser,
             'user_id' => $ads->user_id,
             'product_id' => $ads->id,
+            'app' => 'resale'
         ]);
 
         $this->to($ads->user->device_token, $messageDataUser, $title);
@@ -86,6 +88,7 @@ class ProductController extends Controller
             'message' => $messageData,
             'user_id' => $ads->user_id,
             'product_id' => $ads->id,
+            'app' => 'resale'
         ]);
         $this->to($ads->user->device_token, $messageData, $title);
         $this->sendMail($ads->user, $ads, $messageData, $title);
@@ -107,6 +110,7 @@ class ProductController extends Controller
             'message' => $messageData,
             'user_id' => $ads->user_id,
             'product_id' => $ads->id,
+            'app' => 'resale'
         ]);
         $this->to($ads->user->device_token, $messageData, $title);
         $this->sendMail($ads->user, $ads, $messageData, $title);
@@ -122,7 +126,7 @@ class ProductController extends Controller
     }
     public function subCategories(Request $request)
     {
-        $subCategories = SubCategory::where('category_id', $request->category_id)->get();
+        $subCategories = SubCategory::usedMarket()->where('category_id', $request->category_id)->get();
         return json_encode($subCategories);
     }
 

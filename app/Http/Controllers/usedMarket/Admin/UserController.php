@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers\usedMarket\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\SignRequest;
-use App\Http\Requests\Auth\SignUpRequest;
-use App\Http\Requests\Users\UpdateRequest;
-use App\Traits\ImageUploadTrait;
-use App\Models\Roles;
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\usedMarket\Auth\SignRequest;
+use App\Http\Requests\usedMarket\Users\UpdateRequest;
 
 class UserController extends Controller
 {
     use ImageUploadTrait;
     private $userModel, $roleModel;
-    public function __construct(User $employee, Roles $role)
+    public function __construct(User $employee, Role $role)
     {
         $this->userModel = $employee;
         $this->roleModel = $role;

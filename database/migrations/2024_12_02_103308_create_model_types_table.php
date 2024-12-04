@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name_en')->nullable();
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('sub_category_id')->nullable()->constrained('sub_categories')->onDelete('cascade');
+            $table->enum('app', ['mall', 'booth', 'coupons', 'earn', 'resale', 'rfoof', 'all']);
             $table->softDeletes();
             $table->timestamps();
         });

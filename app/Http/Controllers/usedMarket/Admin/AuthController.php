@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\usedMarket\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\SignRequest;
-use App\Http\Requests\Auth\SignUpRequest;
-use App\Models\Roles;
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
+use App\Http\Requests\usedMarket\Auth\SignRequest;
+use App\Http\Requests\usedMarket\Auth\SignUpRequest;
 
 class AuthController extends Controller
 {
     private $permissionModel, $roleModel, $userModel, $userPermissionsModel;
 
-    public function __construct(Roles $roleModel, User $userModel)
+    public function __construct(Role $roleModel, User $userModel)
     {
         $this->roleModel = $roleModel;
         $this->userModel = $userModel;
@@ -46,6 +46,7 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'verified' => 0,
+            'app' => 'resale'
         ]);
 
         $permission = $this->permissionModel->where('name', $request->type)->first()->id;

@@ -44,14 +44,14 @@ class HomeController extends Controller
     public function home()
     {
         try {
-            $products = HomeResource::collection(Category::get())->toArray(request());
+            $products = HomeResource::collection(Category::usedMarket()->get())->toArray(request());
 
             $data = [];
             $data[0] = [
                 'id' => 0,
                 'name' => app()->getLocale() == 'ar' ? 'الكل' : 'All',
                 'image' => "",
-                'products' => ProductResource::collection(Product::latest()->get())
+                'products' => ProductResource::collection(Product::usedMarket()->latest()->get())
             ];
 
             // Merge the arrays
@@ -84,7 +84,7 @@ class HomeController extends Controller
     public function categories(Request $request)
     {
         try {
-            $categories = CategoryResource::collection(Category::get())->toArray(request());
+            $categories = CategoryResource::collection(Category::usedMarket()->get())->toArray(request());
             $data = [];
             $data[0] = [
                 'id' => 0,
@@ -104,7 +104,7 @@ class HomeController extends Controller
     public function otherCategories(Request $request)
     {
         try {
-            $categories = CategoryResource::collection(Category::whereIn('id', [3, 4, 5, 6])->get());
+            $categories = CategoryResource::collection(Category::usedMarket()->whereIn('id', [3, 4, 5, 6])->get());
             return $this->returnData("data", ["categories" => $categories], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -113,7 +113,7 @@ class HomeController extends Controller
     public function subCategories(Request $request)
     {
         try {
-            $subCategories = SubCategoryResource::collection(SubCategory::where('category_id', $request->category_id)->get());
+            $subCategories = SubCategoryResource::collection(SubCategory::usedMarket()->where('category_id', $request->category_id)->get());
             return $this->returnData("data", ["subCategories" => $subCategories], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -122,14 +122,14 @@ class HomeController extends Controller
     public function dataCar()
     {
         try {
-            $marka = MarkaResource::collection(Marka::get());
-            $models = ModelResource::collection(ModelTypes::get());
-            $types = TypeResource::collection(Type::get());
-            $colors = ColorResource::collection(Color::get());
-            $fuelTypes = FuelTypeResource::collection(FuelType::get());
-            $productStatus = ProductStatusResource::collection(ProductStatus::get());
-            $carPush = CarPushResource::collection(CarPush::get());
-            $directions = DirectionResource::collection(Direction::get());
+            $marka = MarkaResource::collection(Marka::usedMarket()->get());
+            $models = ModelResource::collection(ModelTypes::usedMarket()->get());
+            $types = TypeResource::collection(Type::usedMarket()->get());
+            $colors = ColorResource::collection(Color::usedMarket()->get());
+            $fuelTypes = FuelTypeResource::collection(FuelType::usedMarket()->get());
+            $productStatus = ProductStatusResource::collection(ProductStatus::usedMarket()->get());
+            $carPush = CarPushResource::collection(CarPush::usedMarket()->get());
+            $directions = DirectionResource::collection(Direction::usedMarket()->get());
             return $this->returnData("data", ["marka" => $marka, 'models' => $models, 'types' => $types, 'colors' => $colors, 'fuelTypes' => $fuelTypes, 'productStatus' => $productStatus, 'carPush' => $carPush, 'directions' => $directions], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -139,9 +139,9 @@ class HomeController extends Controller
     {
         try {
             if ($request->category_id) {
-                $models = ModelResource::collection(ModelTypes::where('category_id', $request->category_id)->get());
+                $models = ModelResource::collection(ModelTypes::usedMarket()->where('category_id', $request->category_id)->get());
             } else {
-                $models = ModelResource::collection(ModelTypes::where('sub_category_id', $request->sub_category_id)->get());
+                $models = ModelResource::collection(ModelTypes::usedMarket()->where('sub_category_id', $request->sub_category_id)->get());
             }
             return $this->returnData("data", ["models" => $models], __('main.returnData'));
         } catch (\Throwable $e) {
@@ -154,6 +154,8 @@ class HomeController extends Controller
     {
         try {
             $products = Product::query();
+
+            $products = $products->usedMarket();
 
             // Filter by category if it's not 0
             if ($request->category_id != 0) {

@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers\usedMarket\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\usedMarket\Api\SubCategory\AddRequest;
-use App\Http\Requests\usedMarket\Api\SubCategory\UpdateRequest;
-use App\Traits\ImageUploadTrait;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\usedMarket\SubCategory\AddRequest;
+use App\Http\Requests\usedMarket\SubCategory\UpdateRequest;
 
 class SubCategoryController extends Controller
 {
     use ImageUploadTrait;
     public function index()
     {
-        $categories = SubCategory::resale()->paginate();
+        $categories = SubCategory::usedMarket()->paginate();
         return view('usedMarket.SubCategory.index', compact('categories'));
     }
     public function addsubCategories()
     {
-        $categories = Category::resale()->get();
+        $categories = Category::usedMarket()->get();
         return view('usedMarket.SubCategory.create', compact('categories'));
     }
 
@@ -32,7 +32,7 @@ class SubCategoryController extends Controller
             'name_en' => $request->name_en,
             'image' => $imageName,
             'category_id' => $request->category_id,
-            'app' => 'resale'
+            'app' => 'usedMarket'
         ]);
         return redirect()->route('usedMarket.subCategories')->with('success', __('messages.add_category'));
     }

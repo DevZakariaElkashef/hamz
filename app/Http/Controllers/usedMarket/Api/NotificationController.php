@@ -19,7 +19,7 @@ class NotificationController extends Controller
     public function getNotifications()
     {
         try{
-            $notifications = NotificationResource::collection(Notification::where('user_id', request()->user()->id)->latest()->get());
+            $notifications = NotificationResource::collection(Notification::usedMarket()->where('user_id', request()->user()->id)->latest()->get());
             return $this->returnData("data", ["notifications" => $notifications], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -28,7 +28,7 @@ class NotificationController extends Controller
     public function readAll()
     {
         try{
-            $notifications = Notification::where('user_id', request()->user()->id)->latest()->get();
+            $notifications = Notification::usedMarket()->where('user_id', request()->user()->id)->latest()->get();
             foreach($notifications as $notification)
             {
                 $notification->update(['status' => 1]);
@@ -41,7 +41,7 @@ class NotificationController extends Controller
     public function deleteNotifications(Request $request)
     {
         try{
-            Notification::where('id', $request->notification_id)->delete();
+            Notification::usedMarket()->where('id', $request->notification_id)->delete();
             return $this->returnSuccess(200, __('main.deleteNotifications'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());

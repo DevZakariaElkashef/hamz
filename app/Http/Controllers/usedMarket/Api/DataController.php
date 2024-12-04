@@ -30,8 +30,8 @@ class DataController extends Controller
     {
         try {
             $cities = CityResource::collection(City::get());
-            $cars = HomeResources::collection(Car::get());
-            $colors = ColorResource::collection(Color::get());
+            $cars = HomeResources::collection(Car::usedMarket()->get());
+            $colors = ColorResource::collection(Color::usedMarket()->get());
             return $this->returnData("data", ['cars' => $cars, 'colors' => $colors, 'cities' => $cities], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
@@ -111,7 +111,7 @@ class DataController extends Controller
     public function generalCars()
     {
         try {
-            $cars = HomeResources::collection(Car::get());
+            $cars = HomeResources::collection(Car::usedMarket()->get());
             return $this->returnData("data", ["cars" => $cars], __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
@@ -129,7 +129,7 @@ class DataController extends Controller
     public function contactUs(ContactRequest $request)
     {
         try {
-            Contact::create($request->all());
+            Contact::create(array_merge($request->all(), ['app' => 'resale']));
 
             return $this->returnSuccess(200, __('main.contactSuccess'));
         } catch (\Throwable $th) {

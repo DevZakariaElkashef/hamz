@@ -10,7 +10,7 @@ class FavouriteController extends Controller
 {
     public function favourite()
     {
-        $favourites = Favourite::resale()->latest()->paginate(10);
+        $favourites = Favourite::usedMarket()->latest()->paginate(10);
         return view('usedMarket.favourite.index', compact('favourites'));
     }
     public function delete(Request $request)

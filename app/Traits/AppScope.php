@@ -24,7 +24,7 @@ trait AppScope
         return $query->whereIn('app', ['earn']);
     }
 
-    public function scopeResale($query)
+    public function scopeusedMarket($query)
     {
         return $query->whereIn('app', ['resale']);
     }

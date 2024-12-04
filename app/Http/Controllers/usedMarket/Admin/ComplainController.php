@@ -10,7 +10,7 @@ class ComplainController extends Controller
 {
     public function complains($status)
     {
-        $complains = Complains::resale()->where('status', $status)->latest()->paginate(10);
+        $complains = Complains::usedMarket()->where('status', $status)->latest()->paginate(10);
         foreach ($complains as $key => $complain) {
             $complain->update(['status' => 1]);
         }
@@ -21,7 +21,7 @@ class ComplainController extends Controller
         $request->validate([
             'complainId' => 'required|exists:complains,id',
         ]);
-        Complains::where('id', $request->complainId)->delete();
+        Complains::usedMarket()->where('id', $request->complainId)->delete();
         return back()->with('message', 'تم حذف الشكوي بنجاح');
     }
 }

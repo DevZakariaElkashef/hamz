@@ -32,11 +32,11 @@ class ChatController extends Controller
         $this->token = $creadentials->fetchAuthToken(HttpHandlerFactory::build());
     }
 
-    
+
     public function getMessages(Request $request)
     {
         try {
-            $messages = ChatResource::collection(Chat::where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
+            $messages = ChatResource::collection(Chat::usedMarket()->where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
             return $this->returnData("data", ['messages' => $messages], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -54,6 +54,7 @@ class ChatController extends Controller
                     'seller_id' => $request->user()->id,
                     'product_id' => $request->product_id,
                     'type' => 'reply',
+                    'app' => 'resale'
                 ]);
                 $firebase = new FireBasePushNotification();
                 $this->to($message->user->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
@@ -64,13 +65,14 @@ class ChatController extends Controller
                     'product_id' => $request->product_id,
                     'seller_id' => $product->user_id,
                     'type' => 'sending',
+                    'app' => 'resale'
                 ]);
                 $firebase = new FireBasePushNotification();
                 $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
             return $this->returnSuccess(200, __('main.sendMessage'));
 
-            $messages = ChatResource::collection(Chat::where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
+            $messages = ChatResource::collection(Chat::usedMarket()->where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
 
             return $this->returnData("data", ['messages' => $messages], __('main.returnData'));
         } catch (\Throwable $e) {
@@ -81,7 +83,7 @@ class ChatController extends Controller
     public function getChats(Request $request)
     {
         try {
-            $lastMessagesUsers = Chat::select('chats.*')->where('user_id', $request->user()->id)
+            $lastMessagesUsers = Chat::select('chats.*')->usedMarket()->where('user_id', $request->user()->id)
                 ->join(DB::raw('(SELECT product_id, MAX(created_at) as last_message_time
                                 FROM chats
                                 GROUP BY product_id) as latest_chats'), function ($join) {
@@ -90,7 +92,7 @@ class ChatController extends Controller
                 })
                 ->get();
 
-            $lastMessagesChats = Chat::select('chats.*')->where('seller_id', $request->user()->id)
+            $lastMessagesChats = Chat::select('chats.*')->usedMarket()->where('seller_id', $request->user()->id)
                 ->join(DB::raw('(SELECT product_id, MAX(created_at) as last_message_time
                                 FROM chats
                                 GROUP BY product_id) as latest_chats'), function ($join) {

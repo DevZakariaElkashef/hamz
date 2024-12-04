@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\usedMarket\Admin;
 
-use App\Http\Requests\Employee\AddRequest;
-use App\Http\Requests\Employee\UpdateRequest;
-use App\Http\Controllers\Controller;
-use App\Traits\ImageUploadTrait;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\usedMarket\Employee\AddRequest;
+use App\Http\Requests\usedMarket\Employee\UpdateRequest;
 
 class AdminController extends Controller
 {
@@ -49,7 +49,8 @@ class AdminController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'role_id' => 4
+            'role_id' => 4,
+            'app' => 'resale'
         ]);
         session()->flash('success', __('messages.add_admin'));
         return redirect(route('admins'));

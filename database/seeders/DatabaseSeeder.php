@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             BoothRoleSeeder::class,
             EarnRoleSeeder::class,
             UsedMarktRoleSeeder::class,
+            RfoofRoleSeeder::class,
+            HamzRoleSeeder::class,
             CouponRoleSeeder::class,
             CountrySeeder::class,
             AdvertiserCharactersSeeder::class,

@@ -39,6 +39,7 @@ class ProductController extends Controller
                 'unique_number' => $randomString,
                 'address_ar' => $address['ar'],
                 'address_en' => $address['en'],
+                'app' => 'resale'
             ]);
 
             // Create the product with the merged data
@@ -110,6 +111,7 @@ class ProductController extends Controller
                 'product_id' => $request->product_id,
                 'message' => $request->message,
                 'user_id' => $request->user()->id,
+                'app' => 'resale'
             ]);
 
             return $this->returnSuccess(200, __('main.addComplain'));
@@ -125,6 +127,7 @@ class ProductController extends Controller
                 'comment' => $request->message,
                 'rate' => $request->rate,
                 'user_id' => $request->user()->id,
+                'app' => 'resale'
             ]);
 
             return $this->returnSuccess(200, __('main.addCommenet'));
@@ -137,7 +140,7 @@ class ProductController extends Controller
     {
         try{
             $seller = User::find($request->seller_id);
-            $products = ProductResource::collection(Product::where(['user_id' => $request->seller_id])->latest()->paginate(10));
+            $products = ProductResource::collection(Product::usedMarket()->where(['user_id' => $request->seller_id])->latest()->paginate(10));
             return $this->returnData("data", ["seller" => new UserResource($seller), 'products' => $products], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -146,7 +149,7 @@ class ProductController extends Controller
     public function myAds(Request $request)
     {
         try{
-            $products = ProductResource::collection(Product::where(['user_id' => $request->user()->id])->latest()->paginate(10));
+            $products = ProductResource::collection(Product::usedMarket()->where(['user_id' => $request->user()->id])->latest()->paginate(10));
             return $this->returnData("data", ['products' => $products], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());

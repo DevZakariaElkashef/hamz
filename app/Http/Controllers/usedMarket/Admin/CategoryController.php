@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\usedMarket\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\usedMarket\Api\category\AddRequest;
-use App\Http\Requests\usedMarket\Api\category\UpdateRequest;
-use App\Traits\ImageUploadTrait;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\usedMarket\category\AddRequest;
+use App\Http\Requests\usedMarket\category\UpdateRequest;
 
 class CategoryController extends Controller
 {
     use ImageUploadTrait;
     public function index()
     {
-        $categories = Category::resale()->latest()->paginate();
+        $categories = Category::usedMarket()->latest()->paginate();
         return view('usedMarket.categories.index', compact('categories'));
     }
     public function addCategory()

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\usedMarket\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Notification;
 use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\FireBasePushNotification;
 
 class NotificationController extends Controller
 {
     public function index()
     {
-        $notifications = Notification::resale()->whereHas('user')->latest()->paginate();
+        $notifications = Notification::usedMarket()->whereHas('user')->latest()->paginate();
         $users = User::where('role_id', 2)->get();
         return view('usedMarket.notifications.index', compact('notifications', 'users'));
     }
@@ -31,7 +32,8 @@ class NotificationController extends Controller
             'message_ar' => $request->message_ar,
             'message_en' => $request->message_en,
             'all' => ($request->choose) ? 1 : 0,
-            'user_id' => (!$request->choose) ? $request->employee_id : null
+            'user_id' => (!$request->choose) ? $request->employee_id : null,
+            'app' => 'resale'
         ]);
         if ($request->choose) {
             $users = User::where('role_id', 4)->get();
