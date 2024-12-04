@@ -413,5 +413,8 @@ return
         'addComplain' => 'إضافة شكوى',
         'addCommenet' => 'إضافة تعليق',
 
+        'employees' => 'الموظفين',
+        'create_employee' => 'إنشاء موظف',
+        'edit_employee' => "تعديل موظف"
 
     ];

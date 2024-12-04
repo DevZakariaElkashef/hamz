@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\AboutController;
-use App\Http\Controllers\Admin\CityController;
-use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\ContactTypeController;
-use App\Http\Controllers\Admin\ContactUsController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\SocialController;
-use App\Http\Controllers\Admin\TermController;
-use App\Http\Controllers\Admin\VendorController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\TermController;
+use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\SocialController;
+use App\Http\Controllers\Admin\VendorController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\ContactUsController;
+use App\Http\Controllers\Admin\ContactTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +79,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('vendors-export', [VendorController::class, 'export'])->name('vendors.export');
     Route::post('vendors-import', [VendorController::class, 'import'])->name('vendors.import');
     Route::delete('delete-vendors', [VendorController::class, 'delete'])->name('vendors.delete');
+/**end Slider Routes */
+
+/**start Slider Routes */
+    Route::resource('employees', EmployeeController::class);
+    Route::get('search-employees', [EmployeeController::class, 'search'])->name('employees.search');
+    Route::get('employees-toggle-status/{employee}', [EmployeeController::class, 'toggleStatus'])->name('employees.toggleStatus');
+    Route::get('employees-export', [EmployeeController::class, 'export'])->name('employees.export');
+    Route::post('employees-import', [EmployeeController::class, 'import'])->name('employees.import');
+    Route::delete('delete-employees', [EmployeeController::class, 'delete'])->name('employees.delete');
+/**end Slider Routes */
+
+/**start Slider Routes */
+    Route::resource('roles', RoleController::class);
+    Route::get('search-roles', [RoleController::class, 'search'])->name('roles.search');
+    Route::get('roles-toggle-status/{role}', [RoleController::class, 'toggleStatus'])->name('roles.toggleStatus');
+    Route::get('roles-export', [RoleController::class, 'export'])->name('roles.export');
+    Route::post('roles-import', [RoleController::class, 'import'])->name('roles.import');
+    Route::delete('delete-roles', [RoleController::class, 'delete'])->name('roles.delete');
 /**end Slider Routes */
 
 /**start Slider Routes */
