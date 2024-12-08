@@ -23,13 +23,6 @@ class RoleRepository
         return $roles;
     }
 
-    public function cities()
-    {
-        $cities = City::active()->get();
-
-        return $cities;
-    }
-
     public function search($request)
     {
         return Role::whereNotIn('id', [1, 2, 3])->search($request->search)->paginate($request->per_page ?? $this->limit);
@@ -37,25 +30,16 @@ class RoleRepository
 
     public function store($request)
     {
-        $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request->file('image'), 'roles');
-        }
-        $data['role_id'] = 4;
+        $data = $request->all();
         unset($data['_token']);
         return Role::create($data);
     }
 
     public function update($request, $role)
     {
-        $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request->file('image'), 'roles', $role->image);
-        }
+        $data = $request->all();
         unset($data['_token'], $data['_method'], $data['id']);
-        if (!$data['password']) {
-            unset($data['password']);
-        }
+
         $role->update($data);
         return $role;
     }
