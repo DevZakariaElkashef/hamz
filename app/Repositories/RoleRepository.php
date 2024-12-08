@@ -32,15 +32,17 @@ class RoleRepository
     {
         $data = $request->all();
         unset($data['_token']);
-        return Role::create($data);
+        $role = Role::create($data);
+        $role->permissions()->sync($data['permissions']);
+        return $role;
     }
 
     public function update($request, $role)
     {
         $data = $request->all();
-        unset($data['_token'], $data['_method'], $data['id']);
-
+        unset($data['_token'], $data['_method']);
         $role->update($data);
+        $role->permissions()->sync($data['permissions']);
         return $role;
     }
 

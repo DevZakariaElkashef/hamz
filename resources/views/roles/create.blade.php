@@ -50,6 +50,36 @@
                                 @enderror
                             </div>
 
+                            <span>{{ __('main.permissions') }}:</span>
+
+                            @foreach ($groupedPermissions as $group => $subgroups)
+                                <div class="col-md-12 mt-3">
+                                    <h5 class="mb-2">{{ __('main.' .$group) }}</h5>
+                                    <div class="row">
+                                        @foreach ($subgroups as $subgroup => $permissionsList)
+                                            <div class="col-md-3 mt-3">
+                                                <h6 class="">{{ __('main.' . $subgroup) }}</h6>
+                                                <div class="form-check">
+                                                    @foreach ($permissionsList as $permission)
+                                                        <div class="form-check mt-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="permissions[]" value="{{ $permission->id }}"
+                                                                id="permission_{{ $permission->id }}">
+                                                            <label class="form-check-label mx-4"
+                                                                for="permission_{{ $permission->id }}">
+                                                                {{ __('main.' . implode('.', array_slice(explode('.', $permission->name), 1))) }}
+
+
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <hr>
+                                </div>
+                            @endforeach
 
                             <div class="col-12 mg-t-10 mg-sm-t-25">
                                 <button class="btn btn-main-primary pd-x-20"

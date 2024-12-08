@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\RoleRepository;
@@ -36,8 +37,28 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $roles = Role::whereNotIn('id', [1, 2, 3])->get();
-        return view("roles.create", compact('roles'));
+        // Fetch all permissions from the database
+        $permissions = Permission::all();  // Retrieves all permissions
+
+        // Group the permissions by the first part and the second part
+        $groupedPermissions = [];
+
+        foreach ($permissions as $permission) {
+            $parts = explode('.', $permission->name);  // Assuming the column is 'name'
+
+            if (count($parts) >= 2) {
+                $group = $parts[0];  // First part (group1)
+                $subgroup = $parts[1];  // Second part (group1-0)
+
+                // Group permissions by the first part, then by second part
+                if (!isset($groupedPermissions[$group])) {
+                    $groupedPermissions[$group] = [];
+                }
+                $groupedPermissions[$group][$subgroup][] = $permission;
+            }
+        }
+
+        return view("roles.create", compact('groupedPermissions'));
     }
 
     /**
@@ -62,7 +83,31 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('roles.edit', compact('role'));
+        // Fetch all permissions from the database
+        $permissions = Permission::all();
+
+        // Group the permissions by the first part and the second part
+        $groupedPermissions = [];
+
+        foreach ($permissions as $permission) {
+            $parts = explode('.', $permission->name); // Assuming the column is 'name'
+
+            if (count($parts) >= 2) {
+                $group = $parts[0]; // First part (group1)
+                $subgroup = $parts[1]; // Second part (group1-0)
+
+                // Group permissions by the first part, then by the second part
+                if (!isset($groupedPermissions[$group])) {
+                    $groupedPermissions[$group] = [];
+                }
+                $groupedPermissions[$group][$subgroup][] = $permission;
+            }
+        }
+
+        // Fetch permissions already assigned to the role
+        $assignedPermissions = $role->permissions->pluck('id')->toArray();
+
+        return view("roles.edit", compact('role', 'groupedPermissions', 'assignedPermissions'));
     }
 
     public function toggleStatus(Request $request, Role $role)

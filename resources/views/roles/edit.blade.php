@@ -37,85 +37,46 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('roles.update', $role->id) }}" data-parsley-validate=""
-                        enctype="multipart/form-data">
-                        @method('PUT')
+                    <form method="post" action="{{ route('roles.update', $role->id) }}" data-parsley-validate="" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="id" value="{{ $role->id }}">
+                        @method('PUT')
                         <div class="row">
-                            <div class="col-md-6 form-group mg-b-0">
+                            <div class="col-md-12 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.name') }} <span class="tx-danger">*</span></label>
-                                <input class="form-control" name="name" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name') ?? $role->name }}">
+                                <input class="form-control" name="name" placeholder="{{ __('main.enter_name') }}" required="" type="text" value="{{ old('name', $role->name) }}">
                                 @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.email') }}</label>
-                                <input class="form-control" name="email" placeholder="{{ __('main.enter_mail') }}"
-                                    type="email" value="{{ old('email') ?? $role->email }}">
-                                @error('email')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.phone') }} <span class="tx-danger">*</span></label>
-                                <input class="form-control" name="phone" placeholder="{{ __('main.enter_phone') }}"
-                                    required="" type="text" value="{{ old('phone') ?? $role->phone }}">
-                                @error('phone')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.password') }}</label>
-                                <input class="form-control" name="password" placeholder="{{ __('main.enter_password') }}"
-                                    type="password">
-                                @error('password')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            <span>{{ __('main.permissions') }}:</span>
 
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.city') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control select2" name="city_id">
-                                    @foreach ($cities as $city)
-                                        <option value="{{ $city->id }}"
-                                            @if (old('city_id', $role->city_id) == $city->id) selected @endif>{{ $city->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('city_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active', $role->is_active) == 0) selected @endif>
-                                        {{ __('main.not_active') }}</option>
-                                    <option value="1" @if (old('is_active', $role->is_active) == 1) selected @endif>
-                                        {{ __('main.active') }}</option>
-                                </select>
-                                @error('is_active')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-12 form-group mt-4">
-                                <div class="custom-file">
-                                    <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
-                                    <input class="custom-file-input" id="customFile" type="file" name="image">
-                                    @error('image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                            @foreach ($groupedPermissions as $group => $subgroups)
+                                <div class="col-md-12 mt-3">
+                                    <h5 class="mb-2">{{ __('main.' . $group) }}</h5>
+                                    <div class="row">
+                                        @foreach ($subgroups as $subgroup => $permissionsList)
+                                            <div class="col-md-3 mt-3">
+                                                <h6 class="">{{ __('main.' . $subgroup) }}</h6>
+                                                <div class="form-check">
+                                                    @foreach ($permissionsList as $permission)
+                                                        <div class="form-check mt-2">
+                                                            <input type="checkbox" class="form-check-input" name="permissions[]" value="{{ $permission->id }}" id="permission_{{ $permission->id }}" @if (in_array($permission->id, $assignedPermissions)) checked @endif>
+                                                            <label class="form-check-label mx-4" for="permission_{{ $permission->id }}">
+                                                                {{ __('main.' . implode('.', array_slice(explode('.', $permission->name), 1))) }}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <hr>
                                 </div>
-                            </div>
+                            @endforeach
 
                             <div class="col-12 mg-t-10 mg-sm-t-25">
-                                <button class="btn btn-main-primary pd-x-20"
-                                    type="submit">{{ __('main.submit') }}</button>
+                                <button class="btn btn-main-primary pd-x-20" type="submit">{{ __('main.submit') }}</button>
                             </div>
                         </div>
                     </form>
