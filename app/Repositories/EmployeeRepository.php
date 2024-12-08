@@ -62,6 +62,10 @@ class EmployeeRepository
 
     public function delete($employee)
     {
+        if ($employee->image) {
+            $this->deleteImage($employee->image);
+        }
+
         $employee->delete();
         return true;
     }

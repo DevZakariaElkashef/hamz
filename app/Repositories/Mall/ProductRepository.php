@@ -133,6 +133,10 @@ class ProductRepository
 
     public function delete($product)
     {
+        if ($product->image) {
+            $this->deleteImage($product->image);
+        }
+        
         $product->delete();
         return true;
     }

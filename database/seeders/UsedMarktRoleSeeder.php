@@ -45,10 +45,5 @@ class UsedMarktRoleSeeder extends Seeder
         $superAdminRole = Role::where('name', 'super-admin')->first();
         $allPermissions = Permission::all()->pluck('id')->toArray();
         $superAdminRole->permissions()->sync($allPermissions);
-
-        // Attach all permissions to the usedmarket-seller role
-        $storePermissions = Permission::get();
-        $storeSellerRole = Role::where('name', 'seller')->first();
-        $storeSellerRole->permissions()->sync($storePermissions);
     }
 }

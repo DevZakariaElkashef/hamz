@@ -32,7 +32,7 @@ class SocialRepository
     {
         $data = $request->except('icon');
         if ($request->hasFile('icon')) {
-            $data['icon'] =  $this->uploadImage($request->file('icon'), 'socials');
+            $data['icon'] = $this->uploadImage($request->file('icon'), 'socials');
         }
         unset($data['_token']);
         return Social::create($data);
@@ -43,7 +43,7 @@ class SocialRepository
     {
         $data = $request->except('icon');
         if ($request->hasFile('icon')) {
-            $data['icon'] =  $this->uploadImage($request->file('icon'), 'socials', $social->icon);
+            $data['icon'] = $this->uploadImage($request->file('icon'), 'socials', $social->icon);
         }
         unset($data['_token'], $data['_method']);
         $social->update($data);
@@ -53,6 +53,9 @@ class SocialRepository
 
     public function delete($social)
     {
+        if ($social->icon) {
+            $this->deleteImage($social->icon);
+        }
         $social->delete();
         return true;
     }

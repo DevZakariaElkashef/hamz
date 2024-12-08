@@ -3,19 +3,39 @@
 namespace App\Imports\Coupon;
 
 use App\Models\Coupon;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class CouponImport implements ToModel
+class CouponImport implements ToCollection, WithHeadingRow, WithValidation
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
+    public function collection(Collection $collection)
     {
-        return new Coupon([
-            //
-        ]);
+        foreach ($collection as $row) {
+
+            Coupon::create([
+                'app' => 'booth',
+                'code' => $row['code'],
+                'discount' => $row['discount'],
+                'max_usage' => $row['max_usage'],
+                'start_date' => $row['start_date'],
+                'end_date' => $row['end_date'],
+                'is_active' => $row['status']
+            ]);
+        }
+    }
+
+    public function rules(): array
+    {
+        return [
+            'code' => 'required|string|max:255',
+            'discount' => 'required|numeric',
+            'max_usage' => 'required|integer',
+            'status' => 'required|boolean',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ];
     }
 }

@@ -17,8 +17,8 @@ class CategoryExport implements FromCollection, WithHeadings, ShouldAutoSize
     }
 
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         return Category::filter($this->request)->earn()->get()->map(function ($cateogry) {

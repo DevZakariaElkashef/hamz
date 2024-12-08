@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', function () {
         return view('index');
+        // dd(auth()->user());
     })->name('home');
 
     /**start Slider Routes */

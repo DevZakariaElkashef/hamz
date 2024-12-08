@@ -45,4 +45,17 @@ trait ImageUploadTrait
 
         return $imagePath;
     }
+
+    public function deleteImage(string $imagePath): bool
+    {
+        // Define the full path for the image
+        $imageFullPath = public_path($imagePath);
+
+        // Check if the file exists and delete it
+        if (file_exists($imageFullPath)) {
+            return unlink($imageFullPath);
+        }
+
+        return false;
+    }
 }

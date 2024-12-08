@@ -58,6 +58,14 @@ class WebVideoRepository
 
     public function delete($video)
     {
+        if ($video->thumbnail) {
+            $this->deleteImage($video->thumbnail);
+        }
+
+        if ($video->path) {
+            $this->deleteImage($video->path);
+        }
+
         $video->delete();
         return true;
     }

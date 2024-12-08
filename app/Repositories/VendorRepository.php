@@ -62,6 +62,10 @@ class VendorRepository
 
     public function delete($vendor)
     {
+        if ($vendor->image) {
+            $this->deleteImage($vendor->image);
+        }
+
         $vendor->delete();
         return true;
     }

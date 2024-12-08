@@ -68,3 +68,20 @@ function isActiveRoute($route, $params = [], $class = 'active')
 
     return '';
 }
+
+
+function isUserSubscribed($user, $app = null)
+{
+    if (!$user) {
+        return false; // User not logged in
+    }
+
+    $subscriptions = $user->subscriptions();
+
+    if ($subscriptions->count()) {
+        return $subscriptions->where('status', 1)->where('app', $app)->exists();
+    }
+
+    return false; // No active subscription
+}
+

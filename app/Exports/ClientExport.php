@@ -17,8 +17,8 @@ class ClientExport implements FromCollection, WithHeadings, ShouldAutoSize
     }
 
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         return User::filter($this->request)->with('city')->where('role_id', 2)->get()->map(function ($brand) {

@@ -14,17 +14,6 @@ class MallRoleSeeder extends Seeder
      */
     public function run(): void
     {
-        // Define roles
-        $roles = [
-            ['name' => 'super-admin'],
-            ['name' => 'client'],
-            ['name' => 'seller'],
-        ];
-
-        foreach ($roles as $role) {
-            Role::firstOrCreate($role);
-        }
-
         // Define stores permissions
         $permissions = [
             ['name' => 'mall.dashboard.index'],
@@ -116,13 +105,5 @@ class MallRoleSeeder extends Seeder
         $storePermissions = Permission::get();
         $storeSellerRole = Role::where('name', 'seller')->first();
         $storeSellerRole->permissions()->sync($storePermissions);
-
-
-        User::factory()->create([
-            'name' => 'seller',
-            'email' => "s@s.com",
-            'role_id' => 3,
-        ]);
-
     }
 }

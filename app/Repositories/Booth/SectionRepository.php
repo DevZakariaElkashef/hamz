@@ -57,6 +57,9 @@ class SectionRepository
 
     public function delete($section)
     {
+        if ($section->image) {
+            $this->deleteImage($section->image);
+        }
         $section->delete();
         return true;
     }

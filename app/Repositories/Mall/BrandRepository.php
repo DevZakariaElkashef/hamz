@@ -60,6 +60,10 @@ class BrandRepository
 
     public function delete($brand)
     {
+        if ($brand->image) {
+            $this->deleteImage($brand->image);
+        }
+
         $brand->delete();
         return true;
     }

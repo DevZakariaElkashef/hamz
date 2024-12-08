@@ -60,6 +60,9 @@ class CategoryRepository
 
     public function delete($category)
     {
+        if ($category->image) {
+            $this->deleteImage($category->image);
+        }
         $category->delete();
         return true;
     }

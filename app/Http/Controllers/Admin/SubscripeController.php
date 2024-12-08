@@ -33,6 +33,8 @@ class SubscripeController extends Controller
 
         $package = Package::find($request->package_id);
 
+        $userID = $request->user()->id;
+
         $data = [
             "CustomerName" => "Test User",
             "NotificationOption" => 'LNK',
@@ -42,7 +44,7 @@ class SubscripeController extends Controller
             "ErrorUrl" => route("earn.subscripe.error"),
             "Language" => app()->getLocale(),
             "DisplayCurrencyIso" => 'SAR',
-            'CustomerReference' => $request->package_id . '-' . 1,
+            'CustomerReference' => $request->package_id . '-' . $userID,
         ];
 
         $response = $this->fatoorahRepository->sendPayment($data);
@@ -73,6 +75,7 @@ class SubscripeController extends Controller
                     'package_id' => $packageId,
                     'status' => 1,
                     'transaction_id' => $request->paymentId,
+                    'app' => 'earn'
                 ]);
             }
         }

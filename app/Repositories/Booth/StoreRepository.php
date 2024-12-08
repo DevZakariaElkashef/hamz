@@ -85,6 +85,10 @@ class StoreRepository
 
     public function delete($store)
     {
+        if ($store->image) {
+            $this->deleteImage($store->image);
+        }
+
         $store->delete();
         return true;
     }

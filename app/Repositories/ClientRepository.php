@@ -62,6 +62,10 @@ class ClientRepository
 
     public function delete($client)
     {
+        if ($client->image) {
+            $this->deleteImage($client->image);
+        }
+        
         $client->delete();
         return true;
     }

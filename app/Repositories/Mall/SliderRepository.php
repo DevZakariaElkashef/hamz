@@ -67,6 +67,10 @@ class SliderRepository
 
     public function delete($slider)
     {
+        if ($slider->image) {
+            $this->deleteImage($slider->image);
+        }
+        
         $slider->delete();
         return true;
     }

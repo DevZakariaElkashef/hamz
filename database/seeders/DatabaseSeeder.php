@@ -17,13 +17,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            RoleSeeder::class,
             MallRoleSeeder::class,
             BoothRoleSeeder::class,
             EarnRoleSeeder::class,
+            CouponRoleSeeder::class,
             UsedMarktRoleSeeder::class,
             RfoofRoleSeeder::class,
             HamzRoleSeeder::class,
-            CouponRoleSeeder::class,
             CountrySeeder::class,
             AdvertiserCharactersSeeder::class,
             DirectionSeeder::class,
