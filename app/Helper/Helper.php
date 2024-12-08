@@ -76,6 +76,10 @@ function isUserSubscribed($user, $app = null)
         return false; // User not logged in
     }
 
+    if ($user->role_id == 1) {
+        return true;
+    }
+
     $subscriptions = $user->subscriptions();
 
     if ($subscriptions->count()) {
