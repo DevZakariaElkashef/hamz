@@ -14,8 +14,10 @@ class TermController extends Controller
 
     public function __construct(TermRepository $termRepository)
     {
+        $this->middleware('can:hamz.applications.index')->only(['index']);
         $this->termRepository = $termRepository;
     }
+    
     /**
      * Display a listing of the resource.
      */

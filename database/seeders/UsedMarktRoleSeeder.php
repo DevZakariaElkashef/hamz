@@ -35,6 +35,8 @@ class UsedMarktRoleSeeder extends Seeder
             ['name' => 'usedmarket.complains.index'],
 
             ['name' => 'usedmarket.favourites.index'],
+
+            ['name' => 'usedmarket.notifications.index'],
         ];
 
         foreach ($permissions as $permission) {

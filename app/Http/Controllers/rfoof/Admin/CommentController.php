@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:rfoof.comments.index');
+    }
+
     public function comments()
     {
         $ads = Product::rfoof()->where('status', '!=', 4)->latest()->paginate(10);

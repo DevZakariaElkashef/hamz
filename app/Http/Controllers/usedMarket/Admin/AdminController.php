@@ -17,6 +17,8 @@ class AdminController extends Controller
     private $employeeModel, $roleModel, $missionModel, $companyModel;
     public function __construct(User $employee, Role $role)
     {
+        $this->middleware('can:usedmarket.dashboard.index');
+
         $this->employeeModel = $employee;
         $this->roleModel = $role;
     }

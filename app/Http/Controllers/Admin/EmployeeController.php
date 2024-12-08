@@ -19,6 +19,13 @@ class EmployeeController extends Controller
 
     public function __construct(EmployeeRepository $employeeRepository)
     {
+        $this->middleware('can:hamz.employees.index')->only(['index']);
+        $this->middleware('can:hamz.employees.create')->only(['create', 'store']);
+        $this->middleware('can:hamz.employees.update')->only(['edit', 'update']);
+        $this->middleware('can:hamz.employees.delete')->only(['destroy']);
+        $this->middleware('can:hamz.employees.export')->only(['export']);
+        $this->middleware('can:hamz.employees.import')->only(['import']);
+
         $this->employeeRepository = $employeeRepository;
     }
     /**

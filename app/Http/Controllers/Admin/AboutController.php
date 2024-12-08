@@ -13,6 +13,7 @@ class AboutController extends Controller
 
     public function __construct(AboutRepository $aboutRepository)
     {
+        $this->middleware('can:hamz.applications.index')->only(['index', 'update']);
         $this->aboutRepository = $aboutRepository;
     }
 

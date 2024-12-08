@@ -14,6 +14,11 @@ class ContactTypeController extends Controller
 
     public function __construct(ContactTypeRepository $contacttypeRepository)
     {
+        $this->middleware('can:hamz.contactTypes.index')->only(['index']);
+        $this->middleware('can:hamz.contactTypes.create')->only(['create', 'store']);
+        $this->middleware('can:hamz.contactTypes.update')->only(['edit', 'update']);
+        $this->middleware('can:hamz.contactTypes.delete')->only(['destroy']);
+
         $this->contacttypeRepository = $contacttypeRepository;
     }
     /**

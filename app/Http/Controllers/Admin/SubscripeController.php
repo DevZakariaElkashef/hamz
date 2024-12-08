@@ -13,13 +13,16 @@ class SubscripeController extends Controller
 
     public $fatoorahRepository;
 
-    public function __construct(FatoorahRepository $fatoorahRepository)
+    public function __construct(Request $request, FatoorahRepository $fatoorahRepository)
     {
         $this->fatoorahRepository = $fatoorahRepository;
     }
 
     public function create(Request $request)
     {
+        abort_if(isUserSubscribed($request->user(), 'earn'), 404);
+
+        
         $packages = Package::active()->earn()->get();
         return view('earn.subscripe.create', compact('packages'));
     }

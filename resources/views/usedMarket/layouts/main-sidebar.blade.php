@@ -27,95 +27,119 @@
                 <a class="side-menu__item" href="{{ route('usedMarket.admin') }}"><i class="fe fe-home ml-3"
                         style="font-size: 16px"></i><span class="side-menu__label">{{ __('admin.main') }}</span></a>
             </li>
-            <li class="side-item side-item-category">{{ __('admin.additional_data') }}</li>
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                        style="font-size: 16px"></i><span class="side-menu__label">الاقسام</span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
 
-                    <li><a class="slide-item" href="{{ route('usedMarket.categories') }}">الاقسام</a>
-                    </li>
+            @if (auth()->user()->hasPermission('usedMarket.categories.index') ||
+                    auth()->user()->hasPermission('usedMarket.subCategories.index') ||
+                    auth()->user()->hasPermission('usedMarket.products.index') ||
+                    auth()->user()->hasPermission('usedMarket.comments.index') ||
+                    auth()->user()->hasPermission('usedMarket.complains.index') ||
+                    auth()->user()->hasPermission('usedMarket.favourites.index') ||
+                    auth()->user()->hasPermission('usedMarket.notifications.index'))
+                <li class="side-item side-item-category">{{ __('admin.additional_data') }}</li>
+            @endif
 
-                    <li><a class="slide-item" href="{{ route('usedMarket.addCategory') }}">اضافه قسم</a>
-                    </li>
+            @can('usedMarket.categories.index')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span class="side-menu__label">الاقسام</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+
+                        <li><a class="slide-item" href="{{ route('usedMarket.categories') }}">الاقسام</a>
+                        </li>
+
+                        <li><a class="slide-item" href="{{ route('usedMarket.addCategory') }}">اضافه قسم</a>
+                        </li>
 
 
-                </ul>
-            </li>
+                    </ul>
+                </li>
+            @endcan
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                        style="font-size: 16px"></i><span class="side-menu__label">الاقسام الفرعيه</span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
+            @can('usedMarket.subCategories.index')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span class="side-menu__label">الاقسام الفرعيه</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
 
-                    <li><a class="slide-item" href="{{ route('usedMarket.subCategories') }}">الاقسام الفرعيه</a>
-                    </li>
-                    <li><a class="slide-item" href="{{ route('usedMarket.addsubCategories') }}">اضافه قسم</a>
-                    </li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.subCategories') }}">الاقسام الفرعيه</a>
+                        </li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.addsubCategories') }}">اضافه قسم</a>
+                        </li>
 
-                </ul>
-            </li>
+                    </ul>
+                </li>
+            @endcan
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                        style="font-size: 16px"></i><span class="side-menu__label">الاعلانات</span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
+            @can('usedMarket.products.index')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span class="side-menu__label">الاعلانات</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
 
-                    <li><a class="slide-item" href="{{ route('usedMarket.products', 0) }}">الاعلانات الجديده</a></li>
-                    <li><a class="slide-item" href="{{ route('usedMarket.products', 1) }}">الاعلانات المفبوله</a>
-                    </li>
-                    <li><a class="slide-item" href="{{ route('usedMarket.products', 2) }}">الاعلانات المرفوضه</a>
-                    </li>
-                    <li><a class="slide-item" href="{{ route('usedMarket.products', 3) }}">الاعلانات المميزه</a></li>
-                    <li><a class="slide-item" href="{{ route('usedMarket.products', 4) }}">الاعلانات المحظوره</a>
-                    </li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.products', 0) }}">الاعلانات الجديده</a></li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.products', 1) }}">الاعلانات المفبوله</a>
+                        </li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.products', 2) }}">الاعلانات المرفوضه</a>
+                        </li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.products', 3) }}">الاعلانات المميزه</a></li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.products', 4) }}">الاعلانات المحظوره</a>
+                        </li>
 
-                </ul>
-            </li>
+                    </ul>
+                </li>
+            @endcan
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                        style="font-size: 16px"></i><span class="side-menu__label">التعليقات</span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
+            @can('usedMarket.comments.index')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span class="side-menu__label">التعليقات</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
 
-                    <li><a class="slide-item" href="{{ route('usedMarket.comments') }}">التعليقات</a>
-                    </li>
-                </ul>
-            </li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.comments') }}">التعليقات</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                        style="font-size: 16px"></i><span class="side-menu__label">الشكاوي</span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ route('usedMarket.complains', 0) }}">الشكاوي الجديده</a></li>
-                    <li><a class="slide-item" href="{{ route('usedMarket.complains', 1) }}">الشكاوي القديمه</a></li>
-                </ul>
-            </li>
+            @can('usedMarket.complains.index')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span class="side-menu__label">الشكاوي</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item" href="{{ route('usedMarket.complains', 0) }}">الشكاوي الجديده</a></li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.complains', 1) }}">الشكاوي القديمه</a></li>
+                    </ul>
+                </li>
+            @endcan
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                        style="font-size: 16px"></i><span class="side-menu__label">مفضلات الاعضاء</span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ route('usedMarket.favourite') }}">مفضلات الاعضاء</a></li>
-                </ul>
-            </li>
+            @can('usedMarket.favourites.index')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span class="side-menu__label">مفضلات الاعضاء</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item" href="{{ route('usedMarket.favourite') }}">مفضلات الاعضاء</a></li>
+                    </ul>
+                </li>
+            @endcan
 
-            <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
-                        style="font-size: 16px"></i><span
-                        class="side-menu__label">{{ __('admin.notifications') }}</span><i
-                        class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item"
-                            href="{{ route('usedMarket.notifications') }}">{{ __('admin.notifications') }}</a></li>
-                </ul>
-            </li>
+            @can('usedMarket.notifications.index')
+                <li class="slide">
+                    <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
+                            style="font-size: 16px"></i><span
+                            class="side-menu__label">{{ __('admin.notifications') }}</span><i
+                            class="angle fe fe-chevron-down"></i></a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item"
+                                href="{{ route('usedMarket.notifications') }}">{{ __('admin.notifications') }}</a></li>
+                    </ul>
+                </li>
+            @endcan
 
         </ul>
     </div>

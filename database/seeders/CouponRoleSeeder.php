@@ -17,11 +17,6 @@ class CouponRoleSeeder extends Seeder
         $permissions = [
             ['name' => 'coupon.dashboard.index'],
 
-            ['name' => 'coupon.sliders.index'],
-            ['name' => 'coupon.sliders.create'],
-            ['name' => 'coupon.sliders.update'],
-            ['name' => 'coupon.sliders.delete'],
-
             ['name' => 'coupon.coupons.index'],
             ['name' => 'coupon.coupons.create'],
             ['name' => 'coupon.coupons.update'],
@@ -35,14 +30,6 @@ class CouponRoleSeeder extends Seeder
             ['name' => 'coupon.categories.delete'],
             ['name' => 'coupon.categories.export'],
             ['name' => 'coupon.categories.import'],
-
-            ['name' => 'coupon.packages.index'],
-            ['name' => 'coupon.packages.create'],
-            ['name' => 'coupon.packages.update'],
-            ['name' => 'coupon.packages.delete'],
-
-
-            ['name' => 'coupon.subscriptions.index'],
         ];
 
         foreach ($permissions as $permission) {

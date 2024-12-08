@@ -13,6 +13,8 @@ class SettingController extends Controller
 
     public function __construct(SettingRepository $settingRepository)
     {
+        $this->middleware('can:hamz.applications.index')->only(['index']);
+
         $this->settingRepository = $settingRepository;
     }
 

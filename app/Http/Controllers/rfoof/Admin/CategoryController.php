@@ -12,6 +12,15 @@ use App\Http\Requests\rfoof\category\UpdateRequest;
 class CategoryController extends Controller
 {
     use ImageUploadTrait;
+
+    public function __construct()
+    {
+        $this->middleware('can:rfoof.categories.index')->only(['index']);
+        $this->middleware('can:rfoof.categories.create')->only(['create', 'store']);
+        $this->middleware('can:rfoof.categories.update')->only(['edit', 'update']);
+        $this->middleware('can:rfoof.categories.delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $categories = Category::rfoof()->latest()->paginate();

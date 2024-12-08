@@ -14,6 +14,11 @@ class SliderController extends Controller
 
     public function __construct(SliderRepository $sliderRepository)
     {
+        $this->middleware('can:coupon.sliders.index')->only(['index']);
+        $this->middleware('can:coupon.sliders.create')->only(['create', 'store']);
+        $this->middleware('can:coupon.sliders.update')->only(['edit', 'update']);
+        $this->middleware('can:coupon.sliders.delete')->only(['destroy']);
+
         $this->sliderRepository = $sliderRepository;
     }
     /**

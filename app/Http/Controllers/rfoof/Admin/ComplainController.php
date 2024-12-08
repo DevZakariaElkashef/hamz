@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ComplainController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:rfoof.complains.index');
+    }
+
     public function complains($status)
     {
         $complains = Complains::rfoof()->where('status', $status)->latest()->paginate(10);

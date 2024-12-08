@@ -21,6 +21,11 @@ class StoreController extends Controller
 
     public function __construct(StoreRepository $storeRepository)
     {
+        $this->middleware('can:mall.stores.index')->only(['index']);
+        $this->middleware('can:mall.stores.create')->only(['create', 'store']);
+        $this->middleware('can:mall.stores.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.stores.delete')->only(['destroy']);
+
         $this->storeRepository = $storeRepository;
     }
     /**

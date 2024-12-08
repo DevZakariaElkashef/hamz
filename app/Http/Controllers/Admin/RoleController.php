@@ -15,6 +15,11 @@ class RoleController extends Controller
 
     public function __construct(RoleRepository $roleRepository)
     {
+        $this->middleware('can:hamz.roles.index')->only(['index']);
+        $this->middleware('can:hamz.roles.create')->only(['create', 'store']);
+        $this->middleware('can:hamz.roles.update')->only(['edit', 'update']);
+        $this->middleware('can:hamz.roles.delete')->only(['destroy']);
+
         $this->roleRepository = $roleRepository;
     }
     /**

@@ -17,22 +17,7 @@ class EarnRoleSeeder extends Seeder
         $permissions = [
             ['name' => 'earn.dashboard.index'],
 
-            ['name' => 'earn.sliders.index'],
-            ['name' => 'earn.sliders.create'],
-            ['name' => 'earn.sliders.update'],
-            ['name' => 'earn.sliders.delete'],
-
-            ['name' => 'earn.packages.index'],
-            ['name' => 'earn.packages.create'],
-            ['name' => 'earn.packages.update'],
-            ['name' => 'earn.packages.delete'],
-
-            ['name' => 'earn.subscriptions.index'],
-
             ['name' => 'earn.views.index'],
-
-            ['name' => 'earn.withdrows.index'],
-
 
             ['name' => 'earn.videos.index'],
             ['name' => 'earn.videos.create'],
@@ -45,6 +30,7 @@ class EarnRoleSeeder extends Seeder
             ['name' => 'earn.categories.delete'],
             ['name' => 'earn.categories.export'],
             ['name' => 'earn.categories.import'],
+
         ];
 
         foreach ($permissions as $permission) {

@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class FavouriteController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:usedmarket.favourites.index');
+    }
+
     public function favourite()
     {
         $favourites = Favourite::usedMarket()->latest()->paginate(10);

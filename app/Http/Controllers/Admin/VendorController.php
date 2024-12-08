@@ -18,6 +18,12 @@ class VendorController extends Controller
 
     public function __construct(VendorRepository $vendorRepository)
     {
+        $this->middleware('can:hamz.vendors.index')->only(['index']);
+        $this->middleware('can:hamz.vendors.create')->only(['create', 'store']);
+        $this->middleware('can:hamz.vendors.update')->only(['edit', 'update']);
+        $this->middleware('can:hamz.vendors.delete')->only(['destroy']);
+
+
         $this->vendorRepository = $vendorRepository;
     }
     /**

@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/lang/set/{lang}', [LangController::class, 'set'])->name('rfoof.lang');
+
+
 Route::group(['prefix' => '/'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('rfoof.home');
     Route::get('/MentanecMode', [AdminController::class, 'MentanecMode'])->name('rfoof.MentanecMode');

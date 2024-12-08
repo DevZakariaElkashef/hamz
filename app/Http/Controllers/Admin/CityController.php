@@ -18,6 +18,13 @@ class CityController extends Controller
 
     public function __construct(CityRepository $cityRepository)
     {
+        $this->middleware('can:hamz.cities.index')->only(['index']);
+        $this->middleware('can:hamz.cities.create')->only(['create', 'store']);
+        $this->middleware('can:hamz.cities.update')->only(['edit', 'update']);
+        $this->middleware('can:hamz.cities.delete')->only(['destroy']);
+        $this->middleware('can:hamz.cities.export')->only(['export']);
+        $this->middleware('can:hamz.cities.import')->only(['import']);
+        
         $this->cityRepository = $cityRepository;
     }
     /**

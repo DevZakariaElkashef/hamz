@@ -11,6 +11,14 @@ use App\Http\Requests\usedMarket\category\UpdateRequest;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:usedmarket.categories.index')->only(['index']);
+        $this->middleware('can:usedmarket.categories.create')->only(['create', 'store']);
+        $this->middleware('can:usedmarket.categories.update')->only(['edit', 'update']);
+        $this->middleware('can:usedmarket.categories.delete')->only(['destroy']);
+    }
+
     use ImageUploadTrait;
     public function index()
     {

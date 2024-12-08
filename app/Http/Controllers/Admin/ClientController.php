@@ -18,6 +18,11 @@ class ClientController extends Controller
 
     public function __construct(ClientRepository $clientRepository)
     {
+        $this->middleware('can:hamz.users.index')->only(['index']);
+        $this->middleware('can:hamz.users.create')->only(['create', 'store']);
+        $this->middleware('can:hamz.users.update')->only(['edit', 'update']);
+        $this->middleware('can:hamz.users.delete')->only(['destroy']);
+
         $this->clientRepository = $clientRepository;
     }
     /**

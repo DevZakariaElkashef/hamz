@@ -19,6 +19,11 @@ class CouponController extends Controller
 
     public function __construct(CouponRepository $couponRepository)
     {
+        $this->middleware('can:coupon.coupons.index')->only(['index']);
+        $this->middleware('can:coupon.coupons.create')->only(['create', 'store']);
+        $this->middleware('can:coupon.coupons.update')->only(['edit', 'update']);
+        $this->middleware('can:coupon.coupons.delete')->only(['destroy']);
+
         $this->couponRepository = $couponRepository;
     }
     /**

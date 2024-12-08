@@ -35,6 +35,8 @@ class RfoofRoleSeeder extends Seeder
             ['name' => 'rfoof.complains.index'],
 
             ['name' => 'rfoof.favourites.index'],
+
+            ['name' => 'rfoof.notifications.index'],
         ];
 
         foreach ($permissions as $permission) {

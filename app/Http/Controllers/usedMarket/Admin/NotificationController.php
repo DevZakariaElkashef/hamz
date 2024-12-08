@@ -10,6 +10,11 @@ use App\Http\Controllers\FireBasePushNotification;
 
 class NotificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:usedmarket.notifications.index');
+    }
+
     public function index()
     {
         $notifications = Notification::usedMarket()->whereHas('user')->latest()->paginate();

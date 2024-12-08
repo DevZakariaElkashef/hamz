@@ -18,6 +18,11 @@ class CategoryController extends Controller
 
     public function __construct(CategoryRepository $categoryRepository)
     {
+        $this->middleware('can:coupon.categories.index')->only(['index']);
+        $this->middleware('can:coupon.categories.create')->only(['create', 'store']);
+        $this->middleware('can:coupon.categories.update')->only(['edit', 'update']);
+        $this->middleware('can:coupon.categories.delete')->only(['destroy']);
+
         $this->categoryRepository = $categoryRepository;
     }
     /**

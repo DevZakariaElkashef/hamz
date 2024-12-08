@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:rfoof.products.index');
+    }
+
     public function index($status)
     {
         $products = Product::rfoof()->whereHas('images')->where('status', $status)->latest()->paginate();

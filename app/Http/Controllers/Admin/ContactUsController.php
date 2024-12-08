@@ -14,6 +14,11 @@ class ContactUsController extends Controller
 
     public function __construct(ContactRepository $contactRepository)
     {
+        $this->middleware('can:hamz.contacts.index')->only(['index']);
+        $this->middleware('can:hamz.contacts.create')->only(['create', 'store']);
+        $this->middleware('can:hamz.contacts.update')->only(['edit', 'update']);
+        $this->middleware('can:hamz.contacts.delete')->only(['destroy']);
+
         $this->contactRepository = $contactRepository;
     }
     /**

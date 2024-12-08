@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class FavouriteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:rfoof.favourites.index');
+    }
+
     public function favourite()
     {
         $favourites = Favourite::rfoof()->latest()->paginate(10);

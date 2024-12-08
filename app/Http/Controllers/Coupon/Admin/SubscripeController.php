@@ -19,13 +19,14 @@ class SubscripeController extends Controller
 
     public function create(Request $request)
     {
+        abort_if(isUserSubscribed($request->user(), 'coupons'), 404);
+
         $packages = Package::active()->coupons()->get();
         return view('coupon.subscripe.create', compact('packages'));
     }
 
     public function store(Request $request)
     {
-
         $request->validate([
             'package_id' => 'required|exists:packages,id',
         ]);

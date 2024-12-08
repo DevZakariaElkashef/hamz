@@ -14,6 +14,11 @@ class SocialController extends Controller
 
     public function __construct(SocialRepository $socialRepository)
     {
+        $this->middleware('can:hamz.socials.index')->only(['index']);
+        $this->middleware('can:hamz.socials.create')->only(['create', 'store']);
+        $this->middleware('can:hamz.socials.update')->only(['edit', 'update']);
+        $this->middleware('can:hamz.socials.delete')->only(['destroy']);
+
         $this->socialRepository = $socialRepository;
     }
     /**

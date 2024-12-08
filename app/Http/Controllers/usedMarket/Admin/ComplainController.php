@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ComplainController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:usedmarket.complains.index');
+    }
+
     public function complains($status)
     {
         $complains = Complains::usedMarket()->where('status', $status)->latest()->paginate(10);

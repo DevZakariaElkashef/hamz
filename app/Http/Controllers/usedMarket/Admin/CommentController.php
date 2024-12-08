@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:usedmarket.comments.index');
+    }
+
     public function comments()
     {
         $ads = Product::usedMarket()->where('status', '!=', 4)->latest()->paginate(10);

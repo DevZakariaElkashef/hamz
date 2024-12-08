@@ -22,6 +22,11 @@ class OrderController extends Controller
 
     public function __construct(OrderRepository $orderRepository)
     {
+        $this->middleware('can:mall.orders.index')->only(['index']);
+        $this->middleware('can:mall.orders.create')->only(['create', 'store']);
+        $this->middleware('can:mall.orders.update')->only(['edit', 'update']);
+        $this->middleware('can:mall.orders.delete')->only(['destroy']);
+
         $this->orderRepository = $orderRepository;
     }
     /**

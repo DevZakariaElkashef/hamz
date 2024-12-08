@@ -13,6 +13,16 @@ use App\Http\Requests\rfoof\SubCategory\UpdateRequest;
 class SubCategoryController extends Controller
 {
     use ImageUploadTrait;
+
+    public function __construct()
+    {
+        $this->middleware('can:rfoof.subCategories.index')->only(['index']);
+        $this->middleware('can:rfoof.subCategories.create')->only(['create', 'store']);
+        $this->middleware('can:rfoof.subCategories.update')->only(['edit', 'update']);
+        $this->middleware('can:rfoof.subCategories.delete')->only(['destroy']);
+    }
+
+
     public function index()
     {
         $categories = SubCategory::rfoof()->paginate();
@@ -61,7 +71,7 @@ class SubCategoryController extends Controller
         return redirect()->route('rfoof.subCategories')->with('success', __('messages.edit_category'));
     }
 
-    public function delete (Request $request)
+    public function delete(Request $request)
     {
         $category = SubCategory::findOrFail($request->new_id);
         if ($category->bank_photo) {

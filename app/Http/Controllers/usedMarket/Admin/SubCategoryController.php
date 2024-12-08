@@ -13,6 +13,15 @@ use App\Http\Requests\usedMarket\SubCategory\UpdateRequest;
 class SubCategoryController extends Controller
 {
     use ImageUploadTrait;
+
+    public function __construct()
+    {
+        $this->middleware('can:usedmarket.subCategories.index')->only(['index']);
+        $this->middleware('can:usedmarket.subCategories.create')->only(['create', 'store']);
+        $this->middleware('can:usedmarket.subCategories.update')->only(['edit', 'update']);
+        $this->middleware('can:usedmarket.subCategories.delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $categories = SubCategory::usedMarket()->paginate();
