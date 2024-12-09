@@ -92,14 +92,17 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        $user = $request->user();
+
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
-        $categories = Category::mall()->active()->get();
-        $brands = Brand::mall()->active()->get();
-        $attributes = Attribute::mall()->get();
-        $options = Option::mall()->get();
+        $categories = Category::checkVendor($user)->mall()->active()->get();
+        $brands = Brand::checkVendor($user)->mall()->active()->get();
+        $attributes = Attribute::checkVendor($user)->mall()->get();
+        $options = Option::checkVendor($user)->mall()->get();
+        
         return view("mall.products.create", compact('sections', 'stores', 'categories', 'brands', 'attributes', 'options'));
     }
 

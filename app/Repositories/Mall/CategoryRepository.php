@@ -17,7 +17,7 @@ class CategoryRepository
 
     public function index($request)
     {
-        $categorys = Category::filter($request)->mall()->with('store')->paginate($request->per_page ?? $this->limit);
+        $categorys = Category::checkVendor($request->user())->filter($request)->mall()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $categorys;
     }
@@ -32,8 +32,13 @@ class CategoryRepository
     {
         $data = $request->except('image');
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'categorys');
+            $data['image'] = $this->uploadImage($request->file('image'), 'categorys');
         }
+
+        if ($request->user()->role_id == 3) {
+            $data['store_id'] = $request->user()->store->id;
+        }
+
         if (!is_numeric($data['parent_id'])) {
             unset($data['parent_id']);
         }
@@ -46,7 +51,7 @@ class CategoryRepository
     {
         $data = $request->except('image');
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'categorys', $category->image);
+            $data['image'] = $this->uploadImage($request->file('image'), 'categorys', $category->image);
         }
         if (!is_numeric($data['parent_id'])) {
             $data['parent_id'] = null;
@@ -62,7 +67,7 @@ class CategoryRepository
         if ($category->image) {
             $this->deleteImage($category->image);
         }
-        
+
         $category->delete();
         return true;
     }

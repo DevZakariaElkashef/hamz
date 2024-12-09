@@ -17,7 +17,13 @@ class AttributeRepository
 
     public function index($request)
     {
-        $attributes = Attribute::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
+        $attributes = Attribute::query();
+
+        if ($request->user()->role_id == 3) {
+            $attributes = $attributes->where('store_id', $request->user()->store->id);
+        }
+
+        $attributes = $attributes->filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $attributes;
     }
@@ -31,7 +37,12 @@ class AttributeRepository
     public function store($request)
     {
         $data = $request->all();
+
+        if ($request->user()->role_id == 3) {
+            $data['store_id'] = $request->user()->store->id;
+        }
         $data['app'] = 'mall';
+        
         unset($data['_token']);
         return Attribute::create($data);
     }

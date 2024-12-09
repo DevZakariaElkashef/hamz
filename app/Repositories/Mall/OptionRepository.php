@@ -17,7 +17,7 @@ class OptionRepository
 
     public function index($request)
     {
-        $option = Option::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
+        $option = Option::checkVendor($request->user())->filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $option;
     }
@@ -32,6 +32,11 @@ class OptionRepository
     {
         $data = $request->all();
         $data['app'] = 'mall';
+
+        if ($request->user()->role_id == 3) {
+            $data['store_id'] = $request->user()->store->id;
+        }
+
         unset($data['_token']);
         return Option::create($data);
     }

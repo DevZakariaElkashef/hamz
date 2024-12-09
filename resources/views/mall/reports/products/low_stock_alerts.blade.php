@@ -78,25 +78,28 @@
                                     {{ __('main.active') }}</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="sectionId">{{ __('main.section') }}</label>
-                            <select id="sectionId" name="product_section_id" class="form-control">
-                                <option value="">{{ __('main.all') }}</option>
-                                @foreach ($sections as $section)
-                                    <option value="{{ $section->id }}" @if (request('section_id') == $section->id) selected @endif>
-                                        {{ $section->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="storeId">{{ __('main.store') }}</label>
-                            <select id="storeId" name="product_store_id" class="form-control">
-                                <option value="">{{ __('main.all') }}</option>
-                                @foreach ($stores as $store)
-                                    <option value="{{ $store->id }}">{{ $store->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @if (auth()->user()->role_id != 3)
+                            <div class="form-group">
+                                <label for="sectionId">{{ __('main.section') }}</label>
+                                <select id="sectionId" name="product_section_id" class="form-control">
+                                    <option value="">{{ __('main.all') }}</option>
+                                    @foreach ($sections as $section)
+                                        <option value="{{ $section->id }}"
+                                            @if (request('section_id') == $section->id) selected @endif>
+                                            {{ $section->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="storeId">{{ __('main.store') }}</label>
+                                <select id="storeId" name="product_store_id" class="form-control">
+                                    <option value="">{{ __('main.all') }}</option>
+                                    @foreach ($stores as $store)
+                                        <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
                         <div class="form-group">
                             <label for="categoryId">{{ __('main.category') }}</label>
                             <select id="categoryId" name="category_id" class="form-control">

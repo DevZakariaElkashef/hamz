@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\AppScope;
 use App\Traits\ActiveScope;
+use App\Traits\CheckVendorScope;
 use App\Traits\FilterScope;
 use App\Traits\ImageAttribute;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Brand extends Model
 {
-    use HasFactory, AppScope, ActiveScope, FilterScope, ImageAttribute, SoftDeletes;
+    use HasFactory, AppScope, CheckVendorScope, ActiveScope, FilterScope, ImageAttribute, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 

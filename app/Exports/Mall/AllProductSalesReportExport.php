@@ -22,7 +22,12 @@ class AllProductSalesReportExport implements FromCollection, WithHeadings, Shoul
      */
     public function collection()
     {
-        return  OrderItem::with('product')
+        return OrderItem::with('product')
+            ->when($this->request->user()->role_id == 3, function ($query) {
+                $query->whereHas('order', function ($subQuery) {
+                    $subQuery->where('store_id', $this->request->user()->store->id);
+                });
+            })
             ->select('product_id', DB::raw('SUM(qty) as total_quantity'), DB::raw('SUM(price * qty) as total_sales'))
             ->groupBy('product_id')
             ->get()

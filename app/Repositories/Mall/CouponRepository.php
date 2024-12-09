@@ -17,7 +17,7 @@ class CouponRepository
 
     public function index($request)
     {
-        $coupons = Coupon::filter($request)->mall()->paginate($request->per_page ?? $this->limit);
+        $coupons = Coupon::checkVendor($request->user())->filter($request)->mall()->paginate($request->per_page ?? $this->limit);
 
         return $coupons;
     }
@@ -38,9 +38,7 @@ class CouponRepository
 
         // if current user is vendor attach the store_id for the coupon
         if ($request->user()->role_id == 3) {
-            if ($request->user()->store && $request->user()->store->id) {
-                $data['store_id'] = $request->user()->store->id;
-            }
+            $data['store_id'] = $request->user()->store->id;
         }
 
         $data['app'] = 'mall';

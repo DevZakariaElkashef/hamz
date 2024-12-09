@@ -17,7 +17,7 @@ class ShowProductRecource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'images' => $this->getImageCollection(),
+            'images' => $this->getImageCollection($request),
             'logo' => $this->image ? asset($this->image) : '',
             'is_added_to_favourite' => checkFavouriteProduct($request->user('sanctum'), $this->id),
             'name' => $this->name ?? '',
@@ -29,7 +29,7 @@ class ShowProductRecource extends JsonResource
         ];
     }
 
-    private function getImageCollection()
+    private function getImageCollection($request)
     {
         // Initialize an array to hold image URLs
         $images = [];
@@ -37,7 +37,7 @@ class ShowProductRecource extends JsonResource
         // Check if there are images in the collection
         if ($this->images && $this->images->count() > 0) {
             // Add images from the collection
-            $images = ImagePathRecource::collection($this->images)->toArray();
+            $images = ImagePathRecource::collection($this->images)->toArray($request);
         }
 
         // Check if there's a single image and add it to the collection

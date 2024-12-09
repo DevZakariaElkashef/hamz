@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\CheckVendorScope;
 use Carbon\Carbon;
 use App\Traits\AppScope;
 use App\Traits\ActiveScope;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    use HasFactory, AppScope, ActiveScope, FilterScope, ImageAttribute, SoftDeletes;
+    use HasFactory, AppScope, CheckVendorScope, ActiveScope, FilterScope, ImageAttribute, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 

@@ -14,7 +14,7 @@ class AllVendorSalesReportExport implements FromCollection, WithHeadings, Should
 
     public function __construct($request)
     {
-        $this->request  = $request;
+        $this->request = $request;
     }
     /**
      * @return \Illuminate\Support\Collection
@@ -24,6 +24,11 @@ class AllVendorSalesReportExport implements FromCollection, WithHeadings, Should
         $locale = app()->getLocale(); // Get current locale
 
         $sales = OrderItem::with(['product.category.store'])
+            ->when($this->request->user()->role_id == 3, function ($query) {
+                $query->whereHas('order', function ($subQuery) {
+                    $subQuery->where('store_id', $this->request->user()->store->id);
+                });
+            })
             ->join('products', 'order_items.product_id', '=', 'products.id')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->join('stores', 'categories.store_id', '=', 'stores.id')
@@ -36,13 +41,13 @@ class AllVendorSalesReportExport implements FromCollection, WithHeadings, Should
             ->get()
             ->map(function ($item) {
                 return [
-                    'store' =>  $item->store_name,
-                    'total_qty' =>  $item->total_quantity,
-                    'total_sale' =>  $item->total_sales,
+                    'store' => $item->store_name,
+                    'total_qty' => $item->total_quantity,
+                    'total_sale' => $item->total_sales,
                 ];
             });
 
-            return $sales;
+        return $sales;
     }
 
     public function headings(): array
