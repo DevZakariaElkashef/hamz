@@ -46,5 +46,11 @@ class SectionSeeder extends Seeder
                     ->has(Brand::factory(2))
             )
             ->create();
+
+
+            // create section for the dummy vendor account
+            Store::factory()->create([
+                'user_id' => 3
+            ]);
     }
 }

@@ -218,36 +218,23 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('main.section') }}: </label>
-                                        <select class="form-control select2" name="section_id" id="sectionId">
-                                            <option selected>{{ __('main.select') }}</option>
-                                            @foreach ($sections as $section)
-                                                <option value="{{ $section->id }}"
-                                                    @if (old('section_id') == $section->id) selected @endif>{{ $section->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('section_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-
-                                    <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('main.store') }}: </label>
-                                        <select class="form-control select2" name="store_id" id="storeId">
-                                            <option selected>{{ __('main.select') }}</option>
-                                            @foreach ($stores as $store)
-                                                <option value="{{ $store->id }}"
-                                                    @if (old('store_id') == $store->id) selected @endif>{{ $store->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('store_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    @if (auth()->user()->role_id != 3)
+                                        <div class="col-md-6 form-group mg-b-0">
+                                            <label class="form-label">{{ __('main.store') }}: </label>
+                                            <select class="form-control select2" name="store_id" id="storeId">
+                                                <option selected>{{ __('main.select') }}</option>
+                                                @foreach ($stores as $store)
+                                                    <option value="{{ $store->id }}"
+                                                        @if (old('store_id') == $store->id) selected @endif>
+                                                        {{ $store->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('store_id')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @endif
 
                                     <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('main.category') }}: </label>
@@ -450,61 +437,61 @@
     </script>
 
 
-<script>
-    $(document).ready(function() {
-        // When images are selected
-        $(document).on('change', '#customFileMulti', function(e) {
-            const files = e.target.files;
-            const previewContainer = $('#image-preview');
-            previewContainer.empty(); // Clear existing previews
+    <script>
+        $(document).ready(function() {
+            // When images are selected
+            $(document).on('change', '#customFileMulti', function(e) {
+                const files = e.target.files;
+                const previewContainer = $('#image-preview');
+                previewContainer.empty(); // Clear existing previews
 
-            // Loop through selected images
-            Array.from(files).forEach((file, index) => {
-                const reader = new FileReader();
+                // Loop through selected images
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    // Create a preview box for each image
-                    const previewBox = $(`
+                    reader.onload = function(e) {
+                        // Create a preview box for each image
+                        const previewBox = $(`
                         <div class="image-box position-relative m-2">
                             <img src="${e.target.result}" class="img-thumbnail" style="max-width: 150px; height: auto;">
                             <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image" data-index="${index}">&times;</button>
                         </div>
                     `);
 
-                    previewContainer.append(previewBox);
-                };
+                        previewContainer.append(previewBox);
+                    };
 
-                reader.readAsDataURL(file); // Read the image file
+                    reader.readAsDataURL(file); // Read the image file
+                });
+            });
+
+            // Remove image on click
+            $(document).on('click', '.remove-image', function() {
+                const index = $(this).data('index');
+                const fileInput = $('#customFileMulti')[0]; // Corrected to match the input element's ID
+
+                // Create a DataTransfer object to manipulate files
+                const dt = new DataTransfer();
+
+                // Loop through files and add them back, excluding the one that needs to be removed
+                Array.from(fileInput.files).forEach((file, i) => {
+                    if (i !== index) {
+                        dt.items.add(file);
+                    }
+                });
+
+                // Re-assign the updated files list to the input
+                fileInput.files = dt.files;
+
+                // Refresh the preview container
+                $(this).closest('.image-box').remove();
             });
         });
 
-        // Remove image on click
-        $(document).on('click', '.remove-image', function() {
-            const index = $(this).data('index');
-            const fileInput = $('#customFileMulti')[0]; // Corrected to match the input element's ID
-
-            // Create a DataTransfer object to manipulate files
-            const dt = new DataTransfer();
-
-            // Loop through files and add them back, excluding the one that needs to be removed
-            Array.from(fileInput.files).forEach((file, i) => {
-                if (i !== index) {
-                    dt.items.add(file);
-                }
-            });
-
-            // Re-assign the updated files list to the input
-            fileInput.files = dt.files;
-
-            // Refresh the preview container
-            $(this).closest('.image-box').remove();
+        $(document).on('click', '.delete-image', function() {
+            $('#imageIDInput').val($(this).data('id'));
         });
-    });
-
-    $(document).on('click', '.delete-image', function() {
-        $('#imageIDInput').val($(this).data('id'));
-    });
-</script>
+    </script>
 
 
 

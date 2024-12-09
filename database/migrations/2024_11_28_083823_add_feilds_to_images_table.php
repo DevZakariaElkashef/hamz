@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->foreignId('product_id')->nullable()->constrained()->onDelete('cascade');
         });
     }

@@ -40,8 +40,11 @@ class ShowProductRecource extends JsonResource
         }
 
         // Check if there's a single image and add it to the collection
-        if ($this->image) {
-            $images[] = asset($this->image);
+        if (!$this->image) {
+            $images[] = [
+                'id' => 1, // does not matter this id if just for the shape of the image path resource
+                'path' => asset($this->image)
+            ];
         }
 
         // Return the collection of images, ensuring it's not empty

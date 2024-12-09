@@ -36,6 +36,13 @@ class CouponRepository
             $data['image'] =  $this->uploadImage($request->file('image'), 'coupons');
         }
 
+        // if current user is vendor attach the store_id for the coupon
+        if ($request->user()->role_id == 3) {
+            if ($request->user()->store && $request->user()->store->id) {
+                $data['store_id'] = $request->user()->store->id;
+            }
+        }
+
         $data['app'] = 'booth';
         unset($data['_token']);
         $coupon = Coupon::create($data);
@@ -59,7 +66,6 @@ class CouponRepository
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
         }
-
 
         if ($request->has('images')) {
             foreach ($request->images as $image) {
