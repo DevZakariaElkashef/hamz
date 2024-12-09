@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Models\Store;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use App\Exports\Mall\CouponExport;
@@ -74,7 +75,8 @@ class CouponController extends Controller
      */
     public function create()
     {
-        return view("mall.coupons.create");
+        $stores = Store::mall()->active()->get();
+        return view("mall.coupons.create", compact('stores'));
     }
 
     /**

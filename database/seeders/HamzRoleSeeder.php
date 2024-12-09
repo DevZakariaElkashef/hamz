@@ -16,6 +16,37 @@ class HamzRoleSeeder extends Seeder
     {
         // Define stores permissions
         $permissions = [
+
+            ['name' => 'mall.sections.index'],
+            ['name' => 'mall.sections.create'],
+            ['name' => 'mall.sections.update'],
+            ['name' => 'mall.sections.delete'],
+            ['name' => 'mall.sections.export'],
+            ['name' => 'mall.sections.import'],
+
+            ['name' => 'mall.stores.index'],
+            ['name' => 'mall.stores.create'],
+            ['name' => 'mall.stores.update'],
+            ['name' => 'mall.stores.delete'],
+            ['name' => 'mall.stores.export'],
+            ['name' => 'mall.stores.import'],
+
+
+            ['name' => 'booth.sections.index'],
+            ['name' => 'booth.sections.create'],
+            ['name' => 'booth.sections.update'],
+            ['name' => 'booth.sections.delete'],
+            ['name' => 'booth.sections.export'],
+            ['name' => 'booth.sections.import'],
+
+
+            ['name' => 'booth.stores.index'],
+            ['name' => 'booth.stores.create'],
+            ['name' => 'booth.stores.update'],
+            ['name' => 'booth.stores.delete'],
+            ['name' => 'booth.stores.export'],
+            ['name' => 'booth.stores.import'],
+
             ['name' => 'earn.sliders.index'],
             ['name' => 'earn.sliders.create'],
             ['name' => 'earn.sliders.update'],

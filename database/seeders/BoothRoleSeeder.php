@@ -22,19 +22,7 @@ class BoothRoleSeeder extends Seeder
             ['name' => 'booth.sliders.update'],
             ['name' => 'booth.sliders.delete'],
 
-            ['name' => 'booth.sections.index'],
-            ['name' => 'booth.sections.create'],
-            ['name' => 'booth.sections.update'],
-            ['name' => 'booth.sections.delete'],
-            ['name' => 'booth.sections.export'],
-            ['name' => 'booth.sections.import'],
-
-            ['name' => 'booth.stores.index'],
-            ['name' => 'booth.stores.create'],
             ['name' => 'booth.stores.update'],
-            ['name' => 'booth.stores.delete'],
-            ['name' => 'booth.stores.export'],
-            ['name' => 'booth.stores.import'],
 
             ['name' => 'booth.coupons.index'],
             ['name' => 'booth.coupons.create'],

@@ -33,7 +33,14 @@ class CouponRepository
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'coupons');
+            $data['image'] = $this->uploadImage($request->file('image'), 'coupons');
+        }
+
+        // if current user is vendor attach the store_id for the coupon
+        if ($request->user()->role_id == 3) {
+            if ($request->user()->store && $request->user()->store->id) {
+                $data['store_id'] = $request->user()->store->id;
+            }
         }
 
         $data['app'] = 'mall';
@@ -57,7 +64,7 @@ class CouponRepository
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
+            $data['image'] = $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
         }
 
 

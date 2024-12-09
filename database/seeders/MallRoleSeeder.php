@@ -23,19 +23,7 @@ class MallRoleSeeder extends Seeder
             ['name' => 'mall.sliders.update'],
             ['name' => 'mall.sliders.delete'],
 
-            ['name' => 'mall.sections.index'],
-            ['name' => 'mall.sections.create'],
-            ['name' => 'mall.sections.update'],
-            ['name' => 'mall.sections.delete'],
-            ['name' => 'mall.sections.export'],
-            ['name' => 'mall.sections.import'],
-
-            ['name' => 'mall.stores.index'],
-            ['name' => 'mall.stores.create'],
             ['name' => 'mall.stores.update'],
-            ['name' => 'mall.stores.delete'],
-            ['name' => 'mall.stores.export'],
-            ['name' => 'mall.stores.import'],
 
             ['name' => 'mall.coupons.index'],
             ['name' => 'mall.coupons.create'],

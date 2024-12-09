@@ -73,6 +73,24 @@
 
 
 
+                            @if (auth()->user()->role_id != 3)
+                                <div class="col-md-6 form-group mg-b-0">
+                                    <label class="form-label">{{ __('main.stores') }}: <span
+                                            class="tx-danger">*</span></label>
+                                    <select required class="form-control" name="store_id">
+                                        @foreach ($stores as $store)
+                                            <option value="{{ $store->id }}"
+                                                @if (old('store_id') == $coupon->store_id) selected @endif>
+                                                {{ $store->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('store_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endif
+
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
