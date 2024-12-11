@@ -19,7 +19,7 @@ class ProductInHomeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name ?? '',
             'description' => $this->description ?? '',
-            'store_id' => $this->store->name ?? '',
+            'store_id' => $this->store->id ?? 0,
             'store_name' => $this->store->name ?? '',
         ];
     }
