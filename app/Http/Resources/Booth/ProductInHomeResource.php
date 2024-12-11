@@ -21,6 +21,7 @@ class ProductInHomeResource extends JsonResource
             'description' => $this->description ?? '',
             'store_id' => $this->store->id ?? 0,
             'store_name' => $this->store->name ?? '',
+            'store_image' => $this->store && $this->store->image ? asset($this->store->image)  : '',
         ];
     }
 }

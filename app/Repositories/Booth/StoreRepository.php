@@ -36,7 +36,7 @@ class StoreRepository
             $data['image'] =  $this->uploadImage($request->file('image'), 'stores');
         }
 
-        $data['appp'] = 'booth';
+        $data['app'] = 'booth';
         unset($data['_token']);
         $store = Store::create($data);
 
