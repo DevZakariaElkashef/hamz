@@ -3,9 +3,12 @@
 namespace App\Repositories\Booth;
 
 use App\Models\User;
+use App\Traits\ImageUploadTrait;
 
 class AuthRepository
 {
+    use ImageUploadTrait;
+
     public function login($phone, $deviceToken)
     {
         $user = User::where('phone', $phone)->first();
@@ -16,7 +19,12 @@ class AuthRepository
     public function register($data)
     {
         $otp = $this->generateOtp();
-        User::create(array_merge($data, ['app' => 'booth', 'role_id' => 2, 'otp' => $otp]));
+
+        if (isset($data['image'])) {
+            $data['image'] = $this->uploadImage($data['image'], 'brands');
+        }
+        User::create(array_merge($data, ['role_id' => 2, 'otp' => $otp]));
+
         return $otp;
     }
 

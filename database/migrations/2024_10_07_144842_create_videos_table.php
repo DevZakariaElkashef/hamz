@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('title_en');
             $table->string('path');
             $table->string('thumbnail')->nullable();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->decimal('reword_amount');
             $table->boolean('is_active')->default(1);

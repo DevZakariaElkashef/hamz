@@ -29,11 +29,11 @@
                             {{ $product->name }}
                         </a>
                     </td>
-                    <td>{{ $product->store->section->name }}</td>
-                    <td>{{ $product->store->name }}</td>
-                    <td>{{ $product->category->name }}</td>
-                    <td>{{ $product->brand->name }}</td>
-                    <td>{{ $product->calc_price }}</td>
+                    <td>{{ $product->store->section->name ?? '' }}</td>
+                    <td>{{ $product->store->name ?? '' }}</td>
+                    <td>{{ $product->category->name ?? '' }}</td>
+                    <td>{{ $product->brand->name ?? '' }}</td>
+                    <td>{{ $product->calc_price ?? '' }}</td>
                     <td>{{ $product->qty }}</td>
                     <td>
                         <label class="custom-toggle-switch">

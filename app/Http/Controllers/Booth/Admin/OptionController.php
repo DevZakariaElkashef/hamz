@@ -80,9 +80,9 @@ class OptionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $attributes = Attribute::booth()->active()->get();
+        $attributes = Attribute::checkVendor($request->user())->booth()->active()->get();
         return view("booth.options.create", compact('attributes'));
     }
 

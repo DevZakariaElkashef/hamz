@@ -136,6 +136,7 @@ class ProductRepository
         if ($product->image) {
             $this->deleteImage($product->image);
         }
+
         $product->delete();
         return true;
     }

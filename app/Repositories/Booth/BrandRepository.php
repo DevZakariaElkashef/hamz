@@ -17,7 +17,7 @@ class BrandRepository
 
     public function index($request)
     {
-        $brands = Brand::filter($request)->booth()->with('store')->paginate($request->per_page ?? $this->limit);
+        $brands = Brand::checkVendor($request->user())->filter($request)->booth()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $brands;
     }
@@ -34,6 +34,10 @@ class BrandRepository
 
         if ($request->hasFile('image')) {
             $data['image'] =  $this->uploadImage($request->file('image'), 'brands');
+        }
+
+        if ($request->user()->role_id == 3) {
+            $data['store_id'] = $request->user()->store->id;
         }
 
         $data['app'] = 'booth';
@@ -63,6 +67,7 @@ class BrandRepository
         if ($brand->image) {
             $this->deleteImage($brand->image);
         }
+
         $brand->delete();
         return true;
     }

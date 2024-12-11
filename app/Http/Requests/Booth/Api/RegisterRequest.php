@@ -27,14 +27,17 @@ class RegisterRequest extends BaseApiRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->whereNull('deleted_at'),
+                Rule::unique('users'),
             ],
             'phone' => [
                 'required',
                 new ValidPhoneNumber(),
-                Rule::unique('users')->whereNull('deleted_at'),
+                Rule::unique('users'),
             ],
             'password' => 'required|string|min:8|max:255',
+            'val_license' => 'nullable|string|max:255',
+            'advertisercharacter_id' => 'nullable|exists:advertiser_characters,id',
+            'image' => 'nullable|mimes:png,jpg,jpeg'
         ];
     }
 

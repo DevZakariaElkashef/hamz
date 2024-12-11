@@ -92,14 +92,17 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        $user = $request->user();
+
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
-        $categories = Category::booth()->active()->get();
-        $brands = Brand::booth()->active()->get();
-        $attributes = Attribute::booth()->get();
-        $options = Option::booth()->get();
+        $categories = Category::checkVendor($user)->booth()->active()->get();
+        $brands = Brand::checkVendor($user)->booth()->active()->get();
+        $attributes = Attribute::checkVendor($user)->booth()->get();
+        $options = Option::checkVendor($user)->booth()->get();
+
         return view("booth.products.create", compact('sections', 'stores', 'categories', 'brands', 'attributes', 'options'));
     }
 

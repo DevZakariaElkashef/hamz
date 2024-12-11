@@ -60,6 +60,7 @@ class SectionRepository
         if ($section->image) {
             $this->deleteImage($section->image);
         }
+
         $section->delete();
         return true;
     }

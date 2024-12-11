@@ -37,8 +37,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('booth.brands.update', $brand->id) }}"
-                        data-parsley-validate="" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('booth.brands.update', $brand->id) }}" data-parsley-validate=""
+                        enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="row">
@@ -61,18 +61,22 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.store') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control select2" name="store_id">
-                                    @foreach ($stores as $store)
-                                        <option value="{{ $store->id }}"
-                                            @if (old('store_id', $brand->store_id) == $store->id) selected @endif>{{ $store->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('store_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            @if (auth()->user()->role_id != 3)
+                                <div class="col-md-6 form-group mg-b-0">
+                                    <label class="form-label">{{ __('main.store') }}: <span
+                                            class="tx-danger">*</span></label>
+                                    <select required class="form-control select2" name="store_id">
+                                        @foreach ($stores as $store)
+                                            <option value="{{ $store->id }}"
+                                                @if (old('store_id', $brand->store_id) == $store->id) selected @endif>{{ $store->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('store_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endif
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
@@ -87,7 +91,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-12 form-group mt-4">
+                            <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
                                     <input class="custom-file-input" id="customFile" type="file" name="image">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Booth\Admin;
 
+use App\Models\Store;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use App\Exports\Booth\CouponExport;
@@ -74,7 +75,8 @@ class CouponController extends Controller
      */
     public function create()
     {
-        return view("booth.coupons.create");
+        $stores = Store::booth()->active()->get();
+        return view("booth.coupons.create", compact('stores'));
     }
 
     /**

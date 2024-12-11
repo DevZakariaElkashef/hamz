@@ -31,7 +31,7 @@ class CategoryRequest extends FormRequest
             'image' => 'nullable|mimes:png,jpg,jpeg',
             'is_active' => 'required|boolean',
             'parent_id' => 'nullable|' . $parentValidation,
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'nullable|exists:users,id'
         ];
     }
 }

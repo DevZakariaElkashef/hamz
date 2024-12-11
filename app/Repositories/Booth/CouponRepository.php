@@ -17,7 +17,7 @@ class CouponRepository
 
     public function index($request)
     {
-        $coupons = Coupon::filter($request)->booth()->paginate($request->per_page ?? $this->limit);
+        $coupons = Coupon::checkVendor($request->user())->filter($request)->booth()->paginate($request->per_page ?? $this->limit);
 
         return $coupons;
     }
@@ -33,14 +33,12 @@ class CouponRepository
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'coupons');
+            $data['image'] = $this->uploadImage($request->file('image'), 'coupons');
         }
 
         // if current user is vendor attach the store_id for the coupon
         if ($request->user()->role_id == 3) {
-            if ($request->user()->store && $request->user()->store->id) {
-                $data['store_id'] = $request->user()->store->id;
-            }
+            $data['store_id'] = $request->user()->store->id;
         }
 
         $data['app'] = 'booth';
@@ -64,8 +62,9 @@ class CouponRepository
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
+            $data['image'] = $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
         }
+
 
         if ($request->has('images')) {
             foreach ($request->images as $image) {

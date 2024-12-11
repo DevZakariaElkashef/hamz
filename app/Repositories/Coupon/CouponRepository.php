@@ -17,7 +17,9 @@ class CouponRepository
 
     public function index($request)
     {
-        $coupons = Coupon::filter($request)->coupons()->paginate($request->per_page ?? $this->limit);
+        $coupons = Coupon::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->filter($request)->coupons()->paginate($request->per_page ?? $this->limit);
 
         return $coupons;
     }
@@ -25,7 +27,9 @@ class CouponRepository
 
     public function search($request)
     {
-        return Coupon::coupons()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        return Coupon::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->coupons()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function coupon($request)
@@ -33,10 +37,11 @@ class CouponRepository
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'coupons');
+            $data['image'] = $this->uploadImage($request->file('image'), 'coupons');
         }
 
         $data['app'] = 'coupons';
+        $data['user_id'] = $request->user()->id;
         unset($data['_token']);
         $coupon = Coupon::create($data);
 
@@ -57,7 +62,7 @@ class CouponRepository
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
+            $data['image'] = $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
         }
 
 

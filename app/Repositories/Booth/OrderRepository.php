@@ -17,7 +17,7 @@ class OrderRepository
 
     public function index($request)
     {
-        $order = Order::filter($request)->booth()->paginate($request->per_page ?? $this->limit);
+        $order = Order::checkVendor($request->user())->filter($request)->booth()->paginate($request->per_page ?? $this->limit);
 
         return $order;
     }

@@ -90,10 +90,10 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $stores = Store::booth()->active()->get();
-        $categories = Category::booth()->active()->get();
+        $categories = Category::checkVendor($request->user())->booth()->active()->get();
         return view("booth.categories.create", compact('stores', 'categories'));
     }
 
@@ -117,10 +117,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Request $request, Category $category)
     {
         $stores = Store::booth()->active()->get();
-        $categories = Category::booth()->active()->where('id', '!=', $category->id)->get();
+        $categories = Category::checkVendor($request->user())->booth()->active()->where('id', '!=', $category->id)->get();
         return view('booth.categories.edit', compact('category', 'stores', 'categories'));
     }
 

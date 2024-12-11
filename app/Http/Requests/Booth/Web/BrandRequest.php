@@ -24,7 +24,7 @@ class BrandRequest extends FormRequest
         return [
             'name_ar' => 'required|string|max:255',
             'name_en' => 'required|string|max:255',
-            'store_id' => 'required|exists:stores,id',
+            'store_id' => 'nullable|exists:stores,id',
             'is_active' => 'required|boolean',
             'image' => 'nullable|mimes:png,jpg,jpeg'
         ];

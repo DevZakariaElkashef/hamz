@@ -70,9 +70,9 @@ class CouponController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $categories = Category::coupons()->active()->get();
+        $categories = Category::where('user_id', $request->user()->id)->coupons()->active()->get();
         return view("coupon.coupons.create", compact('categories'));
     }
 

@@ -61,18 +61,6 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.store') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control select2" name="store_id">
-                                    @foreach ($stores as $store)
-                                        <option value="{{ $store->id }}"
-                                            @if (old('store_id') == $store->id) selected @endif>{{ $store->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('store_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.parent_category') }}: </label>
                                 <select class="form-control select2" name="parent_id">
                                     <option selected>{{ __("main.select") }}</option>

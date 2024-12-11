@@ -19,7 +19,7 @@
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('booth.stores.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
+                <a href="{{ auth()->user()->role_id == 3 ? route('booth.home') : route('booth.stores.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
             </div>
         </div>
     </div>

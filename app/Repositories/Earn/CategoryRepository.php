@@ -17,7 +17,9 @@ class CategoryRepository
 
     public function index($request)
     {
-        $categorys = Category::filter($request)->earn()->with('store')->paginate($request->per_page ?? $this->limit);
+        $categorys = Category::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->filter($request)->earn()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $categorys;
     }
@@ -37,6 +39,7 @@ class CategoryRepository
         if (!is_numeric($data['parent_id'])) {
             unset($data['parent_id']);
         }
+        $data['user_id'] = $request->user()->id;
         $data['app'] = 'earn';
         unset($data['_token']);
         return Category::create($data);

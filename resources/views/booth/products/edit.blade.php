@@ -107,30 +107,30 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
-  <!-- row opened -->
-  <div class="modal" id="deleteImageModal">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content modal-content-demo">
-            <div class="modal-header">
-                <h6 class="modal-title">{{ __('main.filter') }}</h6><button aria-label="Close" class="close"
-                    data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+    <!-- row opened -->
+    <div class="modal" id="deleteImageModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">{{ __('main.filter') }}</h6><button aria-label="Close" class="close"
+                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <form method="POST" action="{{ route('images.destroy') }}">
+                    @csrf
+                    @method('delete')
+                    <input type="hidden" name="image_id" id="imageIDInput">
+                    <div class="modal-body">
+                        {{ __('main.Are you sure!') }}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn ripple btn-danger" type="submit">{{ __('main.delete') }}</button>
+                        <button class="btn ripple btn-secondary" data-dismiss="modal"
+                            type="button">{{ __('main.Close') }}</button>
+                    </div>
+                </form>
             </div>
-            <form method="POST" action="{{ route('images.destroy') }}">
-                @csrf
-                @method('delete')
-                <input type="hidden" name="image_id" id="imageIDInput">
-                <div class="modal-body">
-                    {{ __('main.Are you sure!') }}
-                </div>
-                <div class="modal-footer">
-                    <button class="btn ripple btn-danger" type="submit">{{ __('main.delete') }}</button>
-                    <button class="btn ripple btn-secondary" data-dismiss="modal"
-                        type="button">{{ __('main.Close') }}</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
     <!-- row opened -->
     <div class="row row-sm">
         <div class="col-xl-12">
@@ -194,7 +194,7 @@
 
                                     <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('main.price') }}: <span
-                                            class="tx-danger">*</span></label>
+                                                class="tx-danger">*</span></label>
                                         <input class="form-control" type="number" name="price"
                                             placeholder="{{ __('main.enter_price') }}" type="price"
                                             value="{{ old('price', $product->price) }}">
@@ -236,7 +236,7 @@
 
                                     <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('main.inventory') }}: <span
-                                            class="tx-danger">*</span></label>
+                                                class="tx-danger">*</span></label>
                                         <input class="form-control" type="number" name="qty"
                                             placeholder="{{ __('main.enter_qty') }}" type="qty"
                                             value="{{ old('qty', $product->qty) }}">
@@ -245,42 +245,28 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('main.section') }}: <span
-                                            class="tx-danger">*</span></label>
-                                        <select class="form-control select2" name="section_id" id="sectionId">
-                                            <option selected>{{ __('main.select') }}</option>
-                                            @foreach ($sections as $section)
-                                                <option value="{{ $section->id }}"
-                                                    @if (old('section_id', $product->store->section_id) == $section->id) selected @endif>{{ $section->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('section_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-
-                                    <div class="col-md-6 form-group mg-b-0">
-                                        <label class="form-label">{{ __('main.store') }}: <span
-                                            class="tx-danger">*</span></label>
-                                        <select class="form-control select2" name="store_id" id="storeId">
-                                            <option selected>{{ __('main.select') }}</option>
-                                            @foreach ($stores as $store)
-                                                <option value="{{ $store->id }}"
-                                                    @if (old('store_id', $product->category->store_id) == $store->id) selected @endif>{{ $store->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('store_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    @if (auth()->user()->role_id != 3)
+                                        <div class="col-md-6 form-group mg-b-0">
+                                            <label class="form-label">{{ __('main.store') }}: <span
+                                                    class="tx-danger">*</span></label>
+                                            <select class="form-control select2" name="store_id" id="storeId">
+                                                <option selected>{{ __('main.select') }}</option>
+                                                @foreach ($stores as $store)
+                                                    <option value="{{ $store->id }}"
+                                                        @if (old('store_id', $product->category->store_id) == $store->id) selected @endif>
+                                                        {{ $store->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('store_id')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @endif
 
                                     <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('main.category') }}: <span
-                                            class="tx-danger">*</span></label>
+                                                class="tx-danger">*</span></label>
                                         <select class="form-control select2" name="category_id" id="categoryId">
                                             <option selected>{{ __('main.select') }}</option>
                                             @foreach ($categories as $category)
@@ -296,7 +282,7 @@
 
                                     <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('main.brand') }}: <span
-                                            class="tx-danger">*</span></label>
+                                                class="tx-danger">*</span></label>
                                         <select class="form-control select2" name="brand_id" id="brandId">
                                             <option selected>{{ __('main.select') }}</option>
                                             @foreach ($brands as $brand)
@@ -312,8 +298,7 @@
 
                                     <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('main.status') }}: <span
-                                            class="tx-danger">*</span><span
-                                                class="tx-danger">*</span></label>
+                                                class="tx-danger">*</span><span class="tx-danger">*</span></label>
                                         <select required class="form-control" name="is_active">
                                             <option value="0" @if (old('is_active', $product->is_active) == 0) selected @endif>
                                                 {{ __('main.not_active') }}</option>
@@ -400,8 +385,8 @@
                                         <div class="custom-file">
                                             <label class="custom-file-label"
                                                 for="customFile">{{ __('main.image') }}</label>
-                                            <input class="custom-file-input" id="customFile" accept="image/*" type="file"
-                                                name="image">
+                                            <input class="custom-file-input" id="customFile" accept="image/*"
+                                                type="file" name="image">
                                             @error('image')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -422,8 +407,9 @@
                                             @foreach ($product->images as $image)
                                                 <div class="image-box position-relative m-2">
                                                     <img src="{{ asset($image->path) }}">
-                                                    <button type="button" data-id="{{ $image->id }}" data-toggle="modal"
-                                                        data-effect="effect-flip-vertical" data-target="#deleteImageModal"
+                                                    <button type="button" data-id="{{ $image->id }}"
+                                                        data-toggle="modal" data-effect="effect-flip-vertical"
+                                                        data-target="#deleteImageModal"
                                                         class="btn btn-danger delete-image btn-sm position-absolute top-0 end-0"
                                                         data-index="3">×</button>
                                                 </div>

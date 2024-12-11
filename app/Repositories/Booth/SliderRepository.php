@@ -70,7 +70,7 @@ class SliderRepository
         if ($slider->image) {
             $this->deleteImage($slider->image);
         }
-        
+
         $slider->delete();
         return true;
     }

@@ -43,8 +43,14 @@ class ReportController extends Controller
     {
         $sales = OrderItem::with('product')
             ->select('product_id', DB::raw('SUM(qty) as total_quantity'), DB::raw('SUM(price * qty) as total_sales'))
+            ->when($request->user()->role_id == 3, function ($query) use ($request) {
+                $query->whereHas('order', function ($subQuery) use ($request) {
+                    $subQuery->where('store_id', $request->user()->store->id);
+                });
+            })
             ->groupBy('product_id')
             ->paginate($request->per_page ?? $this->limit);
+
 
         return view('booth.reports.products.all_product_sales', compact('sales'));
     }
@@ -52,13 +58,19 @@ class ReportController extends Controller
     public function searchAllProductSalesReport(Request $request)
     {
         $sales = OrderItem::with('product')
+            ->when($request->user()->role_id == 3, function ($query) use ($request) {
+                $query->whereHas('order', function ($subQuery) use ($request) {
+                    $subQuery->where('store_id', $request->user()->store->id);
+                });
+            })
             ->whereHas('product', function ($product) use ($request) {
-                $product->where('name_ar', 'like', "%$request->search%")
-                    ->orWhere('name_en', 'like', "%$request->search%");
+                $product->where('name_ar', 'like', "%{$request->search}%")
+                    ->orWhere('name_en', 'like', "%{$request->search}%");
             })
             ->select('product_id', DB::raw('SUM(qty) as total_quantity'), DB::raw('SUM(price * qty) as total_sales'))
             ->groupBy('product_id')
             ->paginate($request->per_page ?? $this->limit);
+
 
         return view('booth.reports.products.all_product_sales_table', compact('sales'))->render();
     }
@@ -74,6 +86,11 @@ class ReportController extends Controller
         $locale = app()->getLocale(); // Get current locale
 
         $sales = OrderItem::with(['product.category.store'])
+            ->when($request->user()->role_id == 3, function ($query) use ($request) {
+                $query->whereHas('order', function ($subQuery) use ($request) {
+                    $subQuery->where('store_id', $request->user()->store->id);
+                });
+            })
             ->join('products', 'order_items.product_id', '=', 'products.id')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->join('stores', 'categories.store_id', '=', 'stores.id')
@@ -93,6 +110,11 @@ class ReportController extends Controller
         $locale = app()->getLocale(); // Get current locale
 
         $sales = OrderItem::with(['product.category.store'])
+            ->when($request->user()->role_id == 3, function ($query) use ($request) {
+                $query->whereHas('order', function ($subQuery) use ($request) {
+                    $subQuery->where('store_id', $request->user()->store->id);
+                });
+            })
             ->join('products', 'order_items.product_id', '=', 'products.id')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->join('stores', 'categories.store_id', '=', 'stores.id')
@@ -120,6 +142,7 @@ class ReportController extends Controller
     public function orderStatusReport(Request $request)
     {
         $orders = Order::with('orderStatus')
+            ->where('store_id', $request->user()->store->id)
             ->join('order_statuses', 'orders.order_status_id', '=', 'order_statuses.id')
             ->when($request->filled('start_at'), function ($query) use ($request) {
                 $query->whereDate('orders.created_at', '>=', $request->start_at);
@@ -158,6 +181,11 @@ class ReportController extends Controller
             ->whereHas('order.store', function ($store) {
                 $store->where('app', 'booth');
             })
+            ->when($request->user()->role_id == 3, function ($query) use ($request) {
+                $query->whereHas('order', function ($subQuery) use ($request) {
+                    $subQuery->where('store_id', $request->user()->store->id);
+                });
+            })
             ->when($request->filled('start_at'), function ($query) use ($request) {
                 $query->whereHas('order', function ($order) use ($request) {
                     $order->whereDate('created_at', '>=', $request->start_at);
@@ -189,6 +217,10 @@ class ReportController extends Controller
     {
         $orders = OrderItem::with(['order', 'order.store', 'order.user'])->whereHas('order.store', function ($store) use ($request) {
             $store->where('app', 'booth');
+        })->when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->whereHas('order', function ($subQuery) use ($request) {
+                $subQuery->where('store_id', $request->user()->store->id);
+            });
         })->where(function ($q) use ($request) {
             $q->whereHas('product', function ($product) use ($request) {
                 $product->where('name_ar', 'like', "%$request->search%")
@@ -230,11 +262,13 @@ class ReportController extends Controller
     // Report of low stock alerts
     public function lowStockAlertsReport(Request $request)
     {
-        $products = Product::filter($request)->booth()->where('qty', '<', 10)->get();
+        $products = Product::filter($request)->booth()->whereHas('category', function ($category) use ($request) {
+            $category->where('store_id', $request->user()->store->id);
+        })->where('qty', '<', 10)->get();
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
-        $categories = Category::booth()->active()->get();
-        $brands = Brand::booth()->active()->get();
+        $categories = Category::checkVendor($request->user())->booth()->active()->get();
+        $brands = Brand::checkVendor($request->user())->booth()->active()->get();
 
         return view('booth.reports.products.low_stock_alerts', compact('products', 'sections', 'stores', 'categories', 'brands'));
     }
