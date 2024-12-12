@@ -124,7 +124,8 @@ class AuthController extends Controller
             return $this->returnError(403, $e->getMessage());
         }
     }
-    public function login(Request $request)
+
+    public function login(LoginRequest $request)
     {
         try {
             if (auth()->attempt(['phone' => $request->phone, 'password' => $request->password])) {
