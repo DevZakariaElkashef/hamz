@@ -124,6 +124,8 @@ class AuthController extends Controller
             return $this->returnError(403, $e->getMessage());
         }
     }
+
+
     public function login(LoginRequest $request)
     {
         try {
