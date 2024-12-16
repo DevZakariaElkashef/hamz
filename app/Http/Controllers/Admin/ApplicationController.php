@@ -27,14 +27,14 @@ class ApplicationController extends Controller
      */
     public function index(Request $request)
     {
-        $applications = $this->applicationRepository->index($request);
-        return view('applications.index', compact('applications'));
+        $apps = $this->applicationRepository->index($request);
+        return view('applications.index', compact('apps'));
     }
 
     public function search(Request $request)
     {
-        $applications = $this->applicationRepository->search($request);
-        return view('applications.table', compact('applications'))->render();
+        $apps = $this->applicationRepository->search($request);
+        return view('applications.table', compact('apps'))->render();
     }
 
     /**
@@ -65,7 +65,7 @@ class ApplicationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Application $application)
+    public function edit(Application $app)
     {
         return view('applications.edit', compact('application'));
     }
@@ -73,27 +73,27 @@ class ApplicationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ApplicationRequest $request, Application $application)
+    public function update(ApplicationRequest $request, Application $app)
     {
-        $this->applicationRepository->update($request, $application);
+        $this->applicationRepository->update($request, $app);
         return to_route('applications.index')->with('success', __("main.updated_successffully"));
     }
 
-    public function toggleStatus(Request $request, Application $application)
+    public function toggleStatus(Request $request, Application $app)
     {
-        $application->update(['is_active' => $request->is_active]);
+        $app->update(['is_active' => $request->is_active]);
         return response()->json([
             'success' => true,
             'message' => __("main.updated_successffully"),
         ]);
     }
 
-    public function toggleFixedStatus(Request $request, Application $application)
+    public function toggleFixedStatus(Request $request, Application $app)
     {
-        $application->update(['is_fixed' => $request->is_active]);
+        $app->update(['is_fixed' => $request->is_active]);
 
         if ($request->is_active) {
-            $this->applicationRepository->updateOtherApplications($application->id);
+            $this->applicationRepository->updateOtherApplications($app->id);
         }
 
         return response()->json([
@@ -106,9 +106,9 @@ class ApplicationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Application $application)
+    public function destroy(Application $app)
     {
-        $this->applicationRepository->delete($application);
+        $this->applicationRepository->delete($app);
         return to_route('applications.index')->with('success', __("main.delete_successffully"));
     }
 

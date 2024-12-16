@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    {{ __('main.edit_application') }}
+    {{ __('main.edit_app') }}
 @endsection
 @section('css')
     <!--- Internal Select2 css-->
@@ -13,9 +13,9 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('apps.index') }}">{{ __('main.applications') }}</a></span>
+                        href="{{ route('apps.index') }}">{{ __('main.apps') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('apps.edit', $application->id) }}">{{ __('main.edit_application') }}</a></span>
+                        href="{{ route('apps.edit', $app->id) }}">{{ __('main.edit_app') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -33,11 +33,11 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('main.applications') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.apps') }}</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('apps.update', $application->id) }}" data-parsley-validate=""
+                    <form method="post" action="{{ route('apps.update', $app->id) }}" data-parsley-validate=""
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
@@ -46,7 +46,7 @@
                                 <label class="form-label">{{ __('main.name') }}(AR): <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="name_ar" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') ?? $application->name_ar }}">
+                                    required="" type="text" value="{{ old('name_ar') ?? $app->name_ar }}">
                                 @error('name_ar')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -55,7 +55,7 @@
                                 <label class="form-label">{{ __('main.name') }}(EN): <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="name_en" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') ?? $application->name_en }}">
+                                    required="" type="text" value="{{ old('name_en') ?? $app->name_en }}">
                                 @error('name_en')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -64,7 +64,7 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.url') }}:</label>
                                 <input class="form-control" name="url" placeholder="{{ __('main.enter_name') }}"
-                                    type="url" value="{{ old('url') ?? $application->url }}">
+                                    type="url" value="{{ old('url') ?? $app->url }}">
                                 @error('url')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -73,9 +73,9 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active', $application->is_active) == 0) selected @endif>
+                                    <option value="0" @if (old('is_active', $app->is_active) == 0) selected @endif>
                                         {{ __('main.not_active') }}</option>
-                                    <option value="1" @if (old('is_active', $application->is_active) == 1) selected @endif>
+                                    <option value="1" @if (old('is_active', $app->is_active) == 1) selected @endif>
                                         {{ __('main.active') }}</option>
                                 </select>
                                 @error('is_active')
@@ -86,9 +86,9 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.fixed') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_fixed">
-                                    <option value="0" @if (old('is_fixed', $application->is_fixed) == 0) selected @endif>
+                                    <option value="0" @if (old('is_fixed', $app->is_fixed) == 0) selected @endif>
                                         {{ __('main.no') }}</option>
-                                    <option value="1" @if (old('is_fixed', $application->is_fixed) == 1) selected @endif>
+                                    <option value="1" @if (old('is_fixed', $app->is_fixed) == 1) selected @endif>
                                         {{ __('main.yes') }}</option>
                                 </select>
                                 @error('is_fixed')

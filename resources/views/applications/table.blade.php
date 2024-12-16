@@ -9,25 +9,24 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($applications as $application)
+            @foreach ($appss as $apps)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $application->name }}</td>
+                    <td>{{ $apps->name }}</td>
                     <td>
-                        <a href="{{ asset($application->image) }}" download>
-                            <img src="{{ asset($application->image) }}" style="display: inline-block; border-radius: 50%;"
+                        <a href="{{ asset($apps->image) }}" download>
+                            <img src="{{ asset($apps->image) }}" style="display: inline-block; border-radius: 50%;"
                                 width="40" height="40" alt="">
                         </a>
                     </td>
-                    <td>{{ $application->url }}</td>
 
                     <td>
-                        <a href="{{ route('apps.edit', $application->id) }}"
+                        <a href="{{ route('apps.edit', $apps->id) }}"
                             class="btn btn-secondary">{{ __('main.edit') }}</a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <div class="my-3">{{ $applications->links() }}</div>
+    <div class="my-3">{{ $appss->links() }}</div>
 </div>

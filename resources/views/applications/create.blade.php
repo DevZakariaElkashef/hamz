@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    {{ __('main.create_application') }}
+    {{ __('main.create_app') }}
 @endsection
 @section('css')
     <!--- Internal Select2 css-->
@@ -13,9 +13,9 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('apps.index') }}">{{ __('main.applications') }}</a></span>
+                        href="{{ route('apps.index') }}">{{ __('main.apps') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('apps.create') }}">{{ __('main.create_application') }}</a></span>
+                        href="{{ route('apps.create') }}">{{ __('main.create_app') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('main.applications') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.apps') }}</h4>
                     </div>
                 </div>
                 <div class="card-body">

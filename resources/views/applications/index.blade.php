@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('title')
-    {{ __('main.applications') }}
+    {{ __('main.apps') }}
 @endsection
 @section('css')
     <!---Internal Owl Carousel css-->
     <link href="{{ URL::asset('assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
-    <!---Internal  Multiapplication css-->
-    <link href="{{ URL::asset('assets/plugins/multiapplication/multiapplication.css') }}" rel="stylesheet">
+    <!---Internal  Multiapps css-->
+    <link href="{{ URL::asset('assets/plugins/multiapps/multiapps.css') }}" rel="stylesheet">
     <!--- Select2 css -->
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endsection
@@ -18,7 +18,7 @@
                 <h5 class="content-title mb-0 my-auto"><a href="{{ route('home') }}"
                         class="text-dark">{{ __('main.home') }}</a></h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('apps.index') }}">{{ __('main.applications') }}</a></span>
+                        href="{{ route('apps.index') }}">{{ __('main.apps') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -82,7 +82,7 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('main.applications') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.apps') }}</h4>
                         <div class="d-flex align-items-center">
                             {{-- <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn" data-toggle="modal"
                                 data-effect="effect-flip-vertical" data-target="#deletemodal"
