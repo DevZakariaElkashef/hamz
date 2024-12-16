@@ -344,6 +344,8 @@ return
         "booth" => "البوثات",
         "Apps" => "التطبيقات",
         "Main" => "الرئيسي",
+        'vendor_registration' => 'تسجيل التجار',
+        'choose_file' => 'إختر ملف',
         'comments' => 'التعليقات',
         'comments.index' => 'عرض التعليقات',
         'complains' => 'الشكاوى',

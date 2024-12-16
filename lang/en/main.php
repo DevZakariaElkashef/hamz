@@ -7,6 +7,8 @@ return
         'home' => 'home',
         "apps" => 'applications',
         'edit_app' => 'update',
+        'vendor_registration' => 'Vendor Registration',
+        'choose_file' => 'Choose File',
         'id' => 'id',
         'name' => 'name',
         'image' => 'image',
