@@ -5,6 +5,8 @@ return
         "Watch_And_Win" => "Watch And Win",
         'sliders' => 'sliders',
         'home' => 'home',
+        "apps" => 'applications',
+        'edit_app' => 'update',
         'id' => 'id',
         'name' => 'name',
         'image' => 'image',
