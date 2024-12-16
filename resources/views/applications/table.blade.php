@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($appss as $apps)
+            @foreach ($apps as $apps)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $apps->name }}</td>
@@ -28,5 +28,5 @@
             @endforeach
         </tbody>
     </table>
-    <div class="my-3">{{ $appss->links() }}</div>
+    <div class="my-3">{{ $apps->links() }}</div>
 </div>
