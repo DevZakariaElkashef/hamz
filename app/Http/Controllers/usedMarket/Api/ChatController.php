@@ -44,7 +44,7 @@ class ChatController extends Controller
     }
     public function sendMessage(Request $request)
     {
-        // try {
+        try {
             $product = Product::find($request->product_id);
             if ($product->user_id == $request->user()->id) {
                 $message = Chat::find($request->chat_id);
@@ -68,7 +68,6 @@ class ChatController extends Controller
                     'app' => 'resale'
                 ]);
                 $firebase = new FireBasePushNotification();
-                dd($message->seller);
                 $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
             return $this->returnSuccess(200, __('main.sendMessage'));
@@ -76,9 +75,9 @@ class ChatController extends Controller
             $messages = ChatResource::collection(Chat::usedMarket()->where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
 
             return $this->returnData("data", ['messages' => $messages], __('main.returnData'));
-        // } catch (\Throwable $e) {
-        //     return $this->returnError(403, $e->getMessage());
-        // }
+        } catch (\Throwable $e) {
+            return $this->returnError(403, $e->getMessage());
+        }
     }
 
     public function getChats(Request $request)
