@@ -17,14 +17,14 @@ class ApplicationRepository
 
     public function index($request)
     {
-        $applications = Application::filter($request)->where('id', '!=', 1)->paginate($request->per_page ?? $this->limit);
+        $applications = Application::where('id', '!=', 1)->paginate($request->per_page ?? $this->limit);
 
         return $applications;
     }
 
     public function search($request)
     {
-        return Application::where('id', '!=', 1)->search($request->search)->paginate($request->per_page ?? $this->limit);
+        return Application::where('id', '!=', 1)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)
