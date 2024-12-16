@@ -28,5 +28,5 @@
             @endforeach
         </tbody>
     </table>
-    <div class="my-3">{{ $apps->links() }}</div>
+    {{-- <div class="my-3">{{ $apps->links() }}</div> --}}
 </div>
