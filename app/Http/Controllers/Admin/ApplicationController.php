@@ -51,7 +51,7 @@ class ApplicationController extends Controller
     public function store(ApplicationRequest $request)
     {
         $this->applicationRepository->store($request); // store application
-        return to_route('applications.index')->with('success', __("main.created_successffully"));
+        return to_route('apps.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -59,7 +59,7 @@ class ApplicationController extends Controller
      */
     public function show(string $id)
     {
-        return to_route('applications.edit');
+        return to_route('apps.edit');
     }
 
     /**
@@ -76,7 +76,7 @@ class ApplicationController extends Controller
     public function update(ApplicationRequest $request, Application $app)
     {
         $this->applicationRepository->update($request, $app);
-        return to_route('applications.index')->with('success', __("main.updated_successffully"));
+        return to_route('apps.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Application $app)
@@ -109,12 +109,12 @@ class ApplicationController extends Controller
     public function destroy(Application $app)
     {
         $this->applicationRepository->delete($app);
-        return to_route('applications.index')->with('success', __("main.delete_successffully"));
+        return to_route('apps.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->applicationRepository->deleteSelection($request);
-        return to_route('applications.index')->with('success', __("main.delete_successffully"));
+        return to_route('apps.index')->with('success', __("main.delete_successffully"));
     }
 }
