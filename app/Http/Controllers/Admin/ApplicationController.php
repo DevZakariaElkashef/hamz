@@ -28,7 +28,6 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
         $apps = $this->applicationRepository->index($request);
-        dd($apps);
         return view('applications.index', compact('apps'));
     }
 
