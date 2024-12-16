@@ -3,8 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Mall\Web\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +30,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('updateProfile', [AuthController::class, 'updateProfile']);
     Route::post('updatePassword', [AuthController::class, 'updatePassword']);
     // -------------------------------
+
+
+    Route::get('home', [HomeController::class, 'index']);
 });
 
 
