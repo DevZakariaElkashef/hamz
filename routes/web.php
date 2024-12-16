@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
         // dd(auth()->user());
     })->name('home');
 
+    Route::get('join-as-vendor', VendorController::class, 'join');
 
     /**start Slider Routes */
     Route::resource('sliders', SliderController::class);

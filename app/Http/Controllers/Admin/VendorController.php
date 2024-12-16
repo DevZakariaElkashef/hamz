@@ -77,6 +77,13 @@ class VendorController extends Controller
         return view("vendors.create", compact('cities'));
     }
 
+
+    public function join()
+    {
+        $cities = $this->vendorRepository->cities();
+        return view("vendors.join", compact('cities'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
