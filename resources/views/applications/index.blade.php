@@ -107,7 +107,7 @@
                 </div>
                 <div class="card-body">
                     <div id="tableFile">
-                        @include('apps.table')
+                        @include('applications.table')
                     </div>
                 </div>
             </div>
