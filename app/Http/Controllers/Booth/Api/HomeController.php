@@ -24,7 +24,7 @@ class HomeController extends Controller
 
         $data = [
             'ad' => $ad ? new SliderResource($ad) : null,
-            'sliders' => SliderResource::collection(Slider::booth()->active()->get()),
+            'sliders' => SliderResource::collection(Slider::booth()->active()->scrollable()->get()),
             'sections' => SectionResource::collection(Section::booth()->active()->with('stores')->latest()->take(4)->get()),
             'most_recent' => ProductInHomeResource::collection(Product::booth()->active()->latest()->take(4)->get()),
             'most_sale' => ProductInHomeResource::collection($mostSaledProducts),

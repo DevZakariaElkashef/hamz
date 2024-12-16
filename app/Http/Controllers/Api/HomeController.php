@@ -11,14 +11,14 @@ use App\Http\Resources\Api\SliderResource;
 class HomeController extends Controller
 {
     use ApiResponse;
-    
+
     public function index()
     {
         $ad = Slider::hamz()->fixed()->first();
 
         $data = [
             'ad' => $ad ? new SliderResource($ad) : null,
-            'sliders' => SliderResource::collection(Slider::hamz()->active()->get()),
+            'sliders' => SliderResource::collection(Slider::hamz()->active()->nonFixed()->get()),
             // 'apps' => SectionResource::collection(Section::mall()->active()->latest()->take(4)->get()),
         ];
 
