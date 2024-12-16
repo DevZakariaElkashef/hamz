@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Usedmarket\UserResource;
-use App\Http\Requests\Usedmarket\Api\LoginRequest;
-use App\Http\Requests\Usedmarket\Api\RegisterRequest;
-use App\Http\Requests\Usedmarket\Api\VerifyOtpRequest;
-use App\Http\Requests\Usedmarket\Api\ResendCodeRequest;
-use App\Http\Requests\Usedmarket\Api\ResetPasswordRequest;
-use App\Http\Requests\Usedmarket\Api\UpdateProfileRequest;
-use App\Http\Requests\Usedmarket\Api\ChangePasswordRequest;
-use App\Http\Requests\Usedmarket\Api\UpdatePasswordRequest;
+use App\Http\Requests\usedMarket\Api\LoginRequest;
+use App\Http\Requests\usedMarket\Api\RegisterRequest;
+use App\Http\Requests\usedMarket\Api\VerifyOtpRequest;
+use App\Http\Requests\usedMarket\Api\ResendCodeRequest;
+use App\Http\Requests\usedMarket\Api\ResetPasswordRequest;
+use App\Http\Requests\usedMarket\Api\UpdateProfileRequest;
+use App\Http\Requests\usedMarket\Api\ChangePasswordRequest;
+use App\Http\Requests\usedMarket\Api\UpdatePasswordRequest;
 
 class AuthController extends Controller
 {

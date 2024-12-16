@@ -1,0 +1,6 @@
+[16-Dec-2024 07:40:49 UTC] PHP Warning:  Phar::mapPhar(): open_basedir restriction in effect. File(/opt/cpanel/composer/bin/composer) is not within the allowed path(s): (/home/:/usr/lib:/usr/local/lib:/usr/local/bin:/opt/alt/php-internal:/opt/cpanel/ea-php83:/tmp:/dev/urandom:/var/cpanel/php/sessions) in /opt/cpanel/composer/bin/composer on line 28
+[16-Dec-2024 07:40:49 UTC] PHP Warning:  require(phar://composer.phar/bin/composer): Failed to open stream: phar error: invalid url or non-existent phar "phar://composer.phar/bin/composer" in /opt/cpanel/composer/bin/composer on line 29
+[16-Dec-2024 07:40:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'phar://composer.phar/bin/composer' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /opt/cpanel/composer/bin/composer:29
+Stack trace:
+#0 {main}
+  thrown in /opt/cpanel/composer/bin/composer on line 29

@@ -24,8 +24,8 @@ class RegisterRequest extends FormRequest
             'password' => 'required',
             'code' => 'required',
             'image' => 'nullable|file|mimes:png,jpg,jpeg',
-            'val_license' => 'required|string',
-            'advertisercharacter_id' => 'required|exists:advertiser_characters,id',
+            // 'val_license' => 'required|string',
+            // 'advertisercharacter_id' => 'required|exists:advertiser_characters,id',
         ];
     }
 
