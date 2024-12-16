@@ -74,6 +74,12 @@ class HamzRoleSeeder extends Seeder
             ['name' => 'coupon.subscriptions.index'],
 
 
+            ['name' => 'hamz.sliders.index'],
+            ['name' => 'hamz.sliders.create'],
+            ['name' => 'hamz.sliders.update'],
+            ['name' => 'hamz.sliders.delete'],
+
+
             ['name' => 'hamz.users.index'],
             ['name' => 'hamz.users.create'],
             ['name' => 'hamz.users.update'],

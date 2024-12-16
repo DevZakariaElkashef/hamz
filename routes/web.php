@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\SettingController;
@@ -32,6 +33,15 @@ Route::middleware(['auth'])->group(function () {
         return view('index');
         // dd(auth()->user());
     })->name('home');
+
+
+    /**start Slider Routes */
+    Route::resource('sliders', SliderController::class);
+    Route::get('search-sliders', [SliderController::class, 'search'])->name('sliders.search');
+    Route::get('sliders-toggle-status/{slider}', [SliderController::class, 'toggleStatus'])->name('slider.toggleStatus');
+    Route::get('sliders-toggle-fixed-status/{slider}', [SliderController::class, 'toggleFixedStatus'])->name('slider.toggleFixedStatus');
+    Route::delete('delete-sliders', [SliderController::class, 'delete'])->name('sliders.delete');
+    /**end Slider Routes */
 
     /**start Slider Routes */
     Route::resource('contactTypes', ContactTypeController::class);

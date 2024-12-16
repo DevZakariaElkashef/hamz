@@ -38,4 +38,9 @@ trait AppScope
     {
         return $query->where('app', 'all');
     }
+
+    public function scopeHamzApps($query)
+    {
+        return $query->where('app', 'hamz');
+    }
 }
