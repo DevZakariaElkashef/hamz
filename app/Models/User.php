@@ -101,4 +101,21 @@ class User extends Authenticatable
     {
         return $this->belongsTo(AdvertiserCharacter::class, 'advertisercharacter_id');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
+
+    public function commenets()
+    {
+        return $this->hasMany(Commenets::class, 'user_id');
+    }
+
+    
 }

@@ -16,8 +16,18 @@ class SubCategory extends Model
     {
         return $this->attributes['name_' . app()->getLocale()];
     }
+    public function title()
+    {
+        return $this->attributes['name_' . app()->getLocale()];
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'sub_category_id');
     }
 }

@@ -52,6 +52,11 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    
+    public function markas()
+    {
+        return $this->hasMany(Marka::class, 'category_id');
+    }
 
     public function subCategories()
     {

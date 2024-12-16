@@ -12,4 +12,9 @@ class Color extends Model
     use HasFactory, AppScope, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function name()
+    {
+        return $this->attributes['name_' . app()->getLocale()];
+    }
 }

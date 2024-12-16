@@ -17,4 +17,9 @@ class ProductStatus extends Model
     {
         return $this->attributes['name_' . app()->getLocale()];
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'product_status_id');
+    }
 }

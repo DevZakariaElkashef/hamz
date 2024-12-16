@@ -12,6 +12,20 @@ class Notification extends Model
     use HasFactory, AppScope, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function title()
+    {
+        return $this->attributes['title_' . app()->getLocale()];
+    }
+    public function message()
+    {
+        return $this->attributes['message_' . app()->getLocale()];
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

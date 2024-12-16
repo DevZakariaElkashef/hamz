@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Traits\AppScope;
 use App\Traits\FilterScope;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Contact extends Model
 {
@@ -24,6 +25,11 @@ class Contact extends Model
                     $store->where('name_ar', 'like', "%$search%")
                     ->orWhere('name_ar', 'like', "%$search%");
                 });
+    }
+
+    public function getCreatedAtAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->format('Y-m-d');
     }
 
     public function contactType()

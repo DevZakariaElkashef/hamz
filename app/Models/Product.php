@@ -149,25 +149,49 @@ class Product extends Model
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
-    public function favourities()
-    {
-        return $this->hasMany(Favourite::class, 'product_id');
-    }
 
-    public function city()
-    {
-        return $this->belongsTo(City::class, 'city_id');
-    }
     public function subCategory()
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
+
+    public function marka()
+    {
+        return $this->belongsTo(Marka::class, 'marka_id');
+    }
+
+
+    public function favourities()
+    {
+        return $this->hasMany(Favourite::class, 'product_id');
+    }
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function model()
+    {
+        return $this->belongsTo(ModelTypes::class, 'model_id');
+    }
+    public function color()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
+    }
+    public function fuel()
+    {
+        return $this->belongsTo(FuelType::class, 'fuel_id');
+    }
     public function ProductSatus()
     {
         return $this->belongsTo(ProductStatus::class, 'product_status_id');
+    }
+    public function pushType()
+    {
+        return $this->belongsTo(CarPush::class, 'push_id');
     }
 }

@@ -31,4 +31,9 @@ class City extends Model
     {
         return $this->attributes['name_' . app()->getLocale()];
     }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
 }
