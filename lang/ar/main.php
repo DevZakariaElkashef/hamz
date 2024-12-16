@@ -333,6 +333,7 @@ return
         "apps" => 'التطبيقات',
         'edit_app' => 'تعديل',
         "rfoof" => "رفوف",
+
         "Used_Market" => "السوق المستعمل",
         "usedmarket" => "السوق المستعمل",
         "coupons_app" => "تطبيق الكوبونات",
