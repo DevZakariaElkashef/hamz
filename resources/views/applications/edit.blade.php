@@ -13,14 +13,14 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('applications.index') }}">{{ __('main.applications') }}</a></span>
+                        href="{{ route('apps.index') }}">{{ __('main.applications') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('applications.edit', $application->id) }}">{{ __('main.edit_application') }}</a></span>
+                        href="{{ route('apps.edit', $application->id) }}">{{ __('main.edit_application') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('applications.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
+                <a href="{{ route('apps.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('applications.update', $application->id) }}" data-parsley-validate=""
+                    <form method="post" action="{{ route('apps.update', $application->id) }}" data-parsley-validate=""
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf

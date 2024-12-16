@@ -22,7 +22,7 @@
                     <td>{{ $application->url }}</td>
 
                     <td>
-                        <a href="{{ route('applications.edit', $application->id) }}"
+                        <a href="{{ route('apps.edit', $application->id) }}"
                             class="btn btn-secondary">{{ __('main.edit') }}</a>
                     </td>
                 </tr>
