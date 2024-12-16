@@ -44,7 +44,7 @@ class ChatController extends Controller
     }
     public function sendMessage(Request $request)
     {
-        try {
+        // try {
             $product = Product::find($request->product_id);
             if ($product->user_id == $request->user()->id) {
                 $message = Chat::find($request->chat_id);
@@ -75,9 +75,9 @@ class ChatController extends Controller
             $messages = ChatResource::collection(Chat::usedMarket()->where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
 
             return $this->returnData("data", ['messages' => $messages], __('main.returnData'));
-        } catch (\Throwable $e) {
-            return $this->returnError(403, $e->getMessage());
-        }
+        // } catch (\Throwable $e) {
+        //     return $this->returnError(403, $e->getMessage());
+        // }
     }
 
     public function getChats(Request $request)
