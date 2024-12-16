@@ -68,6 +68,7 @@ class ChatController extends Controller
                     'app' => 'resale'
                 ]);
                 $firebase = new FireBasePushNotification();
+                dd($message->seller);
                 $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
             return $this->returnSuccess(200, __('main.sendMessage'));
