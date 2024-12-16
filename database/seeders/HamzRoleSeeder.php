@@ -80,6 +80,8 @@ class HamzRoleSeeder extends Seeder
             ['name' => 'hamz.sliders.delete'],
 
 
+
+
             ['name' => 'hamz.users.index'],
             ['name' => 'hamz.users.create'],
             ['name' => 'hamz.users.update'],
@@ -123,6 +125,10 @@ class HamzRoleSeeder extends Seeder
             ['name' => 'hamz.socials.delete'],
 
             ['name' => 'hamz.applications.index'],
+            ['name' => 'hamz.applications.create'],
+            ['name' => 'hamz.applications.update'],
+            ['name' => 'hamz.applications.delete'],
+
         ];
 
         foreach ($permissions as $permission) {

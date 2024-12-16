@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ApplicationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\RoleController;
@@ -41,6 +42,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sliders-toggle-status/{slider}', [SliderController::class, 'toggleStatus'])->name('slider.toggleStatus');
     Route::get('sliders-toggle-fixed-status/{slider}', [SliderController::class, 'toggleFixedStatus'])->name('slider.toggleFixedStatus');
     Route::delete('delete-sliders', [SliderController::class, 'delete'])->name('sliders.delete');
+    /**end Slider Routes */
+
+    /**start Slider Routes */
+    Route::resource('apps', ApplicationController::class);
+    Route::get('search-apps', [ApplicationController::class, 'search'])->name('apps.search');
+    Route::get('apps-toggle-status/{app}', [ApplicationController::class, 'toggleStatus'])->name('app.toggleStatus');
+    Route::get('apps-toggle-fixed-status/{app}', [ApplicationController::class, 'toggleFixedStatus'])->name('slider.toggleFixedStatus');
+    Route::delete('delete-apps', [ApplicationController::class, 'delete'])->name('apps.delete');
     /**end Slider Routes */
 
     /**start Slider Routes */
