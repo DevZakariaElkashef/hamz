@@ -29,9 +29,9 @@ class ApplicationRepository
 
     public function store($request)
     {
-        $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request->file('image'), 'applications');
+        $data = $request->except('logo');
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $this->uploadImage($request->file('logo'), 'applications');
         }
         unset($data['_token']);
         $application = Application::create($data);
@@ -45,9 +45,9 @@ class ApplicationRepository
 
     public function update($request, $application)
     {
-        $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request->file('image'), 'applications', $application->image);
+        $data = $request->except('logo');
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $this->uploadImage($request->file('logo'), 'applications', $application->logo);
         }
         unset($data['_token'], $data['_method']);
         $application->update($data);
