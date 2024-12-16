@@ -13,6 +13,40 @@ class ApplicationSeeder extends Seeder
      */
     public function run(): void
     {
-        Application::factory()->create();
+        Application::create([
+            'name_ar' => 'المولات',
+            'name_en' => 'mall',
+            'logo' => 'test.jpg'
+        ]);
+
+        Application::create([
+            'name_ar' => 'البوثات',
+            'name_en' => 'Booth',
+            'logo' => 'test.jpg'
+        ]);
+
+        Application::create([
+            'name_ar' => 'شاهد وإكسب',
+            'name_en' => 'Watch_And_Win',
+            'logo' => 'test.jpg'
+        ]);
+
+        Application::create([
+            'name_ar' => 'تطبيق الكوبونات',
+            'name_en' => 'coupons_app',
+            'logo' => 'test.jpg'
+        ]);
+
+        Application::create([
+            'name_ar' => 'السوق المستعمل',
+            'name_en' => 'Used_Market',
+            'logo' => 'test.jpg'
+        ]);
+
+        Application::create([
+            'name_ar' => 'رفوف',
+            'name_en' => 'rfoof',
+            'logo' => 'test.jpg'
+        ]);
     }
 }
