@@ -42,61 +42,8 @@
                         @method('PUT')
                         @csrf
                         <div class="row">
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.name') }}(AR): <span
-                                        class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_ar" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_ar') ?? $app->name_ar }}">
-                                @error('name_ar')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.name') }}(EN): <span
-                                        class="tx-danger">*</span></label>
-                                <input class="form-control" name="name_en" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('name_en') ?? $app->name_en }}">
-                                @error('name_en')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.url') }}:</label>
-                                <input class="form-control" name="url" placeholder="{{ __('main.enter_name') }}"
-                                    type="url" value="{{ old('url') ?? $app->url }}">
-                                @error('url')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active', $app->is_active) == 0) selected @endif>
-                                        {{ __('main.not_active') }}</option>
-                                    <option value="1" @if (old('is_active', $app->is_active) == 1) selected @endif>
-                                        {{ __('main.active') }}</option>
-                                </select>
-                                @error('is_active')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.fixed') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control" name="is_fixed">
-                                    <option value="0" @if (old('is_fixed', $app->is_fixed) == 0) selected @endif>
-                                        {{ __('main.no') }}</option>
-                                    <option value="1" @if (old('is_fixed', $app->is_fixed) == 1) selected @endif>
-                                        {{ __('main.yes') }}</option>
-                                </select>
-                                @error('is_fixed')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6 form-group mt-4">
+                            <div class="col-md-12 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
                                     <input class="custom-file-input" id="customFile" type="file" name="image">
