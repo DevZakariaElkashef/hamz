@@ -8,7 +8,7 @@ use Google\Auth\HttpHandler\HttpHandlerFactory;
 class FireBasePushNotification
 {
 
-    private $url = 'https://fcm.googleapis.com/v1/projects/yourmarket-34468/messages:send';
+    private $url = 'https://fcm.googleapis.com/v1/projects/hamz-52a65/messages:send';
     private $scope = "https://www.googleapis.com/auth/firebase.messaging";
     private $token;
 
@@ -16,7 +16,7 @@ class FireBasePushNotification
     {
 
         // Provide the path where you stored the json token, in my case, I stored it in database
-        $creadentials = new ServiceAccountCredentials($this->scope, storage_path('app/firebase-service-account.json'));
+        $creadentials = new ServiceAccountCredentials($this->scope, storage_path('app/hamz-firebase.json'));
         $this->token = $creadentials->fetchAuthToken(HttpHandlerFactory::build());
     }
 
