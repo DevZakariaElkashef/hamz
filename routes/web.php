@@ -28,6 +28,10 @@ use App\Http\Controllers\Admin\ContactTypeController;
 
 require __DIR__ . '/auth.php';
 
+Route::get('join-as-vendor', [VendorController::class, 'join']);
+
+
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', function () {
@@ -35,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
         // dd(auth()->user());
     })->name('home');
 
-    Route::get('join-as-vendor', VendorController::class, 'join');
+
 
     /**start Slider Routes */
     Route::resource('sliders', SliderController::class);
