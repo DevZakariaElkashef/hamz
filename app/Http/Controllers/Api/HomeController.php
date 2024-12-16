@@ -18,7 +18,7 @@ class HomeController extends Controller
 
         $data = [
             'ad' => $ad ? new SliderResource($ad) : null,
-            'sliders' => SliderResource::collection(Slider::hamz()->active()->nonFixed()->get()),
+            'sliders' => SliderResource::collection(Slider::hamz()->active()->scrollable()->get()),
             // 'apps' => SectionResource::collection(Section::mall()->active()->latest()->take(4)->get()),
         ];
 
