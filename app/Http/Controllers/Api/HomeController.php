@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\Api\AppImageResource;
+use App\Models\Application;
 use App\Models\Slider;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -19,7 +21,7 @@ class HomeController extends Controller
         $data = [
             'ad' => $ad ? new SliderResource($ad) : null,
             'sliders' => SliderResource::collection(Slider::hamz()->active()->scrollable()->get()),
-            // 'apps' => SectionResource::collection(Section::mall()->active()->latest()->take(4)->get()),
+            'apps' => AppImageResource::collection(Application::where('id', '!=', 1)->get()),
         ];
 
         return $this->sendResponse(200, $data);
