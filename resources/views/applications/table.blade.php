@@ -14,8 +14,8 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $apps->name }}</td>
                     <td>
-                        <a href="{{ asset($apps->image) }}" download>
-                            <img src="{{ asset($apps->image) }}" style="display: inline-block; border-radius: 50%;"
+                        <a href="{{ asset($apps->logo) }}" download>
+                            <img src="{{ asset($apps->logo) }}" style="display: inline-block; border-radius: 50%;"
                                 width="40" height="40" alt="">
                         </a>
                     </td>

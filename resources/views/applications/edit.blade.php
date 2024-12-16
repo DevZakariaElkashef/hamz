@@ -46,8 +46,8 @@
                             <div class="col-md-12 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
-                                    <input class="custom-file-input" id="customFile" type="file" name="image">
-                                    @error('image')
+                                    <input class="custom-file-input" id="customFile" type="file" name="logo">
+                                    @error('logo')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
