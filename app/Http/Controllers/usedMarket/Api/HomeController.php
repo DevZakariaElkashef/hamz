@@ -175,6 +175,15 @@ class HomeController extends Controller
                 return $query->where('city_id', $request->city_id);
             });
 
+            if ($request->has('search') && !empty($request->search)) {
+                $searchTerm = $request->search;
+                // Assuming you're searching by product name or description
+                $products = $products->where(function ($query) use ($searchTerm) {
+                    $query->where('name_ar', 'like', "%{$searchTerm}%")
+                        ->orWhere('name_en', 'like', "%{$searchTerm}%");
+                        // ->orWhere('description', 'like', "%{$searchTerm}%"); // Add other fields as necessary
+                });
+            }
             // Handle sorting filters
             if ($request->filter_id) {
                 if ($request->filter_id == 1) {
@@ -204,6 +213,7 @@ class HomeController extends Controller
                 }
                 $products = ProductResource::collection($products->paginate(30));
             }
+
             // Paginate the result and return it as a resource collection
             if (!$request->filter_id) {
                 $products = ProductResource::collection($products->latest()->paginate(30));
