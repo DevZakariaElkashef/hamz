@@ -41,7 +41,7 @@ class SubCategoryController extends Controller
             'name_en' => $request->name_en,
             'image' => $imageName,
             'category_id' => $request->category_id,
-            'app' => 'usedMarket'
+            'app' => 'resale'
         ]);
         return redirect()->route('usedMarket.subCategories')->with('success', __('messages.add_category'));
     }
