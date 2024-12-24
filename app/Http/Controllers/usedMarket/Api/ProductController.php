@@ -136,6 +136,16 @@ class ProductController extends Controller
         }
     }
 
+    public function productComments(Request $request)
+    {
+        try{
+            $comments = Commenets::where('product_id', $request->product_id)->get();
+            return $this->returnData("data", ["comments" => $comments], __('main.returnData'));
+        } catch (\Throwable $e) {
+            return $this->returnError(403, $e->getMessage());
+        }
+    }
+
     public function sellerProducts(Request $request)
     {
         try{

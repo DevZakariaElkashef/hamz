@@ -165,6 +165,10 @@ class Product extends Model
     {
         return $this->hasMany(Favourite::class, 'product_id');
     }
+    public function commenets()
+    {
+        return $this->hasMany(Commenets::class, 'product_id');
+    }
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');

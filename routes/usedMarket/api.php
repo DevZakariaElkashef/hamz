@@ -36,6 +36,7 @@ Route::group(['middleware' => ['api']], function () {
 
 });
 Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
+    Route::get('productComments', [ProductController::class, 'productComments']);
     Route::post('addProduct', [ProductController::class, 'addProduct']);
     Route::post('updateProduct', [ProductController::class, 'updateProduct']);
     Route::get('deleteImage', [ProductController::class, 'deleteImage']);

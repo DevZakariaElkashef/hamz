@@ -23,6 +23,8 @@ class ProductResource extends JsonResource
         } else {
             $favouriteType = false;
         }
+        $commentsCount = $this->commenets ? $this->commenets->count() : 0;
+        $avgRating = $this->commenets ? $this->commenets->avg('rate') : 0;
         return [
             'id' => $this->id,
             'unique_number' => $this->unique_number,
@@ -75,6 +77,8 @@ class ProductResource extends JsonResource
             'adsOwnerDetials' => UserResource::make($this->user),
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d'),
             'time_ago' => Carbon::createFromTimeStamp(strtotime($this->created_at))->locale(app()->getLocale())->diffForHumans(),
+            'comments_count' => $commentsCount,
+            'avg_rating' => $avgRating,
         ];
     }
 }
