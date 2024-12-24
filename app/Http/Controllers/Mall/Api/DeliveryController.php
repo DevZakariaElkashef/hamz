@@ -41,15 +41,21 @@ class DeliveryController extends Controller
     {
         $user = $request->user();
         $user->load('cart.items.product.store');
-        $item = $user->cart->items->first();
+        $cart = $user->cart->first();
+        $item = $cart?->items?->first() ?? null;
 
-        $delivery = $this->deliveryRepository->calculateDelivery(
-            $item->product->store,
-            $request
-        );
+        if ($item) {
 
-        $this->deliveryRepository->updateCartDelivery($user, $delivery);
+            $delivery = $this->deliveryRepository->calculateDelivery(
+                $item->product->store,
+                $request
+            );
 
-        return $this->sendResponse(200, ['delivery' => $delivery]);
+            $this->deliveryRepository->updateCartDelivery($user, $delivery);
+
+            return $this->sendResponse(200, ['delivery' => $delivery]);
+        }
+
+        return $this->sendResponse(400, [], __("main.fill_cart_first"));
     }
 }
