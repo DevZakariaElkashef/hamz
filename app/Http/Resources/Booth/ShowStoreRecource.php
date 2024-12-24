@@ -17,6 +17,7 @@ class ShowStoreRecource extends JsonResource
         $products = $this->filterProductsByCategory($request);
 
         return [
+            'store_id' => $this->id,
             'images' => $this->getImageCollection(),
             'logo' => $this->getLogoUrl(),
             'name' => $this->name ?? '',
