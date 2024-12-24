@@ -23,6 +23,7 @@ return
         'create' => 'إنشاء',
         'back' => 'رجوع',
         'enter_name' => 'أدخل الاسم',
+        'order_cancleed_success' => 'تم الغاء الطلب بنجاح',
         'created_successffully' => 'تم الإنشاء بنجاح',
         'updated_successffully' => 'تم التحديث بنجاح',
         'delete_successffully' => 'تم الحذف بنجاح',

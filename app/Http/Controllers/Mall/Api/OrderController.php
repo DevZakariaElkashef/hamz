@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mall\Api;
 
+use App\Http\Requests\Mall\Api\CancleOrderRequest;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Traits\ApiResponse;
@@ -13,6 +14,7 @@ use App\Http\Resources\Mall\OrderStatusResource;
 use App\Http\Resources\Mall\ShowOrderResource;
 use App\Models\OrderStatus;
 use App\Models\Product;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -88,5 +90,18 @@ class OrderController extends Controller
 
 
         return $this->sendResponse(200, '', __("main.order_created_success"));
+    }
+
+    public function cancle(CancleOrderRequest $request)
+    {
+        $order = Order::find($request->order_id);
+
+        $order->update([
+            'order_status_id' => 5,
+            'cancle_reason_id' => $request->reason_id,
+            'cancle_reason' => $request->reason_text ?? '',
+        ]);
+
+        return $this->sendResponse(200, '', __("main.order_cancleed_success"));
     }
 }
