@@ -8,7 +8,15 @@ class DeliveryRepository
 {
     public function getDeliveryOptions($store)
     {
-        $data = DeliveryCompany::all()->pluck(['id', 'name_' . app()->getLocale()])->toArray();
+        $data = DeliveryCompany::all()
+            ->map(function ($company) {
+                return [
+                    'id' => $company->id,
+                    'name' => $company->{'name_' . app()->getLocale()},
+                ];
+            })
+            ->toArray();
+
 
         if ($store->delivery_type) {
             $data[] = ['id' => 3, 'name' => 'store_delivery'];
