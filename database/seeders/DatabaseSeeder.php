@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             AdvertiserCharactersSeeder::class,
             DirectionSeeder::class,
             ProductStatusSeeder::class,
+            DeliveryCompanySeeder::class,
             CitySeeder::class,
             UserSeeder::class,
             SliderSeeder::class,

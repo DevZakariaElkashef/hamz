@@ -2,14 +2,13 @@
 
 namespace App\Repositories\Mall;
 
+use App\Models\DeliveryCompany;
+
 class DeliveryRepository
 {
     public function getDeliveryOptions($store)
     {
-        $data = [
-            ['id' => 1, 'name' => 'company one'],
-            ['id' => 2, 'name' => 'company two']
-        ];
+        $data = DeliveryCompany::all()->pluck(['id', 'name_' . app()->getLocale()])->toArray();
 
         if ($store->delivery_type) {
             $data[] = ['id' => 3, 'name' => 'store_delivery'];

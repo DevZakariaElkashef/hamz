@@ -1,0 +1,25 @@
+
+   INFO  Seeding database.  
+
+
+   Illuminate\Contracts\Container\BindingResolutionException 
+
+  Target class [Database\Seeders\$table-;] does not exist.
+
+  at vendor\laravel\framework\src\Illuminate\Container\Container.php:914
+    [90m910[0m[90m▕ [0m
+    [90m911[0m[90m▕ [0m[35;1m        try {[0m
+    [90m912[0m[90m▕ [0m[35;1m            [0m[39;1m$reflector [0m[35;1m= new [0m[39;1mReflectionClass[0m[35;1m([0m[39;1m$concrete[0m[35;1m);[0m
+    [90m913[0m[90m▕ [0m[35;1m        } catch ([0m[39;1mReflectionException $e[0m[35;1m) {[0m
+[31;1m  ➜ [0m[3;1m914[0m[90m▕ [0m[35;1m            throw new [0m[39;1mBindingResolutionException[0m[35;1m([0m[37m"Target class [[0m[39;1m$concrete[0m[37m] does not exist."[0m[35;1m, [0m[39;1m0[0m[35;1m, [0m[39;1m$e[0m[35;1m);[0m
+    [90m915[0m[90m▕ [0m[35;1m        }[0m
+    [90m916[0m[90m▕ [0m
+    [90m917[0m[90m▕ [0m[35;1m        [0m[90;3m// If the type is not instantiable, the developer is attempting to resolve[0m
+    [90m918[0m[90m▕ [0m[90;3m        // an abstract type such as an Interface or Abstract Class and there is[0m
+
+  1   vendor\laravel\framework\src\Illuminate\Container\Container.php:912
+      ReflectionException::("Class "Database\Seeders\$table-;" does not exist")
+
+  2   vendor\laravel\framework\src\Illuminate\Container\Container.php:912
+      ReflectionClass::__construct("Database\Seeders\$table-;")
+
