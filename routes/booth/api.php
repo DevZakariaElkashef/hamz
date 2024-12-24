@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Booth\Api\CartController;
-use App\Http\Controllers\Booth\Api\DeliveryController;
-use App\Http\Controllers\Booth\Api\FavouriteController;
 use App\Http\Controllers\Booth\Api\HomeController;
 use App\Http\Controllers\Booth\Api\OrderController;
 use App\Http\Controllers\Booth\Api\StoreController;
 use App\Http\Controllers\Booth\Api\ProductController;
 use App\Http\Controllers\Booth\Api\SectionController;
+use App\Http\Controllers\Booth\Api\DeliveryController;
+use App\Http\Controllers\Booth\Api\FavouriteController;
+use App\Http\Controllers\Mall\Api\CancleOrderReasonController;
 
 // =============================================================================
 //                                 HOME ROUTE
@@ -97,7 +98,11 @@ Route::middleware(['api', 'auth:sanctum'])->group(function () {
     Route::get('order_statuses', [OrderController::class, 'viewStatuses']);
     Route::get('my_orders', [OrderController::class, 'index']);
     Route::get('show_orders/{order}', [OrderController::class, 'show']);
-    Route::post('make_order', [OrderController::class, 'store']);
+    Route::post('cancle-order', [OrderController::class, 'cancle']);
     // -------------------------------
+
+
+    // cancle order reasons
+    Route::get('cancle-order-reasons', [CancleOrderReasonController::class, 'index']);
 });
 // =============================================================================

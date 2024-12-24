@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Booth\Api;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\OrderStatus;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Booth\OrderResource;
-use App\Http\Requests\Booth\Api\MakeOrderRrequest;
-use App\Http\Resources\Booth\OrderStatusResource;
 use App\Http\Resources\Booth\ShowOrderResource;
-use App\Models\OrderStatus;
-use App\Models\Product;
+use App\Http\Resources\Booth\OrderStatusResource;
+use App\Http\Requests\Booth\Api\MakeOrderRrequest;
+use App\Http\Requests\Mall\Api\CancleOrderRequest;
 
 class OrderController extends Controller
 {
@@ -88,5 +89,23 @@ class OrderController extends Controller
 
 
         return $this->sendResponse(200, '', __("main.order_created_success"));
+    }
+
+
+    public function cancle(CancleOrderRequest $request)
+    {
+        $order = Order::find($request->order_id);
+
+        if ($order->order_status_id == 5) {
+            return $this->sendResponse(200, '', __("main.order_created_already"));
+        }
+
+        $order->update([
+            'order_status_id' => 5,
+            'cancle_reason_id' => $request->reason_id,
+            'cancle_reason' => $request->reason_text ?? '',
+        ]);
+
+        return $this->sendResponse(200, '', __("main.order_cancleed_success"));
     }
 }
