@@ -24,6 +24,7 @@ return
         'back' => 'رجوع',
         'enter_name' => 'أدخل الاسم',
         'order_cancleed_success' => 'تم الغاء الطلب بنجاح',
+        'order_created_already' => 'ملغى بالفعل',
         'created_successffully' => 'تم الإنشاء بنجاح',
         'updated_successffully' => 'تم التحديث بنجاح',
         'delete_successffully' => 'تم الحذف بنجاح',

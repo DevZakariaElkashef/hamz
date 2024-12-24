@@ -96,6 +96,10 @@ class OrderController extends Controller
     {
         $order = Order::find($request->order_id);
 
+        if ($order->order_status_id == 5) {
+            return $this->sendResponse(200, '', __("main.order_created_already"));
+        }
+
         $order->update([
             'order_status_id' => 5,
             'cancle_reason_id' => $request->reason_id,
