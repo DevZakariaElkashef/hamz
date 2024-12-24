@@ -59,7 +59,7 @@ class DeliveryRepository
     {
         if ($user && $user->cart) {
 
-            $user->cart->update([
+            $user->cart()->update([
                 'delivery' => $delivery
             ]);
 
