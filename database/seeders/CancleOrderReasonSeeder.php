@@ -25,12 +25,12 @@ class CancleOrderReasonSeeder extends Seeder
 
         CancleOrderReason::create([
             'name_ar' => 'معلش',
-            'name_en' => 'reason 2'
+            'name_en' => 'reason 3'
         ]);
 
         CancleOrderReason::create([
             'name_ar' => 'اخرى',
-            'name_en' => 'reason 2'
+            'name_en' => 'reason 4'
         ]);
     }
 }
