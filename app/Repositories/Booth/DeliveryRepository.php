@@ -13,6 +13,7 @@ class DeliveryRepository
                 return [
                     'id' => $company->id,
                     'name' => $company->{'name_' . app()->getLocale()},
+                    'color' => str_replace('#', '', $company->color)
                 ];
             })
             ->toArray();
