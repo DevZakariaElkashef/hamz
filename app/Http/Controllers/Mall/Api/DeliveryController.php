@@ -23,7 +23,9 @@ class DeliveryController extends Controller
     {
         $user = $request->user();
         $user->load('cart.items.product.store');
-        $item = $user?->cart?->items?->first() ?? null;
+        $cart = $user->cart->first();
+        $item = $cart?->items?->first() ?? null;
+
 
         if ($item) {
             $store = $item->product->store;
