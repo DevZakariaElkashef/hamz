@@ -56,10 +56,15 @@ class DeliveryRepository
 
     public function updateCartDelivery($user, $delivery)
     {
-        $user->cart->update([
-            'delivery' => $delivery
-        ]);
+        if ($user && $user->cart) {
 
-        return true;
+            $user->cart->update([
+                'delivery' => $delivery
+            ]);
+
+            return true;
+        }
+
+        return false;
     }
 }
