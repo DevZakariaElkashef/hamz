@@ -19,11 +19,11 @@ class DeliveryRepository
             ->toArray();
 
         if ($store->delivery_type) {
-            $data[] = ['id' => 3, 'name' => 'store_delivery'];
+            $data[] = ['id' => 3, 'name' => 'store_delivery', 'color' => 'b2b2b2'];
         }
 
         if ($store->pickup) {
-            $data[] = ['id' => 4, 'name' => 'pick up from the store'];
+            $data[] = ['id' => 4, 'name' => 'pick up from the store', 'color' => 'b2b2b2'];
         }
 
         return $data;
