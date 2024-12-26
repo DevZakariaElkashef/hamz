@@ -27,7 +27,7 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $data = CartStoreResource::collection($user->cart);
+        $data = CartStoreResource::collection($user->mallCart);
         return $this->sendResponse(200, $data);
     }
 

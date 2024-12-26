@@ -16,8 +16,10 @@ class CartStoreResource extends JsonResource
     {
         return [
             'cart_id' => $this->id,
-            'store_id' => $this->store->name ?? '',
-            'store_name' => $this->store && $this->store->image ? asset($this->store->image) : '',
+            'store_id' => $this->store->id ?? 0,
+            'store_name' => $this->store->name ?? '',
+            'store_image' => $this->store && $this->store->image ? asset($this->store->image) : '',
+            'app' => $this->app ?? '',
         ];
     }
 }

@@ -67,6 +67,16 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
+    public function mallCart()
+    {
+        return $this->hasMany(Cart::class)->where('app', 'mall');
+    }
+
+    public function boothCart()
+    {
+        return $this->hasMany(Cart::class)->where('app', 'booth');
+    }
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class);
