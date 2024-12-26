@@ -87,6 +87,16 @@ class User extends Authenticatable
         return $this->hasMany(Favourite::class);
     }
 
+    public function mallFavourites()
+    {
+        return $this->hasMany(Favourite::class)->where('app', 'mall');
+    }
+
+    public function boothFavourites()
+    {
+        return $this->hasMany(Favourite::class)->where('app', 'booth');
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);

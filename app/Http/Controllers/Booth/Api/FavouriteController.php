@@ -9,6 +9,7 @@ use App\Http\Resources\Booth\ProductsInStorePageResource;
 use App\Http\Resources\Booth\StoreRecource;
 use App\Models\Favourite;
 use App\Models\Product;
+use App\Models\Store;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class FavouriteController extends Controller
     public function productIndex(Request $request)
     {
         $user = $request->user();
-        $products = Product::whereIn('id', $user->favourites()->pluck('product_id')->toArray())->get();
+        $products = Product::whereIn('id', $user->boothFavourites()->pluck('product_id')->toArray())->get();
         $products = ProductsInStorePageResource::collection($products);
         return $this->sendResponse(200, $products);
     }
@@ -27,21 +28,23 @@ class FavouriteController extends Controller
     public function storeIndex(Request $request)
     {
         $user = $request->user();
-        $stores = Product::whereIn('id', $user->favourites()->pluck('store_id')->toArray())->get();
+        $stores = Store::whereIn('id', $user->boothFavourites()->pluck('store_id')->toArray())->get();
         $stores = StoreRecource::collection($stores);
         return $this->sendResponse(200, $stores);
     }
 
     public function toggleProductFavourite(ProductFavouriteRequest $request)
     {
-        $check = Favourite::where('product_id', $request->product_id)->first();
+        $check = Favourite::where('product_id', $request->product_id)
+        ->where('app', "booth")->first();
         if ($check) {
             $check->delete();
             $message = __("main.product_delete_from_favourite");
         } else {
             Favourite::create([
                 'user_id' => $request->user()->id,
-                'product_id' => $request->product_id
+                'product_id' => $request->product_id,
+                'app' => "booth"
             ]);
             $message = __("main.product_added_to_favourite");
         }
@@ -51,14 +54,16 @@ class FavouriteController extends Controller
 
     public function toggleStoreFavourite(StoreFavouriteRequest $request)
     {
-        $check = Favourite::where('store_id', $request->store_id)->first();
+        $check = Favourite::where('store_id', $request->store_id)
+        ->where('app', "booth")->first();
         if ($check) {
             $check->delete();
             $message = __("main.store_delete_from_favourite");
         } else {
             Favourite::create([
                 'user_id' => $request->user()->id,
-                'store_id' => $request->store_id
+                'store_id' => $request->store_id,
+                'app' => "booth"
             ]);
             $message = __("main.store_added_to_favourite");
         }
