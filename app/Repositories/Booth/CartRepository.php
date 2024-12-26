@@ -11,7 +11,7 @@ class CartRepository
     {
         $user = $request->user();
         $product = Product::find($request->product_id);
-        $cart = Cart::firstOrCreate(['user_id' => $user->id, 'store_id' => $product->store->id]);
+        $cart = Cart::firstOrCreate(['user_id' => $user->id, 'store_id' => $product->store->id, 'app' => "booth"]);
 
         $item = $cart->items->where('product_id', $request->product_id)->first();
 
@@ -23,7 +23,8 @@ class CartRepository
         } else {
             $cart->items()->create([
                 'product_id' => $request->product_id,
-                'qty' => $request->qty
+                'qty' => $request->qty,
+                'app' => "booth"
             ]);
             $message = __("main.added_to_cart_success");
         }
