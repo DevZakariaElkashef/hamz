@@ -4,6 +4,7 @@ namespace App\Repositories\Booth;
 
 use App\Models\Cart;
 use App\Models\Product;
+use DB;
 
 class CartRepository
 {
@@ -34,8 +35,9 @@ class CartRepository
 
     public function delete($request)
     {
-        $cart = Cart::find($request->cart_id);
-        $cart->items()->where('product_id', $request->product_id)->forceDelete();
+        // $cart = Cart::find($request->cart_id);
+        // $cart->items()->where('product_id', $request->product_id)->forceDelete();
+        DB::table('cart_items')->where('product_id', $request->product_id)->delete();
         return __("main.delete_successffully");
     }
 }

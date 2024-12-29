@@ -23,7 +23,7 @@ class DeleteItemFromCartRequest extends BaseApiRequest
     {
         return [
             'product_id' => 'required|exists:products,id',
-            'cart_id' => 'required|exists:carts,id'
+            // 'cart_id' => 'required|exists:carts,id'
         ];
     }
 
