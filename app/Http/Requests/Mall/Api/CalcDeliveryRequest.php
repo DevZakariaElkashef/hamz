@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Mall\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CalcDeliveryRequest extends BaseApiRequest
 {
@@ -24,7 +25,14 @@ class CalcDeliveryRequest extends BaseApiRequest
         return [
             'delivery_type' => 'required|in:1,2,3,4',
             'lat' => 'required',
-            'lng' => 'required'
+            'lng' => 'required',
+            'cart_id' => [
+            'required',
+                Rule::exists('carts', 'id')->where(function ($query) {
+                    $query->where('user_id', request()->user()->id)
+                    ->where('app', 'mall');
+                })
+            ]
         ];
     }
 }

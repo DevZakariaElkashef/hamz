@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Booth\Api;
 
+use App\Models\Cart;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,22 +39,16 @@ class DeliveryController extends Controller
 
     public function calcDelivery(CalcDeliveryRequest $request)
     {
-        $user = $request->user();
-        $user->load('cart.items.product.store');
-        $cart = $user->cart->first();
-        $item = $cart?->items?->first() ?? null;
-
-        if ($item) {
-
+        $cart = Cart::findOrFail($request->cart_id);
+        if ($cart) {
             $delivery = $this->deliveryRepository->calculateDelivery(
-                $item->product->store,
+                $cart->store,
                 $request
             );
-
-            $this->deliveryRepository->updateCartDelivery($user, $delivery);
-
+            $this->deliveryRepository->updateCartDelivery($cart, $delivery);
             return $this->sendResponse(200, ['delivery' => $delivery]);
         }
+
         return $this->sendResponse(400, [], __("main.fill_cart_first"));
     }
 }
