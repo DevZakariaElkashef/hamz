@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mall\Api\CalcDeliveryRequest;
 use App\Repositories\Mall\DeliveryRepository;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class DeliveryController extends Controller
 {
@@ -22,16 +24,44 @@ class DeliveryController extends Controller
 
     public function index(Request $request)
     {
-        $user = $request->user();
-        $user->load('cart.items.product.store');
-        $cart = $user->cart->first();
-        $item = $cart?->items?->first() ?? null;
+        // Validate the cart_id
+        try {
+            $validated = $request->validate([
+                'cart_id' => [
+                    'required',
+                    Rule::exists('carts', 'id')->where(function ($query) use ($request) {
+                        $query->where('user_id', $request->user()->id)
+                            ->where('app', 'mall');
+                    }),
+                ],
+            ]);
+        }  catch (ValidationException $e) {
+            $errorMessage = $e->validator->errors()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $errorMessage,
+                'data' => ''
+            ], 400);
+        }
 
-
-        if ($item) {
-            $store = $item->product->store;
-            $data = $this->deliveryRepository->getDeliveryOptions($store);
-
+        $cart = Cart::find($request->cart_id);
+        if ($cart) {
+            $store = $cart->store;
+            $types = $this->deliveryRepository->getDeliveryOptions($store);
+            $data = [];
+            if($request->lat && $request->lng){
+                foreach ($types as $type) {
+                    $request->delivery_type = $type['id'];
+                    $delivery = $this->deliveryRepository->calculateDelivery(
+                        $store,
+                        $request
+                    );
+                    $type['delivery'] = number_format($delivery, 2, '.', '');
+                    $data [] = $type;
+                }
+            }else{
+                $data = $types;
+            }
             return $this->sendResponse(200, $data);
         }
 
