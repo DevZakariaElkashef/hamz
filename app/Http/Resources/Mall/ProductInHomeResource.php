@@ -23,6 +23,7 @@ class ProductInHomeResource extends JsonResource
             'store_id' => $this->store->id ?? 0,
             'store_name' => $this->store->name ?? '',
             'store_image' => $this->store && $this->store->image ? asset($this->store->image)  : '',
+            'is_fav' => count($this->favourities) > 0 ? 1 : 0 ,
         ];
     }
 }
