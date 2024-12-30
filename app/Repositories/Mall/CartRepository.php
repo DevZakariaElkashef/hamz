@@ -3,6 +3,7 @@
 namespace App\Repositories\Mall;
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Product;
 use DB;
 
@@ -35,9 +36,12 @@ class CartRepository
 
     public function delete($request)
     {
-        // $cart = Cart::find($request->cart_id);
-        // $cart->items()->where('product_id', $request->product_id)->forceDelete();
-        DB::table('cart_items')->where('product_id', $request->product_id)->delete();
+        $cartItem = CartItem::where('product_id', $request->product_id)->first();
+        $cart = Cart::find($cartItem->cart_id);
+        $cartItem->forceDelete();
+        if($cart->items()->count() < 1){
+            $cart->forceDelete();
+        }
         return __("main.delete_successffully");
     }
 }
