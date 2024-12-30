@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\usedMarket\Api;
 
+use App\Http\Resources\Usedmarket\SliderResource;
 use App\Models\City;
+use App\Models\Slider;
 use App\Models\Type;
 use App\Models\Color;
 use App\Models\Marka;
@@ -14,6 +16,7 @@ use App\Models\FuelType;
 use App\Models\Direction;
 use App\Models\ModelTypes;
 use App\Models\SubCategory;
+use App\Traits\ApiResponse;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use App\Models\ProductStatus;
@@ -36,7 +39,7 @@ use App\Http\Resources\Usedmarket\ProductStatusResource;
 
 class HomeController extends Controller
 {
-    use GeneralTrait;
+    use GeneralTrait, ApiResponse;
     public function __construct()
     {
         App::setLocale(request()->header('lang') ?? 'ar');
@@ -44,20 +47,15 @@ class HomeController extends Controller
     public function home()
     {
         try {
-            $products = HomeResource::collection(Category::usedMarket()->get())->toArray(request());
+            // $ad = Slider::usedMarket()->fixed()->first();
+            $data = [
+                // 'ad' => $ad ? new SliderResource($ad) : null,
+                'sliders' => SliderResource::collection(Slider::usedMarket()->active()->scrollable()->get()),
+                // 'sections' => SectionResource::collection(Section::usedMarket()->active()->with('stores')->latest()->take(4)->get()),
 
-            $data = [];
-            $data[0] = [
-                'id' => 0,
-                'name' => app()->getLocale() == 'ar' ? 'الكل' : 'All',
-                'image' => "",
-                'products' => ProductResource::collection(Product::usedMarket()->latest()->get())
             ];
 
-            // Merge the arrays
-            $mergedData = array_merge($data, $products);
-
-            return $this->returnData("data", ["products" => $mergedData], __('main.returnData'));
+            return $this->sendResponse(200, $data);
 
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
