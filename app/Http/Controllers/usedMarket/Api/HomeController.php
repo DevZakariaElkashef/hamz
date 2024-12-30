@@ -186,30 +186,29 @@ class HomeController extends Controller
             }
             // Handle sorting filters
             if ($request->filter_id) {
-                if ($request->filter_id == 1) {
+                if ($request->filter_id == 3) { //'price', 'DESC' => 3,'price', 'ASC' => 2, 'date', 'DESC' => any thing
                     // Sort by price descending
                     $products = $products->orderBy('price', 'DESC');
                 } elseif ($request->filter_id == 2) {
                     // Sort by price ascending
                     $products = $products->orderBy('price', 'ASC');
                 } else {
-                    // Sort by distance using Haversine formula
-                    $latitude = $request->lat;      // User's latitude
-                    $longitude = $request->long;    // User's longitude
-                    $radius = 20000; // Radius in kilometers
+                    $products = $products->orderBy('created_at', 'DESC');
+                    // $latitude = $request->lat;      // User's latitude
+                    // $longitude = $request->long;    // User's longitude
+                    // $radius = 20000; // Radius in kilometers
+                    // if ($latitude && $longitude && $radius) {
+                    //     $haversine = "(6371 * acos(cos(radians($latitude))
+                    //              * cos(radians(lat))
+                    //              * cos(radians(`long`) - radians($longitude))
+                    //             + sin(radians($latitude))
+                    //              * sin(radians(lat))))";
 
-                    if ($latitude && $longitude && $radius) {
-                        $haversine = "(6371 * acos(cos(radians($latitude))
-                                 * cos(radians(lat))
-                                 * cos(radians(`long`) - radians($longitude))
-                                + sin(radians($latitude))
-                                 * sin(radians(lat))))";
-
-                        $products = $products->select('*') // Select all columns
-                            ->addSelect(\DB::raw("$haversine AS distance_data")) // Add the distance calculation
-                            ->having("distance_data", "<", $radius) // Filter by the calculated distance
-                            ->orderBy("distance_data");
-                    }
+                    //     $products = $products->select('*') // Select all columns
+                    //         ->addSelect(\DB::raw("$haversine AS distance_data")) // Add the distance calculation
+                    //         ->having("distance_data", "<", $radius) // Filter by the calculated distance
+                    //         ->orderBy("distance_data");
+                    // }
                 }
                 $products = ProductResource::collection($products->paginate(30));
             }
