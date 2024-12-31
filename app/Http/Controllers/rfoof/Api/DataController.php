@@ -14,10 +14,10 @@ use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Usedmarket\CityResource;
-use App\Http\Resources\Usedmarket\ColorResource;
-use App\Http\Resources\Usedmarket\HomeResources;
-use App\Http\Requests\Usedmarket\Api\ContactRequest;
+use App\Http\Resources\rfoof\CityResource;
+use App\Http\Resources\rfoof\ColorResource;
+use App\Http\Resources\rfoof\HomeResources;
+use App\Http\Requests\rfoof\Api\ContactRequest;
 
 class DataController extends Controller
 {
@@ -129,7 +129,7 @@ class DataController extends Controller
     public function contactUs(ContactRequest $request)
     {
         try {
-            Contact::create(array_merge($request->all(), ['app' => 'resale']));
+            Contact::create(array_merge($request->all(), ['app' => 'rfoof']));
 
             return $this->returnSuccess(200, __('main.contactSuccess'));
         } catch (\Throwable $th) {

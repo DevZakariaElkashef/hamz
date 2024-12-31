@@ -8,7 +8,7 @@ use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Usedmarket\ProductResource;
+use App\Http\Resources\rfoof\ProductResource;
 
 class FavouriteController extends Controller
 {
@@ -37,7 +37,7 @@ class FavouriteController extends Controller
                 $favourite->delete();
                 return $this->returnSuccess(200, __('main.deleteFavourite'));
             }
-            favourite::create(['product_id' => $request->product_id, 'user_id' => $request->user()->id, 'app' => 'resale']);
+            favourite::create(['product_id' => $request->product_id, 'user_id' => $request->user()->id, 'app' => 'rfoof']);
             return $this->returnSuccess(200, __('main.addfavourite'));
 
         } catch (\Throwable $e) {

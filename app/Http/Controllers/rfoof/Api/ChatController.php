@@ -10,7 +10,7 @@ use App\Traits\ImageUploadTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Usedmarket\ChatResource;
+use App\Http\Resources\rfoof\ChatResource;
 use Google\Auth\HttpHandler\HttpHandlerFactory;
 use App\Http\Controllers\FireBasePushNotification;
 use Google\Auth\Credentials\ServiceAccountCredentials;
@@ -54,7 +54,7 @@ class ChatController extends Controller
                     'seller_id' => $request->user()->id,
                     'product_id' => $request->product_id,
                     'type' => 'reply',
-                    'app' => 'resale'
+                    'app' => 'rfoof'
                 ]);
                 $firebase = new FireBasePushNotification();
                 $this->to($message->user->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
@@ -65,7 +65,7 @@ class ChatController extends Controller
                     'product_id' => $request->product_id,
                     'seller_id' => $product->user_id,
                     'type' => 'sending',
-                    'app' => 'resale'
+                    'app' => 'rfoof'
                 ]);
                 $firebase = new FireBasePushNotification();
                 $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());

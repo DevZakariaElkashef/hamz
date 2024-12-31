@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\rfoof\Api;
 
+use App\Http\Resources\rfoof\CommentResource;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Product;
@@ -14,8 +15,8 @@ use Illuminate\Http\Request;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Usedmarket\UserResource;
-use App\Http\Resources\Usedmarket\ProductResource;
+use App\Http\Resources\rfoof\UserResource;
+use App\Http\Resources\rfoof\ProductResource;
 use App\Http\Requests\rfoof\Product\AddRequest;
 use App\Http\Requests\rfoof\Product\UpdateRequest;
 
@@ -39,7 +40,7 @@ class ProductController extends Controller
                 'unique_number' => $randomString,
                 'address_ar' => $address['ar'],
                 'address_en' => $address['en'],
-                'app' => 'resale'
+                'app' => 'rfoof'
             ]);
 
             // Create the product with the merged data
@@ -111,7 +112,7 @@ class ProductController extends Controller
                 'product_id' => $request->product_id,
                 'message' => $request->message,
                 'user_id' => $request->user()->id,
-                'app' => 'resale'
+                'app' => 'rfoof'
             ]);
 
             return $this->returnSuccess(200, __('main.addComplain'));
@@ -127,10 +128,21 @@ class ProductController extends Controller
                 'comment' => $request->message,
                 'rate' => $request->rate,
                 'user_id' => $request->user()->id,
-                'app' => 'resale'
+                'app' => 'rfoof'
             ]);
 
             return $this->returnSuccess(200, __('main.addCommenet'));
+        } catch (\Throwable $e) {
+            return $this->returnError(403, $e->getMessage());
+        }
+    }
+
+    public function productComments(Request $request)
+    {
+        try{
+            $comments = Commenets::where('product_id', $request->product_id)->get();
+            $data = CommentResource::collection($comments);
+            return $this->returnData("data", ["comments" => $data], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
         }

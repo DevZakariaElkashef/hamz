@@ -7,7 +7,7 @@ use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Usedmarket\NotificationResource;
+use App\Http\Resources\rfoof\NotificationResource;
 
 class NotificationController extends Controller
 {
