@@ -21,7 +21,8 @@ class OrderResource extends JsonResource
             'status' => $this->orderStatus->name ?? '',
             'total' => (string) $this->total ?? '',
             'day' => __('main.' . $this->created_at->format('l')),
-            'date' => $this->created_at->format('d M Y')
+            'date' => $this->created_at->format('d M Y'),
+            'app' => $this->app
         ];
     }
 }

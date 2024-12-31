@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mall\Api;
 
 use App\Http\Requests\Mall\Api\CancleOrderRequest;
+use App\Models\CancleOrderReason;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Traits\ApiResponse;
@@ -24,7 +25,7 @@ class OrderController extends Controller
     {
         $user = $request->user();
 
-        $orders = Order::query();
+        $orders = Order::query()->mall();
 
         if ($request->filled('order_status_id')) {
             $orders->where('order_status_id', $request->order_status_id);
@@ -38,7 +39,12 @@ class OrderController extends Controller
     public function show(Request $request, Order $order)
     {
         $order = new ShowOrderResource($order);
-
+        $order['cancle_order_reasons'] = CancleOrderReason::all()->map(function ($reason) {
+            return [
+                'id' => $reason->id,
+                'name' => $reason->{'name_' . app()->getLocale()}
+            ];
+        });
         return $this->sendResponse(200, $order);
     }
 
