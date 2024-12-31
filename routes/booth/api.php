@@ -98,6 +98,7 @@ Route::middleware(['api', 'auth:sanctum'])->group(function () {
     Route::get('order_statuses', [OrderController::class, 'viewStatuses']);
     Route::get('my_orders', [OrderController::class, 'index']);
     Route::get('show_orders/{order}', [OrderController::class, 'show']);
+    Route::post('make_order', [OrderController::class, 'store']);
     Route::post('cancle-order', [OrderController::class, 'cancle']);
     // -------------------------------
 
