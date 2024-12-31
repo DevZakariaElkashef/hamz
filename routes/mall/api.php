@@ -15,6 +15,7 @@ use App\Http\Controllers\Mall\Api\SectionController;
 //                                 HOME ROUTE
 // =============================================================================
 Route::get('home', [HomeController::class, 'index']);
+Route::get('filter', [HomeController::class, 'filter']);
 // =============================================================================
 
 

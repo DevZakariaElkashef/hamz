@@ -24,6 +24,7 @@ class ProductInHomeResource extends JsonResource
             'store_name' => $this->store->name ?? '',
             'store_image' => $this->store && $this->store->image ? asset($this->store->image)  : '',
             'is_added_to_favourite' => checkFavouriteProduct($request->user('sanctum'), $this->id),
+            'app' => $this->app,
         ];
     }
 }
