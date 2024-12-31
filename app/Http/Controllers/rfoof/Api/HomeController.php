@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\rfoof\Api;
 
+use App\Http\Resources\rfoof\SliderResource;
 use App\Models\City;
+use App\Models\Slider;
 use App\Models\Type;
 use App\Models\Color;
 use App\Models\Marka;
@@ -14,29 +16,30 @@ use App\Models\FuelType;
 use App\Models\Direction;
 use App\Models\ModelTypes;
 use App\Models\SubCategory;
+use App\Traits\ApiResponse;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use App\Models\ProductStatus;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Usedmarket\CityResource;
-use App\Http\Resources\Usedmarket\HomeResource;
-use App\Http\Resources\Usedmarket\TypeResource;
-use App\Http\Resources\Usedmarket\ColorResource;
-use App\Http\Resources\Usedmarket\MarkaResource;
-use App\Http\Resources\Usedmarket\ModelResource;
-use App\Http\Resources\Usedmarket\CarPushResource;
-use App\Http\Resources\Usedmarket\CountryResource;
-use App\Http\Resources\Usedmarket\ProductResource;
-use App\Http\Resources\Usedmarket\CategoryResource;
-use App\Http\Resources\Usedmarket\FuelTypeResource;
-use App\Http\Resources\Usedmarket\DirectionResource;
-use App\Http\Resources\Usedmarket\SubCategoryResource;
-use App\Http\Resources\Usedmarket\ProductStatusResource;
+use App\Http\Resources\rfoof\CityResource;
+use App\Http\Resources\rfoof\HomeResource;
+use App\Http\Resources\rfoof\TypeResource;
+use App\Http\Resources\rfoof\ColorResource;
+use App\Http\Resources\rfoof\MarkaResource;
+use App\Http\Resources\rfoof\ModelResource;
+use App\Http\Resources\rfoof\CarPushResource;
+use App\Http\Resources\rfoof\CountryResource;
+use App\Http\Resources\rfoof\ProductResource;
+use App\Http\Resources\rfoof\CategoryResource;
+use App\Http\Resources\rfoof\FuelTypeResource;
+use App\Http\Resources\rfoof\DirectionResource;
+use App\Http\Resources\rfoof\SubCategoryResource;
+use App\Http\Resources\rfoof\ProductStatusResource;
 
 class HomeController extends Controller
 {
-    use GeneralTrait;
+    use GeneralTrait, ApiResponse;
     public function __construct()
     {
         App::setLocale(request()->header('lang') ?? 'ar');
@@ -44,20 +47,15 @@ class HomeController extends Controller
     public function home()
     {
         try {
-            $products = HomeResource::collection(Category::rfoof()->get())->toArray(request());
+            // $ad = Slider::rfoof()->fixed()->first();
+            $data = [
+                // 'ad' => $ad ? new SliderResource($ad) : null,
+                'sliders' => SliderResource::collection(Slider::rfoof()->active()->scrollable()->get()),
+                // 'sections' => SectionResource::collection(Section::rfoof()->active()->with('stores')->latest()->take(4)->get()),
 
-            $data = [];
-            $data[0] = [
-                'id' => 0,
-                'name' => app()->getLocale() == 'ar' ? 'الكل' : 'All',
-                'image' => "",
-                'products' => ProductResource::collection(Product::rfoof()->latest()->get())
             ];
 
-            // Merge the arrays
-            $mergedData = array_merge($data, $products);
-
-            return $this->returnData("data", ["products" => $mergedData], __('main.returnData'));
+            return $this->sendResponse(200, $data);
 
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -175,35 +173,44 @@ class HomeController extends Controller
                 return $query->where('city_id', $request->city_id);
             });
 
+            if ($request->has('search') && !empty($request->search)) {
+                $searchTerm = $request->search;
+                // Assuming you're searching by product name or description
+                $products = $products->where(function ($query) use ($searchTerm) {
+                    $query->where('name_ar', 'like', "%{$searchTerm}%")
+                        ->orWhere('name_en', 'like', "%{$searchTerm}%");
+                        // ->orWhere('description', 'like', "%{$searchTerm}%"); // Add other fields as necessary
+                });
+            }
             // Handle sorting filters
             if ($request->filter_id) {
-                if ($request->filter_id == 1) {
+                if ($request->filter_id == 3) { //'price', 'DESC' => 3,'price', 'ASC' => 2, 'date', 'DESC' => any thing
                     // Sort by price descending
                     $products = $products->orderBy('price', 'DESC');
                 } elseif ($request->filter_id == 2) {
                     // Sort by price ascending
                     $products = $products->orderBy('price', 'ASC');
                 } else {
-                    // Sort by distance using Haversine formula
-                    $latitude = $request->lat;      // User's latitude
-                    $longitude = $request->long;    // User's longitude
-                    $radius = 20000; // Radius in kilometers
+                    $products = $products->orderBy('created_at', 'DESC');
+                    // $latitude = $request->lat;      // User's latitude
+                    // $longitude = $request->long;    // User's longitude
+                    // $radius = 20000; // Radius in kilometers
+                    // if ($latitude && $longitude && $radius) {
+                    //     $haversine = "(6371 * acos(cos(radians($latitude))
+                    //              * cos(radians(lat))
+                    //              * cos(radians(`long`) - radians($longitude))
+                    //             + sin(radians($latitude))
+                    //              * sin(radians(lat))))";
 
-                    if ($latitude && $longitude && $radius) {
-                        $haversine = "(6371 * acos(cos(radians($latitude))
-                                 * cos(radians(lat))
-                                 * cos(radians(`long`) - radians($longitude))
-                                + sin(radians($latitude))
-                                 * sin(radians(lat))))";
-
-                        $products = $products->select('*') // Select all columns
-                            ->addSelect(\DB::raw("$haversine AS distance_data")) // Add the distance calculation
-                            ->having("distance_data", "<", $radius) // Filter by the calculated distance
-                            ->orderBy("distance_data");
-                    }
+                    //     $products = $products->select('*') // Select all columns
+                    //         ->addSelect(\DB::raw("$haversine AS distance_data")) // Add the distance calculation
+                    //         ->having("distance_data", "<", $radius) // Filter by the calculated distance
+                    //         ->orderBy("distance_data");
+                    // }
                 }
                 $products = ProductResource::collection($products->paginate(30));
             }
+
             // Paginate the result and return it as a resource collection
             if (!$request->filter_id) {
                 $products = ProductResource::collection($products->latest()->paginate(30));
