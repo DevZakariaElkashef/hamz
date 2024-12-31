@@ -18,7 +18,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'store_name' => $this->store ? $this->store->name : '',
             'store_image' => $this->store ? asset($this->store->image) : '',
-            'status' => $this->orderStatus->name ?? '',
+            'status' => OrderStatusResource::collection([$this->orderStatus])[0] ?? [],
             'total' => (string) $this->total ?? '',
             'day' => __('main.' . $this->created_at->format('l')),
             'date' => $this->created_at->format('d M Y'),
