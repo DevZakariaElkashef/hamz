@@ -43,6 +43,12 @@ class HomeController extends Controller
 
             $products = $products->booth();
 
+            if ($request->has('store_id') && !empty($request->store_id)) {
+                $storeId = $request->store_id; // Ensure you're using the correct input key
+                $products = $products->whereHas('store', function ($query) use ($storeId) {
+                    $query->where('stores.id', $storeId);
+                });
+            }
             // Filter by category if it's not 0
             if ($request->category_id != 0) {
                 $products = $products->where('category_id', $request->category_id);
