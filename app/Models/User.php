@@ -46,7 +46,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed'
     ];
-
+    public function ratings()
+    {
+        return $this->hasMany(OrderStoreRating::class);
+    }
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -137,5 +140,5 @@ class User extends Authenticatable
         return $this->hasMany(Commenets::class, 'user_id');
     }
 
-    
+
 }

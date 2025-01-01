@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\OrderStoreRatingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -32,8 +33,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // -------------------------------
 
 
+    // =============================================================================
+    //                           Rate Orders ROUTES
+    // =============================================================================
+    Route::post('makeRate', [OrderStoreRatingController::class, 'store']);
 });
-    Route::get('home', [HomeController::class, 'index']);
+Route::get('home', [HomeController::class, 'index']);
 
 
 

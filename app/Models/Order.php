@@ -15,6 +15,10 @@ class Order extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function ratings()
+    {
+        return $this->morphMany(OrderStoreRating::class, 'rateable');
+    }
     public function getPaymentMethodAttribute()
     {
         return $this->attributes['payment_type'] ? __('main.wallet') : __('main.online');

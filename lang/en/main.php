@@ -566,6 +566,9 @@ return
         'applications' => 'Applications',
         'applications.index' => 'View Applications',
         'permissions' => 'Permissions',
+        'rate_exist' => 'A rating for this item already exists.',
+        'item_not_exist' => 'The specified item does not exist.',
+        'rate_Done' => 'Your rating submited successfully.',
 
 
     ];

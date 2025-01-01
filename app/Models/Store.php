@@ -15,7 +15,14 @@ class Store extends Model
     use HasFactory, AppScope, ActiveScope, FilterScope, ImageAttribute, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
-
+    public function ratings()
+    {
+        return $this->morphMany(OrderStoreRating::class, 'rateable');
+    }
+    public function getAvgRateAttribute()
+    {
+        return round($this->ratings()->avg('rating'), 1);
+    }
     public function getNameAttribute()
     {
         return $this->attributes['name_' . app()->getLocale()];

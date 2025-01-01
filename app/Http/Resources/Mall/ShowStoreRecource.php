@@ -52,6 +52,6 @@ class ShowStoreRecource extends JsonResource
 
     private function getStars()
     {
-        return '4.2'; // Make this dynamic later
+        return $this->avg_rate ?? 0;
     }
 }

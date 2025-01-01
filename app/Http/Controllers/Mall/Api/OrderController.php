@@ -6,6 +6,7 @@ use App\Http\Requests\Mall\Api\CancleOrderRequest;
 use App\Models\CancleOrderReason;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\OrderStoreRating;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,9 +37,21 @@ class OrderController extends Controller
         return $this->sendResponse(200, $orders);
     }
 
-    public function show(Request $request, Order $order)
+    public function show(Request $request,$order_id)
     {
+        $user = $request->user();
+        $order = Order::mall()->find($order_id);
         $order = new ShowOrderResource($order);
+        $order['order_rate'] = OrderStoreRating::mall()->where('rateable_type', 'App\Models\Order')
+        ->where('rateable_id', $order->id)
+        ->where('user_id', $user->id)
+        ->select('id', 'rating', 'app', 'comment', 'user_id')->first();
+
+        $order['store_rate'] = OrderStoreRating::mall()->where('rateable_type', 'App\Models\Store')
+        ->where('rateable_id', $order->store_id)
+        ->where('user_id', $user->id)
+        ->select('id', 'rating', 'app', 'comment', 'user_id')->first();
+
         $order['cancle_order_reasons'] = CancleOrderReason::all()->map(function ($reason) {
             return [
                 'id' => $reason->id,

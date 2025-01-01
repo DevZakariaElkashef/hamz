@@ -20,8 +20,12 @@ class StoreController extends Controller
         return $this->sendResponse(200, $stores);
     }
 
-    public function show(Store $store)
+    public function show($store_id)
     {
+        $store = Store::mall()->find($store_id);
+        if (!$store) {
+            return $this->sendResponse(404, null,__( 'main.store_id_exists' ));
+        }
         $store = new ShowStoreRecource($store);
 
         return $this->sendResponse(200, $store);
