@@ -22,7 +22,7 @@ class StoreController extends Controller
 
     public function show($store_id)
     {
-        $store = Store::mall()->find($store_id);
+        $store = Store::booth()->find($store_id);
         if (!$store) {
             return $this->sendResponse(404, null,__( 'main.store_id_exists' ));
         }
