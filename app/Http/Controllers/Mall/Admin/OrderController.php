@@ -75,7 +75,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $orderStatuses = OrderStatus::mall()->active()->get();
+        $orderStatuses = OrderStatus::all()->active()->get();
         $products = Product::mall()->active()->get();
         $paymentStatus = [
             [
