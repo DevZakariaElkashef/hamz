@@ -38,7 +38,7 @@ class HomeController extends Controller
             ->get();
 
         $data = [
-            'ad' => new SliderResource($fixedSldier),
+            'ad' => new SliderResource($fixedSldier) ??  null,
             'sliders' => SliderResource::collection($sliders),
             'categories' => CategoryResource::collection($categories),
             'videos' => VideoResource::collection($videos),
