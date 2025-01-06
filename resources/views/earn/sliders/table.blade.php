@@ -33,7 +33,14 @@
                         </label>
                     </td>
 
-
+                    <td>
+                        <label class="custom-toggle-switch">
+                            <input type="checkbox" class="custom-toggle-input custom-toggle-input-is-fixed" data-id="{{ $slider->id }}"
+                                data-url="{{ route('booth.slider.toggleFixedStatus', $slider->id) }}"
+                                {{ $slider->is_fixed ? 'checked' : '' }}>
+                            <span class="custom-toggle-slider"></span>
+                        </label>
+                    </td>
 
                     <td>
                         <a href="{{ route('earn.sliders.edit', $slider->id) }}"
