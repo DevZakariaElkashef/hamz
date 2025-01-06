@@ -3,22 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\OrderStoreRating;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class OrderStoreRatingController extends Controller
+class CouponController extends Controller
 {
     use ApiResponse;
-    public function store(Request $request)
+    public function addCouponToCart(Request $request)
     {
         try {
             $request->validate([
-                'rating' => 'required|integer|min:1|max:5',
-                'app' => 'required|string|in:mall,booth,coupons,earn,resale,rfoof,all',
-                'rateable_type' => 'required|string|in:App\Models\Store,App\Models\Order',
-                'rateable_id' => 'required|integer',
+                'coupon_code' => 'required|string',
+                'cart_id' => 'required|integer',
             ]);
         }  catch (ValidationException $e) {
             $errorMessage = $e->validator->errors()->first();
@@ -52,5 +49,4 @@ class OrderStoreRatingController extends Controller
 
         return $this->sendResponse(200, $newRating, __("main.rate_Done"));
     }
-
 }
