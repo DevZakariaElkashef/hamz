@@ -18,7 +18,7 @@ class HomeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->title(),
-            'image' => asset('Admin/images/categiry' . $this->image),
+            'image' => asset($this->image),
             'products' => ProductResource::collection(Product::with(['category', 'subCategory', 'country', 'city', 'ProductSatus', 'direction', 'user', 'images'])->where(['category_id' => $this->id, 'status' => 1, 'verify' => 1])->latest()->paginate(20)),
         ];
     }

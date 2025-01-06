@@ -19,7 +19,7 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->title(),
-            'image' => asset('Admin/images/categories/'.$this->image),
+            'image' => asset($this->image),
             'subCategories' => SubCategoryResource::collection($this->subCategories)
         ];;
     }

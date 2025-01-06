@@ -16,7 +16,7 @@ class ProductImagesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => asset('Admin/images/ads/' . $this->image)
+            'image' => asset($this->image)
         ];
     }
 }

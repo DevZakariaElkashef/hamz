@@ -67,7 +67,7 @@ class ProductResource extends JsonResource
             'city_id' => $this->city_id ?? 0,
             'city' => $this->city?->title() ?? "",
             'neighborhood' => $this->neighborhood ?? "",
-            'image' => Image::where('product_id', $this->id)->first() ? asset('Admin/images/ads/' . Image::where('product_id', $this->id)->first()->image) : "",
+            'image' => asset($this->image),
             'images' => ProductImagesResource::collection(Image::where('product_id', $this->id)->get(['id', 'image'])),
             'favourite' => $favouriteType,
             'license_number' => $this->license_number ?? "",
