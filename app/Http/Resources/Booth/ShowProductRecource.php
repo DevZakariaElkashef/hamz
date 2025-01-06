@@ -25,7 +25,8 @@ class ShowProductRecource extends JsonResource
             'offer' => (string) $this->getActiveOffer(),
             'description' => (string) $this->description,
             'qty_in_cart' => (int) getProductCountInCart(Cart::where('store_id', $this->store->id)->first(), $this->id),
-            'options' => AttributeResource::collection($this->attributes)
+            'options' => AttributeResource::collection($this->attributes),
+            'app' => $this->app,
         ];
     }
 

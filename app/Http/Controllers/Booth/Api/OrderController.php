@@ -38,25 +38,8 @@ class OrderController extends Controller
 
     public function show(Request $request,$order_id)
     {
-        $user = $request->user();
-        $order = Order::booth()->find($order_id);
+        $order = Order::booth()->with('orderItems.product')->find($order_id);
         $order = new ShowOrderResource($order);
-        $order['order_rate'] = OrderStoreRating::booth()->where('rateable_type', 'App\Models\Order')
-        ->where('rateable_id', $order->id)
-        ->where('user_id', $user->id)
-        ->select('id', 'rating', 'app', 'comment', 'user_id')->first();
-
-        $order['store_rate'] = OrderStoreRating::booth()->where('rateable_type', 'App\Models\Store')
-        ->where('rateable_id', $order->store_id)
-        ->where('user_id', $user->id)
-        ->select('id', 'rating', 'app', 'comment', 'user_id')->first();
-
-        $order['cancle_order_reasons'] = CancleOrderReason::all()->map(function ($reason) {
-            return [
-                'id' => $reason->id,
-                'name' => $reason->{'name_' . app()->getLocale()}
-            ];
-        });
         return $this->sendResponse(200, $order);
     }
 

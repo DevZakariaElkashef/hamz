@@ -2,7 +2,8 @@
 
 namespace App\Http\Resources\Booth;
 
-use Illuminate\Http\Request;
+use App\Models\CancleOrderReason;
+use App\Models\OrderStoreRating;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShowOrderResource extends JsonResource
@@ -12,8 +13,37 @@ class ShowOrderResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($order)
     {
-        return parent::toArray($request);
+        $orderArray = parent::toArray($order);
+        $user = request()->user();
+        $order_rate = OrderStoreRating::booth()->where('rateable_type', 'App\Models\Order')
+        ->where('rateable_id', $orderArray['id'])
+        ->where('user_id', $user->id)
+        ->select('id', 'rating', 'app', 'comment', 'user_id')->first();
+
+        $store_rate = OrderStoreRating::booth()->where('rateable_type', 'App\Models\Store')
+        ->where('rateable_id', $orderArray['store_id'])
+        ->where('user_id', $user->id)
+        ->select('id', 'rating', 'app', 'comment', 'user_id')->first();
+
+        $cancle_order_reasons = CancleOrderReason::all()->map(function ($reason) {
+            return [
+                'id' => $reason->id,
+                'name' => $reason->{'name_' . app()->getLocale()}
+            ];
+        });
+        $products = $this->orderItems->map(function ($item) {
+            return $item->product;
+        });
+
+        unset($orderArray['order_items']);
+
+        return array_merge($orderArray, [
+            'products' => ShowProductRecource::collection($products),
+            'order_rate' => $order_rate,
+            'store_rate' => $store_rate,
+            'cancle_order_reasons' => $cancle_order_reasons,
+        ]);
     }
 }
