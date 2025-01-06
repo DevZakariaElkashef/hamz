@@ -38,7 +38,7 @@ class HomeController extends Controller
         return DB::table('videos')
             ->select("videos.title_" .$local  . ' AS title', 'videos.reword_amount', 'videos.path', DB::raw('COUNT(views.id) as views_count'))
             ->leftJoin('views', 'videos.id', '=', 'views.video_id')
-            ->groupBy('videos.id', "videos.title_" .$local)
+            ->groupBy('videos.id', "videos.title_" .$local, 'videos.reword_amount', 'videos.path')
             ->orderBy('views_count', $orderBy)
             ->limit($limit)
             ->get();
