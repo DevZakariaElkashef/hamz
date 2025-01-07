@@ -567,5 +567,7 @@ return
         'rate_exist' => 'هذا العنصر تم تقيمه من قبل.',
         'item_not_exist' => 'هذا العنصر غير موجود.',
         'rate_Done' => 'تم تسجيل تقييمك بنجاح.',
-
+        'conpon_not_vaild' => 'هذا الكوبون غير صالح.',
+        'conpon_added_successfuly' => 'تم إضافة الكوبون بنجاح.',
+        'conpon_removed_successfuly' => 'تم إزالة الكوبون بنجاح.',
     ];

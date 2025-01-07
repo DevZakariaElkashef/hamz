@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\OrderStoreRatingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProfileController;
 
@@ -37,6 +38,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //                           Rate Orders ROUTES
     // =============================================================================
     Route::post('makeRate', [OrderStoreRatingController::class, 'store']);
+    Route::post('addCoupon', [CouponController::class, 'addCouponToCart']);
+    Route::post('removeCoupon', [CouponController::class, 'removeCouponFromCart']);
 });
 Route::get('home', [HomeController::class, 'index']);
 

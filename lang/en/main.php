@@ -569,6 +569,8 @@ return
         'rate_exist' => 'A rating for this item already exists.',
         'item_not_exist' => 'The specified item does not exist.',
         'rate_Done' => 'Your rating submited successfully.',
-
+        'conpon_not_vaild' => 'Coupon is not valid.',
+        'conpon_added_successfuly' => 'Coupon added successfully.',
+        'conpon_removed_successfuly' => 'Coupon removed successfully.',
 
     ];

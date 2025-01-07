@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Booth\CartResource as BoothCart;
+use App\Http\Resources\Mall\CartResource as MallCart;
+use App\Models\Cart;
+use App\Models\Coupon;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -14,39 +18,48 @@ class CouponController extends Controller
     {
         try {
             $request->validate([
-                'coupon_code' => 'required|string',
-                'cart_id' => 'required|integer',
+                'coupon_code' => 'required|string|exists:coupons,code',
+                'cart_id' => 'required|integer|exists:carts,id',
             ]);
         }  catch (ValidationException $e) {
             $errorMessage = $e->validator->errors()->first();
             return $this->sendResponse(400, '', $errorMessage);
         }
-        $user = $request->user();
-        $rateableType = $request->rateable_type;
-        $rateableId = $request->rateable_id;
-
-        // Check if the rating already exists
-        $existingRating = OrderStoreRating::where('rateable_type', $rateableType)
-            ->where('rateable_id', $rateableId)->where('user_id', $user->id)
-            ->first();
-        if ($existingRating) {
-            return $this->sendResponse(400, '', __("main.rate_exist"));
+        $cart = Cart::find($request->cart_id);
+        $coupon = Coupon::active()->where('app', $cart->app)
+        ->where('store_id', $cart->store_id)
+        ->where('start_date', '<=', now())
+        ->where('end_date', '>=', now())
+        ->where('max_usage', '>', 0)
+        ->where('code', $request->coupon_code)->first();
+        if (!$coupon) {
+            return $this->sendResponse(400, '', __("main.conpon_not_vaild"));
         }
-        // Check if the rateable entity exists
-        $rateableModel = $rateableType::where($rateableId)->where('app', $request->app);
-        if (!$rateableModel) {
-            return $this->sendResponse(400, '', __("main.item_not_exist"));
+        $cart->coupon_id = $coupon->id;
+        $cart->save();
+        $coupon->max_usage = $coupon->max_usage - 1;
+        $coupon->save();
+        return $this->sendResponse(200, '', __("main.conpon_added_successfuly"));
+    }
+
+    public function removeCouponFromCart(Request $request)
+    {
+        try {
+            $request->validate([
+                'cart_id' => 'required|integer|exists:carts,id',
+            ]);
+        }  catch (ValidationException $e) {
+            $errorMessage = $e->validator->errors()->first();
+            return $this->sendResponse(400, '', $errorMessage);
         }
-
-        $newRating = OrderStoreRating::create([
-            'rateable_type' => $rateableType,
-            'rateable_id' => $rateableId,
-            'rating' => $request->rating,
-            'app' => $request->app,
-            'user_id' => $user->id,
-            'comment' => $request->comment,
-        ]);
-
-        return $this->sendResponse(200, $newRating, __("main.rate_Done"));
+        $cart = Cart::find($request->cart_id);
+        $coupon = Coupon::find($cart->coupon_id);
+        if ($coupon) {
+            $coupon->max_usage = $coupon->max_usage + 1;
+            $coupon->save();
+        }   
+        $cart->coupon_id = null;
+        $cart->save();
+        return $this->sendResponse(200, '', __("main.conpon_removed_successfuly"));
     }
 }
