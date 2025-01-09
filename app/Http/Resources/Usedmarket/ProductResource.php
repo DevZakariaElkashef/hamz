@@ -79,6 +79,7 @@ class ProductResource extends JsonResource
             'time_ago' => Carbon::createFromTimeStamp(strtotime($this->created_at))->locale(app()->getLocale())->diffForHumans(),
             'comments_count' => $commentsCount,
             'avg_rating' => $avgRating,
+            'app' => $this->app,
         ];
     }
 }
