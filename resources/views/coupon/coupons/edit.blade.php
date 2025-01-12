@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('coupon.coupons.update', $coupon->id) }}" data-parsley-validate=""
+                    <form method="POST" action="{{ route('coupon.coupons.update', $coupon->id) }}" data-parsley-validate=""
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
@@ -128,5 +128,5 @@
     <!--Internal  Parsley.min js -->
     <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
     <!-- Internal Form-validation js -->
-    <script src="{{ URL::asset('assets/js/form-validation.js') }}"></script>
+    {{-- <script src="{{ URL::asset('assets/js/form-validation.js') }}"></script> --}}
 @endsection

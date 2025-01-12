@@ -4,6 +4,7 @@ namespace App\Repositories\Coupon;
 
 use App\Models\Coupon;
 use App\Traits\ImageUploadTrait;
+use Maatwebsite\Excel\Concerns\ToArray;
 
 class CouponRepository
 {
@@ -59,30 +60,32 @@ class CouponRepository
 
     public function update($request, $coupon)
     {
-        $data = $request->except('image');
-
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
-        }
-
-
-        if ($request->has('images')) {
-            foreach ($request->images as $image) {
-                $coupon->images()->create([
-                    'path' => $this->uploadImage($image, 'coupons')
-                ]);
-            }
-        }
-
-        if (!$request->has('delivery_type')) {
-            $coupon->update(['delivery_type' => 0]);
-        }
-
-        if (!$request->has('pick_up')) {
-            $coupon->update(['pick_up' => 0]);
-        }
-        unset($data['_token'], $data['_method']);
+        $data = $request->toArray();
         $coupon->update($data);
+        // $data = $request->except('image');
+
+        // if ($request->hasFile('image')) {
+        //     $data['image'] = $this->uploadImage($request->file('image'), 'coupons', $coupon->image);
+        // }
+
+
+        // if ($request->has('images')) {
+        //     foreach ($request->images as $image) {
+        //         $coupon->images()->create([
+        //             'path' => $this->uploadImage($image, 'coupons')
+        //         ]);
+        //     }
+        // }
+
+        // if (!$request->has('delivery_type')) {
+        //     $coupon->update(['delivery_type' => 0]);
+        // }
+
+        // if (!$request->has('pick_up')) {
+        //     $coupon->update(['pick_up' => 0]);
+        // }
+        // unset($data['_token'], $data['_method']);
+        // $coupon->update($data);
 
         return $coupon;
     }

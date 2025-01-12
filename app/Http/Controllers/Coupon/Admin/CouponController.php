@@ -72,7 +72,7 @@ class CouponController extends Controller
      */
     public function create(Request $request)
     {
-        $categories = Category::where('user_id', $request->user()->id)->coupons()->active()->get();
+        $categories = Category::coupons()->active()->get();
         return view("coupon.coupons.create", compact('categories'));
     }
 
@@ -90,7 +90,7 @@ class CouponController extends Controller
      */
     public function show(string $id)
     {
-        return to_route('coupon.coupons.edit');
+        return to_route('coupon.coupons.edit', $id);
     }
 
     /**

@@ -14,14 +14,12 @@ class CouponRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title_ar' => 'required|string|max:255',
-            'title_en' => 'required|string|max:255',
-            'description_ar' => 'required|string',
-            'description_en' => 'required|string',
-            'code' => 'required|required|max:255',
+            'code' => 'required|string|max:255',
             'discount' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'image' => 'required|mimes:png,jpg,jpeg'
+            'max_usage' => 'required|integer',
+            'is_active' => 'required|boolean',
+            'start_date' => 'required',
+            'end_date' => 'required'
         ];
     }
 }

@@ -26,6 +26,16 @@ class Coupon extends Model
             ->orWhere('discount', 'like', "%$search%");
     }
 
+    public function getTitleAttribute()
+    {
+        return $this->attributes['title_' . app()->getLocale()];
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->attributes['description_' . app()->getLocale()];
+    }
+
     public function users()
     {
         return $this->hasMany(UserCoupon::class);
@@ -34,5 +44,10 @@ class Coupon extends Model
     public function store()
     {
         return $this->belongsTo(Store::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
