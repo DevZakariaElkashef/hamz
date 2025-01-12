@@ -47,7 +47,7 @@ class Cart extends Model
 
     public function calcTax()
     {
-        $subtotal = $this->calcSubTotal();
+        $subtotal = $this->calcSubTotal() - $this->calcDiscount();
 
         return $subtotal * .15;
     }
@@ -55,19 +55,19 @@ class Cart extends Model
     public function calcDiscount()
     {
         $subtotal = $this->calcSubTotal();
-        $tax = $this->calcTax();
-        $delivery = $this->delivery ?? 0;
+        // $tax = $this->calcTax();
+        // $delivery = $this->delivery ?? 0;
         $discount = $this->coupon ? $this->coupon->discount : 0;
 
-        return ($subtotal + $tax + $delivery) * ($discount / 100);
+        return ($subtotal) * ($discount / 100);
     }
 
     public function calcTotal()
     {
+        $discount = $this->calcDiscount();
         $subtotal = $this->calcSubTotal();
         $tax = $this->calcTax();
         $delivery = $this->delivery ?? 0;
-        $discount = $this->calcDiscount();
 
         return ($subtotal + $tax + $delivery) - $discount;
     }

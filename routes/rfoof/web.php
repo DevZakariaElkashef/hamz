@@ -12,6 +12,7 @@ use App\Http\Controllers\rfoof\Admin\ProductController;
 use App\Http\Controllers\rfoof\Admin\SubCategoryController;
 use App\Http\Controllers\rfoof\Admin\UserController;
 use App\Http\Controllers\rfoof\Admin\HomeController;
+use App\Http\Controllers\rfoof\Admin\SliderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,16 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('rfoof.logout');
     Route::post('/login', [AuthController::class, 'signIn'])->name('rfoof.signIn');
     Route::post('/signUp', [AuthController::class, 'signUp'])->name('rfoof.signUp');
+    /**
+         * Route For sliders Controller
+         */
+        Route::as('rfoof.')->group(function () {
+            Route::resource('sliders', SliderController::class);
+            Route::get('search-sliders', [SliderController::class, 'search'])->name('sliders.search');
+            Route::get('sliders-toggle-status/{slider}', [SliderController::class, 'toggleStatus'])->name('slider.toggleStatus');
+            Route::get('sliders-toggle-fixed-status/{slider}', [SliderController::class, 'toggleFixedStatus'])->name('slider.toggleFixedStatus');
+            Route::delete('delete-sliders', [SliderController::class, 'delete'])->name('sliders.delete');
+        });
     Route::group(['prefix' => '/rfoof', ], function () {
         Route::get('/', [AdminController::class, 'index'])->name('rfoof.admin');
         /**

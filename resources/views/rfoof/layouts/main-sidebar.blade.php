@@ -38,6 +38,16 @@
                 <li class="side-item side-item-category">{{ __('admin.additional_data') }}</li>
             @endif
 
+
+            @can('rfoof.sliders.index')
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('rfoof.sliders.index') }}">
+                        <i class="fe fe-grid ml-3" style="font-size: 16px"></i>
+                        <span class="side-menu__label">{{ __('main.sliders') }}</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('rfoof.categories.index')
                 <li class="slide">
                     <a class="side-menu__item" data-toggle="slide" href="javascript:void();"><i class="fe fe-grid ml-3"
