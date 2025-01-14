@@ -17,7 +17,7 @@ class PackageRepository
 
     public function index($request)
     {
-        $packages = Package::filter($request)->coupons()->paginate($request->per_page ?? $this->limit);
+        $packages = Package::filter($request)->coupon()->paginate($request->per_page ?? $this->limit);
 
         return $packages;
     }
@@ -25,7 +25,7 @@ class PackageRepository
 
     public function search($request)
     {
-        return Package::coupons()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        return Package::coupon()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

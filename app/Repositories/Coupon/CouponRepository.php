@@ -20,7 +20,7 @@ class CouponRepository
     {
         $coupons = Coupon::when($request->user()->role_id == 3, function ($query) use ($request) {
             $query->where('user_id', $request->user()->id);
-        })->filter($request)->coupons()->paginate($request->per_page ?? $this->limit);
+        })->filter($request)->coupon()->paginate($request->per_page ?? $this->limit);
 
         return $coupons;
     }
@@ -30,7 +30,7 @@ class CouponRepository
     {
         return Coupon::when($request->user()->role_id == 3, function ($query) use ($request) {
             $query->where('user_id', $request->user()->id);
-        })->coupons()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        })->coupon()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function coupon($request)

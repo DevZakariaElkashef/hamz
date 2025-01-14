@@ -72,7 +72,7 @@ class CouponController extends Controller
      */
     public function create(Request $request)
     {
-        $categories = Category::coupons()->active()->get();
+        $categories = Category::coupon()->active()->get();
         return view("coupon.coupons.create", compact('categories'));
     }
 
@@ -98,7 +98,7 @@ class CouponController extends Controller
      */
     public function edit(Coupon $coupon)
     {
-        $categories = Category::coupons()->active()->get();
+        $categories = Category::coupon()->active()->get();
         return view('coupon.coupons.edit', compact('coupon', 'categories'));
     }
 

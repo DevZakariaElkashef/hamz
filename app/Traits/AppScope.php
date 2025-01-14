@@ -14,7 +14,7 @@ trait AppScope
         return $query->whereIn('app', ['booth']);
     }
 
-    public function scopeCoupons($query)
+    public function scopeCoupon($query)
     {
         return $query->whereIn('app', ['coupons']);
     }

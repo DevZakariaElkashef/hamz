@@ -17,14 +17,14 @@ class SliderRepository
 
     public function index($request)
     {
-        $sliders = Slider::filter($request)->coupons()->paginate($request->per_page ?? $this->limit);
+        $sliders = Slider::filter($request)->coupon()->paginate($request->per_page ?? $this->limit);
 
         return $sliders;
     }
 
     public function search($request)
     {
-        return Slider::coupons()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        return Slider::coupon()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

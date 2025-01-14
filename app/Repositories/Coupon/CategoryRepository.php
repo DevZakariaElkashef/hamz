@@ -19,7 +19,7 @@ class CategoryRepository
     {
         $categorys = Category::when($request->user()->role_id == 3, function ($query) use ($request) {
             $query->where('user_id', $request->user()->id);
-        })->filter($request)->coupons()->with('store')->paginate($request->per_page ?? $this->limit);
+        })->filter($request)->coupon()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $categorys;
     }
@@ -29,7 +29,7 @@ class CategoryRepository
     {
         return Category::when($request->user()->role_id == 3, function ($query) use ($request) {
             $query->where('user_id', $request->user()->id);
-        })->coupons()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        })->coupon()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)
