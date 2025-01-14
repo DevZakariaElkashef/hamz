@@ -17,8 +17,9 @@ class AppImageResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name ?? '',
-            'name_en' => $this->name_en ?? '',
-            'logo' => $this->logo ? asset($this->logo) : '',
+            'image' => $this->logo ? asset($this->logo) : '',
+            'url' => ''
+            // 'name_en' => $this->name_en ?? '',
         ];
     }
 }
