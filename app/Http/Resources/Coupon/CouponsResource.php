@@ -19,7 +19,7 @@ class CouponsResource extends JsonResource
             'code ' => $this->code ?? '',
             'discount' => $this->discount ?? '',
             'max_usage' => $this->max_usage ?? '',
-            'title_ar' => $this->title ?? '',
+            'title' => $this->title ?? '',
             'description' => $this->description ?? '',
             'app ' => $this->app ?? '',
             'image' => $this->image ? asset($this->image): '',

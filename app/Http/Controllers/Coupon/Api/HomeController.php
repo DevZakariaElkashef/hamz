@@ -68,7 +68,7 @@ class HomeController extends Controller
         try {
             $coupons = Coupon::query();
 
-            $coupons = $coupons->coupons()->where('category_id ', $category_id)
+            $coupons = $coupons->coupons()->where('category_id', $category_id)
             ->where(function ($query) {
                 $query->where('start_date', '<=', now())
                     ->where('end_date', '>=', now());
