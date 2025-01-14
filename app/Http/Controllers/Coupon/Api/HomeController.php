@@ -25,10 +25,10 @@ class HomeController extends Controller
     public function home()
     {
         try {
-            $ad = Slider::coupons()->active()->fixed()->first();
+            $ad = Slider::coupon()->active()->fixed()->first();
             $data = [
                 'ad' => $ad ? new SliderResource($ad) : null,
-                'sliders' => SliderResource::collection(Slider::coupons()->active()->scrollable()->get()),
+                'sliders' => SliderResource::collection(Slider::coupon()->active()->scrollable()->get()),
 
             ];
 
@@ -44,7 +44,7 @@ class HomeController extends Controller
         try {
             $categories = Category::query();
 
-            $categories = $categories->coupons()->active();
+            $categories = $categories->coupon()->active();
 
             if ($request->has('search') && !empty($request->search)) {
                 $searchTerm = $request->search;
@@ -68,7 +68,7 @@ class HomeController extends Controller
         try {
             $coupons = Coupon::query();
 
-            $coupons = $coupons->coupons()->where('category_id', $category_id)
+            $coupons = $coupons->coupon()->where('category_id', $category_id)
             ->where(function ($query) {
                 $query->where('start_date', '<=', now())
                     ->where('end_date', '>=', now());
