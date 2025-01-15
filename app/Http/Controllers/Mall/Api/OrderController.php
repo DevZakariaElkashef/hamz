@@ -48,7 +48,7 @@ class OrderController extends Controller
             ->join('coupons', 'orders.coupon_id', '=', 'coupons.id')
             ->leftJoin('delivery_companies', 'orders.delivery_type', '=', 'delivery_companies.id')
             ->join('stores', 'orders.store_id', '=', 'stores.id')
-            ->whereIn('app', ['mall'])
+            ->whereIn('orders.app', ['mall'])
             ->find($order_id);
 
         $order = new ShowOrderResource($order);
