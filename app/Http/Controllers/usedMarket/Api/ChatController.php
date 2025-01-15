@@ -25,11 +25,11 @@ class ChatController extends Controller
     public function __construct()
     {
         App::setLocale(request()->header('lang') ?? 'ar');
-        $jsonPath = storage_path('app/hamz-firebase.json');
+        // $jsonPath = storage_path('app/hamz-firebase.json');
 
-        // Provide the path where you stored the json token, in my case, I stored it in database
-        $creadentials = new ServiceAccountCredentials($this->scope, $jsonPath);
-        $this->token = $creadentials->fetchAuthToken(HttpHandlerFactory::build());
+        // // Provide the path where you stored the json token, in my case, I stored it in database
+        // $creadentials = new ServiceAccountCredentials($this->scope, $jsonPath);
+        // $this->token = $creadentials->fetchAuthToken(HttpHandlerFactory::build());
     }
 
 
@@ -72,7 +72,9 @@ class ChatController extends Controller
             }
             return $this->returnSuccess(200, __('main.sendMessage'));
 
-            $messages = ChatResource::collection(Chat::usedMarket()->where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
+            $messages = ChatResource::collection(Chat::usedMarket()
+            ->where(['user_id' => $request->user_id, 'product_id' => $request->product_id])
+            ->get());
 
             return $this->returnData("data", ['messages' => $messages], __('main.returnData'));
         } catch (\Throwable $e) {
@@ -83,7 +85,7 @@ class ChatController extends Controller
     public function getChats(Request $request)
     {
         try {
-            $lastMessagesUsers = Chat::select('chats.*')->usedMarket()->where('user_id', $request->user()->id)
+            $lastMessagesUsers = Chat::select('chats.*')->where('user_id', $request->user()->id)
                 ->join(DB::raw('(SELECT product_id, MAX(created_at) as last_message_time
                                 FROM chats
                                 GROUP BY product_id) as latest_chats'), function ($join) {
@@ -92,7 +94,7 @@ class ChatController extends Controller
                 })
                 ->get();
 
-            $lastMessagesChats = Chat::select('chats.*')->usedMarket()->where('seller_id', $request->user()->id)
+            $lastMessagesChats = Chat::select('chats.*')->where('seller_id', $request->user()->id)
                 ->join(DB::raw('(SELECT product_id, MAX(created_at) as last_message_time
                                 FROM chats
                                 GROUP BY product_id) as latest_chats'), function ($join) {
