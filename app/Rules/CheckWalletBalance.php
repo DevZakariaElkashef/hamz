@@ -29,7 +29,7 @@ class CheckWalletBalance implements ValidationRule
             if($cart) {
                 $total_price = $cart->calcTotal();
                 if ($balance < $total_price) {
-                    $fail(__('messages.insufficient_balance'));
+                    $fail(__('messages.insufficient_balance_wallet'));
                 }
             }
         }

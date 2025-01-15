@@ -570,4 +570,7 @@ return
         'conpon_not_vaild' => 'هذا الكوبون غير صالح.',
         'conpon_added_successfuly' => 'تم إضافة الكوبون بنجاح.',
         'conpon_removed_successfuly' => 'تم إزالة الكوبون بنجاح.',
+
+        'delivery_company_3' => 'المتجر',
+        'delivery_company_4' => 'لا يوجد',
     ];

@@ -572,5 +572,7 @@ return
         'conpon_not_vaild' => 'Coupon is not valid.',
         'conpon_added_successfuly' => 'Coupon added successfully.',
         'conpon_removed_successfuly' => 'Coupon removed successfully.',
-
+        
+        'delivery_company_3' => 'The Store',
+        'delivery_company_4' => 'Not Available',
     ];
