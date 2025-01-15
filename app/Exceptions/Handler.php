@@ -7,6 +7,7 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\Response;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -52,19 +53,23 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
-    }
 
-    public function render($request, Throwable $exception)
-    {
-        // Check if the exception is an AuthenticationException and the request URL starts with 'mall/api'
-        if ($exception instanceof AuthenticationException && $request->is('*/api/*')) {
-            return $this->sendResponse(401, '', __("main.unauthenticated"));
-        }
-        // check if ther is not found exception
-        if ($exception instanceof NotFoundHttpException && $request->is('*/api/*')) {
-            return $this->sendResponse(401, '', __("main.not_found_exeption"));
-        }
+        $this->renderable(function (AuthenticationException $e, $request) {
+            if ($request->is('*api/*')) {
+                return $this->sendResponse(401, '', __('messages.not_auth', locale: $request->lang ?? "ar"));
+            }
+        });
 
-        return parent::render($request, $exception);
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('*api/*')) {
+                return $this->sendResponse(404, '', __('messages.not_founded', locale: $request->lang ?? "ar"));
+            }
+        });
+
+        $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            if ($request->is('*api/*')) {
+                return $this->sendResponse(405, '', __('messages.wrong_method', locale: $request->lang ?? "ar"));
+            }
+        });
     }
 }

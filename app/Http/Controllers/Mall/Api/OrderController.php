@@ -38,18 +38,18 @@ class OrderController extends Controller
     {
         $language = app()->getLocale();
         $order = Order::select(
-            '*',
+            'orders.*',
             'coupons.code AS coupon_code',
             "delivery_companies.name_$language AS delivery_company",
             "stores.name_$language AS store_name",
             "stores.image AS store_image"
         )
             ->with('orderItems.product')
-            ->join('coupons', 'orders.coupon_id', '=', 'coupons.id')
+            ->leftJoin('coupons', 'orders.coupon_id', '=', 'coupons.id')
             ->leftJoin('delivery_companies', 'orders.delivery_type', '=', 'delivery_companies.id')
             ->join('stores', 'orders.store_id', '=', 'stores.id')
             ->whereIn('orders.app', ['mall'])
-            ->find($order_id);
+            ->findOrFail($order_id);
 
         $order = new ShowOrderResource($order);
         return $this->sendResponse(200, $order);
