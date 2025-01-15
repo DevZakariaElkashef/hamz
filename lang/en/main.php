@@ -574,5 +574,5 @@ return
         'conpon_removed_successfuly' => 'Coupon removed successfully.',
 
         'delivery_company_3' => 'Store shipping',
-        'delivery_company_4' => 'Store Pickup',
+        'delivery_company_4' => 'Store pickup',
     ];
