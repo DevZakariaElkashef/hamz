@@ -18,8 +18,6 @@ class CouponRequest extends FormRequest
             'discount' => 'required',
             'max_usage' => 'required|integer',
             'is_active' => 'required|boolean',
-            'start_date' => 'required',
-            'end_date' => 'required'
         ];
     }
 }
