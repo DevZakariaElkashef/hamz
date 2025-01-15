@@ -152,7 +152,23 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.start_date') }}:</label>
+                                <input class="form-control" name="start_date" placeholder="{{ __('main.enter_start_at') }}"
+                                    type="date" value="{{ old('start_date') }}">
+                                @error('start_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.end_date') }}:</label>
+                                <input class="form-control" name="end_date" placeholder="{{ __('main.enter_end_date') }}"
+                                    type="date" value="{{ old('end_date') }}">
+                                @error('end_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="col-12 mg-t-10 mg-sm-t-25">
                                 <button class="btn btn-main-primary pd-x-20"
                                     type="submit">{{ __('main.submit') }}</button>

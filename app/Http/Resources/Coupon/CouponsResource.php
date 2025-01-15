@@ -23,7 +23,9 @@ class CouponsResource extends JsonResource
             'description' => $this->description ?? '',
             'app ' => $this->app ?? '',
             'image' => $this->image ? asset($this->image): '',
-            'couponsCount' => $this->coupon()->active()->count() ?? 0
+            'couponsCount' => $this->coupon()->active()->count() ?? 0,
+            'start_date' => $this->start_date ?? '',
+            'end_date' => $this->end_date ?? '',
         ];
     }
 }
