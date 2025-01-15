@@ -79,7 +79,7 @@ class AuthController extends Controller
                 return $this->returnError(403, __('main.codeNotFound'));
             }
             Otp::where(['otp' => $request->otp, 'phone' => $request->phone])->delete();
-            User::where(['phone' => $request->phone])->update(['status' => 1, 'device_token' => $request->device_token]);
+            User::where(['phone' => $request->phone])->update(['is_active' => 1,'status' => 1, 'device_token' => $request->device_token]);
             $user = User::where('phone', $request->phone)->first();
             $token = $user->createToken("API TOKEN")->plainTextToken;
             $token = "Bearer " . $token;
