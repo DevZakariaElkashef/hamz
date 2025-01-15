@@ -572,5 +572,5 @@ return
         'conpon_removed_successfuly' => 'تم إزالة الكوبون بنجاح.',
 
         'delivery_company_3' => 'الشحن من خلال المتجر',
-        'delivery_company_4' => 'لا يوجد',
+        'delivery_company_4' => 'استلام من المحل',
     ];

@@ -573,6 +573,6 @@ return
         'conpon_added_successfuly' => 'Coupon added successfully.',
         'conpon_removed_successfuly' => 'Coupon removed successfully.',
 
-        'delivery_company_3' => 'Shipping through the store',
-        'delivery_company_4' => 'Not Available',
+        'delivery_company_3' => 'Store shipping',
+        'delivery_company_4' => 'Store Pickup',
     ];
