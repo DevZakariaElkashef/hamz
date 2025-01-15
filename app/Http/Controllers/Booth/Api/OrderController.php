@@ -40,13 +40,13 @@ class OrderController extends Controller
         $order = Order::select(
             '*',
             'coupons.code AS coupon_code',
-            "delivers_companies.name_$language AS delivery_company",
+            "delivery_companies.name_$language AS delivery_company",
             "stores.name_$language AS store_name",
             "stores.image AS store_image"
         )
             ->with('orderItems.product')
             ->join('coupons', 'orders.coupon_id', '=', 'coupons.id')
-            ->leftJoin('delivers_companies', 'orders.delivery_type', '=', 'delivers_companies.id')
+            ->leftJoin('delivery_companies', 'orders.delivery_type', '=', 'delivery_companies.id')
             ->join('stores', 'orders.store_id', '=', 'stores.id')
             ->booth()
             ->find($order_id);
