@@ -15,10 +15,10 @@ class ShowOrderResource extends JsonResource
      */
     public function toArray($order)
     {
-        $order->day = __('main.' . $order->created_at->format('l'));
-        $order->date = $order->created_at->format('d M Y');
+        $order->day = __('main.' . $this->created_at->format('l'));
+        $order->date = $this->created_at->format('d M Y');
         $order->status = OrderStatusResource::collection([$this->orderStatus])[0] ?? [];
-        $order->delivery_company = $order->delivery_company ?? __("main.delivery_company_$order->delivery_type");
+        $order->delivery_company = $this->delivery_company ?? __("main.delivery_company_$this->delivery_type");
         $orderArray = parent::toArray($order);
 
         $user = request()->user();
