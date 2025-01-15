@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Mall\Api;
 
 use App\Http\Requests\Mall\Api\CancleOrderRequest;
-use App\Models\CancleOrderReason;
 use App\Models\Cart;
 use App\Models\Order;
-use App\Models\OrderStoreRating;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +14,6 @@ use App\Http\Resources\Mall\OrderStatusResource;
 use App\Http\Resources\Mall\ShowOrderResource;
 use App\Models\OrderStatus;
 use App\Models\Product;
-use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {

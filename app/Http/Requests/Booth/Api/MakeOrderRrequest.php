@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Booth\Api;
 
+use App\Rules\CheckWalletBalance;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MakeOrderRrequest extends BaseApiRequest
@@ -26,7 +27,11 @@ class MakeOrderRrequest extends BaseApiRequest
             'lat' => 'required',
             'lng' => 'required',
             'delivery_type' => 'required|in:1,2,3,4',
-            'payment_type' => 'required|in:0,1',
+            'payment_type' => [
+                'required',
+                'in:0,1',
+                new CheckWalletBalance($this->cart_id)
+            ],
             'transaction_id' => 'required_if:payment_type,0',
             'cart_id' => 'required|exists:carts,id'
         ];

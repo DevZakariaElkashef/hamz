@@ -243,5 +243,7 @@ return
         'deleteChopping' => 'The method of cutting the carcass has been successfully deleted',
         'showChopping' => 'Chopping method has been shown',
         'hideChopping' => 'Chopping method has been hidden',
+
+        'insufficient_balance_wallet' => 'Insufficient balance in the wallet',
     ]
     ?>
