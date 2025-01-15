@@ -15,11 +15,11 @@ class ShowOrderResource extends JsonResource
      */
     public function toArray($order)
     {
+        $order->day = __('main.' . $order->created_at->format('l'));
+        $order->date = $order->created_at->format('d M Y');
+        $order->status = OrderStatusResource::collection([$this->orderStatus])[0] ?? [];
+        $order->delivery_company = $order->delivery_company ?? __("main.delivery_company_$order->delivery_type");
         $orderArray = parent::toArray($order);
-        $orderArray->day = __('main.' . $orderArray->created_at->format('l'));
-        $orderArray->date = $orderArray->created_at->format('d M Y');
-        $orderArray->status = OrderStatusResource::collection([$this->orderStatus])[0] ?? [];
-        $orderArray->delivery_company = $orderArray->delivery_company ?? __("main.delivery_company_$orderArray->delivery_type");
 
         $user = request()->user();
         $order_rate = OrderStoreRating::booth()->where('rateable_type', 'App\Models\Order')
