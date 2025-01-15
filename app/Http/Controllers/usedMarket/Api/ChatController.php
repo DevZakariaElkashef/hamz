@@ -36,7 +36,7 @@ class ChatController extends Controller
     public function getMessages(Request $request)
     {
         try {
-            $messages = ChatResource::collection(Chat::usedMarket()->where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
+            $messages = ChatResource::collection(Chat::where(['user_id' => $request->user_id, 'product_id' => $request->product_id])->get());
             return $this->returnData("data", ['messages' => $messages], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -56,8 +56,8 @@ class ChatController extends Controller
                     'type' => 'reply',
                     'app' => 'resale'
                 ]);
-                $firebase = new FireBasePushNotification();
-                $this->to($message->user->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
+                // $firebase = new FireBasePushNotification();
+                // $this->to($message->user->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             } else {
                 $message = Chat::create([
                     'message' => $request->message,
@@ -67,8 +67,8 @@ class ChatController extends Controller
                     'type' => 'sending',
                     'app' => 'resale'
                 ]);
-                $firebase = new FireBasePushNotification();
-                $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
+                // $firebase = new FireBasePushNotification();
+                // $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
             return $this->returnSuccess(200, __('main.sendMessage'));
 
