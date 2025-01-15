@@ -27,20 +27,23 @@ class Chat extends Model
     }
     public function checkOwner($request)
     {
-        if ($this->seller_id) {
-            if ($this->seller_id == $request->user()->id && $this->type == "reply") {
-                return true;
-            } elseif ($this->user_id == $request->user()->id && $this->type == "sending") {
-                return true;
-            }
-            return false;
-        } elseif ($this->user_id) {
-            if ($this->seller_id == $request->user()->id && $this->type == "reply") {
-                return true;
-            } elseif ($this->user_id == $request->user()->id && $this->type == "sending") {
-                return true;
-            }
-            return false;
+        // if ($this->seller_id) {
+        //     if ($this->seller_id == $request->user()->id && $this->type == "reply") {
+        //         return true;
+        //     } elseif ($this->user_id == $request->user()->id && $this->type == "sending") {
+        //         return true;
+        //     }
+        //     return false;
+        // } elseif ($this->user_id) {
+        //     if ($this->seller_id == $request->user()->id && $this->type == "reply") {
+        //         return true;
+        //     } elseif ($this->user_id == $request->user()->id && $this->type == "sending") {
+        //         return true;
+        //     }
+        //     return false;
+        // }
+        if($this->user_id == $request->user()->id){
+            return true;
         }
         return false;
     }
