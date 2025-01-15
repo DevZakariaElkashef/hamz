@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Usedmarket\ChatResource;
-use Google\Auth\HttpHandler\HttpHandlerFactory;
-use App\Http\Controllers\FireBasePushNotification;
-use Google\Auth\Credentials\ServiceAccountCredentials;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class ChatController extends Controller
 {
@@ -45,31 +44,54 @@ class ChatController extends Controller
     public function sendMessage(Request $request)
     {
         try {
+            $validated = $request->validate([
+                'receiver_id' => [
+                    'required',
+                    'integer',
+                    'exists:users,id', // Ensure receiver_id exists in the users table
+                ],
+                'product_id' => [
+                    'required',
+                    'integer',
+                    'exists:products,id', // Ensure product_id exists in the products table
+                ],
+            ]);
+        }  catch (ValidationException $e) {
+            $errorMessage = $e->validator->errors()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $errorMessage,
+                'data' => ''
+            ], 400);
+        }
+        try {
             $product = Product::find($request->product_id);
-            if ($product->user_id == $request->user()->id) {
-                $message = Chat::find($request->chat_id);
+            if($product){
                 Chat::create([
                     'message' => $request->message,
-                    'user_id' => $message->user_id,
-                    'seller_id' => $request->user()->id,
+                    'user_id' => $request->user()->id,
+                    'seller_id' => $request->receiver_id,
                     'product_id' => $request->product_id,
                     'type' => 'reply',
                     'app' => 'resale'
                 ]);
-                // $firebase = new FireBasePushNotification();
-                // $this->to($message->user->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
-            } else {
-                $message = Chat::create([
-                    'message' => $request->message,
-                    'user_id' => $request->user()->id,
-                    'product_id' => $request->product_id,
-                    'seller_id' => $product->user_id,
-                    'type' => 'sending',
-                    'app' => 'resale'
-                ]);
-                // $firebase = new FireBasePushNotification();
-                // $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
             }
+            // if ($product->user_id == $request->user()->id) {
+            //     $message = Chat::find($request->chat_id);
+            //     // $firebase = new FireBasePushNotification();
+            //     // $this->to($message->user->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
+            // } else {
+            //     $message = Chat::create([
+            //         'message' => $request->message,
+            //         'user_id' => $request->user()->id,
+            //         'product_id' => $request->product_id,
+            //         'seller_id' => $product->user_id,
+            //         'type' => 'sending',
+            //         'app' => 'resale'
+            //     ]);
+            //     // $firebase = new FireBasePushNotification();
+            //     // $this->to($message->seller->device_token, $request->message, 'رساله جديده من اعلان:' . $message->product->name());
+            // }
             return $this->returnSuccess(200, __('main.sendMessage'));
 
             $messages = ChatResource::collection(Chat::usedMarket()
