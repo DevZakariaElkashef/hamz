@@ -44,14 +44,16 @@ class WebVideoRepository
 
     public function update($request, $video)
     {
-        $data = $request->except(['thumbnail', 'path']);
+        $data = $request->except(['thumbnail']);
         $data['seller_id'] = 1;
 
         if ($request->hasFile('thumbnail')) {
             $data['thumbnail'] =  $this->uploadImage($request->file('thumbnail'), 'videos', $video->thumbnail);
         }
+
         unset($data['_token'], $data['_method']);
         $video->update($data);
+
         return $video;
     }
 

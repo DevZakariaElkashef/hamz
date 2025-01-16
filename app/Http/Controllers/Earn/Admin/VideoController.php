@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Earn\Admin;
 
-use App\Models\Category;
 use App\Models\Video;
-use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Earn\Web\VideoRequest;
 use App\Repositories\Earn\WebVideoRepository;
+use Illuminate\Support\Facades\DB;
 
 class VideoController extends Controller
 {
