@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Booth\Api;
 
 use App\Rules\CheckWalletBalance;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class MakeOrderRrequest extends BaseApiRequest
 {
@@ -23,9 +23,19 @@ class MakeOrderRrequest extends BaseApiRequest
     public function rules(): array
     {
         return [
-            'address' => 'required|string',
-            'lat' => 'required',
-            'lng' => 'required',
+            'address' => [
+                Rule::requiredIf($this->delivery_type != '4'),
+                'nullable',
+                'string'
+            ],
+            'lat' => [
+                Rule::requiredIf($this->delivery_type != '4'),
+                'nullable'
+            ],
+            'lng' => [
+                Rule::requiredIf($this->delivery_type != '4'),
+                'nullable'
+            ],
             'delivery_type' => 'required|in:1,2,3,4',
             'payment_type' => [
                 'required',
