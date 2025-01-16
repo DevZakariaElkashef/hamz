@@ -573,4 +573,12 @@ return
 
         'delivery_company_3' => 'الشحن من خلال المتجر',
         'delivery_company_4' => 'استلام من المحل',
+
+        'wallet_type' => 'نوع المحفظة',
+        'wallet_type_0' => 'المحفظة الرئيسية',
+        'wallet_type_1' => 'محفظة شاهد وأكسب',
+
+        'withdraw_type' => 'نوع السحب',
+        'withdraw_type_0' => 'تحويل للمحفظة الرئيسية',
+        'withdraw_type_1' => 'تحويل بنكي',
     ];

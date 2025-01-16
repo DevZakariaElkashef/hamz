@@ -35,6 +35,7 @@ return [
     // Main
     'main_title' => 'مطعم',
     'copyrights' => 'حقوق النشر © 2023. كل الحقوق محفوظة.',
+    'not_found' => 'لا يوجد',
 
     // Authentication
     'ordereDetials' => 'تفاصيل الطلب',

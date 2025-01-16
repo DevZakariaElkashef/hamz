@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Repositories\Earn;
+namespace App\Repositories;
 
 use App\Models\Withdrow;
 use App\Traits\ImageUploadTrait;

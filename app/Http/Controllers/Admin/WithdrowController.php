@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Earn\Admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Withdrow;
-use App\Repositories\Earn\WithdrowRepository;
+use App\Repositories\WithdrowRepository;
 use Illuminate\Http\Request;
 
 class WithdrowController extends Controller
@@ -16,7 +17,7 @@ class WithdrowController extends Controller
         $this->withdrowRepository = $withdrowRepository;
 
         // autherization
-        $this->middleware('can:earn.withdrows.index');
+        $this->middleware('can:hamz.withdrows.index');
     }
     /**
      * Display a listing of the resource.
@@ -24,13 +25,13 @@ class WithdrowController extends Controller
     public function index(Request $request)
     {
         $withdrows = $this->withdrowRepository->index($request);
-        return view('earn.withdrows.index', compact('withdrows'));
+        return view('withdrows.index', compact('withdrows'));
     }
 
     public function search(Request $request)
     {
         $withdrows = $this->withdrowRepository->search($request);
-        return view('earn.withdrows.table', compact('withdrows'))->render();
+        return view('withdrows.table', compact('withdrows'))->render();
     }
 
     /**
@@ -54,7 +55,7 @@ class WithdrowController extends Controller
      */
     public function show(string $id)
     {
-        return to_route('earn.withdrows.edit');
+        return to_route('withdrows.edit');
     }
 
     /**
@@ -62,7 +63,7 @@ class WithdrowController extends Controller
      */
     public function edit(Withdrow $withdrow)
     {
-        return view('earn.withdrows.edit', compact('withdrow'));
+        return view('withdrows.edit', compact('withdrow'));
     }
 
     /**
@@ -71,12 +72,33 @@ class WithdrowController extends Controller
     public function update(Request $request, Withdrow $withdrow)
     {
         $this->withdrowRepository->update($request, $withdrow);
-        return to_route('earn.withdrows.index')->with('success', __("main.updated_successffully"));
+        return to_route('withdrows.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Withdrow $withdrow)
     {
+        $old_status = $withdrow->status;
         $withdrow->update(['status' => $request->status]);
+        $wallet = ($withdrow->wallet_type == '0') ? 'wallet' : 'watch_and_earn_wallet';
+
+        $user = User::findOrFail($withdrow->user_id);
+        $amount = 0;
+        if($withdrow->wallet_type == '1' && $withdrow->withdraw_type == '0') {
+            $amount = $withdrow->amount;
+        }
+
+        if($withdrow->status == '1' && $old_status != '1') {
+            $user->update([
+                "wallet" => $user->wallet + $amount,
+                "$wallet" => $user->$wallet - $withdrow->amount
+            ]);
+        } elseif($withdrow->status != '1' && $old_status == '1') {
+            $user->update([
+                "wallet" => $user->wallet - $amount,
+                "$wallet" => $user->$wallet + $withdrow->amount
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'message' => __("main.updated_successffully"),
@@ -89,12 +111,12 @@ class WithdrowController extends Controller
     public function destroy(Withdrow $withdrow)
     {
         $this->withdrowRepository->delete($withdrow);
-        return to_route('earn.withdrows.index')->with('success', __("main.delete_successffully"));
+        return to_route('withdrows.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
         $this->withdrowRepository->deleteSelection($request);
-        return to_route('earn.withdrows.index')->with('success', __("main.delete_successffully"));
+        return to_route('withdrows.index')->with('success', __("main.delete_successffully"));
     }
 }

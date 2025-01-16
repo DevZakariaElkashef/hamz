@@ -5,6 +5,8 @@
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
                 <th>{{ __('main.id') }}</th>
                 <th>{{ __('main.user') }}</th>
+                <th>{{ __('main.wallet_type') }}</th>
+                <th>{{ __('main.withdraw_type') }}</th>
                 <th>{{ __('main.iban') }}</th>
                 <th>{{ __('main.amount') }}</th>
                 <th>{{ __('main.status') }}</th>
@@ -23,10 +25,12 @@
                             {{ $withdrow->user->name }}
                         </a>
                     </td>
-                    <td>{{ $withdrow->iban }}</td>
+                    <td>{{ __("main.wallet_type_$withdrow->wallet_type") }}</td>
+                    <td>{{ __("main.withdraw_type_$withdrow->withdraw_type") }}</td>
+                    <td>{{ $withdrow->iban ?? __('admin.not_found') }}</td>
                     <td>{{ $withdrow->amount }}</td>
                     <td>
-                        <select style="max-width: 150px;" class="form-control" data-url="{{ route("earn.withdrow.toggleStatus", $withdrow) }}" name="status" id="withdrowStatus">
+                        <select style="max-width: 150px;" class="form-control" data-url="{{ route("withdrow.toggleStatus", $withdrow) }}" name="status" id="withdrowStatus">
                             <option value="0" @if($withdrow->status == 0) selected @endif>{{ __("main.pending") }}</option>
                             <option value="1" @if($withdrow->status == 1) selected @endif>{{ __("main.confirmed") }}</option>
                             <option value="2" @if($withdrow->status == 2) selected @endif>{{ __("main.canceled") }}</option>
@@ -35,12 +39,12 @@
                     </td>
 
                     <td>
-                        <a href="{{ route('earn.withdrows.edit', $withdrow->id) }}"
+                        <a href="{{ route('withdrows.edit', $withdrow->id) }}"
                             class="btn btn-secondary">{{ __('main.edit') }}</a>
 
                         <a href="#" class="btn btn-danger delete-btn" data-toggle="modal"
                             data-effect="effect-flip-vertical"
-                            data-url="{{ route('earn.withdrows.destroy', $withdrow->id) }}"
+                            data-url="{{ route('withdrows.destroy', $withdrow->id) }}"
                             data-target="#deletemodal">{{ __('main.delete') }}</a>
                     </td>
                 </tr>

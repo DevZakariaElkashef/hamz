@@ -9,7 +9,6 @@ use App\Http\Controllers\Mall\Admin\ImageController;
 use App\Http\Controllers\Earn\Admin\SliderController;
 use App\Http\Controllers\Earn\Admin\PackageController;
 use App\Http\Controllers\Earn\Admin\CategoryController;
-use App\Http\Controllers\Earn\Admin\WithdrowController;
 use App\Http\Controllers\Earn\Admin\SubscriptionController;
 
 
@@ -74,14 +73,6 @@ Route::middleware('earn')->group(function () {
         Route::get('search-views', [ViewController::class, 'search'])->name('views.search');
         Route::get('views-toggle-status/{view}', [ViewController::class, 'toggleStatus'])->name('view.toggleStatus');
         Route::delete('delete-views', [ViewController::class, 'delete'])->name('views.delete');
-        /**end Slider Routes */
-
-
-        /**start Slider Routes */
-        Route::resource('withdrows', WithdrowController::class);
-        Route::get('search-withdrows', [WithdrowController::class, 'search'])->name('withdrows.search');
-        Route::get('withdrows-toggle-status/{withdrow}', [WithdrowController::class, 'toggleStatus'])->name('withdrow.toggleStatus');
-        Route::delete('delete-withdrows', [WithdrowController::class, 'delete'])->name('withdrows.delete');
         /**end Slider Routes */
     });
 });

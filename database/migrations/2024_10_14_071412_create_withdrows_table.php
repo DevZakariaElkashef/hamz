@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('withdrows', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('iban');
+            $table->string('iban')->nullable();
             $table->decimal('amount');
             $table->tinyInteger('status')->default(0)->comment('0 => pinding, 1 => confirmed, 2 => canceled, 3 => failed');
             $table->softDeletes();

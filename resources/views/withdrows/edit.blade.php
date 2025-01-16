@@ -1,4 +1,4 @@
-@extends('earn.layouts.master')
+@extends('layouts.master')
 @section('title')
     {{ __('main.edit_withdrow') }}
 @endsection
@@ -13,14 +13,14 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('earn.withdrows.index') }}">{{ __('main.withdrows') }}</a></span>
+                        href="{{ route('withdrows.index') }}">{{ __('main.withdrows') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('earn.withdrows.edit', $withdrow->id) }}">{{ __('main.edit_withdrow') }}</a></span>
+                        href="{{ route('withdrows.edit', $withdrow->id) }}">{{ __('main.edit_withdrow') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('earn.withdrows.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
+                <a href="{{ route('withdrows.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('earn.withdrows.update', $withdrow->id) }}" data-parsley-validate=""
+                    <form method="post" action="{{ route('withdrows.update', $withdrow->id) }}" data-parsley-validate=""
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ContactTypeController;
+use App\Http\Controllers\Admin\WithdrowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,4 +131,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('cities-import', [CityController::class, 'import'])->name('cities.import');
     Route::delete('delete-cities', [CityController::class, 'delete'])->name('cities.delete');
     /**end Slider Routes */
+
+
+    /**start Withdraw Routes */
+    Route::resource('withdrows', WithdrowController::class);
+    Route::get('search-withdrows', [WithdrowController::class, 'search'])->name('withdrows.search');
+    Route::get('withdrows-toggle-status/{withdrow}', [WithdrowController::class, 'toggleStatus'])->name('withdrow.toggleStatus');
+    Route::delete('delete-withdrows', [WithdrowController::class, 'delete'])->name('withdrows.delete');
+    /**end Withdraw Routes */
 });
