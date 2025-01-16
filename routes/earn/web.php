@@ -29,6 +29,7 @@ Route::middleware('earn')->group(function () {
         Route::resource('sliders', SliderController::class);
         Route::get('search-sliders', [SliderController::class, 'search'])->name('sliders.search');
         Route::get('sliders-toggle-status/{slider}', [SliderController::class, 'toggleStatus'])->name('slider.toggleStatus');
+        Route::get('sliders-toggle-fixed-status/{slider}', [SliderController::class, 'toggleFixedStatus'])->name('slider.toggleFixedStatus');
         Route::delete('delete-sliders', [SliderController::class, 'delete'])->name('sliders.delete');
         /**end Slider Routes */
 

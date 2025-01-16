@@ -25,6 +25,7 @@ class SliderRequest extends FormRequest
             'name_ar' => 'required|string|max:255',
             'name_en' => 'required|string|max:255',
             'is_active' => 'required|boolean',
+            'is_fixed' => 'required|boolean',
             'url' => 'required|url',
             'image' => 'nullable|mimes:png,jpg,.jpeg'
         ];

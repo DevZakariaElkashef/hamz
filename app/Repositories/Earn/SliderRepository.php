@@ -51,13 +51,18 @@ class SliderRepository
         return $slider;
     }
 
+    public function updateOtherSliders(int $currentSliderId): void
+    {
+        Slider::whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
+    }
+
 
     public function delete($slider)
     {
         if ($slider->image) {
             $this->deleteImage($slider->image);
         }
-        
+
         $slider->delete();
         return true;
     }

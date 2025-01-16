@@ -88,6 +88,21 @@ class SliderController extends Controller
         ]);
     }
 
+    public function toggleFixedStatus(Request $request, Slider $slider)
+    {
+        $slider->update(['is_fixed' => $request->is_active]);
+
+        if ($request->is_active) {
+            $this->sliderRepository->updateOtherSliders($slider->id);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => __("main.updated_successffully"),
+            'refresh' => true,
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
