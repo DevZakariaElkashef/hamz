@@ -71,6 +71,8 @@ class ChatController extends Controller
                     $q->where('user_id', $auth_id)
                     ->where('seller_id', $other_id);
                 });
+            })->whereHas('product', function ($query) {
+                $query->where('app', 'resale');
             })
             ->orderBy('created_at', 'DESC') // Order messages chronologically
             ->get();
@@ -183,6 +185,8 @@ class ChatController extends Controller
             ->where(function ($query) use ($auth_id) {
                 $query->where('user_id', $auth_id)
                     ->orWhere('seller_id', $auth_id);
+            })->whereHas('product', function ($query) {
+                $query->where('app', 'resale');
             })
             ->groupByRaw('LEAST(user_id, seller_id), GREATEST(user_id, seller_id), product_id')
             ->get()->pluck('last_message_id');
