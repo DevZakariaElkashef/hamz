@@ -42,6 +42,7 @@ class ShowOrderResource extends JsonResource
             ];
         });
         $products = $this->orderItems->map(function ($item) {
+            $item->product->qty_in_order = $item->qty;
             return $item->product;
         });
 
