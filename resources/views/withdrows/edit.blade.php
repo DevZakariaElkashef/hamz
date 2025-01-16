@@ -43,10 +43,9 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.iban') }}: <span
-                                        class="tx-danger">*</span></label>
+                                <label class="form-label">{{ __('main.iban') }}:</label>
                                 <input class="form-control" name="iban" placeholder="{{ __('main.iban') }}"
-                                    required="" type="text" value="{{ old('iban') ?? $withdrow->iban }}">
+                                    type="text" value="{{ old('iban') ?? $withdrow->iban }}">
                                 @error('iban')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
