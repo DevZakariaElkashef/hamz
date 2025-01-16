@@ -245,5 +245,6 @@ return
         'hideChopping' => 'Chopping method has been hidden',
 
         'insufficient_balance_wallet' => 'Insufficient balance in the wallet',
+        'pending_withdraw_exists' => 'There is a pending withdrawal request for this wallet',
     ]
     ?>

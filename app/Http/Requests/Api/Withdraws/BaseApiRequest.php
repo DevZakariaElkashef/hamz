@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Earn\Api;
+namespace App\Http\Requests\Api\Withdraws;
 
 use App\Traits\ApiResponse;
 use Illuminate\Foundation\Http\FormRequest;

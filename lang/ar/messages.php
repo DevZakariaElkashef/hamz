@@ -257,5 +257,6 @@ return [
     'rejecet_user' => 'تم رفض طلب التسجيل في القبيلة',
 
     'insufficient_balance_wallet' => 'لا يوجد رصيد كافي في المحفظة',
+    'pending_withdraw_exists' => 'يوجد طلب سحب معلق',
 ];
 ?>

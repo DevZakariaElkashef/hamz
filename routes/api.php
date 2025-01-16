@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // =============================================================================
 
     Route::get('wallet', [WalletController::class, 'index']);
+    Route::get('wallet/withdraws', [WalletController::class, 'withdraws']);
+    Route::post('wallet/withdraws/make', [WalletController::class, 'make']);
 
     // =============================================================================
     //                           Rate Orders ROUTES
