@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\rfoof;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -15,21 +16,32 @@ class ChatResource extends JsonResource
      */
     public function toArray(Request $request)
     {
+        if($request->user()->id == $this->user_id){
+            $other = User::find($this->seller_id);
+        }elseif ($request->user()->id == $this->seller_id) {
+            $other = User::find($this->user_id);
+        }
         return [
             'id' => $this->id,
             'message' => $this->message,
-            'type' => $this->type,
-            'user_name' => $this->user->name,
-            'user_id' => $this->user_id,
-            'user_image' => $this->user->image,
-            'seller_id' => $this->seller_id,
-            'seller_name' => $this->seller ? $this->seller->name : "",
-            'seller_image' => $this->seller ? $this->seller->image : "",
             'product_id' => $this->product_id,
             'product_name' => $this->product->name(),
             'owner' => $this->checkOwner($request),
-            'created_at' => Carbon::parse($this->created_at)->format('Y-m-d'),
+            'date' => Carbon::parse($this->created_at)->format('Y-m-d'),
+            'time' => Carbon::parse($this->created_at)->format('h:i:s A'),
             'time_ago' => Carbon::createFromTimeStamp(strtotime($this->created_at))->locale(app()->getLocale())->diffForHumans(),
+            'other_id' => $other->id,
+            'other_name' => $other->name,
+            'other_image' => asset($other->image)?? '',
+
+
+            // 'type' => $this->type,
+            // 'user_name' => $this->user->name,
+            // 'user_id' => $this->user_id,
+            // 'user_image' => $this->user->image,
+            // 'seller_id' => $this->seller_id,
+            // 'seller_name' => $this->seller ? $this->seller->name : "",
+            // 'seller_image' => $this->seller ? $this->seller->image : "",
         ];
     }
 }
