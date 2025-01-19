@@ -110,6 +110,24 @@ class User extends Authenticatable
         return $this->hasMany(View::class);
     }
 
+    public function watchedVideos()
+    {
+        return $this->belongsToMany(Video::class, 'views')
+            ->wherePivot('status', 1);
+    }
+    public function getUnwatchedVideos()
+    {
+        return Video::whereDoesntHave('viewed', function ($query) {
+            $query->where('user_id', $this->id)
+                ->where('status', 1);
+        })
+        ->orWhereHas('viewed', function ($query) {
+            $query->where('user_id', $this->id)
+                ->where('status', 0);
+        })
+        ->get();
+    }
+
     public function withdrows()
     {
         return $this->hasMany(Withdrow::class);

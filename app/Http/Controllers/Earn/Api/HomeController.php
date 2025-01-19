@@ -22,26 +22,27 @@ class HomeController extends Controller
         $sliders = Slider::earn()->active()->scrollable()->get();
 
         $categories = Category::earn()->active()->has('videos')->get();
-        $videos = Video::query()
-            ->earn()
-            ->active()
-            ->where(function ($q) use ($request) {
-                $q->whereDoesntHave('viewed', function ($query) use ($request) {
-                    $query->where('user_id', $request->user()->id); // Assuming the user is authenticated
-                })->orWhereHas('viewed', function ($view) use ($request) {
-                    $view->where('user_id', $request->user()->id)->where('status', 0);
-                });
-            })
-            ->when($request->category_id, function ($query) use ($request) {
-                $query->where('category_id', $request->category_id);
-            })
-            ->get();
-
+        // $videos = Video::query()
+        //     ->earn()
+        //     ->active()
+        //     ->where(function ($q) use ($request) {
+        //         $q->whereDoesntHave('viewed', function ($query) use ($request) {
+        //             $query->where('user_id', $request->user()->id); // Assuming the user is authenticated
+        //         })->orWhereHas('viewed', function ($view) use ($request) {
+        //             $view->where('user_id', $request->user()->id)->where('status', 0);
+        //         });
+        //     })
+        //     ->when($request->category_id, function ($query) use ($request) {
+        //         $query->where('category_id', $request->category_id);
+        //     })
+        //     ->get();
+        $user = request()->user();
         $data = [
             'ad' => $fixedSldier ? SliderResource::make($fixedSldier) : null,
             'sliders' => SliderResource::collection($sliders),
             'categories' => CategoryResource::collection($categories),
-            'videos' => VideoResource::collection($videos),
+            'videos' => VideoResource::collection($user->getUnwatchedVideos()),
+            // 'videos' => VideoResource::collection($user->watchedVideos),
         ];
 
         return $this->sendResponse(200, $data);
