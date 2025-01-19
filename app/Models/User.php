@@ -125,7 +125,7 @@ class User extends Authenticatable
             $query->where('user_id', $this->id)
                 ->where('status', 0);
         })
-        ->get();
+        ->active()->get();
     }
 
     public function withdrows()

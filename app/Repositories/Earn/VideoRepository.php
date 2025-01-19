@@ -68,8 +68,10 @@ class VideoRepository
             return false;
         }
 
-        $video->viewed()->create(['user_id' => $request->user()->id]);
-
+        $video->viewed()->firstOrCreate(
+            ['user_id' => $request->user()->id], // Attributes to check for existence
+            [] // Additional attributes to set if creating a new record
+        );
         return true;
     }
 }

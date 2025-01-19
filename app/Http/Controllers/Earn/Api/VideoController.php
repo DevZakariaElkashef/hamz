@@ -47,7 +47,8 @@ class VideoController extends Controller
 
     public function next(Request $request)
     {
-        $video = $this->videoRepository->getNextVideo($request);
+        $video = $request->user()->getUnwatchedVideos()
+        ->first();
         if (!$video) {
             return $this->sendResponse(404, '', __("main.there_is_not_videos_at_the_moment"));
         }
