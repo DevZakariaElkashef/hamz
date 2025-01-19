@@ -45,9 +45,11 @@ class ProductController extends Controller
 
             // Create the product with the merged data
             $product = Product::create($data);
+            $publicPath = public_path("uploads/adsImages/");
             foreach ($request->images as $image) {
-                $imageName = rand(11111, 99999) . '_ads.' . $image->extension();
-                $this->uploadImage($image, $imageName, 'ads');
+                $imageName = rand(11111, 99999) . "_$product->id" . "_ads." . $image->extension();
+                // Move the new image to the public directory
+                $image->move($publicPath, $imageName);
                 Image::create([
                     'product_id' => $product->id,
                     'image' => $imageName,
@@ -71,9 +73,11 @@ class ProductController extends Controller
             $product->update($request->all());
             if($request->images)
             {
+                $publicPath = public_path("uploads/adsImages/");
                 foreach ($request->images as $image) {
-                    $imageName = rand(11111, 99999) . '_ads.' . $image->extension();
-                    $this->uploadImage($image, $imageName, 'ads');
+                    $imageName = rand(11111, 99999) ."_$product->id". '_ads.' . $image->extension();
+                    // Move the new image to the public directory
+                    $image->move($publicPath, $imageName);
                     Image::create([
                         'product_id' => $product->id,
                         'image' => $imageName,
