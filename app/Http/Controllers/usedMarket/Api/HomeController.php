@@ -87,7 +87,7 @@ class HomeController extends Controller
             $data[0] = [
                 'id' => 0,
                 'name' => app()->getLocale() == 'ar' ? 'الكل' : 'All',
-                'image' => "",
+                'image' => asset("allCats.png"),
                 'subCategories' => []
             ];
 
