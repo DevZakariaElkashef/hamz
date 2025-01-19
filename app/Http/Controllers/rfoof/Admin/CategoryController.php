@@ -38,7 +38,7 @@ class CategoryController extends Controller
             'name_ar' => $request->name_ar,
             'name_en' => $request->name_en,
             'image' => $imageName,
-            'app' => 'resale',
+            'app' => 'rfoof',
         ]);
         return redirect()->route('rfoof.categories')->with('success', __('messages.add_category'));
     }
