@@ -8,7 +8,11 @@ use App\Models\Slider;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\AboutResource;
 use App\Http\Resources\Api\SliderResource;
+use App\Http\Resources\Api\TermsResource;
+use App\Models\About;
+use App\Models\Term;
 
 class HomeController extends Controller
 {
@@ -24,6 +28,18 @@ class HomeController extends Controller
             'apps' => AppImageResource::collection(Application::where('id', '!=', 1)->get()),
         ];
 
+        return $this->sendResponse(200, $data);
+    }
+    public function terms()
+    {
+        $data = Term::where('is_active',1)->get();
+        $terms = $data ? TermsResource::collection($data) : null;
+        return $this->sendResponse(200, $terms);
+    }
+    public function about()
+    {
+        $about = About::first();
+        $data = $about ? AboutResource::make($about) : null;
         return $this->sendResponse(200, $data);
     }
 }

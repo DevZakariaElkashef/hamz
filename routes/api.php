@@ -50,6 +50,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('removeCoupon', [CouponController::class, 'removeCouponFromCart']);
 });
 Route::get('home', [HomeController::class, 'index']);
+Route::get('terms', [HomeController::class, 'terms']);
+Route::get('about', [HomeController::class, 'about']);
 
 
 
