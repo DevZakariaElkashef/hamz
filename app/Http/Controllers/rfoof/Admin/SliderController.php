@@ -145,6 +145,6 @@ class SliderController extends Controller
 
     public function updateOtherSliders(int $currentSliderId): void
     {
-        Slider::whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
+        Slider::rfoof()->whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
     }
 }

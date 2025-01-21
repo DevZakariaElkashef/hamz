@@ -62,7 +62,7 @@ class SliderRepository
 
     public function updateOtherSliders(int $currentSliderId): void
     {
-        Slider::whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
+        Slider::mall()->whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
     }
 
     public function delete($slider)

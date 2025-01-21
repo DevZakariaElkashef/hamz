@@ -53,7 +53,7 @@ class SliderRepository
 
     public function updateOtherSliders(int $currentSliderId): void
     {
-        Slider::whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
+        Slider::earn()->whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
     }
 
 
