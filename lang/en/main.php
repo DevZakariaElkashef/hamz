@@ -391,6 +391,7 @@ return
         "about_us" => "About Us",
         "socials" => "Socials",
         'commission' => "Commission",
+        'commission_auth' => "Commission Auth",
         "content" => 'content',
         "create_social" => "create_social",
         'icon' => "icon",

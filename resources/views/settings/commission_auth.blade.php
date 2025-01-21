@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    {{ __('main.about_us') }}
+    {{ __('main.commission_auth') }}
 @endsection
 @section('css')
     <!--- Internal Select2 css-->
@@ -13,7 +13,7 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('abouts.index') }}">{{ __('main.about_us') }}</a></span>
+                        href="{{ route('commission_auth.index') }}">{{ __('main.commission_auth') }}</a></span>
             </div>
         </div>
     </div>
@@ -35,13 +35,13 @@
         <div class="col-xl-9 col-lg-8 col-md-8">
             <div class="card overflow-hidden">
                 <div class="card-body">
-                    <form action="{{ route('abouts.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('commission_auth.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="value_ar">{{ __('main.content') }}(AR)</label>
-                                    <textarea id="value_ar" class="form-control" type="text" name="value_ar">{{ $about->value_ar ?? '' }}</textarea>
+                                    <textarea id="value_ar" class="form-control" type="text" name="value_ar">{{ $commission_auth->value_ar ?? '' }}</textarea>
                                     @error('value_ar')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -50,7 +50,7 @@
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="value_en">{{ __('main.content') }}(EN)</label>
-                                    <textarea id="value_en" class="form-control" type="text" name="value_en">{{ $about->value_en  ?? '' }}</textarea>
+                                    <textarea id="value_en" class="form-control" type="text" name="value_en">{{ $commission_auth->value_en  ?? '' }}</textarea>
                                     @error('value_en')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

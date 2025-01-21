@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TermController;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SocialController;
@@ -37,7 +38,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', function () {
         return view('index');
-        // dd(auth()->user());
     })->name('home');
 
 
@@ -73,7 +73,10 @@ Route::middleware(['auth'])->group(function () {
     /**end Slider Routes */
 
     Route::resource('applications', SettingController::class)->only('index', 'update');
-    Route::resource('abouts', AboutController::class)->only('index', 'update');
+    Route::resource('abouts', AboutController::class)->only('index', 'store');
+    Route::resource('commission', AppSettingController::class)->only('index', 'store');
+    Route::get('commission_auth/index', [AppSettingController::class, 'commission_auth'])->name('commission_auth.index');
+    Route::post('commission_auth/store', [AppSettingController::class, 'commission_auth_store'])->name('commission_auth.store');
 
     /**start Slider Routes */
     Route::resource('socials', SocialController::class);

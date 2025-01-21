@@ -12,6 +12,7 @@ use App\Http\Resources\Api\AboutResource;
 use App\Http\Resources\Api\SliderResource;
 use App\Http\Resources\Api\TermsResource;
 use App\Models\About;
+use App\Models\AppSetting;
 use App\Models\Term;
 
 class HomeController extends Controller
@@ -38,7 +39,7 @@ class HomeController extends Controller
     }
     public function about()
     {
-        $about = About::first();
+        $about = AppSetting::where('app', 'all')->where('key', 'about_us')->first();
         $data = $about ? AboutResource::make($about) : null;
         return $this->sendResponse(200, $data);
     }

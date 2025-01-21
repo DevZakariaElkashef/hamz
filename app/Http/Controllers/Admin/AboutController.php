@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\About;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AppSettingRequest;
+use App\Models\AppSetting;
 use App\Repositories\AboutRepository;
 
 class AboutController extends Controller
@@ -13,7 +15,7 @@ class AboutController extends Controller
 
     public function __construct(AboutRepository $aboutRepository)
     {
-        $this->middleware('can:hamz.applications.index')->only(['index', 'update']);
+        $this->middleware('can:hamz.applications.index')->only(['index', 'store']);
         $this->aboutRepository = $aboutRepository;
     }
 
@@ -23,9 +25,9 @@ class AboutController extends Controller
         return view("settings.about", compact('about'));
     }
 
-    public function update(Request $request, About $about)
+    public function store(AppSettingRequest $request)
     {
-        $this->aboutRepository->update($request, $about);
+        $this->aboutRepository->store($request);
 
         return to_route('abouts.index')->with('success', __("main.updated_successffully"));
     }
