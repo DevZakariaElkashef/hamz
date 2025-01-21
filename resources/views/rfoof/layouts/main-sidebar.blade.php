@@ -24,8 +24,13 @@
             <li class="side-item side-item-category">{{ __('admin.main') }}</li>
 
             <li class="slide">
-                <a class="side-menu__item" href="{{ route('rfoof.admin') }}"><i class="fe fe-home ml-3"
+                <a class="side-menu__item" href="{{ route('home') }}"><i class="fe fe-home ml-3"
                         style="font-size: 16px"></i><span class="side-menu__label">{{ __('admin.main') }}</span></a>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" href="{{ route('rfoof.admin') }}"><i class="fe fe-home ml-3"
+                        style="font-size: 16px"></i><span class="side-menu__label">{{ __('main.rfoof_home') }}</span></a>
             </li>
 
             @if (auth()->user()->hasPermission('rfoof.categories.index') ||
