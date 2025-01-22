@@ -40,8 +40,35 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label for="value">{{ __('main.content') }}</label>
-                                    <input id="value" class="form-control" value="{{ $commission->value_ar ?? '' }}" type="text" name="value">
+                                    <label for="value">{{ __('main.mall') }}</label>
+                                    <input id="value" class="form-control" value="{{ collect($commission)->firstWhere('key', 'commission_mall')->value_ar ?? '' }}" type="text" name="mall-value">
+                                    @error('value')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="value">{{ __('main.booth') }}</label>
+                                    <input id="value" class="form-control" value="{{ collect($commission)->firstWhere('key', 'commission_booth')->value_ar ?? '' }}" type="text" name="booth-value">
+                                    @error('value')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="value">{{ __('main.usedmarket') }}</label>
+                                    <input id="value" class="form-control" value="{{ collect($commission)->firstWhere('key', 'commission_resale')->value_ar ?? '' }}" type="text" name="resale-value">
+                                    @error('value')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="value">{{ __('main.rfoof') }}</label>
+                                    <input id="value" class="form-control" value="{{ collect($commission)->firstWhere('key','commission_rfoof')->value_ar ?? '' }}" type="text" name="rfoof-value">
                                     @error('value')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

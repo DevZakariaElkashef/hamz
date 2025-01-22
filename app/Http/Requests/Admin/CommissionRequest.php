@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class CommissionRequest extends FormRequest
 {
@@ -15,7 +14,10 @@ class CommissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'value' => 'required|numeric|min:0|max:100',
+            'mall-value' => 'nullable|numeric|min:0|max:100',
+            'booth-value' => 'nullable|numeric|min:0|max:100',
+            'resale-value' => 'nullable|numeric|min:0|max:100',
+            'rfoof-value' => 'nullable|numeric|min:0|max:100',
         ];
     }
 }

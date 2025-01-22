@@ -282,7 +282,7 @@
 
                                 </div>
                             </section>
-                            <h3>{{ __('main.product_attributes') }}</h3>
+                            {{-- <h3>{{ __('main.product_attributes') }}</h3>
                             <section>
                                 <div class="attibutes">
                                     <div class="attribute row align-items-center">
@@ -334,7 +334,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </section> --}}
                             <h3>{{ __('main.product_images') }}</h3>
                             <section>
                                 <div class="row">

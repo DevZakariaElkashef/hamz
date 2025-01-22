@@ -13,8 +13,8 @@
         <li class="nav-item mb-2">
             <a href="{{ route('commission.index') }}" class="nav-link {{ isActiveRoute('commission.index') ? ' active bg-primary text-white' : 'text-muted' }} rounded p-2">{{ __('main.commission') }}</a>
         </li>
-        <li class="nav-item mb-2">
+        {{-- <li class="nav-item mb-2">
             <a href="{{ route('commission_auth.index') }}" class="nav-link {{ isActiveRoute('commission_auth.index') ? ' active bg-primary text-white' : 'text-muted' }} rounded p-2">{{ __('main.commission_auth') }}</a>
-        </li>
+        </li> --}}
     </ul>
 </div>

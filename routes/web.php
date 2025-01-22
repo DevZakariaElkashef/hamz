@@ -74,9 +74,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('applications', SettingController::class)->only('index', 'update');
     Route::resource('abouts', AboutController::class)->only('index', 'store');
-    Route::resource('commission', AppSettingController::class)->only('index', 'store');
-    Route::get('commission_auth/index', [AppSettingController::class, 'commission_auth'])->name('commission_auth.index');
-    Route::post('commission_auth/store', [AppSettingController::class, 'commission_auth_store'])->name('commission_auth.store');
+    Route::get('commission', [AppSettingController::class, 'commission'])->name('commission.index');
+    Route::post('commission/store', [AppSettingController::class, 'commission_dtore'])->name('commission.store');
+    // Route::get('commission_auth/index', [AppSettingController::class, 'commission_auth'])->name('commission_auth.index');
+    // Route::post('commission_auth/store', [AppSettingController::class, 'commission_auth_store'])->name('commission_auth.store');
 
     /**start Slider Routes */
     Route::resource('socials', SocialController::class);
