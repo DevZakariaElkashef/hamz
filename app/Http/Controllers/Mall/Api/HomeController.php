@@ -23,7 +23,7 @@ class HomeController extends Controller
     {
         $ad = Slider::mall()->fixed()->first();
         $mostSaledProductIds = OrderItem::mostSoldByApp('mall')->pluck('product_id')->toArray();
-        $mostSaledProducts = Product::whereIn('id', $mostSaledProductIds)->get();
+        $mostSaledProducts = Product::mall()->whereIn('id', $mostSaledProductIds)->get();
 
         $data = [
             'ad' => $ad ? new SliderResource($ad) : null,
