@@ -185,12 +185,14 @@ class AuthController extends Controller
             if ($request->image) {
                 $imageName = time() . 'user.' . $request->image->extension();
                 $this->uploadImage($request->image, $imageName, 'users');
+                $user->image = $imageName;
+                $user->save();
             }
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'image' => ($request->image) ? $imageName : '',
+                // 'image' => ($request->image) ? $imageName : '',
             ]);
             return $this->returnData("data", ["user" => new UserResource($user)], __('main.updateProfile'));
         } catch (\Throwable $e) {
