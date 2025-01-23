@@ -19,7 +19,8 @@ class WithdrowResource extends JsonResource
             'withdraw_type' => $this->withdraw_type,
             'amount' => (string) $this->amount . ' ' . __('main.sar'),
             'date' => (string) $this->created_at->format('d/m/Y - h:i a'),
-            'status' => (string) $this->statusName
+            'status' => (string) $this->statusName,
+            'status_id' => (int) $this->status,
         ];
     }
 }

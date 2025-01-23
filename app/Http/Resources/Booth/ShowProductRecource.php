@@ -29,6 +29,7 @@ class ShowProductRecource extends JsonResource
                 'qty_in_order' => $this->qty_in_order
             ]),
             'options' => AttributeResource::collection($this->attributes),
+            'store_id' => $this->store->id,
             'app' => $this->app,
         ];
     }
