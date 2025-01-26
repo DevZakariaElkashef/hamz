@@ -6,7 +6,7 @@
                 <th>{{ __('main.id') }}</th>
                 <th>{{ __('main.store') }}</th>
                 <th>{{ __('main.name') }}</th>
-                <th>{{ __('main.image') }}</th>
+                {{-- <th>{{ __('main.image') }}</th> --}}
                 <th>{{ __('main.status') }}</th>
                 <th>{{ __('main.actions') }}</th>
             </tr>
@@ -18,12 +18,12 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $category->store->name ?? '' }}</td>
                     <td>{{ $category->name }}</td>
-                    <td>
+                    {{-- <td>
                         <a href="{{ asset($category->image) }}" download>
                             <img src="{{ asset($category->image) }}" style="display: inline-block; border-radius: 50%;"
                                 width="40" height="40" alt="">
                         </a>
-                    </td>
+                    </td> --}}
                     <td>
                         <label class="custom-toggle-switch">
                             <input type="checkbox" class="custom-toggle-input" data-id="{{ $category->id }}"

@@ -30,18 +30,19 @@ class CategoryRepository
 
     public function store($request)
     {
-        $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request->file('image'), 'categorys');
-        }
+        $data = $request->all();
+        // $data = $request->except('image');
+        // if ($request->hasFile('image')) {
+        //     $data['image'] = $this->uploadImage($request->file('image'), 'categorys');
+        // }
 
         if ($request->user()->role_id == 3) {
             $data['store_id'] = $request->user()->store->id;
         }
 
-        if (!is_numeric($data['parent_id'])) {
-            unset($data['parent_id']);
-        }
+        // if (!is_numeric($data['parent_id'])) {
+        //     unset($data['parent_id']);
+        // }
         unset($data['_token']);
         $data['app'] = 'booth';
         return Category::create($data);
@@ -50,13 +51,14 @@ class CategoryRepository
 
     public function update($request, $category)
     {
-        $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request->file('image'), 'categorys', $category->image);
-        }
-        if (!is_numeric($data['parent_id'])) {
-            $data['parent_id'] = null;
-        }
+        $data = $request->all();
+        // $data = $request->except('image');
+        // if ($request->hasFile('image')) {
+        //     $data['image'] = $this->uploadImage($request->file('image'), 'categorys', $category->image);
+        // }
+        // if (!is_numeric($data['parent_id'])) {
+        //     $data['parent_id'] = null;
+        // }
         unset($data['_token'], $data['_method']);
         $category->update($data);
         return $category;
