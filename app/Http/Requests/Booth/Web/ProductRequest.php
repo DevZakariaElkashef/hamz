@@ -34,7 +34,7 @@ class ProductRequest extends FormRequest
             'section_id' => 'nullable|exists:sections,id',
             'store_id' => 'nullable|exists:stores,id',
             'category_id' => 'required|exists:categories,id',
-            'brand_id' => 'required|exists:brands,id',
+            // 'brand_id' => 'required|exists:brands,id',
             'is_active' => 'required|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'images.*' => 'nullable|mimes:png,jpg,jpeg|max:2048',
