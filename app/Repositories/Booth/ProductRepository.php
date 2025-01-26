@@ -40,6 +40,7 @@ class ProductRepository
 
         // Create the product
         unset($data['_token']);
+        $data['app'] = 'booth';
         $product = Product::create($data);
 
         // Handle multiple images upload
@@ -51,27 +52,27 @@ class ProductRepository
             }
         }
 
-        if ($request->filled('attributes')) {
-            $attributes = $request->input('attributes');
-            $options = $request->options;
-            $required = $request->is_required;
-            $costs = $request->costs;
+        // if ($request->filled('attributes')) {
+        //     $attributes = $request->input('attributes');
+        //     $options = $request->options;
+        //     $required = $request->is_required;
+        //     $costs = $request->costs;
 
-            for ($i = 0; $i < count($attributes); $i++) {
+        //     for ($i = 0; $i < count($attributes); $i++) {
 
-                $attributeId = (int) $attributes[$i]; // Cast to integer
-                $optionId = (int) $options[$i]; // Cast to integer
-                $isRequired = in_array($attributes[$i], $required) ? 1 : 0;
-                $additionalPrice = (float) $costs[$i]; // Cast to float
+        //         $attributeId = (int) $attributes[$i]; // Cast to integer
+        //         $optionId = (int) $options[$i]; // Cast to integer
+        //         $isRequired = in_array($attributes[$i], $required) ? 1 : 0;
+        //         $additionalPrice = (float) $costs[$i]; // Cast to float
 
-                // Attach the attribute to the product with its option and additional data
-                $product->attributes()->attach($attributeId, [
-                    'option_id' => $optionId,
-                    'is_required' => $isRequired,
-                    'additional_price' => $additionalPrice
-                ]);
-            }
-        }
+        //         // Attach the attribute to the product with its option and additional data
+        //         $product->attributes()->attach($attributeId, [
+        //             'option_id' => $optionId,
+        //             'is_required' => $isRequired,
+        //             'additional_price' => $additionalPrice
+        //         ]);
+        //     }
+        // }
     }
 
 
@@ -101,30 +102,30 @@ class ProductRepository
         }
 
         // Handle attributes update
-        if ($request->filled('attributes')) {
-            $attributes = $request->input('attributes');
-            $options = $request->options;
-            $required = $request->is_required;
-            $costs = $request->costs;
+        // if ($request->filled('attributes')) {
+        //     $attributes = $request->input('attributes');
+        //     $options = $request->options;
+        //     $required = $request->is_required;
+        //     $costs = $request->costs;
 
-            // Detach existing attributes first
-            $product->attributes()->detach();
+        //     // Detach existing attributes first
+        //     $product->attributes()->detach();
 
-            // Attach updated attributes
-            for ($i = 0; $i < count($attributes); $i++) {
-                $attributeId = (int) $attributes[$i]; // Cast to integer
-                $optionId = (int) $options[$i]; // Cast to integer
-                $isRequired = in_array($attributes[$i], $required) ? 1 : 0;
-                $additionalPrice = (float) $costs[$i]; // Cast to float
+        //     // Attach updated attributes
+        //     for ($i = 0; $i < count($attributes); $i++) {
+        //         $attributeId = (int) $attributes[$i]; // Cast to integer
+        //         $optionId = (int) $options[$i]; // Cast to integer
+        //         $isRequired = in_array($attributes[$i], $required) ? 1 : 0;
+        //         $additionalPrice = (float) $costs[$i]; // Cast to float
 
-                // Attach the attribute to the product with its option and additional data
-                $product->attributes()->attach($attributeId, [
-                    'option_id' => $optionId,
-                    'is_required' => $isRequired,
-                    'additional_price' => $additionalPrice
-                ]);
-            }
-        }
+        //         // Attach the attribute to the product with its option and additional data
+        //         $product->attributes()->attach($attributeId, [
+        //             'option_id' => $optionId,
+        //             'is_required' => $isRequired,
+        //             'additional_price' => $additionalPrice
+        //         ]);
+        //     }
+        // }
 
         return $product;
     }
