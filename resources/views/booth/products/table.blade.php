@@ -8,7 +8,7 @@
                 <th>{{ __('main.section') }}</th>
                 <th>{{ __('main.store') }}</th>
                 <th>{{ __('main.category') }}</th>
-                <th>{{ __('main.brand') }}</th>
+                {{-- <th>{{ __('main.brand') }}</th> --}}
                 <th>{{ __('main.price') }}</th>
                 <th>{{ __('main.inventory') }}</th>
 
@@ -32,7 +32,7 @@
                     <td>{{ $product->store->section->name ?? '' }}</td>
                     <td>{{ $product->store->name ?? '' }}</td>
                     <td>{{ $product->category->name ?? '' }}</td>
-                    <td>{{ $product->brand->name ?? '' }}</td>
+                    {{-- <td>{{ $product->brand->name ?? '' }}</td> --}}
                     <td>{{ $product->calc_price ?? '' }}</td>
                     <td>{{ $product->qty }}</td>
                     <td>

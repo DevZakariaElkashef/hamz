@@ -251,7 +251,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6 form-group mg-b-0">
+                                    {{-- <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('main.brand') }}: </label>
                                         <select class="form-control select2" name="brand_id" id="brandId">
                                             <option selected>{{ __('main.select') }}</option>
@@ -264,7 +264,7 @@
                                         @error('brand_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-6 form-group mg-b-0">
                                         <label class="form-label">{{ __('main.status') }}: <span
