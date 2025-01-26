@@ -377,9 +377,9 @@
                                             <td colspan="2">{{ $order->sub_total }}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{ __('main.Coupon_Discount_Value') }} ({{ $order->discount }}%)</td>
+                                            <td>{{ __('main.Coupon_Discount_Value') }} ({{ $order->coupon->discount ?? 0 }}%)</td>
                                             <td colspan="2">
-                                                @if ($order->discount > 0)
+                                                {{-- @if ($order->discount > 0)
                                                     @php
                                                         // Assuming $order->total_price is the price before discount
                                                         $valuecoupon = ($order->discount / 100) * $order->total_price;
@@ -387,7 +387,8 @@
                                                     {{ number_format($valuecoupon, 2) }}
                                                 @else
                                                     0
-                                                @endif
+                                                @endif --}}
+                                                {{ $order->discount}}
                                             </td>
                                         </tr>
                                         <tr>
@@ -586,7 +587,7 @@
                         </div>
                         <div class="tab-pane" id="profile">
                             <p class="text-center my-3">{{ $order->address }}</p>
-
+                            <div id="maporder" style="width: 100%; height: 400px;"></div>
                         </div>
                         <div class="tab-pane" id="settings">
                             <div style="text-align: center" class="tx-16"><button type="button"
@@ -726,7 +727,39 @@
         });
     </script> --}}
     <script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB556JrqytIxxt2hT5hkpLBQdUblve3w5U&language=ar&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB556JrqytIxxt2hT5hkpLBQdUblve3w5U&callback=initMap&lang=ar"
+        async defer>
+    </script>
+
+    <script>
+        function initMap() {
+            const myLatLng = {
+                lat: {{ $order->lat }},
+                lng: {{ $order->lng }}
+            };
+
+            const map = new google.maps.Map(document.getElementById("maporder"), {
+                zoom: 12,
+                center: myLatLng
+            });
+            address = `{{ $order->address }}`;
+            const marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: address
+            });
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<div style="font-size: 14px;">{{ $order->address }}</div>`
+            });
+
+            marker.addListener("click", () => {
+                infoWindow.open(map, marker);
+            });
+
+            // Open the info window by default
+            infoWindow.open(map, marker);
+        }
     </script>
     <!-- Internal Gallery js -->
     <script src="{{ URL::asset('assets/plugins/gallery/lightgallery-all.min.js') }}"></script>

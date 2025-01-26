@@ -156,7 +156,7 @@
                                     </tr>
                                     <tr>
                                         <th>{{ __('main.discount') }}</th>
-                                        <td>{{ $order->tax }}</td>
+                                        <td>{{ $order->discount }}</td>
                                     </tr>
                                     <tr>
                                         <th>{{ __('main.total') }}</th>

@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderStatus;
+use App\Models\UserCoupon;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -89,7 +90,13 @@ class OrderController extends Controller
 
             'app' => 'booth'
         ]);
-
+        if($cart->coupon_id){
+            UserCoupon::create([
+                'user_id' => $user->id,
+                'coupon_id' => $cart->coupon_id,
+                'app' => $cart->app,
+            ]);
+        }
         foreach ($cart->items as $item) {
             $order->orderItems()->create([
                 'product_id' => $item->product_id,
