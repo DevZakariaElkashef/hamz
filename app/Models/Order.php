@@ -26,7 +26,7 @@ class Order extends Model
 
     public function getPaymentConditionAttribute()
     {
-        switch ($this->attributes['payment_type']) {
+        switch ($this->attributes['payment_status']) {
             case 0:
                 return __("main.pending");
             case 1:
@@ -64,7 +64,10 @@ class Order extends Model
     {
         return $this->belongsTo(OrderStatus::class);
     }
-
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
     public function orderReview()
     {
         return $this->hasOne(OrderReview::class);

@@ -23,7 +23,11 @@ class Coupon extends Model
             ->orWhere('max_usage', 'like', "%$search%")
             ->orWhere('start_date', 'like', "%$search%")
             ->orWhere('end_date', 'like', "%$search%")
-            ->orWhere('discount', 'like', "%$search%");
+            ->orWhere('discount', 'like', "%$search%")
+            ->orWhereHas('store', function ($query) use ($search) {
+                $query->where('name_ar', 'like', "%$search%")
+                ->orWhere('name_en', 'like', "%$search%");
+            });
     }
 
     public function getTitleAttribute()

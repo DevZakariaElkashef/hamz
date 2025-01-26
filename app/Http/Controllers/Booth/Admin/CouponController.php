@@ -101,7 +101,8 @@ class CouponController extends Controller
      */
     public function edit(Coupon $coupon)
     {
-        return view('booth.coupons.edit', compact('coupon'));
+        $stores = Store::booth()->get();
+        return view('booth.coupons.edit', compact('coupon', 'stores'));
     }
 
     /**

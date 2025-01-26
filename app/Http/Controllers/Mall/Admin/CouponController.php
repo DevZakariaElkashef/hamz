@@ -101,7 +101,8 @@ class CouponController extends Controller
      */
     public function edit(Coupon $coupon)
     {
-        return view('mall.coupons.edit', compact('coupon'));
+        $stores = Store::mall()->get();
+        return view('mall.coupons.edit', compact('coupon', 'stores'));
     }
 
     /**
