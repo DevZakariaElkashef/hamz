@@ -141,9 +141,11 @@ class ReportController extends Controller
     // Report of all order statuses
     public function orderStatusReport(Request $request)
     {
-        $orders = Order::with('orderStatus')
-            ->where('store_id', $request->user()->store->id)
-            ->join('order_statuses', 'orders.order_status_id', '=', 'order_statuses.id')
+        $orders = Order::where('orders.app', 'booth')->with('orderStatus');
+        if ($request->user()->role_id == 3) {
+            $orders = $orders->where('store_id', $request->user()->store->id);
+        }
+        $orders->join('order_statuses', 'orders.order_status_id', '=', 'order_statuses.id')
             ->when($request->filled('start_at'), function ($query) use ($request) {
                 $query->whereDate('orders.created_at', '>=', $request->start_at);
             })

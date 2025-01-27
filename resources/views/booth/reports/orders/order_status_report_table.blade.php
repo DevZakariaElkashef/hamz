@@ -19,6 +19,6 @@
     </table>
 
     <div class="my-3">
-        {{ $orders->links() }}
+        {{-- {{ $orders->links() }} --}}
     </div>
 </div>
