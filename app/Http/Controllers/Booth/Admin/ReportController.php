@@ -264,9 +264,13 @@ class ReportController extends Controller
     // Report of low stock alerts
     public function lowStockAlertsReport(Request $request)
     {
-        $products = Product::filter($request)->booth()->whereHas('category', function ($category) use ($request) {
-            $category->where('store_id', $request->user()->store->id);
-        })->where('qty', '<', 10)->get();
+        $products = Product::filter($request)->booth();
+        if( $request->user()->role_id == 3 ){
+            $products->whereHas('category', function ($category) use ($request) {
+                $category->where('store_id', $request->user()->store->id);
+            });
+        }
+        $products->where('qty', '<', 10)->get();
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
         $categories = Category::checkVendor($request->user())->booth()->active()->get();
