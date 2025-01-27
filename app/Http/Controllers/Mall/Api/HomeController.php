@@ -22,14 +22,19 @@ class HomeController extends Controller
     public function index()
     {
         $ad = Slider::mall()->fixed()->first();
-        $mostSaledProductIds = OrderItem::mostSoldByApp('mall')->pluck('product_id')->toArray();
-        $mostSaledProducts = Product::mall()->whereIn('id', $mostSaledProductIds)->get();
+        $mostSallQuery = OrderItem::mostSoldByApp('mall');
+        $mostSaledProduct = $mostSallQuery->pluck('total_qty', 'product_id');
+        $mostSaledProductIds = $mostSallQuery->pluck('product_id');
+        $mostSaledProducts = Product::mall()->whereIn('id', $mostSaledProductIds)->active()->latest()->take(10)->get()
+        ->sortByDesc(function ($product) use($mostSaledProduct) {
+            return $mostSaledProduct[$product->id];
+        });
 
         $data = [
             'ad' => $ad ? new SliderResource($ad) : null,
             'sliders' => SliderResource::collection(Slider::mall()->active()->scrollable()->get()),
             'sections' => SectionResource::collection(Section::mall()->active()->with('stores')->latest()->take(4)->get()),
-            'most_recent' => ProductInHomeResource::collection(Product::mall()->active()->latest()->take(4)->get()),
+            'most_recent' => ProductInHomeResource::collection(Product::mall()->active()->latest()->take(10)->get()),
             'most_sale' => ProductInHomeResource::collection($mostSaledProducts),
         ];
 
