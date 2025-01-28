@@ -6,6 +6,7 @@ use App\Models\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Earn\Web\VideoRequest;
+use App\Models\Store;
 use App\Repositories\Earn\WebVideoRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -44,8 +45,8 @@ class VideoController extends Controller
     public function create(Request $request)
     {
         $categories = DB::select('SELECT * FROM categories WHERE `app` = "earn" AND `is_active` = 1');
-        // $categories = Category::earn()->where('user_id', $request->user()->id)->active()->get();
-        return view("earn.videos.create", compact('categories'));
+        $stores = Store::whereIn('app', ['mall', 'booth'])->active()->get();
+        return view("earn.videos.create", compact('categories', 'stores'));
     }
 
     /**

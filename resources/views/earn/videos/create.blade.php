@@ -94,6 +94,24 @@
                                 </div>
                             </div>
 
+                            @if (auth()->user()->role_id != 3)
+                                <div class="col-md-6 form-group mg-b-0">
+                                    <label class="form-label">{{ __('main.store') }}: <span
+                                            class="tx-danger">*</span></label>
+                                    <select required class="form-control select2" name="store_id">
+                                        @foreach ($stores as $store)
+                                            <option value="{{ $store->id }}"
+                                                @if (old('store_id') == $store->id) selected @endif>{{ $store->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('store_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @else
+                                <input hidden name='store_id' value="{{ auth()->user()->store_id }}">
+                            @endif
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>

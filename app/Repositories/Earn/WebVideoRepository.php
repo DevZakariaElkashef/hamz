@@ -31,7 +31,6 @@ class WebVideoRepository
     public function store($request)
     {
         $data = $request->except('thumbnail');
-        $data['seller_id'] = 1;
         $data['app'] = 'earn';
         if ($request->hasFile('thumbnail')) {
             $data['thumbnail'] =  $this->uploadImage($request->file('thumbnail'), 'videos');
