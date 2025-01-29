@@ -31,7 +31,6 @@ class CouponController extends Controller
         ->where('store_id', $cart->store_id)
         ->where('start_date', '<=', now())
         ->where('end_date', '>=', now())
-        // ->where('max_usage', '>', 0)
         ->where('code', $request->coupon_code)->first();
         if (!$coupon || ($coupon->users->count() >= $coupon->max_usage) || (UserCoupon::where('coupon_id', $coupon->id)->where('user_id', $request->user()->id)->first())) {
             return $this->sendResponse(400, '', __("main.conpon_not_vaild"));

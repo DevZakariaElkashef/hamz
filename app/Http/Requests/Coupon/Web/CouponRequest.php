@@ -17,7 +17,8 @@ class CouponRequest extends FormRequest
             'code' => 'required|string|max:255',
             'discount' => 'required',
             'max_usage' => 'required|integer',
-            'is_active' => 'required|boolean',
+            'lat' => 'required|string',
+            'long' => 'required|string',
         ];
     }
 }

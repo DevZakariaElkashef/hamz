@@ -42,18 +42,18 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.title_ar') }} (AR): <span
+                                <label class="form-label">{{ __('main.name') }} (AR): <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="title_ar" placeholder="{{ __('main.enter_title') }}"
+                                <input class="form-control" name="title_ar" placeholder="{{ __('main.enter_name') }}"
                                     required="" type="text" value="{{ old('title_ar') }}">
                                 @error('title_ar')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.title_en') }} (AR): <span
+                                <label class="form-label">{{ __('main.name') }} (EN): <span
                                         class="tx-danger">*</span></label>
-                                <input class="form-control" name="title_en" placeholder="{{ __('main.enter_title') }}"
+                                <input class="form-control" name="title_en" placeholder="{{ __('main.enter_name') }}"
                                     required="" type="text" value="{{ old('title_en') }}">
                                 @error('title_en')
                                     <div class="text-danger">{{ $message }}</div>
@@ -61,18 +61,18 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.description_ar') }} (AR): <span
+                                <label class="form-label">{{ __('main.description') }} (AR): <span
                                         class="tx-danger">*</span></label>
-                                <textarea class="form-control" name="description_ar" placeholder="{{ __('main.enter_title') }}" required="">{{ old('description_ar') }}</textarea>
+                                <textarea class="form-control" name="description_ar" placeholder="{{ __('main.enter_description') }}" required="">{{ old('description_ar') }}</textarea>
                                 @error('description_ar')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.description_en') }} (EN): <span
+                                <label class="form-label">{{ __('main.description') }} (EN): <span
                                         class="tx-danger">*</span></label>
-                                <textarea class="form-control" name="description_en" placeholder="{{ __('main.enter_title') }}" required="">{{ old('description_en') }}</textarea>
+                                <textarea class="form-control" name="description_en" placeholder="{{ __('main.enter_description') }}" required="">{{ old('description_en') }}</textarea>
                                 @error('description_en')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -125,7 +125,23 @@
                                 @enderror
                             </div>
 
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.lat') }}: <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="lat" placeholder="{{ __('main.enter_lat') }}"
+                                    required="" type="text" value="{{ old('lat') }}">
+                                @error('lat')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.lng') }}: <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="long" placeholder="{{ __('main.enter_lng') }}"
+                                    required="" type="text" value="{{ old('lng') }}">
+                                @error('lng')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span

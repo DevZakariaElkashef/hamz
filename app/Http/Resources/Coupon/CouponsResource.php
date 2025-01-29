@@ -26,6 +26,8 @@ class CouponsResource extends JsonResource
             'couponsCount' => $this->coupon()->active()->count() ?? 0,
             'start_date' => $this->start_date ?? '',
             'end_date' => $this->end_date ?? '',
+            'lat' => $this->lat ?? '',
+            'long' => $this->long ?? '',
         ];
     }
 }
