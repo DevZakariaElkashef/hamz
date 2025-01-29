@@ -129,6 +129,7 @@ return
         'category' => 'الفئة',
         'parent_category' => 'الفئة الرئيسية',
         'select' => 'اختر',
+        'select_store' => 'اختر متجر',
         'store' => 'المتجر',
         'create_city' => 'إنشاء مدينة',
         'cities' => 'المدن',

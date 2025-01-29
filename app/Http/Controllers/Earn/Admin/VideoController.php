@@ -72,8 +72,8 @@ class VideoController extends Controller
     public function edit(Video $video)
     {
         $categories = DB::select('SELECT * FROM categories WHERE `app` = "earn" AND `is_active` = 1');
-        // $categories = Category::earn()->where('user_id', $request->user()->id)->active()->get();
-        return view('earn.videos.edit', compact('video', 'categories'));
+        $stores = Store::whereIn('app', ['mall', 'booth'])->active()->get();
+        return view('earn.videos.edit', compact('video', 'categories', 'stores'));
     }
 
     /**

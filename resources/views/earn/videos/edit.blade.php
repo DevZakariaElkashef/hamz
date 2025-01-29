@@ -98,9 +98,12 @@
                                     <label class="form-label">{{ __('main.store') }}: <span
                                             class="tx-danger">*</span></label>
                                     <select required class="form-control select2" name="store_id">
+                                        <option value selected disabled>
+                                            {{ __('main.select_store') }}
+                                        </option>
                                         @foreach ($stores as $store)
                                             <option value="{{ $store->id }}"
-                                                @if (old('store_id') == $store->id) selected @endif>{{ $store->name }}
+                                                @if ($video->store_id == $store->id) selected @endif>{{ $store->name }}
                                             </option>
                                         @endforeach
                                     </select>

@@ -130,6 +130,7 @@ return
         'category' => 'category',
         'parent_category' => 'Parent Category',
         'select' => 'select',
+        'select_store' => 'select store',
         'store' => "store",
         'create_city' => 'Create City',
         'cities' => 'Cities',
