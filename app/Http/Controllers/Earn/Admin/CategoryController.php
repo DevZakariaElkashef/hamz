@@ -92,9 +92,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $stores = Store::earn()->active()->get();
-        $categories = Category::earn()->active()->get();
-        return view("earn.categories.create", compact('stores', 'categories'));
+        // $stores = Store::earn()->active()->get();
+        // $categories = Category::earn()->active()->get();
+        return view("earn.categories.create");
     }
 
     /**
@@ -119,9 +119,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $stores = Store::earn()->active()->get();
-        $categories = Category::earn()->active()->where('id', '!=', $category->id)->get();
-        return view('earn.categories.edit', compact('category', 'stores', 'categories'));
+        return view('earn.categories.edit', compact('category'));
     }
 
     /**

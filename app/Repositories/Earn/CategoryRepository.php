@@ -32,13 +32,13 @@ class CategoryRepository
 
     public function store($request)
     {
-        $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'categorys');
-        }
-        if (!is_numeric($data['parent_id'])) {
-            unset($data['parent_id']);
-        }
+        $data = $request->all();
+        // if ($request->hasFile('image')) {
+        //     $data['image'] =  $this->uploadImage($request->file('image'), 'categorys');
+        // }
+        // if (!is_numeric($data['parent_id'])) {
+        //     unset($data['parent_id']);
+        // }
         $data['user_id'] = $request->user()->id;
         $data['app'] = 'earn';
         unset($data['_token']);
@@ -48,13 +48,13 @@ class CategoryRepository
 
     public function update($request, $category)
     {
-        $data = $request->except('image');
-        if ($request->hasFile('image')) {
-            $data['image'] =  $this->uploadImage($request->file('image'), 'categorys', $category->image);
-        }
-        if (!is_numeric($data['parent_id'])) {
-            $data['parent_id'] = null;
-        }
+        $data = $request->all();
+        // if ($request->hasFile('image')) {
+        //     $data['image'] =  $this->uploadImage($request->file('image'), 'categorys', $category->image);
+        // }
+        // if (!is_numeric($data['parent_id'])) {
+        //     $data['parent_id'] = null;
+        // }
         unset($data['_token'], $data['_method']);
         $category->update($data);
         return $category;

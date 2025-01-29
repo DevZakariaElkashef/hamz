@@ -4,7 +4,7 @@
             <tr>
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
                 <th>{{ __('main.id') }}</th>
-                <th>{{ __('main.store') }}</th>
+                {{-- <th>{{ __('main.store') }}</th> --}}
                 <th>{{ __('main.name') }}</th>
                 <th>{{ __('main.image') }}</th>
                 <th>{{ __('main.status') }}</th>
@@ -16,7 +16,7 @@
                 <tr>
                     <th class="text-end p-1"><input type="checkbox" class="checkbox-input" value="{{ $category->id }}"></th>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $category->store->name ?? '' }}</td>
+                    {{-- <td>{{ $category->store->name ?? '' }}</td> --}}
                     <td>{{ $category->name }}</td>
                     <td>
                         <a href="{{ asset($category->image) }}" download>

@@ -60,7 +60,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
+                            {{-- <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.parent_category') }}: </label>
                                 <select class="form-control select2" name="parent_id">
                                     <option selected>{{ __("main.select") }}</option>
@@ -72,7 +72,7 @@
                                 @error('parent_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
@@ -87,7 +87,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 form-group mt-4">
+                            {{-- <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
                                     <input class="custom-file-input" required id="customFile" type="file" name="image">
@@ -95,7 +95,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-12 mg-t-10 mg-sm-t-25">
                                 <button class="btn btn-main-primary pd-x-20"

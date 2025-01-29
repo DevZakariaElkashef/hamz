@@ -21,7 +21,12 @@ class VideoResource extends JsonResource
             "path"=> $this->path,
             "thumbnail"=> $this->thumbnail,
             "category_id"=> $this->category_id,
-            "seller_id"=> $this->seller_id,
+            "store"=> [
+                'id' => $this->store->id,
+                'name' => $this->store->name,
+                'image' => asset($this->store->image),
+                'app' => $this->store->app,
+            ],
             "reword_amount"=> $this->reword_amount,
             "is_active"=> $this->is_active,
             "duration"=> $this->duration,

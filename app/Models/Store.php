@@ -64,6 +64,11 @@ class Store extends Model
         return $this->hasMany(Category::class);
     }
 
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
+
     public function brands()
     {
         return $this->hasMany(Brand::class);
