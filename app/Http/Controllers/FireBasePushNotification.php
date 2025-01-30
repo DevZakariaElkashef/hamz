@@ -16,7 +16,7 @@ class FireBasePushNotification
     {
 
         // Provide the path where you stored the json token, in my case, I stored it in database
-        $creadentials = new ServiceAccountCredentials($this->scope, storage_path('app/hamz-firebase.json'));
+        $creadentials = new ServiceAccountCredentials($this->scope, storage_path('app/firebase.json'));
         $this->token = $creadentials->fetchAuthToken(HttpHandlerFactory::build());
     }
 
