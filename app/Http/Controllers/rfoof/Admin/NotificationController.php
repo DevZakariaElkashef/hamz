@@ -38,7 +38,7 @@ class NotificationController extends Controller
             'message_en' => $request->message_en,
             'all' => ($request->choose) ? 1 : 0,
             'user_id' => (!$request->choose) ? $request->employee_id : null,
-            'app' => 'resale'
+            'app' => 'rfoof'
         ]);
         if ($request->choose) {
             $users = User::where('role_id', 4)->get();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Google\Auth\Credentials\ServiceAccountCredentials;
 use Google\Auth\HttpHandler\HttpHandlerFactory;
+use Log;
 
 class FireBasePushNotification
 {
@@ -59,7 +60,7 @@ class FireBasePushNotification
 
         $result = curl_exec($ch);
         curl_close($ch);
-
+        Log::debug($result);
         return $result;
     }
 }
