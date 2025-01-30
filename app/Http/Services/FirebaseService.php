@@ -68,20 +68,26 @@ class FirebaseService
                 'payload' => $payload,
             ]);
         }
+        Log::debug('Firebase notification success', [
+            'http_code' => $httpCode,
+            'response' => $response,
+            'error' => $error,
+            'payload' => $payload,
+        ]);
     }
 
     /*----------------------------------------------------------------------------------------------------*/
 
     public function notify($title, $body, $devicesTokens, $additionalData = null)
     {
-        if ($additionalData) {
-            $this->convertArrayValuesToString($additionalData);
-        }
+        // if ($additionalData) {
+        //     $this->convertArrayValuesToString($additionalData);
+        // }
 
-        foreach ($devicesTokens as $token) {
+        // foreach ($devicesTokens as $token) {
             $payload = [
                 'message' => [
-                    'token' => $token,
+                    'token' => $devicesTokens,
                     'notification' => [
                         'title' => $title,
                         'body' => $body,
@@ -109,6 +115,6 @@ class FirebaseService
             ];
 
             $this->sendRequest($payload);
-        }
+        // }
     }
 }
