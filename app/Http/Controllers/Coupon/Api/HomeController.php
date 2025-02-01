@@ -116,7 +116,7 @@ class HomeController extends Controller
         }
     }
 
-    public function copyeCoupon(Request $request, $code)
+    public function copyCoupon(Request $request, $code)
     {
         try {
             $coupon = Coupon::coupon()->active()->where('code', $code)
