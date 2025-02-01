@@ -12,6 +12,7 @@ class UserCouponCopy extends Model
     use HasFactory, AppScope, SoftDeletes;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $table = 'user_coupon_copies';
 
     public function user()
     {
