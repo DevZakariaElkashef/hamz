@@ -45,6 +45,11 @@ class Coupon extends Model
         return $this->hasMany(UserCoupon::class);
     }
 
+    public function copies()
+    {
+        return $this->hasMany(UserCouponCopy::class);
+    }
+
     public function store()
     {
         return $this->belongsTo(Store::class);

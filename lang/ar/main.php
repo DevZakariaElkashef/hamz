@@ -130,6 +130,7 @@ return
         'parent_category' => 'الفئة الرئيسية',
         'select' => 'اختر',
         'select_store' => 'اختر متجر',
+        'copied_times' => 'عدد مرات النسخ',
         'store' => 'المتجر',
         'create_city' => 'إنشاء مدينة',
         'cities' => 'المدن',

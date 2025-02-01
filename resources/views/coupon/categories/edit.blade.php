@@ -62,7 +62,7 @@
                             </div>
 
                             
-                            <div class="col-md-6 form-group mg-b-0">
+                            {{-- <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.parent_category') }}: </label>
                                 <select class="form-control select2" name="parent_id">
                                     <option>{{ __('main.select') }}</option>
@@ -76,7 +76,8 @@
                                 @error('parent_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
+                            
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">

@@ -3,11 +3,13 @@
         <thead>
             <tr>
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
-                <th>{{ __('main.id') }}</th>
+                {{-- <th>{{ __('main.id') }}</th> --}}
                 <th>{{ __('main.code') }}</th>
+                <th>{{ __('main.store') }}</th>
                 <th>{{ __('main.discount') }}</th>
                 <th>{{ __('main.max_usage') }}</th>
                 <th>{{ __('main.used_times') }}</th>
+                <th>{{ __('main.copied_times') }}</th>
                 <th>{{ __('main.status') }}</th>
                 <th>{{ __('main.actions') }}</th>
             </tr>
@@ -18,11 +20,13 @@
                     <th class="text-end p-1">
                         <input type="checkbox" class="checkbox-input" value="{{ $coupon->id }}">
                     </th>
-                    <th scope="row">{{ $loop->iteration }}</th>
+                    {{-- <th scope="row">{{ $loop->iteration }}</th> --}}
                     <td>{{ $coupon->code }}</td>
+                    <td>{{ $coupon->store->name ?? NULL}}</td>
                     <td>{{ $coupon->discount }}</td>
                     <td>{{ $coupon->max_usage }}</td>
                     <td>{{ $coupon->users->count() }}</td>
+                    <td>{{ $coupon->copies->count() }}</td>
                     <td>
                         <label class="custom-toggle-switch">
                             <input type="checkbox" class="custom-toggle-input" data-id="{{ $coupon->id }}"

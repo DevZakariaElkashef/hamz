@@ -19,5 +19,6 @@ Route::group(['middleware' => ['api']], function () {
 
 });
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('use-coupon/{code}', [HomeController::class, 'useCoupon']);
+    // Route::post('use-coupon/{code}', [HomeController::class, 'useCoupon']);
+    Route::post('copy-coupon/{code}', [HomeController::class, 'useCoupon']);
 });

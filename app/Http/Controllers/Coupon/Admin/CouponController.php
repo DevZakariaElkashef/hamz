@@ -11,6 +11,7 @@ use App\Imports\Coupon\CouponImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Coupon\CouponRepository;
 use App\Http\Requests\Coupon\Web\CouponRequest;
+use App\Models\Store;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class CouponController extends Controller
@@ -73,7 +74,8 @@ class CouponController extends Controller
     public function create(Request $request)
     {
         $categories = Category::coupon()->active()->get();
-        return view("coupon.coupons.create", compact('categories'));
+        $stores = Store::whereIn('app', ['mall', 'booth'])->active()->get();
+        return view("coupon.coupons.create", compact('categories', 'stores'));
     }
 
     /**
@@ -99,7 +101,8 @@ class CouponController extends Controller
     public function edit(Coupon $coupon)
     {
         $categories = Category::coupon()->active()->get();
-        return view('coupon.coupons.edit', compact('coupon', 'categories'));
+        $stores = Store::whereIn('app', ['mall', 'booth'])->active()->get();
+        return view('coupon.coupons.edit', compact('coupon', 'categories', 'stores'));
     }
 
     /**

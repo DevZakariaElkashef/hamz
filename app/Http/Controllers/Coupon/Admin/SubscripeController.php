@@ -21,7 +21,7 @@ class SubscripeController extends Controller
     {
         abort_if(isUserSubscribed($request->user(), 'coupons'), 404);
 
-        $packages = Package::active()->coupons()->get();
+        $packages = Package::active()->coupon()->get();
         return view('coupon.subscripe.create', compact('packages'));
     }
 

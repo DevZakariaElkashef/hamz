@@ -38,9 +38,9 @@ class CategoryRepository
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadImage($request->file('image'), 'categorys');
         }
-        if (!is_numeric($data['parent_id'])) {
-            unset($data['parent_id']);
-        }
+        // if (!is_numeric($data['parent_id'])) {
+        //     unset($data['parent_id']);
+        // }
         $data['app'] = 'coupons';
         $data['user_id'] = $request->user()->id;
         unset($data['_token']);
@@ -54,9 +54,9 @@ class CategoryRepository
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadImage($request->file('image'), 'categorys', $category->image);
         }
-        if (!is_numeric($data['parent_id'])) {
-            $data['parent_id'] = null;
-        }
+        // if (!is_numeric($data['parent_id'])) {
+        //     $data['parent_id'] = null;
+        // }
         unset($data['_token'], $data['_method']);
         $category->update($data);
         return $category;

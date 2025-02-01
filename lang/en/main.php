@@ -131,6 +131,7 @@ return
         'parent_category' => 'Parent Category',
         'select' => 'select',
         'select_store' => 'select store',
+        'copied_times' => 'Copied times',
         'store' => "store",
         'create_city' => 'Create City',
         'cities' => 'Cities',

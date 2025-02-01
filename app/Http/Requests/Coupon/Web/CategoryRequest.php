@@ -22,7 +22,7 @@ class CategoryRequest extends FormRequest
             'name_en' => 'required|string|max:255',
             'image' => 'nullable|mimes:png,jpg,jpeg',
             'is_active' => 'required|boolean',
-            'parent_id' => 'nullable|' . $parentValidation,
+            // 'parent_id' => 'nullable|' . $parentValidation,
         ];
     }
 }
