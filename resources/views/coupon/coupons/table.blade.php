@@ -5,6 +5,7 @@
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
                 {{-- <th>{{ __('main.id') }}</th> --}}
                 <th>{{ __('main.code') }}</th>
+                <th>{{ __('main.category') }}</th>
                 <th>{{ __('main.store') }}</th>
                 <th>{{ __('main.discount') }}</th>
                 <th>{{ __('main.max_usage') }}</th>
@@ -22,6 +23,7 @@
                     </th>
                     {{-- <th scope="row">{{ $loop->iteration }}</th> --}}
                     <td>{{ $coupon->code }}</td>
+                    <td>{{ $coupon->category->name }}</td>
                     <td>{{ $coupon->store->name ?? NULL}}</td>
                     <td>{{ $coupon->discount }}</td>
                     <td>{{ $coupon->max_usage }}</td>

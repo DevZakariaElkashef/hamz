@@ -73,11 +73,11 @@
                             @foreach ($products as $count => $product)
                                 <tr data-id="{{ $count + 1 }}">
                                     <td style="width: 80px" class="align-middle">{{ $count + 1 }}</td>
-                                    <td class="align-middle"><img src="{{ $product->images[0]->path }}"
+                                    <td class="align-middle"><img src="{{ asset('uploads/adsImages/'.$product->images[0]->image) }}"
                                             alt="{{ __('admin.image') }}" style="width: 100px;" /></td>
                                     <td class="align-middle">{{ $product->name }}</td>
                                     <td class="align-middle">{!! mb_strimwidth($product->description, 0, 50, ',...') !!}</td>
-                                    <td class="align-middle">{{ $product->category->title }}</td>
+                                    <td class="align-middle">{{ $product->category->title() }}</td>
                                     <td class="align-middle">{{ $product->price }}</td>
                                     <td class="align-middle">
                                         @if ($product->status == 0)
@@ -109,11 +109,11 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}" />
-                                                <button type="submit"
-                                                    class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
-                                                    @if ($product->is_active == 1) title="{{ __('admin.hide') }}" @else title="{{ __('admin.showIcon') }}" @endif>
+                                                <button type="submit" class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
+                                                    @if ($product->verify == 1) title="{{ __('admin.hide') }}" @else title="{{ __('admin.showIcon') }}" @endif>
                                                     <i class="@if ($product->verify == 1) fas fa-eye-slash @else fas fa-eye @endif"
-                                                        style="color:white"></i>
+                                                        style="color:white">
+                                                    </i>
                                                 </button>
                                             </form>
                                             <button type="submit"

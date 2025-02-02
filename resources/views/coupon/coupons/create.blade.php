@@ -50,6 +50,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.name') }} (EN): <span
                                         class="tx-danger">*</span></label>
@@ -86,6 +87,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.discount') }}: <span
                                         class="tx-danger">*</span></label>
@@ -95,6 +97,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.max_usage') }}: <span
                                         class="tx-danger">*</span></label>
@@ -104,10 +107,6 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
-
-
-
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.category') }}: <span
@@ -141,7 +140,6 @@
                                 @enderror
                             </div>
 
-
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.lat') }}: <span class="tx-danger">*</span></label>
                                 <input class="form-control" name="lat" placeholder="{{ __('main.enter_lat') }}"
@@ -174,7 +172,6 @@
                                 @enderror
                             </div>
 
-
                             <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
@@ -185,6 +182,7 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.start_date') }}:</label>
                                 <input class="form-control" name="start_date" placeholder="{{ __('main.enter_start_at') }}"
@@ -202,6 +200,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            
                             <div class="col-12 mg-t-10 mg-sm-t-25">
                                 <button class="btn btn-main-primary pd-x-20"
                                     type="submit">{{ __('main.submit') }}</button>

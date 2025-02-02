@@ -114,7 +114,7 @@ Route::group(['prefix' => '/'], function () {
                 Route::PUT('/', [ProductController::class, 'update'])->name('usedMarket.products.update');
                 Route::PUT('/verify', [ProductController::class, 'verify'])->name('usedMarket.products.verify');
                 Route::get('/editProduct/{id}', [ProductController::class, 'edit'])->name('usedMarket.products.edit');
-                Route::get('/product/accepet/{id}', [ProductController::class, 'accepet'])->name('usedMarket.products.accepet');
+                Route::get('/product/accepet/{id}', [ProductController::class, 'accepetAds'])->name('usedMarket.products.accepet');
                 Route::get('/product/rejecet/{id}', [ProductController::class, 'rejecet'])->name('usedMarket.products.rejecet');
                 Route::get('/product/blockAds/{id}', [ProductController::class, 'blockAds'])->name('usedMarket.products.blockAds');
                 Route::get('/product/discriminationAdsAction/{id}', [ProductController::class, 'discriminationAdsAction'])->name('usedMarket.products.discriminationAdsAction');

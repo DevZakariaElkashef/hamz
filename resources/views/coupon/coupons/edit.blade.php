@@ -43,6 +43,44 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.name') }} (AR): <span
+                                        class="tx-danger">*</span></label>
+                                <input class="form-control" name="title_ar" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('title_ar', $coupon->title_ar) }}">
+                                @error('title_ar')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.name') }} (EN): <span
+                                        class="tx-danger">*</span></label>
+                                <input class="form-control" name="title_en" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('title_en', $coupon->title_ar)}}">
+                                @error('title_en')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.description') }} (AR): <span
+                                        class="tx-danger">*</span></label>
+                                <textarea class="form-control" name="description_ar" placeholder="{{ __('main.enter_description') }}" required="">{{ old('description_ar', $coupon->description_ar) }}</textarea>
+                                @error('description_ar')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.description') }} (EN): <span
+                                        class="tx-danger">*</span></label>
+                                <textarea class="form-control" name="description_en" placeholder="{{ __('main.enter_description') }}" required="">{{ old('description_en', $coupon->description_en) }}</textarea>
+                                @error('description_en')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.code') }}: <span class="tx-danger">*</span></label>
                                 <input class="form-control" name="code" placeholder="{{ __('main.enter_code') }}"
                                     required="" type="text" value="{{ old('code', $coupon->code) }}">
@@ -50,6 +88,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.discount') }}: <span
                                         class="tx-danger">*</span></label>
@@ -59,6 +98,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.max_usage') }}: <span
                                         class="tx-danger">*</span></label>
@@ -70,12 +110,28 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.category') }}: <span
+                                        class="tx-danger">*</span></label>
+                                <select required class="form-control" name="category_id">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            @if (old('category_id', $coupon->category_id) == $category->id) selected @endif>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.store') }}: <span
                                         class="tx-danger">*</span></label>
                                 <select required class="form-control" name="store_id">
                                     @foreach ($stores as $store)
                                         <option value="{{ $store->id }}"
-                                            @if (old('store_id') == $store->id) selected @endif>
+                                            @if (old('store_id', $coupon->store_id) == $store->id) selected @endif>
                                             {{ $store->name }}
                                         </option>
                                     @endforeach
@@ -114,6 +170,17 @@
                                 @error('is_active')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mt-4">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
+                                    <input class="custom-file-input"  id="customFile" type="file"
+                                        name="image">
+                                    @error('image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">

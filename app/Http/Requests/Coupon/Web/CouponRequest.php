@@ -17,6 +17,7 @@ class CouponRequest extends FormRequest
             'code' => 'required|string|max:255',
             'discount' => 'required',
             'max_usage' => 'required|integer',
+            'image' => 'nullable|mimes:png,jpg,jpeg',
             'lat' => 'required|string',
             'long' => 'required|string',
         ];

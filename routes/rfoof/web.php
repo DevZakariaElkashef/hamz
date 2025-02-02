@@ -127,7 +127,7 @@ Route::group(['prefix' => '/'], function () {
                 Route::PUT('/', [ProductController::class, 'update'])->name('rfoof.products.update');
                 Route::PUT('/verify', [ProductController::class, 'verify'])->name('rfoof.products.verify');
                 Route::get('/editProduct/{id}', [ProductController::class, 'edit'])->name('rfoof.products.edit');
-                Route::get('/product/accepet/{id}', [ProductController::class, 'accepet'])->name('rfoof.products.accepet');
+                Route::get('/product/accepet/{id}', [ProductController::class, 'accepetAds'])->name('rfoof.products.accepet');
                 Route::get('/product/rejecet/{id}', [ProductController::class, 'rejecet'])->name('rfoof.products.rejecet');
                 Route::get('/product/blockAds/{id}', [ProductController::class, 'blockAds'])->name('rfoof.products.blockAds');
                 Route::get('/product/discriminationAdsAction/{id}', [ProductController::class, 'discriminationAdsAction'])->name('rfoof.products.discriminationAdsAction');

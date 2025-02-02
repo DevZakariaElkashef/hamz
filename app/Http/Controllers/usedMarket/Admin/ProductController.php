@@ -18,18 +18,21 @@ class ProductController extends Controller
 
     public function index($status)
     {
-        $products = Product::usedMarket()->whereHas('images')->where('status', $status)->latest()->paginate();
+        $products = Product::usedMarket();
+        if ($status != 0) {
+            $products = $products->Where('status', $status);
+        }
+        $products = $products->latest()->paginate();
         return view('usedMarket.products.index', compact('products', 'status'));
     }
     public function verify(Request $request)
     {
         $product = Product::findOrFail($request->product_id);
 
-        $product->update([
-            'verify' => ($product->is_active == 1) ? 0 : 1,
-        ]);
+        $product->verify = $product->verify == 1 ? 0 : 1 ;
+        $product->save();
 
-        session()->flash('message', ($product->is_active == 1) ? 'تم اظهار الاعلان بنجاح' : 'تم اخفاء الاعلان بنجاح');
+        session()->flash('message', ($product->verify == 1) ? 'تم اظهار الاعلان بنجاح' : 'تم اخفاء الاعلان بنجاح');
         return redirect()->back();
     }
     public function rejecet($id)
@@ -43,15 +46,17 @@ class ProductController extends Controller
         $messageDataUser = 'نعتذر علي رفض الاعلان برجاء التواصل مع الاداره';
 
         Notification::create([
-            'subject' => $title,
-            'message' => $messageDataUser,
+            'title_ar' => $title,
+            'title_en' => $title,
+            'message_ar' => $messageDataUser,
+            'message_en' => $messageDataUser,
             'user_id' => $product->user_id,
             'product_id' => $product->id,
             'app' => 'resale'
         ]);
 
-        $this->to($product->user->device_token, $messageDataUser, $title);
-        $this->sendMail($product->user, $product, $messageDataUser, $title);
+        // $this->to($product->user->device_token, $messageDataUser, $title);
+        // $this->sendMail($product->user, $product, $messageDataUser, $title);
         return back()->with('message', 'تم رفض الاعلان بنجاح');
     }
     public function accepetAds($id)
@@ -66,15 +71,17 @@ class ProductController extends Controller
         $messageDataUser = 'تم الموافقه علي الاعلان بنجاح و ظهوره في التطبيق';
 
         Notification::create([
-            'subject' => $title,
-            'message' => $messageDataUser,
+            'title_ar' => $title,
+            'title_en' => $title,
+            'message_ar' => $messageDataUser,
+            'message_en' => $messageDataUser,
             'user_id' => $ads->user_id,
             'product_id' => $ads->id,
             'app' => 'resale'
         ]);
 
-        $this->to($ads->user->device_token, $messageDataUser, $title);
-        $this->sendMail($ads->user, $ads, $messageDataUser, $title);
+        // $this->to($ads->user->device_token, $messageDataUser, $title);
+        // $this->sendMail($ads->user, $ads, $messageDataUser, $title);
 
         return back()->with('message', 'تم الموافقه علي الاعلان بنجاح');
     }
@@ -89,14 +96,16 @@ class ProductController extends Controller
         $messageData = 'تم تمييز الاعلان الخاص بك بنجاح';
         $title = 'تمييز الاعلان';
         Notification::create([
-            'subject' => $title,
-            'message' => $messageData,
+            'title_ar' => $title,
+            'title_en' => $title,
+            'message_ar' => $messageData,
+            'message_en' => $messageData,
             'user_id' => $ads->user_id,
             'product_id' => $ads->id,
             'app' => 'resale'
         ]);
-        $this->to($ads->user->device_token, $messageData, $title);
-        $this->sendMail($ads->user, $ads, $messageData, $title);
+        // $this->to($ads->user->device_token, $messageData, $title);
+        // $this->sendMail($ads->user, $ads, $messageData, $title);
 
         return back()->with('message', 'تم تمييز الاعلان بنجاح');
     }
@@ -111,14 +120,16 @@ class ProductController extends Controller
         $messageData = 'تم حظر الاعلان الخاص بك برجاء التواصل مع الاداره ';
         $title = 'حظر الاعلان';
         Notification::create([
-            'subject' => $title,
-            'message' => $messageData,
+            'title_ar' => $title,
+            'title_en' => $title,
+            'message_ar' => $messageData,
+            'message_en' => $messageData,
             'user_id' => $ads->user_id,
             'product_id' => $ads->id,
             'app' => 'resale'
         ]);
-        $this->to($ads->user->device_token, $messageData, $title);
-        $this->sendMail($ads->user, $ads, $messageData, $title);
+        // $this->to($ads->user->device_token, $messageData, $title);
+        // $this->sendMail($ads->user, $ads, $messageData, $title);
 
         return back()->with('message', 'تم حظر الاعلان بنجاح');
     }
