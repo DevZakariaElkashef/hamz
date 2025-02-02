@@ -86,6 +86,24 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.lat') }}: <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="lat" placeholder="{{ __('main.enter_lat') }}"
+                                    required="" type="text" value="{{ old('lat') ?? $coupon->lat }}">
+                                @error('lat')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.lng') }}: <span class="tx-danger">*</span></label>
+                                <input class="form-control" name="long" placeholder="{{ __('main.enter_lng') }}"
+                                    required="" type="text" value="{{ old('lng') ?? $coupon->lat }}">
+                                @error('long')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
                                     <option value="0" @if (old('is_active', $coupon->is_active) == 0) selected @endif>
