@@ -40,12 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('wallet', [WalletController::class, 'index']);
     Route::get('wallet/withdraws', [WalletController::class, 'withdraws']);
     Route::post('wallet/withdraws/make', [WalletController::class, 'make']);
-
-    // =============================================================================
-    //                           Transactions ROUTES
-    // =============================================================================
-
-    Route::get('transactions', [TransactionContoller::class, 'index']);
+    Route::get('wallet/transactions', [TransactionContoller::class, 'index']);
 
     // =============================================================================
     //                           Rate Orders ROUTES
