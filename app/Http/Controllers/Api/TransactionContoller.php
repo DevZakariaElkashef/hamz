@@ -30,7 +30,7 @@ class TransactionContoller extends Controller
                 ->where('status', '1');
 
             $transactions2 = Order::select(
-                DB::raw('(CASE WHEN app = `mall` THEN 2 ELSE 3 END) AS type'),
+                DB::raw('(CASE WHEN app = "mall" THEN 2 ELSE 3 END) AS type'),
                 'total As amount',
                 'created_at'
             )

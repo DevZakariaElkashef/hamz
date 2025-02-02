@@ -584,4 +584,20 @@ return
 
         'delivery_company_3' => 'Store shipping',
         'delivery_company_4' => 'Store pickup',
+
+        'wallet_type' => 'Wallet Type',
+        'wallet_type_0' => 'Main Wallet',
+        'wallet_type_1' => 'Watch and Earn Wallet',
+
+        'withdraw_type' => 'Withdrawal Type',
+        'withdraw_type_0' => 'Transfer to Main Wallet',
+        'withdraw_type_1' => 'Bank Transfer',
+
+        'main_wallet_transaction_type_0' => 'Watch and Earn',
+        'main_wallet_transaction_type_1' => 'Bank Transfer',
+        'main_wallet_transaction_type_2' => 'Malls',
+        'main_wallet_transaction_type_3' => 'Booths',
+
+        'watch_and_earn_wallet_transaction_type_0' => 'Main Wallet',
+        'watch_and_earn_wallet_transaction_type_1' => 'Bank Transfer',
     ];
