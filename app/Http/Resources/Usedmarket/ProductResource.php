@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Favourite;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ProductResource extends JsonResource
 {
@@ -17,8 +18,9 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if ($request->user()) {
-            $favourite = Favourite::where(['product_id' => $this->id, 'user_id' => $request->user()->id])->first();
+        $user = Auth::guard('api')->user();
+        if ($user) {
+            $favourite = Favourite::where(['product_id' => $this->id, 'user_id' => $user->id])->first();
             $favouriteType = $favourite ? true : false;
         } else {
             $favouriteType = false;
