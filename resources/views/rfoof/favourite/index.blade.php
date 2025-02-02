@@ -92,7 +92,7 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('Delete')
-                                                            <input type="hidden" name="complainId"
+                                                            <input type="hidden" name="favouriteId"
                                                                 value="{{ $new->id }}" />
                                                             <button type="button" class="btn btn-secondary waves-effect"
                                                                 data-dismiss="modal">{{ __('admin.back') }}</button>

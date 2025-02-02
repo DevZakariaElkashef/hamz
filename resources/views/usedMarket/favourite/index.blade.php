@@ -61,7 +61,7 @@
                                 <tr data-id="{{ $count + 1 }}">
                                     <td style="width: 80px" class="align-middle">{{ $count + 1 }}</td>
                                     <td class="align-middle">{{ $new->user->name }}</td>
-                                    <td class="align-middle">{{ $new->product->name }}</td>
+                                    <td class="align-middle">{{ $new->product->name ?? "" }}</td>
                                     <td class="align-middle">{{ $new->created_at }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex">
@@ -92,7 +92,7 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('Delete')
-                                                            <input type="hidden" name="complainId"
+                                                            <input type="hidden" name="favouriteId"
                                                                 value="{{ $new->id }}" />
                                                             <button type="button" class="btn btn-secondary waves-effect"
                                                                 data-dismiss="modal">{{ __('admin.back') }}</button>
