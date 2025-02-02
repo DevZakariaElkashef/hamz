@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\FireBasePushNotification;
+use App\Http\Services\FirebaseService;
 
 class NotificationController extends Controller
 {
@@ -47,8 +47,8 @@ class NotificationController extends Controller
                 if ($request->phone_message) {
                     if($user->device_token)
                     {
-                        $firebase = new FireBasePushNotification();
-                        $firebase->to($user->device_token, $request->message_ar, $request->title_ar);
+                        $firebase = new FirebaseService();
+                        $firebase->notify($request->title_ar, $request->message_ar, $user->device_token);
                     }
                 }
                 if ($request->sms_message) {
@@ -62,8 +62,8 @@ class NotificationController extends Controller
                 if ($request->phone_message) {
                     if($user->device_token)
                     {
-                        $firebase = new FireBasePushNotification();
-                        $firebase->to($user->device_token, $request->message_ar, $request->title_ar);
+                        $firebase = new FirebaseService();
+                        $firebase->notify($request->title_ar, $request->message_ar, $user->device_token);
                     }
                 }
                 if ($request->sms_message) {

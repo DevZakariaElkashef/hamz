@@ -23,6 +23,8 @@ class WalletController extends Controller
         return $this->sendResponse(200, $wallets);
     }
 
+    /*----------------------------------------------------------------------------------------------------*/
+
     public function withdraws(Request $request)
     {
         $wallet_type = $request->query('wallet_type', '0');
@@ -33,6 +35,8 @@ class WalletController extends Controller
 
         return $this->sendResponse(200, WithdrowResource::collection($withdraws));
     }
+
+    /*----------------------------------------------------------------------------------------------------*/
 
     public function make(MakeWithdrawRequest $request)
     {

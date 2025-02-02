@@ -68,12 +68,6 @@ class FirebaseService
                 'payload' => $payload,
             ]);
         }
-        Log::debug('Firebase notification success', [
-            'http_code' => $httpCode,
-            'response' => $response,
-            'error' => $error,
-            'payload' => $payload,
-        ]);
     }
 
     /*----------------------------------------------------------------------------------------------------*/

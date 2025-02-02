@@ -590,4 +590,12 @@ return
         'withdraw_type' => 'نوع السحب',
         'withdraw_type_0' => 'تحويل للمحفظة الرئيسية',
         'withdraw_type_1' => 'تحويل بنكي',
+
+        'main_wallet_transaction_type_0' => 'شاهد وأكسب',
+        'main_wallet_transaction_type_1' => 'تحويل بنكي',
+        'main_wallet_transaction_type_2' => 'المولات',
+        'main_wallet_transaction_type_3' => 'البوثات',
+
+        'watch_and_earn_wallet_transaction_type_0' => 'المحفظة الرئيسية',
+        'watch_and_earn_wallet_transaction_type_1' => 'تحويل بنكي'
     ];

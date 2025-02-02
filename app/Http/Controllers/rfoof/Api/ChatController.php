@@ -7,15 +7,11 @@ use App\Models\Product;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use App\Traits\ImageUploadTrait;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\rfoof\ChatResource;
-use Google\Auth\HttpHandler\HttpHandlerFactory;
-use App\Http\Controllers\FireBasePushNotification;
 use App\Http\Resources\rfoof\MassageResource;
 use App\Models\User;
-use Google\Auth\Credentials\ServiceAccountCredentials;
 use Illuminate\Validation\ValidationException;
 
 
