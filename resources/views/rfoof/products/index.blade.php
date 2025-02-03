@@ -54,10 +54,14 @@
                                 <th class="fw-bold">{{ __('admin.description') }}</th>
                                 <th class="fw-bold">القسم الرئيسي</th>
                                 <th class="fw-bold">{{ __('admin.price') }}</th>
-                                <th class="fw-bold">{{ __('admin.status') }}</th>
+                                @if ($status == 0)
+                                    <th class="fw-bold">{{ __('admin.status') }}</th>
+                                @endif
                                 @if ($status == 1)
-                                    <th class="fw-bold">تمييز</th>
+                                    {{-- <th class="fw-bold">تمييز</th> --}}
                                     <th class="fw-bold">حظر</th>
+                                @elseif ($status == 2 || $status == 4)
+                                    <th class="fw-bold">استرجاع</th>
                                 @endif
 
                                 <th class="fw-bold">{{ __('admin.actions') }}</th>
@@ -65,96 +69,98 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($products) == 0)
+                            @if ($products->count() <= 0)
                                 <tr class="align-middle">
                                     <td colspan="10" class="text-center">{{ __('admin.no_data') }}</td>
                                 </tr>
-                            @endif
-                            @foreach ($products as $count => $product)
-                                <tr data-id="{{ $count + 1 }}">
-                                    <td style="width: 80px" class="align-middle">{{ $count + 1 }}</td>
-                                    <td class="align-middle"><img src="{{ asset('uploads/adsImages/'.$product->images[0]->image) }}"
-                                            alt="{{ __('admin.image') }}" style="width: 100px;" /></td>
-                                    <td class="align-middle">{{ $product->name }}</td>
-                                    <td class="align-middle">{!! mb_strimwidth($product->description, 0, 50, ',...') !!}</td>
-                                    <td class="align-middle">{{ $product->category->title() }}</td>
-                                    <td class="align-middle">{{ $product->price }}</td>
-                                    <td class="align-middle">
-                                        @if ($product->status == 0)
-                                            <a href="{{ route('rfoof.products.accepet', $product->id) }}"
-                                                class="btn btn-success">موافقه</a>
-                                            <a href="{{ route('rfoof.products.rejecet', $product->id) }}"
-                                                class="btn btn-danger">رفض</a>
-                                        @elseif($product->status == 1)
-                                            <span class="btn btn-success">الاعلان مقبول</span>
-                                        @else
-                                            <span class="btn btn-danger">الاعلان مرفوض</span>
+                            @else
+                                @foreach ($products as $count => $product)
+                                    <tr data-id="{{ $count + 1 }}">
+                                        <td style="width: 80px" class="align-middle">{{ $count + 1 }}</td>
+                                        <td class="align-middle"><img src="{{ asset('uploads/adsImages/'.$product->images[0]->image) }}"
+                                                alt="{{ __('admin.image') }}" style="width: 100px;" /></td>
+                                        <td class="align-middle">{{ $product->name }}</td>
+                                        <td class="align-middle">{!! mb_strimwidth($product->description, 0, 50, ',...') !!}</td>
+                                        <td class="align-middle">{{ $product->category->title() }}</td>
+                                        <td class="align-middle">{{ $product->price }}</td>
+                                        @if ($status == 0)
+                                            <td class="align-middle">
+                                                <a href="{{ route('rfoof.products.accepet', $product->id) }}"
+                                                    class="btn btn-success">موافقه</a>
+                                                <a href="{{ route('rfoof.products.rejecet', $product->id) }}"
+                                                    class="btn btn-danger">رفض</a>
+                                            </td>
                                         @endif
-                                    </td>
-                                    @if ($status == 1)
+                                        @if ($status == 1)
+                                            {{-- <td class="align-middle">
+                                                <a href="{{ route('rfoof.products.discriminationAdsAction', $product->id) }}"
+                                                    class="btn btn-success">تمييز</a>
+                                            </td> --}}
+                                            <td class="align-middle">
+                                                <a href="{{ route('rfoof.products.blockAds', $product->id) }}"
+                                                    class="btn btn-danger">حظر</a>
+                                            </td>
+                                        @elseif ($status == 2 || $status == 4)
+                                            <td class="align-middle">
+                                                <a href="{{ route('rfoof.products.restore', $product->id) }}"
+                                                    class="btn btn-info">استرجاع</a>
+                                            </td>
+                                        @endif
                                         <td class="align-middle">
-                                            <a href="{{ route('rfoof.products.discriminationAdsAction', $product->id) }}"
-                                                class="btn btn-success">تمييز</a>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="{{ route('rfoof.products.blockAds', $product->id) }}"
-                                                class="btn btn-danger">حظر</a>
-                                        </td>
-                                    @endif
-                                    <td class="align-middle">
-                                        <div class="d-flex">
+                                            <div class="d-flex">
 
-                                            <form class="d-inline ml-2" action="{{ route('rfoof.products.verify') }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="product_id" value="{{ $product->id }}" />
-                                                <button type="submit" class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
-                                                    @if ($product->verify == 1) title="{{ __('admin.hide') }}" @else title="{{ __('admin.showIcon') }}" @endif>
-                                                    <i class="@if ($product->verify == 1) fas fa-eye-slash @else fas fa-eye @endif"
-                                                        style="color:white">
-                                                    </i>
+                                                <form class="d-inline ml-2" action="{{ route('rfoof.products.verify') }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}" />
+                                                    <button type="submit" class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
+                                                        @if ($product->verify == 1) title="{{ __('admin.hide') }}" @else title="{{ __('admin.showIcon') }}" @endif>
+                                                        <i class="@if ($product->verify == 1) fas fa-eye-slash @else fas fa-eye @endif"
+                                                            style="color:white">
+                                                        </i>
+                                                    </button>
+                                                </form>
+                                                <button type="submit"
+                                                    class="modal-effect btn btn-outline-secondary bg-danger text-dark btn-sm"
+                                                    title="{{ __('admin.delete') }}" data-effect="effect-newspaper"
+                                                    data-toggle="modal" href="#myModal{{ $product->id }}">
+                                                    <i class="fas fa-trash-alt" style="color:white"></i>
                                                 </button>
-                                            </form>
-                                            <button type="submit"
-                                                class="modal-effect btn btn-outline-secondary bg-danger text-dark btn-sm"
-                                                title="{{ __('admin.delete') }}" data-effect="effect-newspaper"
-                                                data-toggle="modal" href="#myModal{{ $product->id }}">
-                                                <i class="fas fa-trash-alt" style="color:white"></i>
-                                            </button>
 
-                                        </div>
+                                            </div>
 
-                                        <div class="modal" id="myModal{{ $product->id }}">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content modal-content-demo">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">{{ __('admin.product_delete') }}</h5>
-                                                        <button aria-label="Close" class="close" data-dismiss="modal"
-                                                            type="button"><span aria-hidden="true">&times;</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>{{ __('admin.deleteProductMessage') }}</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <form class="d-inline" action="{{ route('rfoof.products.delete') }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('Delete')
-                                                            <input type="hidden" name="product_id"
-                                                                value="{{ $product->id }}" />
-                                                            <button type="button" class="btn btn-secondary waves-effect"
-                                                                data-dismiss="modal">{{ __('admin.back') }}</button>
-                                                            <button type="submit"
-                                                                class="btn btn-danger waves-effect waves-light">{{ __('admin.delete') }}</button>
-                                                        </form>
+                                            <div class="modal" id="myModal{{ $product->id }}">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content modal-content-demo">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">{{ __('admin.product_delete') }}</h5>
+                                                            <button aria-label="Close" class="close" data-dismiss="modal"
+                                                                type="button"><span aria-hidden="true">&times;</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>{{ __('admin.deleteProductMessage') }}</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form class="d-inline" action="{{ route('rfoof.products.delete') }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('Delete')
+                                                                <input type="hidden" name="product_id"
+                                                                    value="{{ $product->id }}" />
+                                                                <button type="button" class="btn btn-secondary waves-effect"
+                                                                    data-dismiss="modal">{{ __('admin.back') }}</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-danger waves-effect waves-light">{{ __('admin.delete') }}</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                     <div class="row">

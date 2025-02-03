@@ -117,6 +117,7 @@ Route::group(['prefix' => '/'], function () {
                 Route::get('/product/accepet/{id}', [ProductController::class, 'accepetAds'])->name('usedMarket.products.accepet');
                 Route::get('/product/rejecet/{id}', [ProductController::class, 'rejecet'])->name('usedMarket.products.rejecet');
                 Route::get('/product/blockAds/{id}', [ProductController::class, 'blockAds'])->name('usedMarket.products.blockAds');
+                Route::get('/product/restore/{id}', [ProductController::class, 'restore'])->name('usedMarket.products.restore');
                 Route::get('/product/discriminationAdsAction/{id}', [ProductController::class, 'discriminationAdsAction'])->name('usedMarket.products.discriminationAdsAction');
                 Route::post('/product/subCategories', [ProductController::class, 'subCategories'])->name('usedMarket.products.subCategories');
             }

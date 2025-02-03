@@ -21,6 +21,11 @@ class ProductController extends Controller
         $products = Product::rfoof();
         if ($status != 0) {
             $products = $products->Where('status', $status);
+        }elseif ($status == 0) {
+            $products = $products->where(function ($query) use ($status) {
+                $query->where('status', $status)
+                    ->orWhereNull('status');
+            });
         }
         $products = $products->latest()->paginate();
         return view('rfoof.products.index', compact('products', 'status'));
@@ -52,7 +57,7 @@ class ProductController extends Controller
             'message_en' => $messageDataUser,
             'user_id' => $product->user_id,
             'product_id' => $product->id,
-            'app' => 'rfoof'    
+            'app' => 'rfoof'
         ]);
 
         // $this->to($product->user->device_token, $messageDataUser, $title);
@@ -77,7 +82,7 @@ class ProductController extends Controller
             'message_en' => $messageDataUser,
             'user_id' => $ads->user_id,
             'product_id' => $ads->id,
-            'app' => 'rfoof'    
+            'app' => 'rfoof'
         ]);
 
         // $this->to($ads->user->device_token, $messageDataUser, $title);
@@ -124,12 +129,37 @@ class ProductController extends Controller
             'message_en' => $messageData,
             'user_id' => $ads->user_id,
             'product_id' => $ads->id,
-            'app' => 'rfoof'    
+            'app' => 'rfoof'
         ]);
         // $this->to($ads->user->device_token, $messageData, $title);
         // $this->sendMail($ads->user, $ads, $messageData, $title);
 
         return back()->with('message', 'تم حظر الاعلان بنجاح');
+    }
+
+    public function restore($id)
+    {
+        $ads = Product::findOrFail($id);
+
+        $ads->update([
+            'status' => 1,
+            'verify' => 1,
+        ]);
+        $messageData = 'تم استرجاع الاعلان الخاص بك بنجاح ';
+        $title = 'استرجاع الاعلان';
+        Notification::create([
+            'title_ar' => $title,
+            'title_en' => $title,
+            'message_ar' => $messageData,
+            'message_en' => $messageData,
+            'user_id' => $ads->user_id,
+            'product_id' => $ads->id,
+            'app' => 'rfoof'
+        ]);
+        // $this->to($ads->user->device_token, $messageData, $title);
+        // $this->sendMail($ads->user, $ads, $messageData, $title);
+
+        return back()->with('message', 'تم استرجاع الاعلان بنجاح');
     }
     public static function sendMail($user, $ads, $messageData, $title)
     {

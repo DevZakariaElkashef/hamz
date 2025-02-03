@@ -21,6 +21,11 @@ class ProductController extends Controller
         $products = Product::usedMarket();
         if ($status != 0) {
             $products = $products->Where('status', $status);
+        }elseif ($status == 0) {
+            $products = $products->where(function ($query) use ($status) {
+                $query->where('status', $status)
+                    ->orWhereNull('status');
+            });
         }
         $products = $products->latest()->paginate();
         return view('usedMarket.products.index', compact('products', 'status'));
@@ -133,6 +138,32 @@ class ProductController extends Controller
 
         return back()->with('message', 'تم حظر الاعلان بنجاح');
     }
+
+    public function restore($id)
+    {
+        $ads = Product::findOrFail($id);
+
+        $ads->update([
+            'status' => 1,
+            'verify' => 1,
+        ]);
+        $messageData = 'تم استرجاع الاعلان الخاص بك بنجاح ';
+        $title = 'استرجاع الاعلان';
+        Notification::create([
+            'title_ar' => $title,
+            'title_en' => $title,
+            'message_ar' => $messageData,
+            'message_en' => $messageData,
+            'user_id' => $ads->user_id,
+            'product_id' => $ads->id,
+            'app' => 'resale'
+        ]);
+        // $this->to($ads->user->device_token, $messageData, $title);
+        // $this->sendMail($ads->user, $ads, $messageData, $title);
+
+        return back()->with('message', 'تم استرجاع الاعلان بنجاح');
+    }
+
     public static function sendMail($user, $ads, $messageData, $title)
     {
         Mail::send('Admin.emails.ads', compact('user', 'ads', 'messageData', 'title'), function ($message) use ($user, $ads, $messageData, $title) {

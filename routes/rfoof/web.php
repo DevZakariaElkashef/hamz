@@ -130,6 +130,7 @@ Route::group(['prefix' => '/'], function () {
                 Route::get('/product/accepet/{id}', [ProductController::class, 'accepetAds'])->name('rfoof.products.accepet');
                 Route::get('/product/rejecet/{id}', [ProductController::class, 'rejecet'])->name('rfoof.products.rejecet');
                 Route::get('/product/blockAds/{id}', [ProductController::class, 'blockAds'])->name('rfoof.products.blockAds');
+                Route::get('/product/restore/{id}', [ProductController::class, 'restore'])->name('rfoof.products.restore');
                 Route::get('/product/discriminationAdsAction/{id}', [ProductController::class, 'discriminationAdsAction'])->name('rfoof.products.discriminationAdsAction');
                 Route::post('/product/subCategories', [ProductController::class, 'subCategories'])->name('rfoof.products.subCategories');
             }

@@ -99,7 +99,7 @@
                         </li>
                         <li><a class="slide-item" href="{{ route('rfoof.products', 2) }}">الاعلانات المرفوضه</a>
                         </li>
-                        <li><a class="slide-item" href="{{ route('rfoof.products', 3) }}">الاعلانات المميزه</a></li>
+                        {{-- <li><a class="slide-item" href="{{ route('rfoof.products', 3) }}">الاعلانات المميزه</a></li> --}}
                         <li><a class="slide-item" href="{{ route('rfoof.products', 4) }}">الاعلانات المحظوره</a>
                         </li>
 
