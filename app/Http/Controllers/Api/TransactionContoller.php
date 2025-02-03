@@ -32,10 +32,18 @@ class TransactionContoller extends Controller
             $transactions2 = Order::select(
                 DB::raw('(CASE WHEN app = "mall" THEN 2 ELSE 3 END) AS type'),
                 'total As amount',
-                DB::raw('(CASE WHEN order_status_id = "5" THEN 1 ELSE 0 END) AS is_negative'),
+                DB::raw('(CASE WHEN order_status_id = "5" THEN 0 ELSE 1 END) AS is_negative'),
                 'created_at'
             )
-                ->where('payment_type', '1');
+                ->where('payment_status', '1')
+                ->where(function ($query) {
+                    $query->where('order_status_id', '!=', '5')
+                        ->where('payment_type', '1');
+                })
+                ->orWhere(function ($query) {
+                    $query->where('order_status_id', '5')
+                        ->where('payment_type', '0');
+                });
 
             $transactions = $transactions1->union($transactions2)->latest()->get();
         } elseif ($wallet_type == '1') {
