@@ -11,6 +11,7 @@
                 <th>{{ __('main.max_usage') }}</th>
                 <th>{{ __('main.used_times') }}</th>
                 <th>{{ __('main.copied_times') }}</th>
+                <th>المده</th>
                 <th>{{ __('main.status') }}</th>
                 <th>{{ __('main.actions') }}</th>
             </tr>
@@ -29,6 +30,13 @@
                     <td>{{ $coupon->max_usage }}</td>
                     <td>{{ $coupon->users->count() }}</td>
                     <td>{{ $coupon->copies->count() }}</td>
+                    <td>
+                        @if(\Carbon\Carbon::now()->gt($coupon->end_date))
+                            انتهت
+                        @else
+                            متبقي {{ \Carbon\Carbon::now()->diffInDays($coupon->end_date) }} ايام
+                        @endif
+                    </td>
                     <td>
                         <label class="custom-toggle-switch">
                             <input type="checkbox" class="custom-toggle-input" data-id="{{ $coupon->id }}"
