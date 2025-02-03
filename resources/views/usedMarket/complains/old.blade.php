@@ -1,4 +1,4 @@
-@extends('rfoof.layouts.master')
+@extends('usedMarket.layouts.master')
 @section('title')
     الشكاوي
 @endsection
@@ -32,10 +32,7 @@
                     <h4 class="card-title m-0">
                         الشكاوي
                     </h4>
-                    <a href="{{ route('rfoof.complains.read_all') }}" type="button" class="btn btn-success"
-                        title="{{ __('main.read_all') }} ">
-                        {{ __('main.read_all') }}
-                    </a>
+
                 </div>
                 <div class="card-body table-responsive border-0">
                     @include('layouts.session')
@@ -74,13 +71,12 @@
                                     <td class="align-middle">{{ $new->created_at }}</td>
                                     <td class="align-middle">
                                         <div class="d-flex justify-content-around">
-                                            <a href="{{ route('rfoof.complains.show', $new->id) }}" class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
+                                            <a href="{{ route('usedMarket.complains.show', $new->id) }}" class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
                                                 title="{{ __('admin.showIcon') }}">
                                                 <i class="fas fa-eye"
                                                     style="color:white">
                                                 </i>
                                             </a>
-
                                             <button type="submit"
                                                 class="modal-effect btn btn-outline-secondary bg-danger text-dark btn-sm"
                                                 title="{{ __('admin.delete') }}" data-effect="effect-newspaper"
@@ -103,7 +99,7 @@
                                                         <p>هل تريد حذف الشكوي؟</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <form class="d-inline" action="{{ route('rfoof.complains.delete') }}"
+                                                        <form class="d-inline" action="{{ route('usedMarket.complains.delete') }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('Delete')

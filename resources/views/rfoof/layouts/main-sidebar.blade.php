@@ -37,7 +37,7 @@
                     auth()->user()->hasPermission('rfoof.subCategories.index') ||
                     auth()->user()->hasPermission('rfoof.products.index') ||
                     auth()->user()->hasPermission('rfoof.comments.index') ||
-                    auth()->user()->hasPermission('rfoof.complains.index') ||
+                    auth()->user()->hasPermission('rfoof.complains.old') ||
                     auth()->user()->hasPermission('rfoof.favourites.index') ||
                     auth()->user()->hasPermission('rfoof.notifications.index'))
                 <li class="side-item side-item-category">{{ __('admin.additional_data') }}</li>
@@ -126,8 +126,8 @@
                             style="font-size: 16px"></i><span class="side-menu__label">الشكاوي</span><i
                             class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
-                        <li><a class="slide-item" href="{{ route('rfoof.complains', 0) }}">الشكاوي الجديده</a></li>
-                        <li><a class="slide-item" href="{{ route('rfoof.complains', 1) }}">الشكاوي القديمه</a></li>
+                        <li><a class="slide-item" href="{{ route('rfoof.complains') }}">الشكاوي الجديده</a></li>
+                        <li><a class="slide-item" href="{{ route('rfoof.complains.old') }}">الشكاوي القديمه</a></li>
                     </ul>
                 </li>
             @endcan

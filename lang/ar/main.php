@@ -597,5 +597,8 @@ return
         'main_wallet_transaction_type_3' => 'البوثات',
 
         'watch_and_earn_wallet_transaction_type_0' => 'المحفظة الرئيسية',
-        'watch_and_earn_wallet_transaction_type_1' => 'تحويل بنكي'
+        'watch_and_earn_wallet_transaction_type_1' => 'تحويل بنكي',
+
+        'read_all' => 'تحديد الكل كمقروء',
+        'read_all_success' => 'تم تحديد الكل كمقروء بنجاح',
     ];

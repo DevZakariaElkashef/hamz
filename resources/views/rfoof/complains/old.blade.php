@@ -32,10 +32,7 @@
                     <h4 class="card-title m-0">
                         الشكاوي
                     </h4>
-                    <a href="{{ route('rfoof.complains.read_all') }}" type="button" class="btn btn-success"
-                        title="{{ __('main.read_all') }} ">
-                        {{ __('main.read_all') }}
-                    </a>
+
                 </div>
                 <div class="card-body table-responsive border-0">
                     @include('layouts.session')
@@ -80,7 +77,6 @@
                                                     style="color:white">
                                                 </i>
                                             </a>
-
                                             <button type="submit"
                                                 class="modal-effect btn btn-outline-secondary bg-danger text-dark btn-sm"
                                                 title="{{ __('admin.delete') }}" data-effect="effect-newspaper"

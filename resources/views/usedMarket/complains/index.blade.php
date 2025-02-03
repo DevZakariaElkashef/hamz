@@ -32,6 +32,10 @@
                     <h4 class="card-title m-0">
                         الشكاوي
                     </h4>
+                    <a href="{{ route('usedMarket.complains.read_all') }}" type="button" class="btn btn-success"
+                        title="{{ __('main.read_all') }} ">
+                        {{ __('main.read_all') }}
+                    </a>
 
                 </div>
                 <div class="card-body table-responsive border-0">
@@ -70,8 +74,13 @@
                                     <td class="align-middle">{{ $new->message }}</td>
                                     <td class="align-middle">{{ $new->created_at }}</td>
                                     <td class="align-middle">
-                                        <div class="d-flex">
-
+                                        <div class="d-flex justify-content-around">
+                                            <a href="{{ route('usedMarket.complains.show', $new->id) }}" class="btn btn-outline-secondary  bg-primary text-dark btn-sm"
+                                                title="{{ __('admin.showIcon') }}">
+                                                <i class="fas fa-eye"
+                                                    style="color:white">
+                                                </i>
+                                            </a>
                                             <button type="submit"
                                                 class="modal-effect btn btn-outline-secondary bg-danger text-dark btn-sm"
                                                 title="{{ __('admin.delete') }}" data-effect="effect-newspaper"

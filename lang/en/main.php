@@ -600,4 +600,8 @@ return
 
         'watch_and_earn_wallet_transaction_type_0' => 'Main Wallet',
         'watch_and_earn_wallet_transaction_type_1' => 'Bank Transfer',
+
+        'read_all' => 'Mark all as Reded',
+        'read_all_success' => 'Mark all as Reded Done Successfully',
+
     ];

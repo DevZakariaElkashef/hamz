@@ -36,7 +36,7 @@
                     auth()->user()->hasPermission('usedMarket.subCategories.index') ||
                     auth()->user()->hasPermission('usedMarket.products.index') ||
                     auth()->user()->hasPermission('usedMarket.comments.index') ||
-                    auth()->user()->hasPermission('usedMarket.complains.index') ||
+                    auth()->user()->hasPermission('usedMarket.complains.old') ||
                     auth()->user()->hasPermission('usedMarket.favourites.index') ||
                     auth()->user()->hasPermission('usedMarket.notifications.index'))
                 <li class="side-item side-item-category">{{ __('admin.additional_data') }}</li>
@@ -115,8 +115,8 @@
                             style="font-size: 16px"></i><span class="side-menu__label">الشكاوي</span><i
                             class="angle fe fe-chevron-down"></i></a>
                     <ul class="slide-menu">
-                        <li><a class="slide-item" href="{{ route('usedMarket.complains', 0) }}">الشكاوي الجديده</a></li>
-                        <li><a class="slide-item" href="{{ route('usedMarket.complains', 1) }}">الشكاوي القديمه</a></li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.complains') }}">الشكاوي الجديده</a></li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.complains.old') }}">الشكاوي القديمه</a></li>
                     </ul>
                 </li>
             @endcan

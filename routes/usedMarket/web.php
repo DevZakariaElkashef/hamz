@@ -140,8 +140,11 @@ Route::group(['prefix' => '/'], function () {
         Route::group(
             ['prefix' => '/complains'],
             function () {
-                Route::get('/{id}', [ComplainController::class, 'complains'])->name('usedMarket.complains');
-                Route::delete('/', [ComplainController::class, 'delete'])->name('usedMarket.complains.delete');
+                Route::get('/', [ComplainController::class, 'complains'])->name('usedMarket.complains');
+                Route::get('/old', [ComplainController::class, 'old'])->name('usedMarket.complains.old');
+                Route::delete('/delete', [ComplainController::class, 'delete'])->name('usedMarket.complains.delete');
+                Route::get('/show/{id}', [ComplainController::class, 'show'])->name('usedMarket.complains.show');
+                Route::get('/read-all', [ComplainController::class, 'read_all'])->name('usedMarket.complains.read_all');
             }
         );
         /**
