@@ -87,7 +87,7 @@ class VendorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(VendorRequest $request)
+    public function store(Request $request)
     {
         $this->vendorRepository->store($request); // store vendor
         return to_route('vendors.index')->with('success', __("main.created_successffully"));
@@ -122,7 +122,7 @@ class VendorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(VendorRequest $request, Vendor $vendor)
+    public function update(Request $request, Vendor $vendor)
     {
         $this->vendorRepository->update($request, $vendor);
         return to_route('vendors.index')->with('success', __("main.updated_successffully"));
