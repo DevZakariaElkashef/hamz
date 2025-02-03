@@ -15,6 +15,7 @@ use App\Http\Resources\Booth\ShowOrderResource;
 use App\Http\Resources\Booth\OrderStatusResource;
 use App\Http\Requests\Booth\Api\MakeOrderRrequest;
 use App\Http\Requests\Mall\Api\CancleOrderRequest;
+use App\Models\AppSetting;
 
 class OrderController extends Controller
 {
@@ -67,6 +68,7 @@ class OrderController extends Controller
     {
         $user = $request->user();
         $cart = Cart::find($request->cart_id);
+        $management_ratio = AppSetting::select('value_ar')->where('app', 'booth')->first()->value_ar ?? 0;
 
         $order = Order::create([
             'user_id' => $user->id,
@@ -81,6 +83,7 @@ class OrderController extends Controller
             'delivery' => $cart->delivery,
             'coupon_id' => $cart->coupon_id,
             'total' => $cart->calcTotal(),
+            'management_ratio' => $management_ratio,
 
             'payment_type' => $request->payment_type,
             'payment_status' => 1, // will be paid

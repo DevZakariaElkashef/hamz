@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
 use App\Models\Store;
 use App\Models\Section;
+use App\Observers\OrderObserver;
 use App\Observers\StoreObserver;
 use App\Observers\SectionObserver;
 use Illuminate\Pagination\Paginator;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrapFive();
 
+        Order::observe(OrderObserver::class);
         Section::observe(SectionObserver::class);
         Store::observe(StoreObserver::class);
     }
