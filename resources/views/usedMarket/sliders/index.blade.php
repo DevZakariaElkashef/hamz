@@ -1,4 +1,4 @@
-@extends('booth.layouts.master')
+@extends('usedMarket.layouts.master')
 @section('title')
     {{ __('main.sliders') }}
 @endsection
@@ -15,10 +15,10 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h5 class="content-title mb-0 my-auto"><a href="{{ route('booth.home') }}"
+                <h5 class="content-title mb-0 my-auto"><a href="{{ route('usedMarket.home') }}"
                         class="text-dark">{{ __('main.home') }}</a></h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('booth.sliders.index') }}">{{ __('main.sliders') }}</a></span>
+                        href="{{ route('usedMarket.sliders.index') }}">{{ __('main.sliders') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -28,13 +28,13 @@
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
             </div>
             <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('booth.sliders.index') }}" class="btn btn-warning  btn-icon ml-2"><i
+                <a href="{{ route('usedMarket.sliders.index') }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
 
-            @can('booth.sliders.create')
+            @can('usedMarket.sliders.create')
                 <div class="mb-3 mb-xl-0">
-                    <a href="{{ route('booth.sliders.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
+                    <a href="{{ route('usedMarket.sliders.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
                 </div>
             @endcan
         </div>
@@ -74,7 +74,7 @@
                     <h6 class="modal-title">{{ __('main.filter') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form method="get" action="{{ route('booth.sliders.index') }}">
+                <form method="get" action="{{ route('usedMarket.sliders.index') }}">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('main.start_date') }}</label>
@@ -117,14 +117,14 @@
                         <div class="d-flex align-items-center">
                             <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
                                 data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
-                                data-url="{{ route('booth.sliders.delete') }}">{{ __('main.delete') }}</a>
+                                data-url="{{ route('usedMarket.sliders.delete') }}">{{ __('main.delete') }}</a>
 
-                            <input type="text" id="searchInput" data-url="{{ route('booth.sliders.search') }}"
+                            <input type="text" id="searchInput" data-url="{{ route('usedMarket.sliders.search') }}"
                                 class="form-control mx-1" placeholder="{{ __('main.search') }}">
 
                             <div class="custom-select-wrapper mx-1">
                                 <select id="showPerPage" class="custom-select"
-                                    data-url="{{ route('booth.sliders.index') }}" onchange="updatePageSize()">
+                                    data-url="{{ route('usedMarket.sliders.index') }}" onchange="updatePageSize()">
                                     <option value="10" @if (request('per_page') && request('per_page') == 10) selected @endif>10</option>
                                     <option value="25" @if (request('per_page') && request('per_page') == 25) selected @endif>25</option>
                                     <option value="50" @if (request('per_page') && request('per_page') == 50) selected @endif>50</option>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="card-body">
                     <div id="tableFile">
-                        @include('booth.sliders.table')
+                        @include('usedMarket.sliders.table')
                     </div>
                 </div>
             </div>

@@ -30,7 +30,7 @@
                     <td>
                         <label class="custom-toggle-switch">
                             <input type="checkbox" class="custom-toggle-input" data-id="{{ $slider->id }}"
-                                data-url="{{ route('booth.slider.toggleStatus', $slider->id) }}"
+                                data-url="{{ route('usedMarket.slider.toggleStatus', $slider->id) }}"
                                 {{ $slider->is_active ? 'checked' : '' }}>
                             <span class="custom-toggle-slider"></span>
                         </label>
@@ -39,7 +39,7 @@
                     <td>
                         <label class="custom-toggle-switch">
                             <input type="checkbox" class="custom-toggle-input custom-toggle-input-is-fixed" data-id="{{ $slider->id }}"
-                                data-url="{{ route('booth.slider.toggleFixedStatus', $slider->id) }}"
+                                data-url="{{ route('usedMarket.slider.toggleFixedStatus', $slider->id) }}"
                                 {{ $slider->is_fixed ? 'checked' : '' }}>
                             <span class="custom-toggle-slider"></span>
                         </label>
@@ -48,12 +48,12 @@
 
 
                     <td>
-                        <a href="{{ route('booth.sliders.edit', $slider->id) }}"
+                        <a href="{{ route('usedMarket.sliders.edit', $slider->id) }}"
                             class="btn btn-secondary">{{ __('main.edit') }}</a>
 
                         <a href="#" class="btn btn-danger delete-btn" data-toggle="modal"
                             data-effect="effect-flip-vertical"
-                            data-url="{{ route('booth.sliders.destroy', $slider->id) }}"
+                            data-url="{{ route('usedMarket.sliders.destroy', $slider->id) }}"
                             data-target="#deletemodal">{{ __('main.delete') }}</a>
                     </td>
                 </tr>

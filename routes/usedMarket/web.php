@@ -9,6 +9,7 @@ use App\Http\Controllers\usedMarket\Admin\FavouriteController;
 use App\Http\Controllers\usedMarket\Admin\NotificationController;
 use App\Http\Controllers\usedMarket\Admin\LangController;
 use App\Http\Controllers\usedMarket\Admin\ProductController;
+use App\Http\Controllers\usedMarket\Admin\SliderController;
 use App\Http\Controllers\usedMarket\Admin\SubCategoryController;
 use App\Http\Controllers\usedMarket\Admin\UserController;
 use App\Http\Controllers\usedMarket\Admin\HomeController;
@@ -33,6 +34,15 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('usedMarket.logout');
     Route::post('/login', [AuthController::class, 'signIn'])->name('usedMarket.signIn');
     Route::post('/signUp', [AuthController::class, 'signUp'])->name('usedMarket.signUp');
+    /* Route For sliders Controller
+    */
+    Route::as('usedMarket.')->group(function () {
+        Route::resource('sliders', SliderController::class);
+        Route::get('search-sliders', [SliderController::class, 'search'])->name('sliders.search');
+        Route::get('sliders-toggle-status/{slider}', [SliderController::class, 'toggleStatus'])->name('slider.toggleStatus');
+        Route::get('sliders-toggle-fixed-status/{slider}', [SliderController::class, 'toggleFixedStatus'])->name('slider.toggleFixedStatus');
+        Route::delete('delete-sliders', [SliderController::class, 'delete'])->name('sliders.delete');
+    });
     Route::group(['prefix' => '/usedMarket', ], function () {
         Route::get('/', [AdminController::class, 'index'])->name('usedMarket.admin');
         /**

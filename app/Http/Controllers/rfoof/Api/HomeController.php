@@ -153,7 +153,10 @@ class HomeController extends Controller
         try {
             $products = Product::query();
 
-            $products = $products->rfoof();
+            $products = $products->rfoof()->active()->where([
+                'status' => 1,
+                'verify' => 1
+            ]);
 
             // Filter by category if it's not 0
             if ($request->category_id != 0) {

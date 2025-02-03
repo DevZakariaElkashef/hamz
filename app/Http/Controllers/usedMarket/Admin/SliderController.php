@@ -3,35 +3,38 @@
 namespace App\Http\Controllers\usedMarket\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\usedMarket\Slider\SliderRequest;
+use App\Models\Slider;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
-    protected $sliderRepository;
-
-    public function __construct(SliderRepository $sliderRepository)
+    use ImageUploadTrait;
+    protected $limit;
+    public function __construct()
     {
-        $this->sliderRepository = $sliderRepository;
+        $this->limit = config('app.pg_limit');
 
         // autherization
-        $this->middleware('can:booth.sliders.index')->only('index');
-        $this->middleware('can:booth.sliders.create')->only(['create', 'store']);
-        $this->middleware('can:booth.sliders.update')->only(['edit', 'update']);
-        $this->middleware('can:booth.sliders.delete')->only('destroy');
+        $this->middleware('can:usedMarket.sliders.index')->only('index');
+        $this->middleware('can:usedMarket.sliders.create')->only(['create', 'store']);
+        $this->middleware('can:usedMarket.sliders.update')->only(['edit', 'update']);
+        $this->middleware('can:usedMarket.sliders.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $sliders = $this->sliderRepository->index($request);
-        return view('booth.sliders.index', compact('sliders'));
+        $sliders = Slider::filter($request)->usedMarket()->paginate($request->per_page ?? $this->limit);
+        return view('usedMarket.sliders.index', compact('sliders'));
     }
 
     public function search(Request $request)
     {
-        $sliders = $this->sliderRepository->search($request);
-        return view('booth.sliders.table', compact('sliders'))->render();
+        $sliders = Slider::usedMarket()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        return view('usedMarket.sliders.table', compact('sliders'))->render();
     }
 
     /**
@@ -39,7 +42,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view("booth.sliders.create");
+        return view("usedMarket.sliders.create");
     }
 
     /**
@@ -47,8 +50,18 @@ class SliderController extends Controller
      */
     public function store(SliderRequest $request)
     {
-        $this->sliderRepository->store($request); // store slider
-        return to_route('booth.sliders.index')->with('success', __("main.created_successffully"));
+        $data = $request->except('image');
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadImage($request->file('image'), 'sliders');
+        }
+        $data['app'] = 'resale';
+        unset($data['_token']);
+        $slider = Slider::create($data);
+
+        if ($slider->is_fixed) {
+            $this->updateOtherSliders($slider->id);
+        }
+        return to_route('usedMarket.sliders.index')->with('success', __("main.created_successffully"));
     }
 
     /**
@@ -56,7 +69,7 @@ class SliderController extends Controller
      */
     public function show(string $id)
     {
-        return to_route('booth.sliders.edit');
+        return to_route('usedMarket.sliders.edit');
     }
 
     /**
@@ -64,7 +77,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        return view('booth.sliders.edit', compact('slider'));
+        return view('usedMarket.sliders.edit', compact('slider'));
     }
 
     /**
@@ -72,8 +85,17 @@ class SliderController extends Controller
      */
     public function update(SliderRequest $request, Slider $slider)
     {
-        $this->sliderRepository->update($request, $slider);
-        return to_route('booth.sliders.index')->with('success', __("main.updated_successffully"));
+        $data = $request->except('image');
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadImage($request->file('image'), 'sliders', $slider->image);
+        }
+        unset($data['_token'], $data['_method']);
+        $slider->update($data);
+
+        if ($slider->is_fixed) {
+            $this->updateOtherSliders($slider->id);
+        }
+        return to_route('usedMarket.sliders.index')->with('success', __("main.updated_successffully"));
     }
 
     public function toggleStatus(Request $request, Slider $slider)
@@ -90,7 +112,7 @@ class SliderController extends Controller
         $slider->update(['is_fixed' => $request->is_active]);
 
         if ($request->is_active) {
-            $this->sliderRepository->updateOtherSliders($slider->id);
+            $this->updateOtherSliders($slider->id);
         }
 
         return response()->json([
@@ -105,13 +127,24 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        $this->sliderRepository->delete($slider);
-        return to_route('booth.sliders.index')->with('success', __("main.delete_successffully"));
+        if ($slider->image) {
+            $this->deleteImage($slider->image);
+        }
+        $slider->delete();
+        return to_route('usedMarket.sliders.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
-        $this->sliderRepository->deleteSelection($request);
-        return to_route('booth.sliders.index')->with('success', __("main.delete_successffully"));
+        $ids = explode(',', $request->ids);
+        Slider::whereIn('id', $ids)->delete();
+        return to_route('usedMarket.sliders.index')->with('success', __("main.delete_successffully"));
+    }
+
+
+
+    public function updateOtherSliders(int $currentSliderId): void
+    {
+        Slider::usedMarket()->whereNot('id', $currentSliderId)->update(['is_fixed' => 0]);
     }
 }
