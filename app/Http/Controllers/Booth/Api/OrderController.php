@@ -16,6 +16,7 @@ use App\Http\Resources\Booth\OrderStatusResource;
 use App\Http\Requests\Booth\Api\MakeOrderRrequest;
 use App\Http\Requests\Mall\Api\CancleOrderRequest;
 use App\Models\AppSetting;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -129,6 +130,14 @@ class OrderController extends Controller
             'cancle_reason_id' => $request->reason_id,
             'cancle_reason' => $request->reason_text ?? '',
         ]);
+
+        if ($order->payment_status == '1') {
+            $user = User::findOrFail($order->user_id);
+
+            $user->update([
+                'wallet' => $user->wallet + $order->total
+            ]);
+        }
 
         return $this->sendResponse(200, '', __("main.order_cancleed_success"));
     }
