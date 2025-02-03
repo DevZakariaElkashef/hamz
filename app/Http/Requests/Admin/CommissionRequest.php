@@ -14,10 +14,10 @@ class CommissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mall-value' => 'nullable|numeric|min:0|max:100',
-            'booth-value' => 'nullable|numeric|min:0|max:100',
-            'resale-value' => 'nullable|numeric|min:0|max:100',
-            'rfoof-value' => 'nullable|numeric|min:0|max:100',
+            'mall-value' => 'nullable|integer|min:0|max:100',
+            'booth-value' => 'nullable|integer|min:0|max:100',
+            'resale-value' => 'nullable|integer|min:0|max:100',
+            'rfoof-value' => 'nullable|integer|min:0|max:100',
         ];
     }
 }

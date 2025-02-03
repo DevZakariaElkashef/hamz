@@ -4,7 +4,6 @@ namespace App\Repositories\Booth;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Traits\ImageUploadTrait;
 
 class OrderItemRepository
 {

@@ -13,8 +13,10 @@ use App\Http\Resources\Mall\OrderResource;
 use App\Http\Requests\Mall\Api\MakeOrderRrequest;
 use App\Http\Resources\Mall\OrderStatusResource;
 use App\Http\Resources\Mall\ShowOrderResource;
+use App\Models\AppSetting;
 use App\Models\OrderStatus;
 use App\Models\Product;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -67,6 +69,7 @@ class OrderController extends Controller
     {
         $user = $request->user();
         $cart = Cart::find($request->cart_id);
+        $management_ratio = AppSetting::select('value_ar')->where('app', 'mall')->first()->value_ar ?? 0;
 
         $order = Order::create([
             'user_id' => $user->id,
@@ -81,6 +84,7 @@ class OrderController extends Controller
             'delivery' => $cart->delivery,
             'coupon_id' => $cart->coupon_id,
             'total' => $cart->calcTotal(),
+            'management_ratio' => $management_ratio,
 
             'payment_type' => $request->payment_type,
             'payment_status' => 1, // will be paid
@@ -90,7 +94,7 @@ class OrderController extends Controller
 
             'app' => 'mall'
         ]);
-        if($cart->coupon_id){
+        if ($cart->coupon_id) {
             UserCoupon::create([
                 'user_id' => $user->id,
                 'coupon_id' => $cart->coupon_id,
@@ -125,6 +129,14 @@ class OrderController extends Controller
             'cancle_reason_id' => $request->reason_id,
             'cancle_reason' => $request->reason_text ?? '',
         ]);
+
+        if ($order->payment_status == '1') {
+            $user = User::findOrFail($order->user_id);
+
+            $user->update([
+                'wallet' => $user->wallet + $order->total
+            ]);
+        }
 
         return $this->sendResponse(200, '', __("main.order_cancleed_success"));
     }

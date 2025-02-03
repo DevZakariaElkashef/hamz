@@ -19,7 +19,7 @@ class TransactionContoller extends Controller
         $wallet_type = $request->query('wallet_type', '0');
         $transactions = [];
         if ($wallet_type == '0') {
-            $transactions1 = Withdrow::select('withdraw_type AS type', 'amount', 'created_at')
+            $transactions1 = Withdrow::select('withdraw_type AS type', 'amount', DB::raw('NULL AS is_negative'), 'created_at')
                 ->where('user_id', auth()->user()->id)
                 ->where('wallet_type', $wallet_type)
                 ->orWhere(function ($query) {
@@ -32,14 +32,22 @@ class TransactionContoller extends Controller
             $transactions2 = Order::select(
                 DB::raw('(CASE WHEN app = "mall" THEN 2 ELSE 3 END) AS type'),
                 'total As amount',
+                DB::raw('(CASE WHEN order_status_id = "5" THEN 0 ELSE 1 END) AS is_negative'),
                 'created_at'
             )
-                ->where('payment_type', '1')
-                ->where('order_status_id', '4');
+                ->where('payment_status', '1')
+                ->where(function ($query) {
+                    $query->where('order_status_id', '!=', '5')
+                        ->where('payment_type', '1');
+                })
+                ->orWhere(function ($query) {
+                    $query->where('order_status_id', '5')
+                        ->where('payment_type', '0');
+                });
 
             $transactions = $transactions1->union($transactions2)->latest()->get();
         } elseif ($wallet_type == '1') {
-            $transactions = Withdrow::select('withdraw_type AS type', 'amount', 'created_at')
+            $transactions = Withdrow::select('withdraw_type AS type', 'amount', DB::raw('NULL AS is_negative'), 'created_at')
                 ->where('user_id', auth()->user()->id)
                 ->where('wallet_type', $wallet_type)
                 ->where('status', '1')

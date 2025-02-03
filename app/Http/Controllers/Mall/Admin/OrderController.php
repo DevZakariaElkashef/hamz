@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Mall\OrderRepository;
 use App\Http\Requests\Mall\Web\OrderRequest;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -134,7 +135,49 @@ class OrderController extends Controller
 
     public function updateStatus(Request $request)
     {
-        Order::findOrFail($request->id)->update(['order_status_id' => $request->status_id]);
+        $order = Order::findOrFail($request->id);
+        $oldOrderStatusId = $order->order_status_id;
+
+        $order->update(['order_status_id' => $request->status_id]);
+        if ($order->payment_status == '1') {
+            if ($order->order_status_id == '4' && $oldOrderStatusId != '4') {
+                // Add Order Total To Store Owner
+                $user = User::select('users.*')
+                    ->join('stores', 'stores.user_id', '=', 'users.id')
+                    ->join('orders', 'orders.store_id', '=', 'stores.id')
+                    ->where('orders.id', $request->id)
+                    ->first();
+
+                $user->update([
+                    'wallet' => $user->wallet + ($order->total - $order->total / 100 * $order->management_ratio)
+                ]);
+            } else if ($order->order_status_id != '4' && $oldOrderStatusId == '4') {
+                // Remove Order Total To Store Owner If Order Finished Before
+                $user = User::select('users.*')
+                    ->join('stores', 'stores.user_id', '=', 'users.id')
+                    ->join('orders', 'orders.store_id', '=', 'stores.id')
+                    ->where('orders.id', $request->id)
+                    ->first();
+
+                $user->update([
+                    'wallet' => $user->wallet - ($order->total - $order->total / 100 * $order->management_ratio)
+                ]);
+            }
+
+            // Remove Order Total From User If Order Cancelled Before
+            if ($order->order_status_id != '5' && $oldOrderStatusId == '5') {
+                $user = User::findOrFail($order->user_id);
+                $user->update([
+                    'wallet' => $user->wallet - $order->total
+                ]);
+            } elseif ($order->order_status_id == '5' && $oldOrderStatusId != '5') {
+                // Add Order Total To User If Order Finished Before
+                $user = User::findOrFail($order->user_id);
+                $user->update([
+                    'wallet' => $user->wallet + $order->total
+                ]);
+            }
+        }
 
         return back()->with('success', __("main.updated_successffully"));
     }

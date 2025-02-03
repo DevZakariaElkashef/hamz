@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Mall\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CancleOrderRequest extends BaseApiRequest
 {
@@ -15,7 +16,12 @@ class CancleOrderRequest extends BaseApiRequest
     public function rules(): array
     {
         return [
-            'order_id' => 'required|exists:orders,id',
+            'order_id' => [
+                'required',
+                Rule::exists('orders', 'id')->where(function ($query) {
+                    $query->where('order_status_id', '1');
+                })
+            ],
             'reason_id' => 'nullable|exists:cancle_order_reasons,id',
             'reason_text' => 'nullable'
         ];

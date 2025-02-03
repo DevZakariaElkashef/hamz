@@ -15,16 +15,10 @@ class TransactionResource extends JsonResource
     public function toArray(Request $request): array
     {
         $wallet_type = $request->query('wallet_type', '0');
-        $wallet = 'watch_and_earn_wallet';
-        $is_negative = 1;
-        $symbol = '-';
-        if ($wallet_type == '0') {
-            $wallet = 'main_wallet';
-            if ($this->type != '1') {
-                $is_negative = 0;
-                $symbol = '+';
-            }
-        }
+        $wallet = ($wallet_type == '0') ? 'main_wallet' : 'watch_and_earn_wallet';
+        $is_negative = $this->is_negative ?? (($wallet_type == '0' && $this->type != '1') ? 0 : 1);
+        $symbol = ($is_negative) ? '-' : '+';
+
         return [
             'type' => $this->type,
             'type_name' => __("main.$wallet" . "_tansactions_$this->type"),
