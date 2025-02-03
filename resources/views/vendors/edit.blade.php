@@ -15,7 +15,7 @@
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
                         href="{{ route('vendors.index') }}">{{ __('main.vendors') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('vendors.edit', $vendor->id) }}">{{ __('main.edit_vendor') }}</a></span>
+                        href="{{ route('vendors.edit', $vendor->id) }}">تعديل البائع</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
