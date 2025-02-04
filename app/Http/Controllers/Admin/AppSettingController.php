@@ -47,34 +47,77 @@ class AppSettingController extends Controller
     public function commission()
     {
         $commission = AppSetting::whereIn('key', [
-            'commission_resale', 'commission_booth', 'commission_mall', 'commission_rfoof'
+            'commission_resale', 'commission_booth', 'commission_mall', 'commission_rfoof',
+            'desc_resale', 'desc_rfoof',
         ])->get();
         return view("settings.commission", compact('commission'));
     }
 
     public function commission_store(CommissionRequest $request)
     {
-        $apps = ['booth', 'mall', 'resale', 'rfoof']; // List of apps to process
+        $keys = [
+            'commission_booth',
+            'commission_mall',
+            'commission_resale',
+            'commission_rfoof',
+            'desc_resale',
+            'desc_rfoof',
+        ];
+        foreach ($keys as $key) {
+            $row = AppSetting::where('key', $key)->first();
 
-        foreach ($apps as $app) {
-            $key = "commission_$app";
-            $commission = AppSetting::where('key', $key)->first();
-            if ($commission) {
-                // Update existing commission
-                $commission->value_ar = $request["$app-value"];
-                $commission->value_en = $request["$app-value"];
-                $commission->app = $app; // Update the app if necessary
-                $commission->save();
-            } else {
-                // Create new commission entry
-                $commission = AppSetting::create([
-                    'key' => $key,
-                    'value_ar' => $request["$app-value"],
-                    'value_en' => $request["$app-value"],
-                ]);
-                $commission->app = $app;
-                $commission->save();
+            $parts = explode('_', $key);
+            $app = $parts[1] ?? '';
+
+            if (str_starts_with($key, 'commission')) {
+                if ($row) {
+                    $row->value_ar = $request["$app-value"];
+                    $row->value_en = $request["$app-value"];
+                    $row->app = $app;
+                    $row->save();
+                }else {
+                    $commission = AppSetting::create([
+                        'key' => $key,
+                        'value_ar' => $request["$app-value"],
+                        'value_en' => $request["$app-value"],
+                    ]);
+                    $commission->app = $app;
+                    $commission->save();
+                }
+
+            } elseif (str_starts_with($key, 'desc')) {
+                if ($row) {
+                    $row->value_ar = $request["$app-desc-ar"];
+                    $row->value_en = $request["$app-desc-en"];
+                    $row->app = $app;
+                    $row->save();
+                }else {
+                    $row = AppSetting::create([
+                        'key' => $key,
+                        'value_ar' => $request["$app-desc-ar"],
+                        'value_en' => $request["$app-desc-en"]
+                    ]);
+                    $row->app = $app;
+                    $row->save();
+                }
             }
+            // $commission = AppSetting::where('key', $key)->first();
+            // if ($commission) {
+            //     // Update existing commission
+            //     $commission->value_ar = $request[$key];
+            //     $commission->value_en = $request[$key];
+            //     $commission->app = $app; // Update the app if necessary
+            //     $commission->save();
+            // } else {
+            //     // Create new commission entry
+            //     $commission = AppSetting::create([
+            //         'key' => $key,
+            //         'value_ar' => $request["$app-value"],
+            //         'value_en' => $request["$app-value"],
+            //     ]);
+            //     $commission->app = $app;
+            //     $commission->save();
+            // }
         }
 
         return to_route('commission.index')->with('success', __("main.updated_successffully"));
