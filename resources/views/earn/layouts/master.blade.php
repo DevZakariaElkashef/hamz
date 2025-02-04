@@ -35,7 +35,7 @@
             @yield('content')
             @include('earn.layouts.sidebar')
             @include('earn.layouts.models')
-            @include('earn.layouts.footer')
+            {{-- @include('earn.layouts.footer') --}}
             @include('earn.layouts.footer-scripts')
 </body>
 

@@ -22,7 +22,7 @@ class SubscripeController extends Controller
     {
         abort_if(isUserSubscribed($request->user(), 'earn'), 404);
 
-        
+
         $packages = Package::active()->earn()->get();
         return view('earn.subscripe.create', compact('packages'));
     }
@@ -73,16 +73,22 @@ class SubscripeController extends Controller
             $userId = explode('-', $response['Data']['CustomerReference'])[1];
 
             if ($packageId && $userId) {
+                $package = Package::findOrFail($packageId);
+                $date = date('Y-m-d', strtotime(date('Y-m-d') . "+ $package->period_in_days days"));
                 Subscription::create([
                     'user_id' => $userId,
                     'package_id' => $packageId,
+                    'limit' => $package->limit,
+                    'expire_date' => $date,
                     'status' => 1,
                     'transaction_id' => $request->paymentId,
                     'app' => 'earn'
                 ]);
             }
         }
-        return redirect()->route('earn.subscripe.success');
+
+        session()->flash('success', __('main.subscription_success'));
+        return redirect()->route('earn.home');
     }
 
     public function error()

@@ -30,7 +30,7 @@
             @yield('content')
             @include('coupon.layouts.sidebar')
             @include('coupon.layouts.models')
-            @include('coupon.layouts.footer')
+            {{-- @include('coupon.layouts.footer') --}}
             @include('coupon.layouts.footer-scripts')
 </body>
 

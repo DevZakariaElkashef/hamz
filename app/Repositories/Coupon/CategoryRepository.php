@@ -17,9 +17,7 @@ class CategoryRepository
 
     public function index($request)
     {
-        $categorys = Category::when($request->user()->role_id == 3, function ($query) use ($request) {
-            $query->where('user_id', $request->user()->id);
-        })->filter($request)->coupon()->with('store')->paginate($request->per_page ?? $this->limit);
+        $categorys = Category::filter($request)->coupon()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $categorys;
     }

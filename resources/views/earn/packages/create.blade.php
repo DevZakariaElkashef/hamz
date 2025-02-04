@@ -70,15 +70,24 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.views') }}:</label>
-                                <input class="form-control" name="views" placeholder="{{ __('main.enter_views') }}"
-                                    type="number" value="{{ old('views') }}">
-                                @error('views')
+                                <label class="form-label">{{ __('main.limit') }}:</label>
+                                <input class="form-control" name="limit" placeholder="{{ __('main.enter_limit') }}"
+                                    type="number" value="{{ old('limit') }}">
+                                @error('limit')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="col-md-12 form-group mg-b-0">
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.period_in_days') }}:</label>
+                                <input class="form-control" name="period_in_days" placeholder="{{ __('main.enter_period_in_days') }}"
+                                    type="number" value="{{ old('period_in_days') }}">
+                                @error('period_in_days')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
                                     <option value="0" @if (old('is_active') == 0) selected @endif>

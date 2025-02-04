@@ -163,6 +163,8 @@ return [
         'wallet_type' => 'نوع المحفظة',
         'withdraw_type' => 'نوع السحب',
         'amount' => 'المبلغ',
-        'iban' => 'ايبان'
+        'iban' => 'ايبان',
+        'limit' => 'أقصى عدد',
+        'period_in_days' => 'المدة بالأيام'
     ],
 ];

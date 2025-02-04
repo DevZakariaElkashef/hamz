@@ -183,7 +183,9 @@ return [
         'wallet_type' => 'Wallet Type',
         'withdraw_type' => 'Withdraw Type',
         'amount' => 'Amount',
-        'iban' => 'IBAN'
+        'iban' => 'IBAN',
+        'limit' => 'Maximum Number',
+        'period_in_days' => 'Period in Days'
     ],
 
 ];

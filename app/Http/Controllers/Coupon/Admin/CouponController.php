@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Coupon\CouponRepository;
 use App\Http\Requests\Coupon\Web\CouponRequest;
 use App\Models\Store;
+use App\Models\Subscription;
 use Maatwebsite\Excel\Validators\ValidationException;
 
 class CouponController extends Controller
@@ -74,7 +75,9 @@ class CouponController extends Controller
     public function create(Request $request)
     {
         $categories = Category::coupon()->active()->get();
-        $stores = Store::whereIn('app', ['mall', 'booth'])->active()->get();
+        $stores = Store::whereIn('app', ['mall', 'booth'])->when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->active()->get();
         return view("coupon.coupons.create", compact('categories', 'stores'));
     }
 
@@ -83,6 +86,16 @@ class CouponController extends Controller
      */
     public function store(CouponRequest $request)
     {
+        if (
+            auth()->user()->role_id == '3' &&
+            Subscription::where('limit', '<=', Coupon::where('user_id', auth()->id())->count())
+                ->where('app', 'coupons')
+                ->latest()
+                ->first()
+        ) {
+            session()->flash('error', __("main.reached_package_limit"));
+            return redirect()->back();
+        }
         $this->couponRepository->coupon($request); // coupon coupon
         return to_route('coupon.coupons.index')->with('success', __("main.created_successffully"));
     }
@@ -101,7 +114,9 @@ class CouponController extends Controller
     public function edit(Coupon $coupon)
     {
         $categories = Category::coupon()->active()->get();
-        $stores = Store::whereIn('app', ['mall', 'booth'])->active()->get();
+        $stores = Store::whereIn('app', ['mall', 'booth'])->when(auth()->user()->role_id == 3, function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        })->active()->get();
         return view('coupon.coupons.edit', compact('coupon', 'categories', 'stores'));
     }
 

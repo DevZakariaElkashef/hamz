@@ -83,7 +83,8 @@ function isUserSubscribed($user, $app = null)
     $subscriptions = $user->subscriptions();
 
     if ($subscriptions->count()) {
-        return $subscriptions->where('status', 1)->where('app', $app)->exists();
+        $date =  date('Y-m-d');
+        return $subscriptions->where('app', $app)->where('status', 1)->where('expire_date', '>=', $date)->exists();
     }
 
     return false; // No active subscription

@@ -607,5 +607,20 @@ return
         'booth_profit' => 'ربح طلبات البوثات',
 
         'make_withdraw' => 'طلب سحب رصيد',
-        'send' => 'إرسال'
+        'send' => 'إرسال',
+
+        'limit' => 'أقصى عدد',
+        'enter_limit' => 'أدخل أقصى عدد',
+        'period_in_days' => 'المدة بالأيام',
+        'enter_period_in_days' => 'أدخل المدة بالأيام',
+
+        'subscription_success' => 'تم الإشتراك بنجاح',
+        'reached_package_limit' => 'لقد وصلت للحد الأقصى الإضافة',
+
+        'most_used_coupons' => 'الكوبونات الأكثر استخداماً',
+        'least_used_coupons' => 'الكوبونات الأقل استخداماً',
+
+        'total_coupons' => 'عدد الكوبونات',
+        'total_coupons_uses' => 'عدد استخدامات الكوبونات',
+        'total_coupons_copies' => 'عدد نسخ الكوبونات'
     ];

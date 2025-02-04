@@ -606,5 +606,13 @@ return
 
         'balance' => 'Balance',
         'mall_profit' => 'Mall Orders Profit',
-        'booth_profit' => 'Booth Orders Profit'
+        'booth_profit' => 'Booth Orders Profit',
+
+        'limit' => 'Maximum Number',
+        'enter_limit' => 'Enter Maximum Number',
+        'period_in_days' => 'Period in Days',
+        'enter_period_in_days' => 'Enter Period in Days',
+
+        'subscription_success' => 'Subscription Successful',
+        'reached_package_limit' => 'Reached Package Limit'
     ];

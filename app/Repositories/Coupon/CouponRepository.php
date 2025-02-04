@@ -4,7 +4,6 @@ namespace App\Repositories\Coupon;
 
 use App\Models\Coupon;
 use App\Traits\ImageUploadTrait;
-use Maatwebsite\Excel\Concerns\ToArray;
 
 class CouponRepository
 {

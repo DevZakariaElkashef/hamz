@@ -5,7 +5,8 @@
                 <th class="text-end p-1"><input type="checkbox" id="selectAllInputs"></th>
                 <th>{{ __('main.id') }}</th>
                 <th>{{ __('main.name') }}</th>
-                <th>{{ __('main.views') }}</th>
+                <th>{{ __('main.limit') }}</th>
+                <th>{{ __('main.period_in_days') }}</th>
                 <th>{{ __('main.price') }}</th>
                 <th>{{ __('main.status') }}</th>
                 <th>{{ __('main.actions') }}</th>
@@ -17,7 +18,8 @@
                     <th class="text-end p-1"><input type="checkbox" class="checkbox-input" value="{{ $package->id }}"></th>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $package->name }}</td>
-                    <td>{{ $package->views }}</td>
+                    <td>{{ $package->limit }}</td>
+                    <td>{{ $package->period_in_days }}</td>
                     <td>{{ $package->price . ' ' . __("main.sar") }}</td>
                     <td>
                         <label class="custom-toggle-switch">
