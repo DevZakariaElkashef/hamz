@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\ContactTypeController;
+use App\Http\Controllers\Admin\WalletController;
 use App\Http\Controllers\Admin\WithdrowController;
 
 /*
@@ -40,7 +41,8 @@ Route::middleware(['auth'])->group(function () {
         return view('index');
     })->name('home');
 
-
+    Route::get('/wallet', [WalletController::class, 'index'])->name('wallet');
+    Route::get('/wallet/make-withdraw', [WalletController::class, 'makeWithdraw'])->name('wallet.make.withdraw');
 
     /**start Slider Routes */
     Route::resource('sliders', SliderController::class);

@@ -315,8 +315,8 @@ return
         "already_watched" => "already watched",
         "canceled" => "canceled",
         "failed" => "failed",
-        "withdrows" => "withdrows",
-        'withdrows.index' => 'View Withdrows',
+        "withdrows" => "withdraws",
+        'withdrows.index' => 'Manage Withdraws',
         "amount" => "amount",
         "iban" => "iban",
         'edit_withdrow' => 'edit withdrow',
@@ -604,4 +604,7 @@ return
         'read_all' => 'Mark all as Reded',
         'read_all_success' => 'Mark all as Reded Done Successfully',
 
+        'balance' => 'Balance',
+        'mall_profit' => 'Mall Orders Profit',
+        'booth_profit' => 'Booth Orders Profit'
     ];
