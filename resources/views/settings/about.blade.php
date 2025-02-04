@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="col-12 text-end">
-                                <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                                <button type="submit" class="btn btn-primary">حفظ</button>
                             </div>
                         </div>
                     </form>
