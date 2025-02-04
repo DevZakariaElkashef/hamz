@@ -37,6 +37,7 @@ class UpdateProfileRequest extends BaseApiRequest
                 'max:255',
                 'confirmed' // Ensure the field is named `password_confirmation` for confirmation
             ],
+            'image' => 'nullable|file|mimes:png,jpg,jpeg',
         ];
     }
 

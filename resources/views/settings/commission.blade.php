@@ -64,6 +64,26 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="resale-desc-ar">{{ __('main.content') }}(EN)</label>
+                                            <textarea id="resale-desc-ar" class="form-control" type="text" name="resale-desc-ar">{{ collect($commission)->firstWhere('key', 'desc_resale')->value_ar ?? '' }}</textarea>
+                                            @error('resale-desc-ar')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="resale-desc-en">{{ __('main.content') }}(EN)</label>
+                                            <textarea id="resale-desc-en" class="form-control" type="text" name="resale-desc-en">{{ collect($commission)->firstWhere('key', 'desc_resale')->value_en ?? '' }}</textarea>
+                                            @error('resale-desc-en')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
@@ -72,6 +92,26 @@
                                     @error('value')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="rfoof-desc-ar">{{ __('main.content') }}(EN)</label>
+                                            <textarea id="rfoof-desc-ar" class="form-control" type="text" name="rfoof-desc-ar">{{ collect($commission)->firstWhere('key', 'desc_rfoof')->value_ar ?? '' }}</textarea>
+                                            @error('rfoof-desc-ar')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="rfoof-desc-en">{{ __('main.content') }}(EN)</label>
+                                            <textarea id="rfoof-desc-en" class="form-control" type="text" name="rfoof-desc-en">{{ collect($commission)->firstWhere('key', 'desc_rfoof')->value_en ?? '' }}</textarea>
+                                            @error('rfoof-desc-en')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             {{-- <div class="col-md-12 mb-3">

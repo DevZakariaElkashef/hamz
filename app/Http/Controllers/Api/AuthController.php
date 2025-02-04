@@ -173,6 +173,7 @@ class AuthController extends Controller
     {
         try {
             $user = User::where('phone', request()->user()->phone)->first();
+            $user->image = $user->image ? asset($user->image) : '';
             return $this->returnData("data", ["user" => new UserResource($user)], __('main.returnData'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());
@@ -183,8 +184,7 @@ class AuthController extends Controller
         try {
             $user = User::where('phone', $request->user()->phone)->first();
             if ($request->image) {
-                $imageName = time() . 'user.' . $request->image->extension();
-                $this->uploadImage($request->image, $imageName, 'users');
+                $imageName = $this->uploadImage($request->image, "users");
                 $user->image = $imageName;
                 $user->save();
             }

@@ -37,7 +37,7 @@ trait ImageUploadTrait
         }
 
         // Generate a new filename for the uploaded image
-        $filename = time() . '_' . $image->getClientOriginalName();
+        $filename = time() . '_' . preg_replace('/\s+/', '_', $image->getClientOriginalName());
         $imagePath = "uploads/{$folderName}/{$filename}";
 
         // Move the new image to the public directory

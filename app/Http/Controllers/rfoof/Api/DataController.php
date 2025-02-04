@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\rfoof\Api;
 
+use App\Models\AppSetting;
 use App\Models\Car;
 use App\Models\City;
 use App\Models\Term;
@@ -42,6 +43,27 @@ class DataController extends Controller
         try {
             $about = About::first();
             return $this->returnData("data", ['about' => $about->value()], __('main.returnData'));
+        } catch (\Throwable $th) {
+            return $this->returnError(403, $th->getMessage());
+        }
+    }
+
+    public function commission()
+    {
+        try {
+            $text = AppSetting::where([
+                'app' => 'rfoof',
+                'key' => 'desc_rfoof',
+            ])->first();
+            $value = AppSetting::where([
+                'app' => 'rfoof',
+                'key' => 'commission_rfoof',
+            ])->first();
+            $data = [
+                'value' => $value->content,
+                'content' => $text->content,
+            ];
+            return $this->returnData("data", $data, __('main.returnData'));
         } catch (\Throwable $th) {
             return $this->returnError(403, $th->getMessage());
         }

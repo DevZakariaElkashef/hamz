@@ -18,6 +18,10 @@ class CommissionRequest extends FormRequest
             'booth-value' => 'nullable|integer|min:0|max:100',
             'resale-value' => 'nullable|integer|min:0|max:100',
             'rfoof-value' => 'nullable|integer|min:0|max:100',
+            'resale_desc_ar' => 'nullable|string',
+            'resale_desc_en' => 'nullable|string',
+            'rfoof_desc_ar' => 'nullable|string',
+            'rfoof_desc_en' => 'nullable|string',
         ];
     }
 }

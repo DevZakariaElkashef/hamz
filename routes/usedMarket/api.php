@@ -32,6 +32,7 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('getModels', [HomeController::class, 'getModels']);
     Route::get('about', [DataController::class, 'about']);
     Route::get('terms', [DataController::class, 'terms']);
+    Route::get('commission', [DataController::class, 'commission']);
     Route::post('contactUs', [DataController::class, 'contactUs']);
 
 });
