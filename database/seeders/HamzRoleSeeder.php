@@ -59,8 +59,6 @@ class HamzRoleSeeder extends Seeder
 
             ['name' => 'earn.subscriptions.index'],
 
-            ['name' => 'earn.withdrows.index'],
-
             ['name' => 'coupon.packages.index'],
             ['name' => 'coupon.packages.create'],
             ['name' => 'coupon.packages.update'],
@@ -128,6 +126,8 @@ class HamzRoleSeeder extends Seeder
             ['name' => 'hamz.applications.create'],
             ['name' => 'hamz.applications.update'],
             ['name' => 'hamz.applications.delete'],
+
+            ['name' => 'hamz.withdrows.index']
 
         ];
 

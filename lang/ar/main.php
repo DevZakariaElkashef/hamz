@@ -314,8 +314,8 @@ return
         "already_watched" => "تمت المشاهدة بالفعل",
         "canceled" => "ملغي",
         "failed" => "فشل",
-        "withdrows" => "سحوبات",
-        "withdrows.index" => "عرض السحوبات",
+        "withdrows" => "طلبات السحب",
+        "withdrows.index" => "التحكم في طلبات السحب",
         "amount" => "المبلغ",
         "iban" => "رقم الآيبان",
         'edit_withdrow' => 'تعديل عملية السحب',
@@ -454,7 +454,7 @@ return
         'deleteProduct' => 'حذف المنتج',
         'addComplain' => 'إضافة شكوى',
         'addCommenet' => 'إضافة تعليق',
-        'permissions' =>'الصلاحيات',
+        'permissions' => 'الصلاحيات',
 
         'employees' => 'الموظفين',
         'create_employee' => 'إنشاء موظف',
@@ -601,4 +601,11 @@ return
 
         'read_all' => 'تحديد الكل كمقروء',
         'read_all_success' => 'تم تحديد الكل كمقروء بنجاح',
+
+        'balance' => 'الرصيد',
+        'mall_profit' => 'ربح طلبات المولات',
+        'booth_profit' => 'ربح طلبات البوثات',
+
+        'make_withdraw' => 'طلب سحب رصيد',
+        'send' => 'إرسال'
     ];

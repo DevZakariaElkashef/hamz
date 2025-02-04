@@ -21,6 +21,7 @@ class HasPendingWithdraw implements ValidationRule
             ->where('status', '0')
             ->exists()
         ) {
+            session()->flash('error', __('messages.pending_withdraw_exists'));
             $fail(__('messages.pending_withdraw_exists'));
         }
     }

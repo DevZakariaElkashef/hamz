@@ -28,6 +28,21 @@ php<!-- main-sidebar -->
                     {{-- <span class="badge badge-success side-badge">1</span> --}}
                 </a>
             </li>
+            @if(auth()->user()->role_id == 3)
+            <li class="slide">
+                <a class="side-menu__item" href="{{ route('wallet') }}"><svg xmlns="http://www.w3.org/2000/svg"
+                        class="side-menu__icon" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0V0z" fill="none"></path>
+                        <path d="M19 5H5v14h14V5zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" opacity=".3"></path>
+                        <path
+                            d="M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 5h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z">
+                        </path>
+                    </svg>
+                    <span class="side-menu__label">{{ __('main.wallet') }}</span>
+                    {{-- <span class="badge badge-success side-badge">1</span> --}}
+                </a>
+            </li>
+            @endif
 
             @if (auth()->user()->hasPermission('mall.dashboard.index') ||
                     auth()->user()->hasPermission('booth.dashboard.index') ||
@@ -184,8 +199,8 @@ php<!-- main-sidebar -->
 
             @can('hamz.employees.index')
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route("employees.index") }}"><svg xmlns="http://www.w3.org/2000/svg"
-                            class="side-menu__icon" viewBox="0 0 24 24">
+                    <a class="side-menu__item" href="{{ route('employees.index') }}"><svg
+                            xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0V0z" fill="none" />
                             <path
                                 d="M12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm3.5 4c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm-7 0c.83 0 1.5.67 1.5 1.5S9.33 11 8.5 11 7 10.33 7 9.5 7.67 8 8.5 8zm3.5 9.5c-2.33 0-4.32-1.45-5.12-3.5h1.67c.7 1.19 1.97 2 3.45 2s2.76-.81 3.45-2h1.67c-.8 2.05-2.79 3.5-5.12 3.5z"
@@ -227,8 +242,8 @@ php<!-- main-sidebar -->
 
             @can('hamz.sliders.index')
                 <li class="slide">
-                    <a class="side-menu__item" href="{{ route('sliders.index') }}"><svg xmlns="http://www.w3.org/2000/svg"
-                            class="side-menu__icon" viewBox="0 0 24 24">
+                    <a class="side-menu__item" href="{{ route('sliders.index') }}"><svg
+                            xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0V0z" fill="none" />
                             <path
                                 d="M12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm3.5 4c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm-7 0c.83 0 1.5.67 1.5 1.5S9.33 11 8.5 11 7 10.33 7 9.5 7.67 8 8.5 8zm3.5 9.5c-2.33 0-4.32-1.45-5.12-3.5h1.67c.7 1.19 1.97 2 3.45 2s2.76-.81 3.45-2h1.67c-.8 2.05-2.79 3.5-5.12 3.5z"
@@ -355,7 +370,6 @@ php<!-- main-sidebar -->
                     </a>
                 </li>
             @endcan
-            <li style="padding: 30px"></li>
         </ul>
     </div>
 </aside>
