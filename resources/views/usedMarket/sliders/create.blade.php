@@ -1,4 +1,4 @@
-@extends('booth.layouts.master')
+@extends('usedMarket.layouts.master')
 @section('title')
     {{ __('main.create_slider') }}
 @endsection
@@ -13,14 +13,14 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('booth.sliders.index') }}">{{ __('main.sliders') }}</a></span>
+                        href="{{ route('usedMarket.sliders.index') }}">{{ __('main.sliders') }}</a></span>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('booth.sliders.create') }}">{{ __('main.create_slider') }}</a></span>
+                        href="{{ route('usedMarket.sliders.create') }}">{{ __('main.create_slider') }}</a></span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="mb-3 mb-xl-0">
-                <a href="{{ route('booth.sliders.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
+                <a href="{{ route('usedMarket.sliders.index') }}" class="btn btn-secondary ">{{ __('main.back') }}</a>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('booth.sliders.store') }}" data-parsley-validate=""
+                    <form method="post" action="{{ route('usedMarket.sliders.store') }}" data-parsley-validate=""
                         enctype="multipart/form-data">
                         @csrf
                         <div class="row">

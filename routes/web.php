@@ -77,7 +77,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('applications', SettingController::class)->only('index', 'update');
     Route::resource('abouts', AboutController::class)->only('index', 'store');
     Route::get('commission', [AppSettingController::class, 'commission'])->name('commission.index');
-    Route::post('commission/store', [AppSettingController::class, 'commission_dtore'])->name('commission.store');
+    Route::post('commission/store', [AppSettingController::class, 'commission_store'])->name('commission.store');
+    Route::get('terms', [AppSettingController::class, 'term'])->name('terms.index');
+    Route::post('terms/store', [AppSettingController::class, 'term_store'])->name('terms.store');
     // Route::get('commission_auth/index', [AppSettingController::class, 'commission_auth'])->name('commission_auth.index');
     // Route::post('commission_auth/store', [AppSettingController::class, 'commission_auth_store'])->name('commission_auth.store');
 
@@ -89,10 +91,10 @@ Route::middleware(['auth'])->group(function () {
     /**end Slider Routes */
 
     /**start Slider Routes */
-    Route::resource('terms', TermController::class);
-    Route::get('search-terms', [TermController::class, 'search'])->name('terms.search');
-    Route::get('terms-toggle-status/{term}', [TermController::class, 'toggleStatus'])->name('term.toggleStatus');
-    Route::delete('delete-terms', [TermController::class, 'delete'])->name('terms.delete');
+    // Route::resource('terms', TermController::class);
+    // Route::get('search-terms', [TermController::class, 'search'])->name('terms.search');
+    // Route::get('terms-toggle-status/{term}', [TermController::class, 'toggleStatus'])->name('term.toggleStatus');
+    // Route::delete('delete-terms', [TermController::class, 'delete'])->name('terms.delete');
     /**end Slider Routes */
 
     /**start Slider Routes */

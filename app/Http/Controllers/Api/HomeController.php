@@ -33,9 +33,13 @@ class HomeController extends Controller
     }
     public function terms()
     {
-        $data = Term::where('is_active',1)->get();
-        $terms = $data ? TermsResource::collection($data) : null;
-        return $this->sendResponse(200, $terms);
+        // $data = Term::where('is_active',1)->get();
+        // $terms = $data ? TermsResource::collection($data) : null;
+        // return $this->sendResponse(200, $terms);
+
+        $term = AppSetting::where('app', 'all')->where('key', 'term')->first();
+        $data = $term ? AboutResource::make($term) : null;
+        return $this->sendResponse(200, $data);
     }
     public function about()
     {

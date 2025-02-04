@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\usedMarket\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\usedMarket\Slider\SliderRequest;
+use App\Http\Requests\usedMarket\Sliders\SliderRequest;
 use App\Models\Slider;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;

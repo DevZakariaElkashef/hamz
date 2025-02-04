@@ -64,3 +64,4 @@
 
     window.onload = sidebar_session;
 </script>
+@include('layouts.custom-script')

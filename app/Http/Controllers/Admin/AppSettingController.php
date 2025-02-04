@@ -16,6 +16,34 @@ class AppSettingController extends Controller
         $this->middleware('can:hamz.applications.index')->only(['commission', 'commission_dtore']);
     }
 
+    public function term()
+    {
+        $term = AppSetting::where('app', 'all')
+        ->where('key', 'term')->first();
+        return view("settings.terms.index", compact('term'));
+    }
+
+    public function term_store(AppSettingRequest $request)
+    {
+        $term = AppSetting::all()->where('key', 'term')->first();
+        if ($term) {
+            $term->value_ar = $request->value_ar;
+            $term->value_en = $request->value_en;
+            $term->app = 'all';
+            $term->save();
+        } else {
+            $term = AppSetting::create([
+                'key' => 'term',
+                'value_ar' => $request->value_ar,
+                'value_en' => $request->value_en,
+            ]);
+            $term->app = 'all';
+            $term->save();
+        }
+        return to_route('terms.index')->with('success', __("main.updated_successffully"));
+
+    }
+
     public function commission()
     {
         $commission = AppSetting::whereIn('key', [
@@ -24,7 +52,7 @@ class AppSettingController extends Controller
         return view("settings.commission", compact('commission'));
     }
 
-    public function commission_dtore(CommissionRequest $request)
+    public function commission_store(CommissionRequest $request)
     {
         $apps = ['booth', 'mall', 'resale', 'rfoof']; // List of apps to process
 
