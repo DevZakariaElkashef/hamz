@@ -62,4 +62,5 @@
         }
     @endif
 </style>
+@include('layouts.custom-style')
 @yield('css')
