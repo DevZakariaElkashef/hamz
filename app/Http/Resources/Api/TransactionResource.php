@@ -21,7 +21,7 @@ class TransactionResource extends JsonResource
 
         return [
             'type' => $this->type,
-            'type_name' => __("main.$wallet" . "_tansactions_$this->type"),
+            'type_name' => __("main.$wallet" . "_transaction_type_$this->type"),
             'amount' => $symbol . (string) $this->amount . ' ' . __('main.sar'),
             'is_negative' => $is_negative,
             'created_at' => $this->created_at
