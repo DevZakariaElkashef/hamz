@@ -38,10 +38,9 @@
                             <div class="col-md-12 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.packages') }}: <span
                                         class="tx-danger">*</span></label>
-                                <select required class="form-control" name="package_id" id="package-id"
-                                    onchange="fillPackageTable()">
-                                    @foreach ($packages as $key => $package)
-                                        <option value="{{ $package->id }}" aria-valuenow="{{ $key }}"
+                                <select required class="form-control" name="package_id">
+                                    @foreach ($packages as $package)
+                                        <option value="{{ $package->id }}"
                                             @if (old('package_id') == $package->id) selected @endif>
                                             {{ $package->name }}</option>
                                     @endforeach
@@ -50,7 +49,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="table-responsive mt-5">
+                            <div class="col-md-12 table-responsive mt-5">
                                 <table class="table mg-b-0 text-md-nowrap">
                                     <thead>
                                         <tr>
@@ -61,12 +60,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td id="package-name"></td>
-                                            <td id="package-limit"></td>
-                                            <td id="package-period_in_days"></td>
-                                            <td id="package-price"></td>
-                                        </tr>
+                                        @foreach ($packages as $package)
+                                            <tr>
+                                                <td>{{ $package->name }}</td>
+                                                <td>{{ $package->limit }}</td>
+                                                <td>{{ $package->period_in_days }}</td>
+                                                <td>{{ $package->price }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -95,7 +96,7 @@
     <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
     <!-- Internal Form-validation js -->
     <script src="{{ URL::asset('assets/js/form-validation.js') }}"></script>
-    <script>
+    {{-- <script>
         var packageSelector = document.getElementById('package-id');
         var packages = {!! json_encode($packages) !!};
         var language = "{{ app()->getLocale() }}";
@@ -111,5 +112,5 @@
         }
 
         window.onload = fillPackageTable();
-    </script>
+    </script> --}}
 @endsection
