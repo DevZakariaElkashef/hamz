@@ -79,6 +79,9 @@ class Store extends Model
         return $this->hasOne(StoreDelivery::class);
     }
 
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
     public function products()
     {
         return $this->hasManyThrough(
