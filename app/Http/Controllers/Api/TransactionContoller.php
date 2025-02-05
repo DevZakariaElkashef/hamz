@@ -35,6 +35,7 @@ class TransactionContoller extends Controller
                 DB::raw('(CASE WHEN order_status_id = "5" THEN 0 ELSE 1 END) AS is_negative'),
                 'created_at'
             )
+                ->where('user_id', auth()->user()->id)
                 ->where('payment_status', '1')
                 ->where(function ($query) {
                     $query->where('order_status_id', '!=', '5')
