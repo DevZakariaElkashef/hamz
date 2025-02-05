@@ -19,7 +19,9 @@ class SubscripeController extends Controller
 
     public function create(Request $request)
     {
-        abort_if(isUserSubscribed($request->user(), 'coupons'), 404);
+        if(isUserSubscribed($request->user(), 'coupons')){
+            return redirect()->route('coupon.home');
+        }
 
         $packages = Package::active()->coupon()->get();
         return view('coupon.subscripe.create', compact('packages'));
@@ -36,10 +38,10 @@ class SubscripeController extends Controller
         $userID = $request->user()->id;
 
         $data = [
-            "CustomerName" => "Test User",
+            "CustomerName" => $request->user()->name,
             "NotificationOption" => 'LNK',
             "InvoiceValue" => $package->price,
-            "CustomerEmail" => "email@email.com",
+            "CustomerEmail" => $request->user()->email,
             "CallBackUrl" => route("coupon.subscripe.callback"),
             "ErrorUrl" => route("coupon.subscripe.error"),
             "Language" => app()->getLocale(),

@@ -39,10 +39,10 @@ class SubscripeController extends Controller
         $userID = $request->user()->id;
 
         $data = [
-            "CustomerName" => "Test User",
+            "CustomerName" => $request->user()->name,
             "NotificationOption" => 'LNK',
             "InvoiceValue" => $package->price,
-            "CustomerEmail" => "email@email.com",
+            "CustomerEmail" => $request->user()->email,
             "CallBackUrl" => route("earn.subscripe.callback"),
             "ErrorUrl" => route("earn.subscripe.error"),
             "Language" => app()->getLocale(),

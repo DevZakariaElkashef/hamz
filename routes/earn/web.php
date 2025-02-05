@@ -12,7 +12,7 @@ use App\Http\Controllers\Earn\Admin\CategoryController;
 use App\Http\Controllers\Earn\Admin\SubscriptionController;
 
 
-Route::middleware('earn')->group(function () {
+Route::middleware('auth', 'earn')->group(function () {
 
 
 
@@ -79,7 +79,7 @@ Route::middleware('earn')->group(function () {
 
 Route:: as('earn.')->group(function () {
     /**start Slider Routes */
-    Route::resource('subscripe', SubscripeController::class)->only('create', 'store');
+    Route::resource('subscripe', SubscripeController::class)->only('create', 'store')->middleware('auth');
     Route::get('subscripe-callback', [SubscripeController::class, 'callBack'])->name('subscripe.callback');
     Route::get('subscripe-success', [SubscripeController::class, 'success'])->name('subscripe.success');
     Route::get('subscripe-error', [SubscripeController::class, 'error'])->name('subscripe.error');

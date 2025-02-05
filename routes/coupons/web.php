@@ -1,6 +1,5 @@
 <?php
 
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mall\Admin\ImageController;
 use App\Http\Controllers\Coupon\Admin\HomeController;
@@ -11,16 +10,14 @@ use App\Http\Controllers\Coupon\Admin\CategoryController;
 use App\Http\Controllers\Coupon\Admin\SubscripeController;
 use App\Http\Controllers\Coupon\Admin\SubscriptionController;
 
-Route::middleware('coupons')->group(function () {
-
-
+Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('coupon.home');
 
     // images
     Route::delete('delete-image', [ImageController::class, 'destroy'])->name('images.destroy');
     // images
 
-    Route:: as('coupon.')->group(function () {
+    Route::as('coupon.')->group(function () {
 
         /**start Slider Routes */
         Route::resource('sliders', SliderController::class);
@@ -43,11 +40,13 @@ Route::middleware('coupons')->group(function () {
 
         /**start Slider Routes */
         Route::resource('coupons', CouponController::class);
-        Route::get('search-coupons', [CouponController::class, 'search'])->name('coupons.search');
-        Route::get('coupons-toggle-status/{coupon}', [CouponController::class, 'toggleStatus'])->name('coupon.toggleStatus');
-        Route::get('coupons-export', [CouponController::class, 'export'])->name('coupons.export');
-        Route::post('coupons-import', [CouponController::class, 'import'])->name('coupons.import');
-        Route::delete('delete-coupons', [CouponController::class, 'delete'])->name('coupons.delete');
+        Route::middleware('coupons')->group(function () {
+            Route::get('search-coupons', [CouponController::class, 'search'])->name('coupons.search');
+            Route::get('coupons-toggle-status/{coupon}', [CouponController::class, 'toggleStatus'])->name('coupon.toggleStatus');
+            Route::get('coupons-export', [CouponController::class, 'export'])->name('coupons.export');
+            Route::post('coupons-import', [CouponController::class, 'import'])->name('coupons.import');
+            Route::delete('delete-coupons', [CouponController::class, 'delete'])->name('coupons.delete');
+        });
         /**end Slider Routes */
 
         /**start Slider Routes */
@@ -66,9 +65,9 @@ Route::middleware('coupons')->group(function () {
     });
 });
 
-Route:: as('coupon.')->group(function () {
+Route::as('coupon.')->group(function () {
     /**start Slider Routes */
-    Route::resource('subscripe', SubscripeController::class)->only('create', 'store');
+    Route::resource('subscripe', SubscripeController::class)->only('create', 'store')->middleware('auth');
     Route::get('subscripe-callback', [SubscripeController::class, 'callBack'])->name('subscripe.callback');
     Route::get('subscripe-success', [SubscripeController::class, 'success'])->name('subscripe.success');
     Route::get('subscripe-error', [SubscripeController::class, 'error'])->name('subscripe.error');

@@ -22,9 +22,9 @@ class CouponController extends Controller
     public function __construct(CouponRepository $couponRepository)
     {
         $this->middleware('can:coupon.coupons.index')->only(['index']);
-        $this->middleware('can:coupon.coupons.create')->only(['create', 'store']);
-        $this->middleware('can:coupon.coupons.update')->only(['edit', 'update']);
-        $this->middleware('can:coupon.coupons.delete')->only(['destroy']);
+        $this->middleware(['can:coupon.coupons.create', 'coupons'])->only(['create', 'store']);
+        $this->middleware(['can:coupon.coupons.update', 'coupons'])->only(['edit', 'update']);
+        $this->middleware(['can:coupon.coupons.delete', 'coupons'])->only(['destroy']);
 
         $this->couponRepository = $couponRepository;
     }
@@ -89,9 +89,9 @@ class CouponController extends Controller
         if (
             auth()->user()->role_id == '3' &&
             Subscription::where('limit', '<=', Coupon::where('user_id', auth()->id())->count())
-                ->where('app', 'coupons')
-                ->latest()
-                ->first()
+            ->where('app', 'coupons')
+            ->latest()
+            ->first()
         ) {
             session()->flash('error', __("main.reached_package_limit"));
             return redirect()->back();
@@ -125,6 +125,16 @@ class CouponController extends Controller
      */
     public function update(CouponRequest $request, Coupon $coupon)
     {
+        if (
+            auth()->user()->role_id == '3' &&
+            Subscription::where('limit', '<=', Coupon::where('user_id', auth()->id())->count())
+            ->where('app', 'coupons')
+            ->latest()
+            ->first()
+        ) {
+            session()->flash('error', __("main.reached_package_limit"));
+            return redirect()->back();
+        }
         $this->couponRepository->update($request, $coupon);
         return to_route('coupon.coupons.index')->with('success', __("main.updated_successffully"));
     }

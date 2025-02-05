@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Coupon;
+
 function checkFavouriteProduct($user, $id)
 {
     if ($user && $id) {
