@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Earn\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Earn\Web\SubscriptionRequest;
 use App\Models\Subscription;
+use App\Models\Video;
 use App\Repositories\Earn\SubscriptionRepository;
 use Illuminate\Http\Request;
 
@@ -25,13 +26,17 @@ class SubscriptionController extends Controller
     public function index(Request $request)
     {
         $subscriptions = $this->subscriptionRepository->index($request);
-        return view('earn.subscriptions.index', compact('subscriptions'));
+        $used = Video::where('user_id', auth()->id())->count();
+
+        return view('earn.subscriptions.index', compact('subscriptions', 'used'));
     }
 
     public function search(Request $request)
     {
         $subscriptions = $this->subscriptionRepository->search($request);
-        return view('earn.subscriptions.table', compact('subscriptions'))->render();
+        $used = Video::where('user_id', auth()->id())->count();
+
+        return view('earn.subscriptions.table', compact('subscriptions', 'used'))->render();
     }
 
     /**
@@ -78,11 +83,15 @@ class SubscriptionController extends Controller
 
     public function toggleStatus(Request $request, Subscription $subscription)
     {
-        $subscription->update(['status' => $request->status]);
-        return response()->json([
-            'success' => true,
-            'message' => __("main.updated_successffully"),
-        ]);
+        if (auth()->user()->role_id != '3') {
+            $subscription->update(['status' => $request->status]);
+            return response()->json([
+                'success' => true,
+                'message' => __("main.updated_successffully"),
+            ]);
+        }
+
+        return false;
     }
 
     /**
@@ -90,13 +99,21 @@ class SubscriptionController extends Controller
      */
     public function destroy(Subscription $subscription)
     {
-        $this->subscriptionRepository->delete($subscription);
-        return to_route('earn.subscriptions.index')->with('success', __("main.delete_successffully"));
+        if (auth()->user()->role_id != '3') {
+            $this->subscriptionRepository->delete($subscription);
+            return to_route('earn.subscriptions.index')->with('success', __("main.delete_successffully"));
+        }
+
+        return to_route('earn.subscriptions.index');
     }
 
     public function delete(Request $request)
     {
-        $this->subscriptionRepository->deleteSelection($request);
-        return to_route('earn.subscriptions.index')->with('success', __("main.delete_successffully"));
+        if (auth()->user()->role_id != '3') {
+            $this->subscriptionRepository->deleteSelection($request);
+            return to_route('earn.subscriptions.index')->with('success', __("main.delete_successffully"));
+        }
+
+        return to_route('earn.subscriptions.index');
     }
 }

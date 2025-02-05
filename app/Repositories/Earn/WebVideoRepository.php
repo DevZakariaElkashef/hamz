@@ -17,7 +17,9 @@ class WebVideoRepository
 
     public function index($request)
     {
-        $videos = Video::filter($request)->earn()->withCount('viewed')->paginate($request->per_page ?? $this->limit);
+        $videos = Video::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->filter($request)->earn()->withCount('viewed')->paginate($request->per_page ?? $this->limit);
 
         return $videos;
     }
@@ -25,7 +27,9 @@ class WebVideoRepository
 
     public function search($request)
     {
-        return Video::earn()->search($request->search)->paginate($request->per_page ?? $this->limit);
+        return Video::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->earn()->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

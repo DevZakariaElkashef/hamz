@@ -20,7 +20,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $video->title }}</td>
                     <td>{{ $video->store->name }}</td>
-                    <td>{{ $video->reword_amount . __('main.sar') }}</td>
+                    <td>{{ $video->reword_amount . '    ' . __('main.sar') }}</td>
                     <td>{{ $video->viewed_count }}</td>
                     <td>
                         <a href="{{ $video->path }}" target="_blank">{{ __("main.show") }}</a>

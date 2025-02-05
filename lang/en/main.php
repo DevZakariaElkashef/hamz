@@ -614,5 +614,8 @@ return
         'enter_period_in_days' => 'Enter Period in Days',
 
         'subscription_success' => 'Subscription Successful',
-        'reached_package_limit' => 'Reached Package Limit'
+        'reached_package_limit' => 'Reached Package Limit',
+
+        'used_count' => 'Used Count',
+        'expire_date' => 'Expiration Date'
     ];

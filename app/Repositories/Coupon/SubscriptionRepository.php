@@ -17,7 +17,9 @@ class SubscriptionRepository
 
     public function index($request)
     {
-        $subscriptions = Subscription::filter($request)->coupon()->paginate($request->per_page ?? $this->limit);
+        $subscriptions = Subscription::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->filter($request)->coupon()->paginate($request->per_page ?? $this->limit);
 
         return $subscriptions;
     }
@@ -25,7 +27,9 @@ class SubscriptionRepository
 
     public function search($request)
     {
-        return Subscription::search($request->search)->coupon()->paginate($request->per_page ?? $this->limit);
+        return Subscription::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->search($request->search)->coupon()->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

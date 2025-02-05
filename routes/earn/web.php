@@ -12,7 +12,7 @@ use App\Http\Controllers\Earn\Admin\CategoryController;
 use App\Http\Controllers\Earn\Admin\SubscriptionController;
 
 
-Route::middleware('auth', 'earn')->group(function () {
+Route::middleware('auth')->group(function () {
 
 
 
@@ -62,17 +62,21 @@ Route::middleware('auth', 'earn')->group(function () {
 
         /**start Slider Routes */
         Route::resource('videos', VideoController::class);
-        Route::get('search-videos', [VideoController::class, 'search'])->name('videos.search');
-        Route::get('videos-toggle-status/{video}', [VideoController::class, 'toggleStatus'])->name('video.toggleStatus');
-        Route::delete('delete-videos', [VideoController::class, 'delete'])->name('videos.delete');
+        Route::middleware('earn')->group(function () {
+            Route::get('search-videos', [VideoController::class, 'search'])->name('videos.search');
+            Route::get('videos-toggle-status/{video}', [VideoController::class, 'toggleStatus'])->name('video.toggleStatus');
+            Route::delete('delete-videos', [VideoController::class, 'delete'])->name('videos.delete');
+        });
         /**end Slider Routes */
 
 
         /**start Slider Routes */
         Route::resource('views', ViewController::class);
-        Route::get('search-views', [ViewController::class, 'search'])->name('views.search');
-        Route::get('views-toggle-status/{view}', [ViewController::class, 'toggleStatus'])->name('view.toggleStatus');
-        Route::delete('delete-views', [ViewController::class, 'delete'])->name('views.delete');
+        Route::middleware('earn')->group(function () {
+            Route::get('search-views', [ViewController::class, 'search'])->name('views.search');
+            Route::get('views-toggle-status/{view}', [ViewController::class, 'toggleStatus'])->name('view.toggleStatus');
+            Route::delete('delete-views', [ViewController::class, 'delete'])->name('views.delete');
+        });
         /**end Slider Routes */
     });
 });

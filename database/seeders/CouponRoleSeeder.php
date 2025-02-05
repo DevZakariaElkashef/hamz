@@ -30,6 +30,8 @@ class CouponRoleSeeder extends Seeder
             ['name' => 'coupon.categories.delete'],
             ['name' => 'coupon.categories.export'],
             ['name' => 'coupon.categories.import'],
+
+            ['name' => 'coupon.subscriptions.index'],
         ];
 
         foreach ($permissions as $permission) {

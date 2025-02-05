@@ -17,7 +17,10 @@ class ViewRepository
 
     public function index($request)
     {
-        $views = View::filter($request)->paginate($request->per_page ?? $this->limit);
+        $views = View::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->join('videos', 'views.video_id', '=', 'videos.id')
+                ->where('videos.user_id', $request->user()->id);
+        })->filter($request)->paginate($request->per_page ?? $this->limit);
 
         return $views;
     }
@@ -25,7 +28,10 @@ class ViewRepository
 
     public function search($request)
     {
-        return View::search($request->search)->paginate($request->per_page ?? $this->limit);
+        return View::when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->join('videos', 'views.video_id', '=', 'videos.id')
+                ->where('videos.user_id', $request->user()->id);
+        })->search($request->search)->paginate($request->per_page ?? $this->limit);
     }
 
     public function store($request)

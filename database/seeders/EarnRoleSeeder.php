@@ -31,6 +31,8 @@ class EarnRoleSeeder extends Seeder
             ['name' => 'earn.categories.export'],
             ['name' => 'earn.categories.import'],
 
+            ['name' => 'earn.subscriptions.index'],
+
         ];
 
         foreach ($permissions as $permission) {

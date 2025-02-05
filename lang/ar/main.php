@@ -615,12 +615,15 @@ return
         'enter_period_in_days' => 'أدخل المدة بالأيام',
 
         'subscription_success' => 'تم الإشتراك بنجاح',
-        'reached_package_limit' => 'لقد وصلت للحد الأقصى الإضافة',
+        'reached_package_limit' => 'لقد وصلت للحد الأقصى للإضافة',
 
         'most_used_coupons' => 'الكوبونات الأكثر استخداماً',
         'least_used_coupons' => 'الكوبونات الأقل استخداماً',
 
         'total_coupons' => 'عدد الكوبونات',
         'total_coupons_uses' => 'عدد استخدامات الكوبونات',
-        'total_coupons_copies' => 'عدد نسخ الكوبونات'
+        'total_coupons_copies' => 'عدد نسخ الكوبونات',
+
+        'used_count' => 'العدد المستخدم',
+        'expire_date' => 'تاريخ الإنتهاء'
     ];

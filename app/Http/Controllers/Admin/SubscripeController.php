@@ -20,8 +20,9 @@ class SubscripeController extends Controller
 
     public function create(Request $request)
     {
-        abort_if(isUserSubscribed($request->user(), 'earn'), 404);
-
+        if(isUserSubscribed($request->user(), 'earn')){
+            return redirect()->route('earn.home');
+        }
 
         $packages = Package::active()->earn()->get();
         return view('earn.subscripe.create', compact('packages'));

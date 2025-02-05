@@ -3,34 +3,29 @@
 namespace App\Http\Controllers\Earn\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Video;
 use App\Models\View;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Count total videos and views in one query
-        $totals = DB::selectOne('
-            SELECT
-                (SELECT COUNT(*) FROM videos) as total_videos,
-                (SELECT COUNT(*) FROM views) as total_views
-        ');
+        $totalVideos = Video::when(auth()->user()->role_id == 3, function ($query) {
+            $query->where('videos.user_id', auth()->user()->id);
+        })->count();
+        $totalViews = View::when(auth()->user()->role_id == 3, function ($query) {
+            $query->join('videos', 'videos.id', '=', 'views.video_id')
+                ->where('videos.user_id', auth()->user()->id);
+        })->count();
 
-        // Retrieve the total values from the single query
-        $totalVideos = $totals->total_videos;
-        $totalViews = $totals->total_views;
-
-        // Function to handle fetching watched and unwatched videos
-
-        // Get most watched videos
-        $mostWatchedVideos = $this->getVideosWithViews('desc');
-
-        // Get least watched videos
-        $mostUnWatchedVideos = $this->getVideosWithViews('asc');
+        $mostWatchedVideos = $this->getVideosWithViews('DESC');
+        $mostUnWatchedVideos = $this->getVideosWithViews('ASC');
 
         return view("earn.index", compact('totalVideos', 'totalViews', 'mostWatchedVideos', 'mostUnWatchedVideos'));
     }
+
+    /*----------------------------------------------------------------------------------------------------*/
 
     private function getVideosWithViews($orderBy = 'desc', $limit = 5)
     {
@@ -38,7 +33,9 @@ class HomeController extends Controller
         return DB::table('videos')
             ->select("videos.title_" .$local  . ' AS title', 'videos.reword_amount', 'videos.path', DB::raw('COUNT(views.id) as views_count'))
             ->leftJoin('views', 'videos.id', '=', 'views.video_id')
-            ->groupBy('videos.id', "videos.title_" .$local, 'videos.reword_amount', 'videos.path')
+            ->when(auth()->user()->role_id == 3, function ($query) {
+                $query->where('videos.user_id', auth()->user()->id);
+            })->groupBy('videos.id', "videos.title_" . $local, 'videos.reword_amount', 'videos.path')
             ->orderBy('views_count', $orderBy)
             ->limit($limit)
             ->get();

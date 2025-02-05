@@ -40,6 +40,7 @@
                     <form method="post" action="{{ route('earn.videos.store') }}" data-parsley-validate=""
                         enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                         <div class="row">
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.name') }}(AR): <span
@@ -64,15 +65,14 @@
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.duration') }}:</label>
                                 <input class="form-control" name="duration" id="duration"
-                                    placeholder="{{ __('main.duration') }}" type="number"
-                                    value="{{ old('duration') }}">
+                                    placeholder="{{ __('main.duration') }}" type="number" value="{{ old('duration') }}">
                                 @error('duration')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.reword_amount') }}(EN): <span
+                                <label class="form-label">{{ __('main.reword_amount') }}: <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="reword_amount"
                                     placeholder="{{ __('main.enter_reword_amount') }}" required="" type="number"
@@ -94,27 +94,22 @@
                                 </div>
                             </div>
 
-                            @if (auth()->user()->role_id != 3)
-                                <div class="col-md-6 form-group mg-b-0">
-                                    <label class="form-label">{{ __('main.store') }}: <span
-                                            class="tx-danger">*</span></label>
-                                    <select required class="form-control select2" name="store_id">
-                                        <option value selected disabled>
-                                            {{ __('main.select_store') }}
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.store') }}: <span class="tx-danger">*</span></label>
+                                <select required class="form-control select2" name="store_id">
+                                    <option value selected disabled>
+                                        {{ __('main.select_store') }}
+                                    </option>
+                                    @foreach ($stores as $store)
+                                        <option value="{{ $store->id }}">
+                                            {{ $store->name }}
                                         </option>
-                                        @foreach ($stores as $store)
-                                            <option value="{{ $store->id }}">
-                                                {{ $store->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('store_id')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            @else
-                                <input hidden name='store_id' value="{{ auth()->user()->store_id }}">
-                            @endif
+                                    @endforeach
+                                </select>
+                                @error('store_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
@@ -135,7 +130,8 @@
                             <div class="col-md-6 form-group">
                                 <div class="custom-file">
                                     <label class="path" for="path">{{ __('main.url') }}</label>
-                                    <input class="form-control" required id="path" type="url" name="path" value="{{ old('path') }}">
+                                    <input class="form-control" required id="path" type="url" name="path"
+                                        value="{{ old('path') }}">
                                     @error('path')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -150,7 +146,8 @@
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
                                             @if (old('category_id') == $category->id) selected @endif>
-                                            {{ $category->{'name_' . app()->getLocale()                                                                                                                                                                                                                                                            } }}</option>
+                                            {{ $category->{'name_' . app()->getLocale()} }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('category_id')
@@ -206,7 +203,8 @@
                     video.addEventListener('loadedmetadata', function() {
                         // Set the video duration (in seconds) to the input field
                         const duration = video.duration;
-                        durationInput.value = duration.toFixed(2); // Format duration with 2 decimal places
+                        durationInput.value = duration.toFixed(
+                        2); // Format duration with 2 decimal places
                     });
 
                     videoPreviewContainer.appendChild(video);

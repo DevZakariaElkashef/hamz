@@ -10,7 +10,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $language = app()->getLocale();
         $total_coupons = Coupon::when(auth()->user()->role_id == 3, function ($query) {
             $query->where('coupons.user_id', auth()->user()->id);
         })->count();

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Earn\Web\VideoRequest;
 use App\Models\Store;
+use App\Models\Subscription;
 use App\Repositories\Earn\WebVideoRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -20,9 +21,9 @@ class VideoController extends Controller
 
         // autherization
         $this->middleware('can:earn.videos.index')->only('index');
-        $this->middleware('can:earn.videos.create')->only(['create', 'store']);
-        $this->middleware('can:earn.videos.update')->only(['edit', 'update']);
-        $this->middleware('can:earn.videos.delete')->only('destroy');
+        $this->middleware(['can:earn.videos.create', 'earn'])->only(['create', 'store']);
+        $this->middleware(['can:earn.videos.update', 'earn'])->only(['edit', 'update']);
+        $this->middleware(['can:earn.videos.delete', 'earn'])->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +46,9 @@ class VideoController extends Controller
     public function create(Request $request)
     {
         $categories = DB::select('SELECT * FROM categories WHERE `app` = "earn" AND `is_active` = 1');
-        $stores = Store::whereIn('app', ['mall', 'booth'])->active()->get();
+        $stores = Store::whereIn('app', ['mall', 'booth'])->when(auth()->user()->role_id == 3, function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        })->active()->get();
         return view("earn.videos.create", compact('categories', 'stores'));
     }
 
@@ -54,6 +57,16 @@ class VideoController extends Controller
      */
     public function store(VideoRequest $request)
     {
+        if (
+            auth()->user()->role_id == '3' &&
+            Subscription::where('limit', '<=', Video::where('user_id', auth()->id())->count())
+            ->where('app', 'earn')
+            ->latest()
+            ->first()
+        ) {
+            session()->flash('error', __("main.reached_package_limit"));
+            return redirect()->back();
+        }
         $this->videoRepository->store($request); // store video
         return to_route('earn.videos.index')->with('success', __("main.created_successffully"));
     }
@@ -72,7 +85,9 @@ class VideoController extends Controller
     public function edit(Video $video)
     {
         $categories = DB::select('SELECT * FROM categories WHERE `app` = "earn" AND `is_active` = 1');
-        $stores = Store::whereIn('app', ['mall', 'booth'])->active()->get();
+        $stores = Store::whereIn('app', ['mall', 'booth'])->when(auth()->user()->role_id == 3, function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        })->active()->get();
         return view('earn.videos.edit', compact('video', 'categories', 'stores'));
     }
 
@@ -81,6 +96,16 @@ class VideoController extends Controller
      */
     public function update(VideoRequest $request, Video $video)
     {
+        if (
+            auth()->user()->role_id == '3' &&
+            Subscription::where('limit', '<=', Video::where('user_id', auth()->id())->count())
+            ->where('app', 'earn')
+            ->latest()
+            ->first()
+        ) {
+            session()->flash('error', __("main.reached_package_limit"));
+            return redirect()->back();
+        }
         $this->videoRepository->update($request, $video);
         return to_route('earn.videos.index')->with('success', __("main.updated_successffully"));
     }

@@ -46,16 +46,17 @@
                                 <label class="form-label">{{ __('main.name') }}(AR): <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="title_ar" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('title_ar', $video->title_ar) ?? $video->title_ar }}">
+                                    required="" type="text"
+                                    value="{{ old('title_ar', $video->title_ar) ?? $video->title_ar }}">
                                 @error('title_ar')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.name') }}(EN): <span
-                                        class="tx-danger">*</span></label>
+                                <label class="form-label">{{ __('main.name') }}: <span class="tx-danger">*</span></label>
                                 <input class="form-control" name="title_en" placeholder="{{ __('main.enter_name') }}"
-                                    required="" type="text" value="{{ old('title_en', $video->title_en) ?? $video->title_en }}">
+                                    required="" type="text"
+                                    value="{{ old('title_en', $video->title_en) ?? $video->title_en }}">
                                 @error('title_en')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -85,35 +86,30 @@
                             <div class="col-md-6 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.thumbnail') }}</label>
-                                    <input class="custom-file-input" id="customFile" type="file"
-                                        accept=".jpg,.png,.jpeg" name="thumbnail">
+                                    <input class="custom-file-input" id="customFile" type="file" accept=".jpg,.png,.jpeg"
+                                        name="thumbnail">
                                     @error('thumbnail')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
 
-                            @if (auth()->user()->role_id != 3)
-                                <div class="col-md-6 form-group mg-b-0">
-                                    <label class="form-label">{{ __('main.store') }}: <span
-                                            class="tx-danger">*</span></label>
-                                    <select required class="form-control select2" name="store_id">
-                                        <option value selected disabled>
-                                            {{ __('main.select_store') }}
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.store') }}: <span class="tx-danger">*</span></label>
+                                <select required class="form-control select2" name="store_id">
+                                    <option value selected disabled>
+                                        {{ __('main.select_store') }}
+                                    </option>
+                                    @foreach ($stores as $store)
+                                        <option value="{{ $store->id }}"
+                                            @if ($video->store_id == $store->id) selected @endif>{{ $store->name }}
                                         </option>
-                                        @foreach ($stores as $store)
-                                            <option value="{{ $store->id }}"
-                                                @if ($video->store_id == $store->id) selected @endif>{{ $store->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('store_id')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            @else
-                                <input hidden name='store_id' value="{{ auth()->user()->store_id }}">
-                            @endif
+                                    @endforeach
+                                </select>
+                                @error('store_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
@@ -134,7 +130,8 @@
                             <div class="col-md-6 form-group">
                                 <div class="custom-file">
                                     <label class="" for="path">{{ __('main.url') }}</label>
-                                    <input class="form-control" id="path" type="url" name="path" value="{{ $video->path }}">
+                                    <input class="form-control" id="path" type="url" name="path"
+                                        value="{{ $video->path }}">
                                     @error('path')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

@@ -57,8 +57,6 @@ class HamzRoleSeeder extends Seeder
             ['name' => 'earn.packages.update'],
             ['name' => 'earn.packages.delete'],
 
-            ['name' => 'earn.subscriptions.index'],
-
             ['name' => 'coupon.packages.index'],
             ['name' => 'coupon.packages.create'],
             ['name' => 'coupon.packages.update'],
@@ -68,8 +66,6 @@ class HamzRoleSeeder extends Seeder
             ['name' => 'coupon.sliders.create'],
             ['name' => 'coupon.sliders.update'],
             ['name' => 'coupon.sliders.delete'],
-
-            ['name' => 'coupon.subscriptions.index'],
 
 
             ['name' => 'hamz.sliders.index'],
