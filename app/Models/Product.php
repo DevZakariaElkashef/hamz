@@ -174,6 +174,11 @@ class Product extends Model
         return $this->belongsTo(City::class, 'city_id');
     }
 
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

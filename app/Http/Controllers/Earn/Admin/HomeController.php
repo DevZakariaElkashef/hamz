@@ -30,8 +30,8 @@ class HomeController extends Controller
     private function getVideosWithViews($orderBy = 'desc', $limit = 5)
     {
         $local = app()->getLocale();
-        return DB::table('videos')
-            ->select("videos.title_" .$local  . ' AS title', 'videos.reword_amount', 'videos.path', DB::raw('COUNT(views.id) as views_count'))
+        $data = DB::table('videos')
+            ->select("videos.title_" . $local  . ' AS title', 'videos.reword_amount', 'videos.path', DB::raw('COUNT(views.id) as views_count'))
             ->leftJoin('views', 'videos.id', '=', 'views.video_id')
             ->when(auth()->user()->role_id == 3, function ($query) {
                 $query->where('videos.user_id', auth()->user()->id);
@@ -39,5 +39,7 @@ class HomeController extends Controller
             ->orderBy('views_count', $orderBy)
             ->limit($limit)
             ->get();
+
+        return $data;
     }
 }
