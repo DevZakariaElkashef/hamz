@@ -21,11 +21,12 @@ class TransactionContoller extends Controller
         if ($wallet_type == '0') {
             $transactions1 = Withdrow::select('withdraw_type AS type', 'amount', DB::raw('NULL AS is_negative'), 'created_at')
                 ->where('user_id', auth()->user()->id)
-                ->where('wallet_type', $wallet_type)
-                ->orWhere(function ($query) {
-                    $query->where('user_id', auth()->user()->id)
-                        ->where('wallet_type', '1')
-                        ->where('withdraw_type', '0');
+                ->where(function ($query) use ($wallet_type) {
+                    $query->where('wallet_type', $wallet_type)
+                        ->orWhere(function ($query) {
+                            $query->where('wallet_type', '1')
+                                ->where('withdraw_type', '0');
+                        });
                 })
                 ->where('status', '1');
 
@@ -38,12 +39,13 @@ class TransactionContoller extends Controller
                 ->where('user_id', auth()->user()->id)
                 ->where('payment_status', '1')
                 ->where(function ($query) {
-                    $query->where('order_status_id', '!=', '5')
-                        ->where('payment_type', '1');
-                })
-                ->orWhere(function ($query) {
-                    $query->where('order_status_id', '5')
-                        ->where('payment_type', '0');
+                    $query->where(function ($query) {
+                        $query->where('order_status_id', '!=', '5')
+                            ->where('payment_type', '1');
+                    })->orWhere(function ($query) {
+                        $query->where('order_status_id', '5')
+                            ->where('payment_type', '0');
+                    });
                 });
 
             $transactions = $transactions1->union($transactions2)->latest()->get();
