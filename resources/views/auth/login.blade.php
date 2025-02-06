@@ -34,8 +34,8 @@
                                                 @csrf
                                                 <div class="form-group">
                                                     <label>{{ __('main.email') }}</label> <input class="form-control"
-                                                        placeholder="{{ __('main.Enter_your_email') }}" name="email" required
-                                                        type="email" value="{{ old('email') }}">
+                                                        placeholder="{{ __('main.Enter_your_email') }}" name="email"
+                                                        required type="email" value="{{ old('email') }}">
                                                     @error('email')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -66,6 +66,10 @@
                                             <div class="main-signin-footer mt-2">
                                                 <p><a
                                                         href="{{ route('password.request') }}">{{ __('main.Forgot_password?') }}</a>
+                                                </p>
+                                            </div>
+                                            <div class="main-signin-footer mt-2">
+                                                <p><a href="{{ route('signup') }}">{{ __('main.dont_have_account') }}</a>
                                                 </p>
                                             </div>
                                         </div>

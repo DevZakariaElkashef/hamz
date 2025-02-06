@@ -90,7 +90,7 @@ class CouponController extends Controller
             auth()->user()->role_id == '3' &&
             Subscription::where('limit', '<=', Coupon::where('user_id', auth()->id())->count())
             ->where('app', 'coupons')
-            ->latest()
+            ->orderBy('expire_date', 'DESC')
             ->first()
         ) {
             session()->flash('error', __("main.reached_package_limit"));
@@ -129,7 +129,7 @@ class CouponController extends Controller
             auth()->user()->role_id == '3' &&
             Subscription::where('limit', '<=', Coupon::where('user_id', auth()->id())->count())
             ->where('app', 'coupons')
-            ->latest()
+            ->orderBy('expire_date', 'DESC')
             ->first()
         ) {
             session()->flash('error', __("main.reached_package_limit"));

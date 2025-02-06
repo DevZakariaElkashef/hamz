@@ -17,7 +17,7 @@ class Video extends Model
 
     public function viewed()
     {
-        return $this->hasMany(View::class);
+        return $this->hasMany(View::class)->where('status', '1');
     }
 
     public function store()

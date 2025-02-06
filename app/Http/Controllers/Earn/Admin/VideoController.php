@@ -61,7 +61,7 @@ class VideoController extends Controller
             auth()->user()->role_id == '3' &&
             Subscription::where('limit', '<=', Video::where('user_id', auth()->id())->count())
             ->where('app', 'earn')
-            ->latest()
+            ->orderBy('expire_date', 'DESC')
             ->first()
         ) {
             session()->flash('error', __("main.reached_package_limit"));
@@ -100,7 +100,7 @@ class VideoController extends Controller
             auth()->user()->role_id == '3' &&
             Subscription::where('limit', '<=', Video::where('user_id', auth()->id())->count())
             ->where('app', 'earn')
-            ->latest()
+            ->orderBy('expire_date', 'DESC')
             ->first()
         ) {
             session()->flash('error', __("main.reached_package_limit"));

@@ -621,5 +621,14 @@ return
         'reached_package_limit' => 'Reached Package Limit',
 
         'used_count' => 'Used Count',
-        'expire_date' => 'Expiration Date'
+        'expire_date' => 'Expiration Date',
+
+        'Enter_your_name' => 'Enter Your Name',
+        'Enter_your_phone' => 'Enter Your Phone',
+        'password_confirmation' => 'Password Confirmation',
+        'Enter_your_password_confirmation' => 'Enter Password Confirmation',
+        'signup_new_vendor' => 'Sign Up as a New Vendor',
+        'have_account' => 'I Already Have an Account',
+        'dont_have_account' => 'I Don’t Have an Account',
+        'signup' => 'Sign Up'
     ];

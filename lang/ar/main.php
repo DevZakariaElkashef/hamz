@@ -629,5 +629,14 @@ return
         'total_coupons_copies' => 'عدد نسخ الكوبونات',
 
         'used_count' => 'العدد المستخدم',
-        'expire_date' => 'تاريخ الإنتهاء'
+        'expire_date' => 'تاريخ الإنتهاء',
+
+        'Enter_your_name' => 'أدخل الاسم',
+        'Enter_your_phone' => 'أدخل الهاتف',
+        'password_confirmation' => 'تأكيد كلمة المرور',
+        'Enter_your_password_confirmation' => 'أدخل تأكيد كلمة المرور',
+        'signup_new_vendor' => 'تسجيل حساب بائع جديد',
+        'have_account' => 'لدي حساب بالفعل',
+        'dont_have_account' => 'ليس لدي حساب',
+        'signup' => 'تسجيل الدخول'
     ];

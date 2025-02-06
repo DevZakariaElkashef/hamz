@@ -17,7 +17,8 @@ class HomeController extends Controller
         $totalViews = View::when(auth()->user()->role_id == 3, function ($query) {
             $query->join('videos', 'videos.id', '=', 'views.video_id')
                 ->where('videos.user_id', auth()->user()->id);
-        })->count();
+        })->where('views.status', '1')
+        ->count();
 
         $mostWatchedVideos = $this->getVideosWithViews('DESC');
         $mostUnWatchedVideos = $this->getVideosWithViews('ASC');
@@ -31,7 +32,7 @@ class HomeController extends Controller
     {
         $local = app()->getLocale();
         $data = DB::table('videos')
-            ->select("videos.title_" . $local  . ' AS title', 'videos.reword_amount', 'videos.path', DB::raw('COUNT(views.id) as views_count'))
+            ->select("videos.title_" . $local  . ' AS title', 'videos.reword_amount', 'videos.path', DB::raw('SUM(CASE WHEN views.status = "1" THEN 1 ELSE 0 END) as views_count'))
             ->leftJoin('views', 'videos.id', '=', 'views.video_id')
             ->when(auth()->user()->role_id == 3, function ($query) {
                 $query->where('videos.user_id', auth()->user()->id);
