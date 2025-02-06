@@ -24,13 +24,6 @@ class EarnRoleSeeder extends Seeder
             ['name' => 'earn.videos.update'],
             ['name' => 'earn.videos.delete'],
 
-            ['name' => 'earn.categories.index'],
-            ['name' => 'earn.categories.create'],
-            ['name' => 'earn.categories.update'],
-            ['name' => 'earn.categories.delete'],
-            ['name' => 'earn.categories.export'],
-            ['name' => 'earn.categories.import'],
-
             ['name' => 'earn.subscriptions.index'],
 
         ];

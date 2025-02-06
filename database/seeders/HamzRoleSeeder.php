@@ -57,6 +57,13 @@ class HamzRoleSeeder extends Seeder
             ['name' => 'earn.packages.update'],
             ['name' => 'earn.packages.delete'],
 
+            ['name' => 'earn.categories.index'],
+            ['name' => 'earn.categories.create'],
+            ['name' => 'earn.categories.update'],
+            ['name' => 'earn.categories.delete'],
+            ['name' => 'earn.categories.export'],
+            ['name' => 'earn.categories.import'],
+
             ['name' => 'coupon.packages.index'],
             ['name' => 'coupon.packages.create'],
             ['name' => 'coupon.packages.update'],
@@ -66,6 +73,13 @@ class HamzRoleSeeder extends Seeder
             ['name' => 'coupon.sliders.create'],
             ['name' => 'coupon.sliders.update'],
             ['name' => 'coupon.sliders.delete'],
+
+            ['name' => 'coupon.categories.index'],
+            ['name' => 'coupon.categories.create'],
+            ['name' => 'coupon.categories.update'],
+            ['name' => 'coupon.categories.delete'],
+            ['name' => 'coupon.categories.export'],
+            ['name' => 'coupon.categories.import'],
 
 
             ['name' => 'hamz.sliders.index'],

@@ -24,13 +24,6 @@ class CouponRoleSeeder extends Seeder
             ['name' => 'coupon.coupons.export'],
             ['name' => 'coupon.coupons.import'],
 
-            ['name' => 'coupon.categories.index'],
-            ['name' => 'coupon.categories.create'],
-            ['name' => 'coupon.categories.update'],
-            ['name' => 'coupon.categories.delete'],
-            ['name' => 'coupon.categories.export'],
-            ['name' => 'coupon.categories.import'],
-
             ['name' => 'coupon.subscriptions.index'],
         ];
 

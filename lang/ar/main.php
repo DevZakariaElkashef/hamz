@@ -638,5 +638,8 @@ return
         'signup_new_vendor' => 'تسجيل حساب بائع جديد',
         'have_account' => 'لدي حساب بالفعل',
         'dont_have_account' => 'ليس لدي حساب',
-        'signup' => 'تسجيل الدخول'
+        'signup' => 'تسجيل الدخول',
+        'accept_terms' => 'أوافق على الشروط والأحكام',
+        'signup_vendor' => 'تسجيل تاجر',
+        'choose_city' => 'أختر مدينة'
     ];

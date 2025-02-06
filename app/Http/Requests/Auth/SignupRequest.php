@@ -26,7 +26,8 @@ class SignupRequest extends FormRequest
             'email' => 'required|email:filter|max:250',
             'phone' => 'required|string|max:50',
             'city_id' => 'required|exists:cities,id',
-            'password' => 'required|string|min:8|confirmed'
+            'password' => 'required|string|min:8|confirmed',
+            'terms' => 'required|accepted'
         ];
     }
 }
