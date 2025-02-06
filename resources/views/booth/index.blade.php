@@ -116,62 +116,155 @@
         <!-- row closed -->
 
         <!-- row opened -->
-        {{-- <div class="row row-sm row-deck">
+        @if (auth()->user()->role->name == "super-admin")
+            <div class="row row-sm row-deck">
 
-            <div class="col-md-12 col-lg-6 col-xl-6">
+                <div class="col-xl-12">
+                    <div class="card card-table-two">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-title mb-1">{{ __('main.store_most_sale') }}</h4>
+                            <a href="{{ route('mall.stores.index') }}"
+                                class="btn btn-primary  btn-sm mb-2">{{ __('main.show_more') }}</a>
+                        </div>
+                        <div class="table-responsive country-table">
+                            <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="wd-lg-25p">{{ __('main.store') }}</th>
+                                        <th class="wd-lg-25p">{{ __('main.Vendor_Name') }}</th>
+                                        <th class="wd-lg-25p">{{ __('main.total_orders') }}</th>
+                                        <th class="wd-lg-25p">{{ __('main.url') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($mostStors as $store)
+                                        <tr>
+                                            <td class="tx-right tx-medium tx-inverse">{{ $store->name }}</td>
+                                            <td class="tx-right tx-medium tx-inverse">{{ $store->user->name }}</td>
+                                            <td class="tx-right tx-medium tx-inverse">{{ $store->orders_count }}</td>
+                                            <td class="tx-right tx-medium tx-inverse">
+                                                <a href="{{ route('mall.stores.edit', $store->id) }}" target="_blank">{{ __('main.show') }}</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-12">
+                    <div class="card card-table-two">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-title mb-1">{{ __('main.store_less_sale') }}</h4>
+                            <a href="{{ route('mall.stores.index') }}"
+                                class="btn btn-primary  btn-sm mb-2">{{ __('main.show_more') }}</a>
+                        </div>
+                        <div class="table-responsive country-table">
+                            <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="wd-lg-25p">{{ __('main.store') }}</th>
+                                        <th class="wd-lg-25p">{{ __('main.Vendor_Name') }}</th>
+                                        <th class="wd-lg-25p">{{ __('main.total_orders') }}</th>
+                                        <th class="wd-lg-25p">{{ __('main.url') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($lessStors as $store)
+                                        <tr>
+                                            <td class="tx-right tx-medium tx-inverse">{{ $store->name }}</td>
+                                            <td class="tx-right tx-medium tx-inverse">{{ $store->user->name }}</td>
+                                            <td class="tx-right tx-medium tx-inverse">{{ $store->orders_count }}</td>
+                                            <td class="tx-right tx-medium tx-inverse">
+                                                <a href="{{ route('mall.stores.edit', $store->id) }}" target="_blank">{{ __('main.show') }}</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        @endif
+        <!-- /row -->
+        <!-- row opened -->
+        <div class="row row-sm row-deck">
+
+            <div class="col-xl-12">
                 <div class="card card-table-two">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mb-1">Your Most Recent Earnings</h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        <h4 class="card-title mb-1">{{ __('main.products_most_sale') }}</h4>
+                        <a href="{{ route('mall.products.index') }}"
+                            class="btn btn-primary  btn-sm mb-2">{{ __('main.show_more') }}</a>
                     </div>
-                    <span class="tx-12 tx-muted mb-3 ">This is your most recent earnings for today's date.</span>
                     <div class="table-responsive country-table">
                         <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
                             <thead>
                                 <tr>
-                                    <th class="wd-lg-25p">Date</th>
-                                    <th class="wd-lg-25p tx-right">Sales Count</th>
-                                    <th class="wd-lg-25p tx-right">Earnings</th>
-                                    <th class="wd-lg-25p tx-right">Tax Witheld</th>
+                                    <th class="wd-lg-25p">{{ __('main.product') }}</th>
+                                    <th class="wd-lg-25p">{{ __('main.store') }}</th>
+                                    <th class="wd-lg-25p">{{ __('main.Vendor_Name') }}</th>
+                                    <th class="wd-lg-25p">{{ __('main.total_orders') }}</th>
+                                    <th class="wd-lg-25p">{{ __('main.url') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>05 Dec 2019</td>
-                                    <td class="tx-right tx-medium tx-inverse">34</td>
-                                    <td class="tx-right tx-medium tx-inverse">$658.20</td>
-                                    <td class="tx-right tx-medium tx-danger">-$45.10</td>
-                                </tr>
-                                <tr>
-                                    <td>06 Dec 2019</td>
-                                    <td class="tx-right tx-medium tx-inverse">26</td>
-                                    <td class="tx-right tx-medium tx-inverse">$453.25</td>
-                                    <td class="tx-right tx-medium tx-danger">-$15.02</td>
-                                </tr>
-                                <tr>
-                                    <td>07 Dec 2019</td>
-                                    <td class="tx-right tx-medium tx-inverse">34</td>
-                                    <td class="tx-right tx-medium tx-inverse">$653.12</td>
-                                    <td class="tx-right tx-medium tx-danger">-$13.45</td>
-                                </tr>
-                                <tr>
-                                    <td>08 Dec 2019</td>
-                                    <td class="tx-right tx-medium tx-inverse">45</td>
-                                    <td class="tx-right tx-medium tx-inverse">$546.47</td>
-                                    <td class="tx-right tx-medium tx-danger">-$24.22</td>
-                                </tr>
-                                <tr>
-                                    <td>09 Dec 2019</td>
-                                    <td class="tx-right tx-medium tx-inverse">31</td>
-                                    <td class="tx-right tx-medium tx-inverse">$425.72</td>
-                                    <td class="tx-right tx-medium tx-danger">-$25.01</td>
-                                </tr>
+                                @foreach ($mostProducts as $Product)
+                                    <tr>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->name }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->store->name }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->store->user->name }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->order_items_sum_qty ?? 0 }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">
+                                            <a href="{{ route('mall.products.edit', $Product->id) }}" target="_blank">{{ __('main.show') }}</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        </div> --}}
+
+            <div class="col-xl-12">
+                <div class="card card-table-two">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mb-1">{{ __('main.products_less_sale') }}</h4>
+                        <a href="{{ route('mall.products.index') }}"
+                            class="btn btn-primary  btn-sm mb-2">{{ __('main.show_more') }}</a>
+                    </div>
+                    <div class="table-responsive country-table">
+                        <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="wd-lg-25p">{{ __('main.product') }}</th>
+                                    <th class="wd-lg-25p">{{ __('main.store') }}</th>
+                                    <th class="wd-lg-25p">{{ __('main.Vendor_Name') }}</th>
+                                    <th class="wd-lg-25p">{{ __('main.total_orders') }}</th>
+                                    <th class="wd-lg-25p">{{ __('main.url') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($lessProducts as $Product)
+                                    <tr>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->name }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->store->name }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->store->user->name }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->order_items_sum_qty ?? 0 }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">
+                                            <a href="{{ route('mall.products.edit', $Product->id) }}" target="_blank">{{ __('main.show') }}</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /row -->
         </div>
         </div>

@@ -82,7 +82,7 @@ class StoreController extends Controller
     public function create()
     {
         $sections = Section::active()->booth()->get();
-        $users = User::active()->get();
+        $users = User::active()->where('role_id', 3)->get();
         $cities = City::active()->get();
         return view("booth.stores.create", compact('sections', 'users', 'cities'));
     }

@@ -17,7 +17,14 @@ class ProductRepository
 
     public function index($request)
     {
-        $products = Product::filter($request)->mall()->with('store', 'category', 'brand', 'store.section')->paginate($request->per_page ?? $this->limit);
+        $products = Product::filter($request)->mall();
+        $user = auth()->user();
+        if (auth()->user()->role->name == 'seller') {
+            $products = $products->whereHas('store', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            });
+        }
+        $products = $products->with('store', 'category', 'brand', 'store.section')->paginate($request->per_page ?? $this->limit);
 
         return $products;
     }

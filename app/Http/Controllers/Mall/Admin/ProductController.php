@@ -42,7 +42,11 @@ class ProductController extends Controller
         $products = $this->productRepository->index($request);
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
-        $categories = Category::mall()->active()->get();
+        $categories = Category::mall()->active();
+        if (auth()->user()->role->name == 'seller') {
+            $categories = $categories->where('store_id', auth()->user()->store->id);
+        }
+        $categories = $categories->get();
         $brands = Brand::mall()->active()->get();
 
         return view('mall.products.index', compact('products', 'sections', 'stores', 'brands', 'categories'));
@@ -102,7 +106,7 @@ class ProductController extends Controller
         $brands = Brand::checkVendor($user)->mall()->active()->get();
         $attributes = Attribute::checkVendor($user)->mall()->get();
         $options = Option::checkVendor($user)->mall()->get();
-        
+
         return view("mall.products.create", compact('sections', 'stores', 'categories', 'brands', 'attributes', 'options'));
     }
 

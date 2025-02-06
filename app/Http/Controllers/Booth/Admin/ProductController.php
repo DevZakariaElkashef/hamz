@@ -42,7 +42,11 @@ class ProductController extends Controller
         $products = $this->productRepository->index($request);
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
-        $categories = Category::booth()->active()->get();
+        $categories = Category::booth()->active();
+        if (auth()->user()->role->name == 'seller') {
+            $categories = $categories->where('store_id', auth()->user()->store->id);
+        }
+        $categories = $categories->get();
         $brands = Brand::booth()->active()->get();
 
         return view('booth.products.index', compact('products', 'sections', 'stores', 'brands', 'categories'));
