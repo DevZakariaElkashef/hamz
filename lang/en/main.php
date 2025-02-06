@@ -630,5 +630,17 @@ return
         'signup_new_vendor' => 'Sign Up as a New Vendor',
         'have_account' => 'I Already Have an Account',
         'dont_have_account' => 'I Don’t Have an Account',
-        'signup' => 'Sign Up'
+        'signup' => 'Sign Up',
+
+        'accept_terms' => 'I Agree to the Terms and Conditions',
+        'signup_vendor' => 'Vendor Registration',
+        'choose_city' => 'Choose City',
+
+        'used_coupons' => 'Used Coupons',
+        'user_name' => 'User Name',
+        'user_phone' => 'User Phone',
+        'user_image' => 'User Image',
+        'coupon_code' => 'Coupon Code',
+        'invalid_coupon' => 'The coupon may have expired or exceeded the usage limit',
+        'used_coupon' => 'The coupon has already been used'
     ];

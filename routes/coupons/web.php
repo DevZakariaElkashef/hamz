@@ -9,6 +9,7 @@ use App\Http\Controllers\Coupon\Admin\PackageController;
 use App\Http\Controllers\Coupon\Admin\CategoryController;
 use App\Http\Controllers\Coupon\Admin\SubscripeController;
 use App\Http\Controllers\Coupon\Admin\SubscriptionController;
+use App\Http\Controllers\Coupon\Admin\UsedCouponController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('coupon.home');
@@ -46,6 +47,16 @@ Route::middleware('auth')->group(function () {
             Route::get('coupons-export', [CouponController::class, 'export'])->name('coupons.export');
             Route::post('coupons-import', [CouponController::class, 'import'])->name('coupons.import');
             Route::delete('delete-coupons', [CouponController::class, 'delete'])->name('coupons.delete');
+        });
+        /**end Slider Routes */
+
+        /**start Slider Routes */
+        Route::group(['prefix' => 'used-coupons', 'as' => 'used-coupons.'], function () {
+            Route::get('/', [UsedCouponController::class, 'index'])->name('index');
+            Route::get('/search', [UsedCouponController::class, 'search'])->name('search');
+            Route::post('/store', [UsedCouponController::class, 'store'])->name('store');
+            Route::delete('/destroy/{id}', [UsedCouponController::class, 'destroy'])->name('destroy');
+            Route::delete('/delete', [UsedCouponController::class, 'delete'])->name('delete');
         });
         /**end Slider Routes */
 
