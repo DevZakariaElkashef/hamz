@@ -17,7 +17,13 @@ class CategoryRepository
 
     public function index($request)
     {
-        $categorys = Category::checkVendor($request->user())->filter($request)->mall()->with('store')->paginate($request->per_page ?? $this->limit);
+        $user = auth()->user();
+        $categorys = Category::mall()->filter($request)->active();
+        if (auth()->user()->role->name == 'seller') {
+            $categorys = $categorys->where('store_id', $user->store->id);
+        }
+        $categorys = $categorys->paginate($request->per_page ?? $this->limit);
+        // $categorys = Category::checkVendor($request->user())->filter($request)->mall()->with('store')->paginate($request->per_page ?? $this->limit);
 
         return $categorys;
     }
