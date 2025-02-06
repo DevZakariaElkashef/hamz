@@ -3,6 +3,7 @@
 namespace App\Repositories\Mall;
 
 use App\Models\Order;
+use App\Models\Store;
 use App\Traits\ImageUploadTrait;
 
 class OrderRepository
@@ -17,8 +18,12 @@ class OrderRepository
 
     public function index($request)
     {
-        $order = Order::checkVendor($request->user())->filter($request)->mall()->paginate($request->per_page ?? $this->limit);
-
+        $order = Order::filter($request)->mall();
+        $store = Store::mall()->active()->where('user_id', $request->user()->id)->first();
+        if ($store) {
+            $order = $order->checkVendor($store->id);
+        }
+        $order = $order->paginate($request->per_page ?? $this->limit);
         return $order;
     }
 

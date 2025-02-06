@@ -93,7 +93,12 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         $stores = Store::booth()->active()->get();
-        $categories = Category::checkVendor($request->user())->booth()->active()->get();
+        $store = Store::booth()->active()->where('user_id', $request->user()->id)->first();
+        $categories = Category::booth()->active();
+        if ($store) {
+            $categories = $categories->checkVendor($store->id);
+        }
+        $categories = $categories->get();
         return view("booth.categories.create", compact('stores', 'categories'));
     }
 
@@ -120,7 +125,12 @@ class CategoryController extends Controller
     public function edit(Request $request, Category $category)
     {
         $stores = Store::booth()->active()->get();
-        $categories = Category::checkVendor($request->user())->booth()->active()->where('id', '!=', $category->id)->get();
+        $store = Store::booth()->active()->where('user_id', $request->user()->id)->first();
+        $categories = Category::booth()->active();
+        if ($store) {
+            $categories = $categories->checkVendor($store->id);
+        }
+        $categories = $categories->where('id', '!=', $category->id)->get();
         return view('booth.categories.edit', compact('category', 'stores', 'categories'));
     }
 
@@ -147,13 +157,19 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->products->count() > 0){
+            return to_route('booth.categories.index')->with('error', __("main.delete_error"));
+        }
         $this->categoryRepository->delete($category);
         return to_route('booth.categories.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
-        $this->categoryRepository->deleteSelection($request);
+        $delete = $this->categoryRepository->deleteSelection($request);
+        if(!$delete){
+            return to_route('booth.categories.index')->with('error', __("main.delete_error"));
+        }
         return to_route('booth.categories.index')->with('success', __("main.delete_successffully"));
     }
 }

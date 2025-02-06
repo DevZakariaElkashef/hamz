@@ -29,16 +29,15 @@ class HomeController extends Controller
         // fetch olny vendor's data
         if ($roleID == 3) {
             $store = Store::active()->mall()->where('user_id', $user->id)->first();
-            $categoriesCount = $categoriesCount->where('store_id', $store->id);
+            if ($store) {
+                $categoriesCount = $categoriesCount->where('store_id', $store->id);
+                $productsCount = $productsCount->whereHas('store', function ($query) use ($store) {
+                    $query->where('stores.id', $store->id);
+                });
+                $ordersCount = $ordersCount->where('store_id', $store->id);
 
-            $productsCount = $productsCount->whereHas('store', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            });
-
-
-            $ordersCount = $ordersCount->where('store_id', $store->id);
-
-            $couponsCount = $couponsCount->where('store_id', $store->id);
+                $couponsCount = $couponsCount->where('store_id', $store->id);
+            }
         }
 
         $categoriesCount = $categoriesCount->active()->mall()->count();

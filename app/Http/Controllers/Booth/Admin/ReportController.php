@@ -273,7 +273,12 @@ class ReportController extends Controller
         $products->where('qty', '<', 10)->get();
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
-        $categories = Category::checkVendor($request->user())->booth()->active()->get();
+        $store = Store::booth()->active()->where('user_id', $request->user()->id)->first();
+        $categories = Category::booth()->active();
+        if ($store) {
+            $categories = $categories->checkVendor($store->id);
+        }
+        $categories = $categories->get();
         $brands = Brand::checkVendor($request->user())->booth()->active()->get();
 
         return view('booth.reports.products.low_stock_alerts', compact('products', 'sections', 'stores', 'categories', 'brands'));

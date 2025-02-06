@@ -3,6 +3,7 @@
 namespace App\Repositories\Booth;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Store;
 use App\Traits\ImageUploadTrait;
 
@@ -85,6 +86,10 @@ class CategoryRepository
     public function deleteSelection($request)
     {
         $ids = explode(',', $request->ids);
+        $products = Product::active()->whereIn('category_id', $ids)->count();
+        if($products > 0){
+            return false;
+        }
         Category::whereIn('id', $ids)->delete();
         return true;
     }

@@ -43,9 +43,9 @@ class ProductController extends Controller
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
         $categories = Category::mall()->active();
-        if (auth()->user()->role->name == 'seller') {
-            $categories = $categories->where('store_id', auth()->user()->store->id);
-        }
+        // if (auth()->user()->role->name == 'seller') {
+        //     $categories = $categories->where('store_id', auth()->user()->store->id);
+        // }
         $categories = $categories->get();
         $brands = Brand::mall()->active()->get();
 
@@ -102,7 +102,12 @@ class ProductController extends Controller
 
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
-        $categories = Category::checkVendor($user)->mall()->active()->get();
+        $store = Store::mall()->active()->where('user_id', $user->id)->first();
+        $categories = Category::mall()->active();
+        if ($store) {
+            $categories = $categories->checkVendor($store->id);
+        }
+        $categories = $categories->get();
         $brands = Brand::checkVendor($user)->mall()->active()->get();
         $attributes = Attribute::checkVendor($user)->mall()->get();
         $options = Option::checkVendor($user)->mall()->get();

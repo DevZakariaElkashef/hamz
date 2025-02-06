@@ -43,9 +43,9 @@ class ProductController extends Controller
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
         $categories = Category::booth()->active();
-        if (auth()->user()->role->name == 'seller') {
-            $categories = $categories->where('store_id', auth()->user()->store->id);
-        }
+        // if (auth()->user()->role->name == 'seller') {
+        //     $categories = $categories->where('store_id', auth()->user()->store->id);
+        // }
         $categories = $categories->get();
         $brands = Brand::booth()->active()->get();
 
@@ -102,7 +102,12 @@ class ProductController extends Controller
 
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
-        $categories = Category::checkVendor($user)->booth()->active()->get();
+        $store = Store::booth()->active()->where('user_id', $user->id)->first();
+        $categories = Category::booth()->active();
+        if ($store) {
+            $categories = $categories->checkVendor($store->id);
+        }
+        $categories = $categories->get();
         $brands = Brand::checkVendor($user)->booth()->active()->get();
         $attributes = Attribute::checkVendor($user)->booth()->get();
         $options = Option::checkVendor($user)->booth()->get();
@@ -134,7 +139,13 @@ class ProductController extends Controller
     {
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
-        $categories = Category::booth()->active()->get();
+        $store = Store::booth()->active()->where('user_id', auth()->user()->id)->first();
+        $store = Store::booth()->active()->where('user_id', auth()->user()->id)->first();
+        $categories = Category::booth()->active();
+        if ($store) {
+            $categories = $categories->checkVendor($store->id);
+        }
+        $categories = $categories->get();
         $brands = Brand::booth()->active()->get();
         $attributes = Attribute::booth()->get();
         $options = Option::booth()->get();
