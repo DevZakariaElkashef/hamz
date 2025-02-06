@@ -274,6 +274,12 @@ class ReportController extends Controller
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
         $categories = Category::checkVendor($request->user())->mall()->active()->get();
+        $store = Store::mall()->active()->where('user_id', $request->user()->id)->first();
+        $categories = Category::mall()->active();
+        if ($store) {
+            $categories = $categories->checkVendor($store->id);
+        }
+        $categories = $categories->get();
         $brands = Brand::checkVendor($request->user())->mall()->active()->get();
 
         return view('mall.reports.products.low_stock_alerts', compact('products', 'sections', 'stores', 'categories', 'brands'));

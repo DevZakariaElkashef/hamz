@@ -102,7 +102,12 @@ class ProductController extends Controller
 
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
-        $categories = Category::checkVendor($user)->mall()->active()->get();
+        $store = Store::mall()->active()->where('user_id', $user->id)->first();
+        $categories = Category::mall()->active();
+        if ($store) {
+            $categories = $categories->checkVendor($store->id);
+        }
+        $categories = $categories->get();
         $brands = Brand::checkVendor($user)->mall()->active()->get();
         $attributes = Attribute::checkVendor($user)->mall()->get();
         $options = Option::checkVendor($user)->mall()->get();
