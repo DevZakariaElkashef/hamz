@@ -47,4 +47,12 @@ class HomeController extends Controller
         $data = $about ? AboutResource::make($about) : null;
         return $this->sendResponse(200, $data);
     }
+
+    public function vendor_register()  {
+        $data = AppSetting::where('app', 'all')->where('key', 'saller_link')->first();
+        $data1 = [
+            'value' => $data->value_ar,
+        ];
+        return $this->sendResponse(200, $data1);
+    }
 }
