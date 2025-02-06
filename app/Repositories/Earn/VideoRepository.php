@@ -45,9 +45,9 @@ class VideoRepository
             ->where('status', 0)
             ->first();
 
-        if (!$check) {
-            return 'watch_first';
-        }
+        // if (!$check) {
+        //     return 'watch_first';
+        // }
 
         $user->update([
             'watch_and_earn_wallet' => $user->watch_and_earn_wallet + $video->reword_amount,
