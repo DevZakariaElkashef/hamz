@@ -17,7 +17,7 @@
             <div class="upload-btn-wrapper">
                 <label for="file-upload" class="custom-file-upload">
                 </label>
-                <input id="file-upload" type="file" />
+                <input id="file-upload" type="file" name="image" />
             </div>
             <div class="input-box">
                 <input type="text" name="name" placeholder="{{ __('main.name') }}" required>
