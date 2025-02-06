@@ -31,7 +31,7 @@ class VideoRepository
             return null;
         }
 
-        $alreadyWatched = $video->viewed()
+        $alreadyWatched = View::where('video_id', $video->id)
             ->where('user_id', $user->id)
             ->where('status', 1)
             ->first();
@@ -40,14 +40,14 @@ class VideoRepository
             return 'already_watched';
         }
 
-        $check = $video->viewed()
+        $check = View::where('video_id', $video->id)
             ->where('user_id', $user->id)
             ->where('status', 0)
             ->first();
 
-        // if (!$check) {
-        //     return 'watch_first';
-        // }
+        if (!$check) {
+            return 'watch_first';
+        }
 
         $user->update([
             'watch_and_earn_wallet' => $user->watch_and_earn_wallet + $video->reword_amount,
