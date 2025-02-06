@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\usedMarket\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,6 +17,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('usedMarket.index');
+        $categoriesCount = Category::usedMarket()->active()->count();
+        $productsCount = Product::usedMarket()->active()->count();
+        return view('usedMarket.index', compact('categoriesCount', 'productsCount'));
     }
 }
