@@ -140,7 +140,7 @@
                                     @foreach ($mostStors as $store)
                                         <tr>
                                             <td class="tx-right tx-medium tx-inverse">{{ $store->name }}</td>
-                                            <td class="tx-right tx-medium tx-inverse">{{ $store->user->name }}</td>
+                                            <td class="tx-right tx-medium tx-inverse">{{ $store->user->name ?? ''}}</td>
                                             <td class="tx-right tx-medium tx-inverse">{{ $store->orders_count }}</td>
                                             <td class="tx-right tx-medium tx-inverse">
                                                 <a href="{{ route('mall.stores.edit', $store->id) }}" target="_blank">{{ __('main.show') }}</a>
@@ -174,7 +174,7 @@
                                     @foreach ($lessStors as $store)
                                         <tr>
                                             <td class="tx-right tx-medium tx-inverse">{{ $store->name }}</td>
-                                            <td class="tx-right tx-medium tx-inverse">{{ $store->user->name }}</td>
+                                            <td class="tx-right tx-medium tx-inverse">{{ $store->user->name ?? '' }}</td>
                                             <td class="tx-right tx-medium tx-inverse">{{ $store->orders_count }}</td>
                                             <td class="tx-right tx-medium tx-inverse">
                                                 <a href="{{ route('mall.stores.edit', $store->id) }}" target="_blank">{{ __('main.show') }}</a>
@@ -216,7 +216,7 @@
                                     <tr>
                                         <td class="tx-right tx-medium tx-inverse">{{ $Product->name }}</td>
                                         <td class="tx-right tx-medium tx-inverse">{{ $Product->store->name }}</td>
-                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->store->user->name }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->store->user->name ?? '' }}</td>
                                         <td class="tx-right tx-medium tx-inverse">{{ $Product->order_items_sum_qty ?? 0 }}</td>
                                         <td class="tx-right tx-medium tx-inverse">
                                             <a href="{{ route('mall.products.edit', $Product->id) }}" target="_blank">{{ __('main.show') }}</a>
@@ -252,7 +252,7 @@
                                     <tr>
                                         <td class="tx-right tx-medium tx-inverse">{{ $Product->name }}</td>
                                         <td class="tx-right tx-medium tx-inverse">{{ $Product->store->name }}</td>
-                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->store->user->name }}</td>
+                                        <td class="tx-right tx-medium tx-inverse">{{ $Product->store->user->name ?? '' }}</td>
                                         <td class="tx-right tx-medium tx-inverse">{{ $Product->order_items_sum_qty ?? 0 }}</td>
                                         <td class="tx-right tx-medium tx-inverse">
                                             <a href="{{ route('mall.products.edit', $Product->id) }}" target="_blank">{{ __('main.show') }}</a>

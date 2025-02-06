@@ -6,6 +6,9 @@
                 <th>{{ __('main.id') }}</th>
                 <th>{{ __('main.section') }}</th>
                 <th>{{ __('main.name') }}</th>
+                @if (auth()->user()->role->name == 'super-admin')
+                    <th>{{ __('main.Vendor_Name') }}</th>
+                @endif
                 <th>{{ __('main.image') }}</th>
                 <th>{{ __('main.status') }}</th>
                 <th>{{ __('main.actions') }}</th>
@@ -18,6 +21,9 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $store->section->name ?? '' }}</td>
                     <td>{{ $store->name }}</td>
+                    @if (auth()->user()->role->name == 'super-admin')
+                        <td>{{ $store->user->name }}</td>
+                    @endif
                     <td>
                         <a href="{{ asset($store->image) }}" download>
                             <img src="{{ asset($store->image) }}"
