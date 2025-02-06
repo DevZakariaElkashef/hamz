@@ -33,7 +33,13 @@ class StoreRequest extends FormRequest
             ],
             'section_id' => 'required|exists:sections,id',
             'city_id' => 'required|exists:cities,id',
-            'user_id' => 'required|exists:users,id',
+            'user_id' => [
+                'required',
+                'exists:users,id',
+                Rule::unique('stores', 'user_id')->where(function ($query) {
+                    return $query->where('app', 'booth')->whereNull('deleted_at');
+                })->ignore($this->id),
+            ],
             'lat' => 'required|string|max:255',
             'lng' => 'required|string|max:255',
             'address' => 'required|string|max:255',
