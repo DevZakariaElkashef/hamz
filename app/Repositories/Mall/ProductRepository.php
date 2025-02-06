@@ -22,8 +22,12 @@ class ProductRepository
         $user = auth()->user();
         if (auth()->user()->role->name == 'seller') {
             $store = Store::mall()->active()->where('user_id', $user->id)->first();
-            $products = $products->whereHas('store', function ($query) use ($store) {
-                $query->where('stores.id', $store->id);
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $products = $products->whereHas('store', function ($query) use ($storeId) {
+                $query->where('stores.id', $storeId);
             });
         }
         $products = $products->with('store', 'category', 'brand', 'store.section')->paginate($request->per_page ?? $this->limit);

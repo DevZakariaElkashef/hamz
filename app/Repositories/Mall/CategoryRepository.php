@@ -23,7 +23,11 @@ class CategoryRepository
         $categorys = Category::mall()->filter($request)->active();
         if (auth()->user()->role->name == 'seller') {
             $store = Store::active()->mall()->where('user_id', $user->id)->first();
-            $categorys = Category::checkVendor($store->id);
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $categorys = Category::checkVendor($storeId);
         }
         $categorys = $categorys->paginate($request->per_page ?? $this->limit);
 

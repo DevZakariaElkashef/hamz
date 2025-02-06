@@ -273,10 +273,14 @@ class ReportController extends Controller
         $products->where('qty', '<', 10)->get();
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
-        $store = Store::booth()->active()->where('user_id', $request->user()->id)->first();
         $categories = Category::booth()->active();
-        if ($store) {
-            $categories = $categories->checkVendor($store->id);
+        if ($request->user()->role->name == 'seller') {
+            $store = Store::booth()->active()->where('user_id', $request->user()->id)->first();
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $categories = $categories->checkVendor($storeId);
         }
         $categories = $categories->get();
         $brands = Brand::checkVendor($request->user())->booth()->active()->get();

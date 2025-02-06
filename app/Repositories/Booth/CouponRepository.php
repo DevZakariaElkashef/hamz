@@ -22,7 +22,11 @@ class CouponRepository
         $coupons = Coupon::booth();
         if ($user->role->name == 'seller') {
             $store = Store::active()->booth()->where('user_id', $user->id)->first();
-            $coupons = $coupons->checkVendor($store->id);
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $coupons = $coupons->checkVendor($storeId);
         }
         $coupons = $coupons->filter($request)->paginate($request->per_page ?? $this->limit);
         return $coupons;

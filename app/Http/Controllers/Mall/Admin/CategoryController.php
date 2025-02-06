@@ -93,11 +93,16 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         $stores = Store::mall()->active()->get();
-        $store = Store::mall()->active()->where('user_id', $request->user()->id)->first();
         $categories = Category::mall()->active();
-        if ($store) {
-            $categories = $categories->checkVendor($store->id);
+        if ($request->user()->role->name == 'seller') {
+            $store = Store::mall()->active()->where('user_id', $request->user()->id)->first();
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $categories = $categories->checkVendor($storeId);
         }
+
         $categories = $categories->get();
         return view("mall.categories.create", compact('stores', 'categories'));
     }
@@ -125,10 +130,14 @@ class CategoryController extends Controller
     public function edit(Request $request, Category $category)
     {
         $stores = Store::mall()->active()->get();
-        $store = Store::mall()->active()->where('user_id', $request->user()->id)->first();
         $categories = Category::mall()->active();
-        if ($store) {
-            $categories = $categories->checkVendor($store->id);
+        if ($request->user()->role->name == 'seller') {
+            $store = Store::mall()->active()->where('user_id', $request->user()->id)->first();
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $categories = $categories->checkVendor($storeId);
         }
         $categories = $categories->where('id', '!=', $category->id)->get();
         return view('mall.categories.edit', compact('category', 'stores', 'categories'));

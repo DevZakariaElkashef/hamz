@@ -19,9 +19,13 @@ class OrderRepository
     public function index($request)
     {
         $order = Order::filter($request)->mall();
-        $store = Store::mall()->active()->where('user_id', $request->user()->id)->first();
-        if ($store) {
-            $order = $order->checkVendor($store->id);
+        if ($request->user()->role->name == 'seller') {
+            $store = Store::mall()->active()->where('user_id', $request->user()->id)->first();
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $order = $order->checkVendor($storeId);
         }
         $order = $order->paginate($request->per_page ?? $this->limit);
         return $order;

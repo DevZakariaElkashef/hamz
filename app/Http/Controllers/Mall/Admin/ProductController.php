@@ -102,10 +102,14 @@ class ProductController extends Controller
 
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
-        $store = Store::mall()->active()->where('user_id', $user->id)->first();
         $categories = Category::mall()->active();
-        if ($store) {
-            $categories = $categories->checkVendor($store->id);
+        if ($user->role->name == 'seller') {
+            $store = Store::mall()->active()->where('user_id', $user->id)->first();
+                $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $categories = $categories->checkVendor($storeId);
         }
         $categories = $categories->get();
         $brands = Brand::checkVendor($user)->mall()->active()->get();
