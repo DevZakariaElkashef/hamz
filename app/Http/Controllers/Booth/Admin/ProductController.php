@@ -102,10 +102,15 @@ class ProductController extends Controller
 
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
-        $store = Store::booth()->active()->where('user_id', $user->id)->first();
         $categories = Category::booth()->active();
-        if ($store) {
-            $categories = $categories->checkVendor($store->id);
+        if ($request->user()->role->name == 'seller') {
+            $store = Store::booth()->active()->where('user_id', $user->id)->first();
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $categories = $categories->checkVendor($storeId);
+
         }
         $categories = $categories->get();
         $brands = Brand::checkVendor($user)->booth()->active()->get();
@@ -140,10 +145,15 @@ class ProductController extends Controller
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
         $store = Store::booth()->active()->where('user_id', auth()->user()->id)->first();
-        $store = Store::booth()->active()->where('user_id', auth()->user()->id)->first();
         $categories = Category::booth()->active();
-        if ($store) {
-            $categories = $categories->checkVendor($store->id);
+        if (auth()->user()->role->name == 'seller') {
+            $store = Store::booth()->active()->where('user_id', auth()->user()->id)->first();
+            $storeId = '';
+            if ($store) {
+                $storeId = $store->id;
+            }
+            $categories = $categories->checkVendor($storeId);
+
         }
         $categories = $categories->get();
         $brands = Brand::booth()->active()->get();
