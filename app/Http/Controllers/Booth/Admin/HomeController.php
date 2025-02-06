@@ -31,8 +31,8 @@ class HomeController extends Controller
 
             $categoriesCount = $categoriesCount->where('store_id', $store->id);
 
-            $productsCount = $productsCount->whereHas('store', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
+            $productsCount = $productsCount->whereHas('store', function ($query) use ($store) {
+                $query->where('stores.id', $store->id);
             });
 
 

@@ -43,9 +43,9 @@ class ProductController extends Controller
         $sections = Section::mall()->active()->get();
         $stores = Store::mall()->active()->get();
         $categories = Category::mall()->active();
-        if (auth()->user()->role->name == 'seller') {
-            $categories = $categories->where('store_id', auth()->user()->store->id);
-        }
+        // if (auth()->user()->role->name == 'seller') {
+        //     $categories = $categories->where('store_id', auth()->user()->store->id);
+        // }
         $categories = $categories->get();
         $brands = Brand::mall()->active()->get();
 

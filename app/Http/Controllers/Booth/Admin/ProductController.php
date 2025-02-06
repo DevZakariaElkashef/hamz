@@ -43,9 +43,9 @@ class ProductController extends Controller
         $sections = Section::booth()->active()->get();
         $stores = Store::booth()->active()->get();
         $categories = Category::booth()->active();
-        if (auth()->user()->role->name == 'seller') {
-            $categories = $categories->where('store_id', auth()->user()->store->id);
-        }
+        // if (auth()->user()->role->name == 'seller') {
+        //     $categories = $categories->where('store_id', auth()->user()->store->id);
+        // }
         $categories = $categories->get();
         $brands = Brand::booth()->active()->get();
 

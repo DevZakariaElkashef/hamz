@@ -3,6 +3,7 @@
 namespace App\Repositories\Booth;
 
 use App\Models\Product;
+use App\Models\Store;
 use App\Traits\ImageUploadTrait;
 
 class ProductRepository
@@ -20,8 +21,9 @@ class ProductRepository
         $products = Product::filter($request)->booth();
         $user = auth()->user();
         if (auth()->user()->role->name == 'seller') {
-            $products = $products->whereHas('store', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
+            $store = Store::booth()->active()->where('user_id', $user->id)->first();
+            $products = $products->whereHas('store', function ($query) use ($store) {
+                $query->where('stores.id', $store->id);
             });
         }
         $products = $products->with('store', 'category', 'brand', 'store.section')->paginate($request->per_page ?? $this->limit);
