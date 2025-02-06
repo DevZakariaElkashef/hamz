@@ -277,7 +277,7 @@ return
         'Returns' => 'العائدات',
         'Financial_report' => 'التقرير المالي',
         'Profit_Loss' => 'الأرباح والخسائر',
-        'total_orders' => 'إجمالي الطلبات',
+        'total_orders' => 'إجمالي الكميات',
         'store_most_sale' => 'المتاجر الاكثر مبيعا',
         'store_less_sale' => 'المتاجر الاقل مبيعا',
         'products_less_sale' => 'المنتجات الاقل مبيعا',
