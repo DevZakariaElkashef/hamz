@@ -3,6 +3,7 @@
 namespace App\Repositories\Earn;
 
 use App\Models\Video;
+use App\Models\View;
 
 class VideoRepository
 {
@@ -59,19 +60,19 @@ class VideoRepository
 
     public function startWatchingVideo($request, $video)
     {
-        $check = $video->viewed()
-            ->where('user_id', $request->user()->id)
-            ->where('status', 1)
-            ->first();
-
-        if ($check) {
-            return false;
+        $view = View::where('user_id', $request->user()->id)
+        ->where('video_id', $video->id)
+        ->first();
+        if ($view){
+            if ($view->status == 1) {
+                return false;
+            }
+            return true;
         }
-
-        $video->viewed()->firstOrCreate(
-            ['user_id' => $request->user()->id], // Attributes to check for existence
-            [] // Additional attributes to set if creating a new record
-        );
+        $view = new View();
+        $view->user_id = $request->user()->id;
+        $view->video_id = $video->id;
+        $view->save();
         return true;
     }
 }
