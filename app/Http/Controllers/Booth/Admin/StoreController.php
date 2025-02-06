@@ -112,7 +112,7 @@ class StoreController extends Controller
         abort_if($request->user()->role_id == 3 && $store->user_id != $request->user()->id, 403);
 
         $sections = Section::active()->booth()->get();
-        $users = User::active()->get();
+        $users = User::active()->where('role_id', 3)->get();
         $cities = City::active()->get();
         return view('booth.stores.edit', compact('store', 'sections', 'users', 'cities'));
     }
