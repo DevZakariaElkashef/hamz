@@ -3,6 +3,7 @@
 namespace App\Repositories\Mall;
 
 use App\Models\Coupon;
+use App\Models\Store;
 use App\Traits\ImageUploadTrait;
 
 class CouponRepository
@@ -17,7 +18,13 @@ class CouponRepository
 
     public function index($request)
     {
-        $coupons = Coupon::checkVendor($request->user())->filter($request)->mall()->paginate($request->per_page ?? $this->limit);
+        $user = $request->user();
+        $coupons = Coupon::mall();
+        if ($user->role->name == 'seller') {
+            $store = Store::active()->mall()->where('user_id', $user->id)->first();
+            $coupons = $coupons->checkVendor($store->id);
+        }
+        $coupons = $coupons->filter($request)->paginate($request->per_page ?? $this->limit);
 
         return $coupons;
     }
