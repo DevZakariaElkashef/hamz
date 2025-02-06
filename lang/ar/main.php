@@ -399,6 +399,7 @@ return
         "socials" => "وسائل التواصل الاجتماعي",
         'commission' => "العمولة",
         'commission_auth' => "اتفاقية العمولة",
+        "saller_link" => "رابط تسجيل كتاجر",
         "content" => "المحتوى",
         "create_social" => "إنشاء وسيلة تواصل اجتماعي",
         'icon' => "الأيقونة",

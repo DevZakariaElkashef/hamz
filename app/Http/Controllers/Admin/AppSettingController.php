@@ -123,6 +123,33 @@ class AppSettingController extends Controller
         return to_route('commission.index')->with('success', __("main.updated_successffully"));
     }
 
+    public function saller_link()
+    {
+        $saller_link = AppSetting::where('app', 'all')
+        ->where('key', 'saller_link')->first();
+        return view("settings.saller_link.index", compact('saller_link'));
+    }
+
+    public function saller_link_store(Request $request)
+    {
+        $saller_link = AppSetting::all()->where('key', 'saller_link')->first();
+        if ($saller_link) {
+            $saller_link->value_ar = $request->value;
+            $saller_link->value_en = $request->value;
+            $saller_link->app = 'all';
+            $saller_link->save();
+        } else {
+            $saller_link = AppSetting::create([
+                'key' => 'saller_link',
+                'value_ar' => $request->value,
+                'value_en' => $request->value,
+            ]);
+            $saller_link->app = 'all';
+            $saller_link->save();
+        }
+        return to_route('saller_link.index')->with('success', __("main.updated_successffully"));
+
+    }
     /*
         public function commission_auth()
         {

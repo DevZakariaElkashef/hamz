@@ -80,6 +80,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('commission/store', [AppSettingController::class, 'commission_store'])->name('commission.store');
     Route::get('terms', [AppSettingController::class, 'term'])->name('terms.index');
     Route::post('terms/store', [AppSettingController::class, 'term_store'])->name('terms.store');
+    Route::get('saller-link', [AppSettingController::class, 'saller_link'])->name('saller_link.index');
+    Route::post('saller-link/store', [AppSettingController::class, 'saller_link_store'])->name('saller_link.store');
     // Route::get('commission_auth/index', [AppSettingController::class, 'commission_auth'])->name('commission_auth.index');
     // Route::post('commission_auth/store', [AppSettingController::class, 'commission_auth_store'])->name('commission_auth.store');
 
