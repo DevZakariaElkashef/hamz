@@ -29,7 +29,6 @@ class HomeController extends Controller
         $most_used_coupons = $this->getCouponsByUsage('DESC');
         $least_used_coupons = $this->getCouponsByUsage('ASC');
 
-
         return view('coupon.index', compact('total_coupons', 'total_coupons_uses', 'total_coupons_copies', 'most_used_coupons', 'least_used_coupons'));
     }
 
@@ -44,8 +43,8 @@ class HomeController extends Controller
             "coupons.code",
             "coupons.discount",
             "max_usage",
-            DB::raw('COUNT(user_coupons.id) as coupons_count'),
-            DB::raw('COUNT(user_coupon_copies.id) as coupons_copies_count')
+            DB::raw('SUM(CASE WHEN user_coupons.deleted_at IS NULL THEN 1 ELSE 0 END) as coupons_count'),
+            DB::raw('SUM(CASE WHEN user_coupon_copies.deleted_at IS NULL THEN 1 ELSE 0 END) as coupons_copies_count')
         )
             ->leftJoin('user_coupons', 'coupons.id', '=', 'user_coupons.coupon_id')
             ->leftJoin('user_coupon_copies', 'coupons.id', '=', 'user_coupon_copies.coupon_id')
