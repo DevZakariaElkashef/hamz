@@ -3,6 +3,7 @@
 namespace App\Repositories\Booth;
 
 use App\Models\Category;
+use App\Models\Store;
 use App\Traits\ImageUploadTrait;
 
 class CategoryRepository
@@ -17,7 +18,13 @@ class CategoryRepository
 
     public function index($request)
     {
-        $categorys = Category::checkVendor($request->user())->filter($request)->booth()->with('store')->paginate($request->per_page ?? $this->limit);
+        $user = auth()->user();
+        $categorys = Category::booth()->filter($request)->active();
+        if (auth()->user()->role->name == 'seller') {
+            $store = Store::active()->booth()->where('user_id', $user->id)->first();
+            $categorys = Category::checkVendor($store->id);
+        }
+        $categorys = $categorys->paginate($request->per_page ?? $this->limit);
 
         return $categorys;
     }
