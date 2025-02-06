@@ -147,13 +147,19 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->products->count() > 0){
+            return to_route('mall.categories.index')->with('error', __("main.delete_error"));
+        }
         $this->categoryRepository->delete($category);
         return to_route('mall.categories.index')->with('success', __("main.delete_successffully"));
     }
 
     public function delete(Request $request)
     {
-        $this->categoryRepository->deleteSelection($request);
+        $delete = $this->categoryRepository->deleteSelection($request);
+        if(!$delete){
+            return to_route('mall.categories.index')->with('error', __("main.delete_error"));
+        }
         return to_route('mall.categories.index')->with('success', __("main.delete_successffully"));
     }
 }

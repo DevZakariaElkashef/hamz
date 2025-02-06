@@ -34,6 +34,7 @@ return
         'created_successffully' => 'تم الإنشاء بنجاح',
         'updated_successffully' => 'تم التحديث بنجاح',
         'delete_successffully' => 'تم الحذف بنجاح',
+        'delete_error' => 'هذه الفئه تحتوى علي منتجات',
         'edit_slider' => 'تعديل الشريحة',
         'browse' => 'استعراض',
         'submit' => 'إرسال',
