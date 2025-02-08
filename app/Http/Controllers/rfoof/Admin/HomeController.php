@@ -18,6 +18,17 @@ class HomeController extends Controller
     {
         $categoriesCount = Category::rfoof()->active()->count();
         $productsCount = Product::rfoof()->active()->count();
-        return view('rfoof.index', compact('categoriesCount', 'productsCount'));
+        $acceptProductsCount = Product::rfoof()->active()->where('status', 1)->count();
+        $newAds = Product::rfoof()->active()->where('status', 1)
+        ->orderBy('created_at', 'DESC')
+        ->limit(5)
+        ->get();
+        $favAds = Product::rfoof()->active()
+        ->withCount('commenets')
+        ->withAvg('commenets', 'rate')
+        ->orderBy('commenets_avg_rate', 'DESC')
+        ->limit(5)
+        ->get();
+        return view('rfoof.index', compact('categoriesCount', 'productsCount', 'acceptProductsCount', 'newAds', 'favAds'));
     }
 }

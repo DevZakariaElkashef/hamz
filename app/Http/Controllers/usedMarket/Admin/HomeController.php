@@ -19,6 +19,17 @@ class HomeController extends Controller
     {
         $categoriesCount = Category::usedMarket()->active()->count();
         $productsCount = Product::usedMarket()->active()->count();
-        return view('usedMarket.index', compact('categoriesCount', 'productsCount'));
+        $acceptProductsCount = Product::usedMarket()->active()->where('status', 1)->count();
+        $newAds = Product::usedMarket()->active()->where('status', 1)
+        ->orderBy('created_at', 'DESC')
+        ->limit(5)
+        ->get();
+        $favAds = Product::usedMarket()->active()
+        ->withCount('commenets')
+        ->withAvg('commenets', 'rate')
+        ->orderBy('commenets_avg_rate', 'DESC')
+        ->limit(5)
+        ->get();
+        return view('usedMarket.index',  compact('categoriesCount', 'productsCount', 'acceptProductsCount', 'newAds', 'favAds'));
     }
 }
