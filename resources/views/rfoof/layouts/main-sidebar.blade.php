@@ -29,7 +29,7 @@
             </li>
 
             <li class="slide">
-                <a class="side-menu__item" href="{{ route('rfoof.admin') }}"><i class="fe fe-home ml-3"
+                <a class="side-menu__item" href="{{ route('rfoof.home') }}"><i class="fe fe-home ml-3"
                         style="font-size: 16px"></i><span class="side-menu__label">{{ __('main.rfoof_home') }}</span></a>
             </li>
 

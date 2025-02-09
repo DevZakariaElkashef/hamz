@@ -28,7 +28,7 @@
                         style="font-size: 16px"></i><span class="side-menu__label">{{ __('admin.main') }}</span></a>
             </li>
             <li class="slide">
-                <a class="side-menu__item" href="{{ route('usedMarket.admin') }}"><i class="fe fe-home ml-3"
+                <a class="side-menu__item" href="{{ route('usedMarket.home') }}"><i class="fe fe-home ml-3"
                         style="font-size: 16px"></i><span class="side-menu__label">{{ __('main.resale_home') }}</span></a>
             </li>
 
