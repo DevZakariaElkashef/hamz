@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\RoleController;
@@ -37,9 +38,7 @@ Route::get('join-as-vendor', [VendorController::class, 'join']);
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', function () {
-        return view('index');
-    })->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet');
     Route::get('/wallet/make-withdraw', [WalletController::class, 'makeWithdraw'])->name('wallet.make.withdraw');
