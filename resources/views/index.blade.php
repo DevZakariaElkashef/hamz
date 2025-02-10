@@ -423,6 +423,187 @@
 </div>
 <!-- row closed -->
 
+{{-- Earn --}}
+<div class="left-content">
+    <div>
+        <h2 class="main-content-title tx-24 mb-3 mg-b-1 mg-b-lg-1">{{ __('main.earn') }}</h2>
+    </div>
+</div>
+<!-- row -->
+<div class="row row-sm">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-xm-12">
+        <div class="card overflow-hidden sales-card bg-primary-gradient">
+            <div class="pl-3 pt-3 pr-3 pb-2">
+                <div class="">
+                    <h6 class="mb-3 tx-12 text-white">{{ __('main.Total_Videos') }}</h6>
+                </div>
+                <div class="pb-0 mt-0">
+                    <div class="d-flex">
+                        <div class="">
+                            <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalVideos }}</h4>
+                        </div>
+                        <span class="float-right my-auto mr-auto">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <span id="compositeline" class="pt-1">
+                <canvas width="806" height="30" style="display: inline-block; width: 806px; height: 30px; vertical-align: top;"></canvas>
+            </span>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-xm-12">
+        <div class="card overflow-hidden sales-card bg-danger-gradient">
+            <div class="pl-3 pt-3 pr-3 pb-2">
+                <div class="">
+                    <h6 class="mb-3 tx-12 text-white">{{ __('main.Total_Views') }}</h6>
+                </div>
+                <div class="pb-0 mt-0">
+                    <div class="d-flex">
+                        <div class="">
+                            <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalViews }}</h4>
+                        </div>
+                        <span class="float-right my-auto mr-auto">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <span id="compositeline2" class="pt-1">
+                <canvas width="806" height="30" style="display: inline-block; width: 806px; height: 30px; vertical-align: top;"></canvas>
+            </span>
+        </div>
+    </div>
+</div>
+<!-- row closed -->
+
+@if (auth()->user()->role->name == "super-admin")
+    {{-- rresale rfoof --}}
+    <div class="row row-sm">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-xm-12">
+            <div class="left-content">
+                <div>
+                    <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{ __('main.usedmarket') }}</h2>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row mt-3 d-flex justify-content-center row-sm">
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-xm-12">
+                    <div class="card overflow-hidden sales-card bg-secondary-gradient">
+                        <div class="pl-3 pt-3 pr-3 pb-2">
+                            <div class="">
+                                <h6 class="mb-3 tx-12 text-white">{{ __('main.sections') }}</h6>
+                            </div>
+                            <div class="pb-0 mt-0">
+                                <div class="d-flex">
+                                    <div class="">
+                                        <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalResaleCats }}</h4>
+                                        <p class="mb-0 tx-12 text-white op-7"></p>
+                                    </div>
+                                    <span class="float-right my-auto mr-auto">
+                                        {{-- <i class="fas fa-arrow-circle-up text-white"></i>
+                                        <span class="text-white op-7"> +427</span> --}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="compositeline" class="pt-1">
+                            <canvas width="392" height="30" style="display: inline-block; width: 392px; height: 30px; vertical-align: top;"></canvas>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-xm-12">
+                    <div class="card overflow-hidden sales-card bg-success-gradient">
+                        <div class="pl-3 pt-3 pr-3 pb-2">
+                            <div class="">
+                                <h6 class="mb-3 tx-12 text-white">{{ __('main.all_ads') }}</h6>
+                            </div>
+                            <div class="pb-0 mt-0">
+                                <div class="d-flex">
+                                    <div class="">
+                                        <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalResaleAds }}</h4>
+                                        <p class="mb-0 tx-12 text-white op-7"></p>
+                                    </div>
+                                    <span class="float-right my-auto mr-auto">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="compositeline3" class="pt-1">
+                            <canvas width="392" height="30" style="display: inline-block; width: 392px; height: 30px; vertical-align: top;"></canvas>
+
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- row closed -->
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-xm-12">
+            <div class="left-content">
+                <div>
+                    <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{ __('main.rfoof') }}</h2>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row mt-3 d-flex justify-content-center row-sm">
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-xm-12">
+                    <div class="card overflow-hidden sales-card bg-secondary-gradient">
+                        <div class="pl-3 pt-3 pr-3 pb-2">
+                            <div class="">
+                                <h6 class="mb-3 tx-12 text-white">{{ __('main.sections') }}</h6>
+                            </div>
+                            <div class="pb-0 mt-0">
+                                <div class="d-flex">
+                                    <div class="">
+                                        <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalRfoofCats }}</h4>
+                                        <p class="mb-0 tx-12 text-white op-7"></p>
+                                    </div>
+                                    <span class="float-right my-auto mr-auto">
+                                        {{-- <i class="fas fa-arrow-circle-up text-white"></i>
+                                        <span class="text-white op-7"> +427</span> --}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="compositeline" class="pt-1">
+                            <canvas width="392" height="30" style="display: inline-block; width: 392px; height: 30px; vertical-align: top;"></canvas>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-xm-12">
+                    <div class="card overflow-hidden sales-card bg-success-gradient">
+                        <div class="pl-3 pt-3 pr-3 pb-2">
+                            <div class="">
+                                <h6 class="mb-3 tx-12 text-white">{{ __('main.all_ads') }}</h6>
+                            </div>
+                            <div class="pb-0 mt-0">
+                                <div class="d-flex">
+                                    <div class="">
+                                        <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ $totalRfoofAds }}</h4>
+                                        <p class="mb-0 tx-12 text-white op-7"></p>
+                                    </div>
+                                    <span class="float-right my-auto mr-auto">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="compositeline3" class="pt-1">
+                            <canvas width="392" height="30" style="display: inline-block; width: 392px; height: 30px; vertical-align: top;"></canvas>
+
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- row closed -->
+        </div>
+
+    </div>
+@endif
+
 
 
 @endsection

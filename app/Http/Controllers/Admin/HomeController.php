@@ -11,6 +11,8 @@ use App\Models\Section;
 use App\Models\Store;
 use App\Models\UserCoupon;
 use App\Models\UserCouponCopy;
+use App\Models\Video;
+use App\Models\View;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -37,6 +39,17 @@ class HomeController extends Controller
         // Coupons
         $totalCouponsCats = Category::active()->coupon()->count();
         $totalCoupons = Coupon::active()->coupon();
+
+        // Earn
+        $totalVideos = Video::active()->earn();
+
+        // rfoof
+        $totalRfoofCats = Category::active()->rfoof()->count();
+        $totalRfoofAds = Product::active()->rfoof()->count();
+
+        // resale
+        $totalResaleCats = Category::active()->usedMarket()->count();
+        $totalResaleAds = Product::active()->usedMarket()->count();
 
         if ($user->role->name == "seller") {
             // Mall
@@ -71,6 +84,8 @@ class HomeController extends Controller
             $storeIds = Store::active()->where('user_id', $user->id)->pluck('id');
             $totalCoupons = $totalCoupons->whereIn('store_id', $storeIds);
 
+            // Earn
+            $totalVideos = $totalVideos->whereIn('store_id', $storeIds);
 
         }
         // Mall
@@ -91,6 +106,11 @@ class HomeController extends Controller
         $usedCount = UserCoupon::whereIn('coupon_id', $couponsIds)->count();
         $totalCoupons = $totalCoupons->count();
 
+        // Earn
+        $videosIds = $totalVideos->pluck('id');
+        $totalViews = View::whereIn('video_id', $videosIds)->where('status', 1)->count();
+        $totalVideos = $totalVideos->count();
+
         return view('index', compact(
             'totalMallStores',
             'totalMallSections',
@@ -110,6 +130,15 @@ class HomeController extends Controller
             'totalCoupons',
             'copiesCount',
             'usedCount',
+
+            'totalViews',
+            'totalVideos',
+
+            'totalRfoofCats',
+            'totalRfoofAds',
+
+            'totalResaleCats',
+            'totalResaleAds',
         ));
     }
 }
