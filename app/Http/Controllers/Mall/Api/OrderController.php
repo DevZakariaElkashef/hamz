@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mall\Api;
 
 use App\Http\Requests\Mall\Api\CancleOrderRequest;
+use App\Http\Services\FirebaseService;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\UserCoupon;
@@ -111,7 +112,11 @@ class OrderController extends Controller
         }
 
         $cart->forceDelete();
-
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify("تاكيد استلام الطلب", ".تم استلام طلبكم بنجاح", $user->device_token);
+        }
 
         return $this->sendResponse(200, '', __("main.order_created_success"));
     }
