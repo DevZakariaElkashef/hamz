@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\usedMarket\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\FirebaseService;
 use App\Models\Notification;
 use App\Models\Product;
 use App\Models\SubCategory;
@@ -59,6 +60,12 @@ class ProductController extends Controller
             'product_id' => $product->id,
             'app' => 'resale'
         ]);
+        $user = $product->user;
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify($title, $messageDataUser, $user->device_token);
+        }
 
         // $this->to($product->user->device_token, $messageDataUser, $title);
         // $this->sendMail($product->user, $product, $messageDataUser, $title);
@@ -84,7 +91,12 @@ class ProductController extends Controller
             'product_id' => $ads->id,
             'app' => 'resale'
         ]);
-
+        $user = $ads->user;
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify($title, $messageDataUser, $user->device_token);
+        }
         // $this->to($ads->user->device_token, $messageDataUser, $title);
         // $this->sendMail($ads->user, $ads, $messageDataUser, $title);
 
@@ -133,6 +145,12 @@ class ProductController extends Controller
             'product_id' => $ads->id,
             'app' => 'resale'
         ]);
+        $user = $ads->user;
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify($title, $messageData, $user->device_token);
+        }
         // $this->to($ads->user->device_token, $messageData, $title);
         // $this->sendMail($ads->user, $ads, $messageData, $title);
 

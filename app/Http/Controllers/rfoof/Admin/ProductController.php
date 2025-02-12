@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\rfoof\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\FirebaseService;
 use App\Models\Notification;
 use App\Models\Product;
 use App\Models\SubCategory;
@@ -59,7 +60,12 @@ class ProductController extends Controller
             'product_id' => $product->id,
             'app' => 'rfoof'
         ]);
-
+        $user = $product->user;
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify($title, $messageDataUser, $user->device_token);
+        }
         // $this->to($product->user->device_token, $messageDataUser, $title);
         // $this->sendMail($product->user, $product, $messageDataUser, $title);
         return back()->with('message', 'تم رفض الاعلان بنجاح');
@@ -85,6 +91,12 @@ class ProductController extends Controller
             'app' => 'rfoof'
         ]);
 
+        $user = $ads->user;
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify($title, $messageDataUser, $user->device_token);
+        }
         // $this->to($ads->user->device_token, $messageDataUser, $title);
         // $this->sendMail($ads->user, $ads, $messageDataUser, $title);
 
@@ -133,7 +145,12 @@ class ProductController extends Controller
         ]);
         // $this->to($ads->user->device_token, $messageData, $title);
         // $this->sendMail($ads->user, $ads, $messageData, $title);
-
+        $user = $ads->user;
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify($title, $messageData, $user->device_token);
+        }
         return back()->with('message', 'تم حظر الاعلان بنجاح');
     }
 
