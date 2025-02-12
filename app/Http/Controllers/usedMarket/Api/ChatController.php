@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\usedMarket\Api;
 
 use App\Http\Resources\Usedmarket\MassageResource;
+use App\Http\Services\FirebaseService;
 use App\Models\Chat;
 use App\Models\Product;
 use App\Models\User;
@@ -145,6 +146,12 @@ class ChatController extends Controller
                     'type' => 'reply',
                     'app' => 'resale'
                 ]);
+                $user = User::find($request->receiver_id);
+                if($user->device_token)
+                {
+                    $firebase = new FirebaseService();
+                    $firebase->notify("لديك رساله من $user->name", $request->message, $user->device_token);
+                }
             }
             return $this->returnSuccess(200, __('main.sendMessage'));
         } catch (\Throwable $e) {
