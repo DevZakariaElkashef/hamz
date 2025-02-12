@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Booth\Admin;
 
+use App\Http\Services\FirebaseService;
 use App\Models\Brand;
 use App\Models\Order;
 use App\Models\Store;
@@ -137,7 +138,7 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($request->id);
         $oldOrderStatusId = $order->order_status_id;
-
+        $user = null;
         $order->update(['order_status_id' => $request->status_id]);
         if ($order->payment_status == '1') {
             if ($order->order_status_id == '4' && $oldOrderStatusId != '4') {
@@ -178,7 +179,11 @@ class OrderController extends Controller
                 ]);
             }
         }
-
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify("الطلب رقم #$order->id", ".تم تغير حاله طلبكم الان ".$order->orderStatus->name, $user->device_token);
+        }
         return back()->with('success', __("main.updated_successffully"));
     }
 

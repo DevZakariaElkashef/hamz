@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mall\Admin;
 
+use App\Http\Services\FirebaseService;
 use App\Models\Brand;
 use App\Models\Order;
 use App\Models\Store;
@@ -139,6 +140,7 @@ class OrderController extends Controller
         $oldOrderStatusId = $order->order_status_id;
 
         $order->update(['order_status_id' => $request->status_id]);
+        $user = null;
         if ($order->payment_status == '1') {
             if ($order->order_status_id == '4' && $oldOrderStatusId != '4') {
                 // Add Order Total To Store Owner
@@ -178,7 +180,11 @@ class OrderController extends Controller
                 ]);
             }
         }
-
+        if($user->device_token)
+        {
+            $firebase = new FirebaseService();
+            $firebase->notify("الطلب رقم #$order->id", ".تم تغير حاله طلبكم الان ".$order->orderStatus->name, $user->device_token);
+        }
         return back()->with('success', __("main.updated_successffully"));
     }
 
