@@ -149,8 +149,9 @@ class ChatController extends Controller
                 $user = User::find($request->receiver_id);
                 if($user->device_token)
                 {
+                    $name = $request->user()->name;
                     $firebase = new FirebaseService();
-                    $firebase->notify("لديك رساله من $user->name", $request->message, $user->device_token);
+                    $firebase->notify("لديك رساله من $name", $request->message, $user->device_token);
                 }
             }
             return $this->returnSuccess(200, __('main.sendMessage'));
