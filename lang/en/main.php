@@ -22,6 +22,8 @@ return
         'status' => 'status',
         'actions' => 'actions',
         'active' => 'active',
+        "total_commission" => "Total Commission",
+        "total_incom" => "Total Incom",
         'not_active' => 'not_active',
         'Notification' => 'Notification',
         'store_most_sale' => 'Most Sale Stores',

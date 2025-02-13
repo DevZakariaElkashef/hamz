@@ -73,6 +73,14 @@ class Order extends Model
         return $this->hasOne(OrderReview::class);
     }
 
+    // In Order.php model
+    public function getCommissionValueAttribute() {
+        if ($this->total && $this->commission) {
+            return ($this->total * $this->commission) / 100;
+        }
+        return 0;
+    }
+
     public function store()
     {
         return $this->belongsTo(Store::class);

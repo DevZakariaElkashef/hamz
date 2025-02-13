@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\CommissionReportController;
 use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CityController;
@@ -147,5 +148,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('search-withdrows', [WithdrowController::class, 'search'])->name('withdrows.search');
     Route::get('withdrows-toggle-status/{withdrow}', [WithdrowController::class, 'toggleStatus'])->name('withdrow.toggleStatus');
     Route::delete('delete-withdrows', [WithdrowController::class, 'delete'])->name('withdrows.delete');
+    /**end Withdraw Routes */
+
+
+    /**start Withdraw Routes */
+    Route::get('commission-reports/{app}', [CommissionReportController::class, 'commission_reports'])->name('commission_reports');
+    // Route::get('withdrows-toggle-status/{withdrow}', [WithdrowController::class, 'toggleStatus'])->name('withdrow.toggleStatus');
+    // Route::delete('delete-withdrows', [WithdrowController::class, 'delete'])->name('withdrows.delete');
     /**end Withdraw Routes */
 });
