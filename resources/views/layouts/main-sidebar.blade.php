@@ -250,7 +250,7 @@ php
                                 {{ __('main.booth') }}
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="slide-item" href="{{ route('commission_reports', 'mall') }}">
                                 {{ __('main.rfoof') }}
                             </a>
@@ -259,7 +259,7 @@ php
                             <a class="slide-item" href="{{ route('commission_reports', 'mall') }}">
                                 {{ __('main.usedmarket') }}
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endcan

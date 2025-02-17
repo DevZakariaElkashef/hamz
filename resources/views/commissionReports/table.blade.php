@@ -19,7 +19,7 @@
                     <th class="text-end p-1"><input type="checkbox" class="checkbox-input" value="{{ $order->id }}"></th>
                     <th scope="row">{{ $loop->iteration }}</th>
                     @if ( auth()->user()->role->name == 'super-admin' )
-                        <td>{{ $order->store->user->name }}</td>
+                        <td>{{ $order->store->user->name ?? '' }}</td>
                     @endif
                     <td>{{ $order->total }}</td>
                     <td>{{ $order->commission ?? 0 }} %</td>

@@ -141,7 +141,7 @@
         </div>
         <div class="d-flex my-xl-auto right-content">
             <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('mall.orders.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active'), 'category_id' => request('category_id'), 'brand_id' => request('brand_id')]) }}"
+                <a href="{{ route('commission_reports.export', [ $app, 'start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active'), 'category_id' => request('category_id'), 'brand_id' => request('brand_id')]) }}"
                     class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
                     {{ __('main.export') }}
                     <i class="mdi mdi-download"></i>
@@ -154,12 +154,9 @@
                     data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
             </div>
             <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('mall.orders.index') }}" class="btn btn-warning  btn-icon ml-2"><i
+                <a href="{{ route('commission_reports', $app) }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
-            {{-- <div class="mb-3 mb-xl-0">
-                <a href="{{ route('mall.orders.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
-            </div> --}}
         </div>
     </div>
     <!-- Modal effects -->
@@ -170,47 +167,6 @@
                     <h6 class="modal-title">{{ __('main.import') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form method="POST" id="importForm" action="{{ route('mall.sections.import') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="file">{{ __('main.select_file') }}</label>
-                            <input type="file" class="form-control" accept=".xlsx" id="file" name="file">
-                        </div>
-                        <div class="mt-3">
-                            <a href="{{ asset("imports/sections.xlsx") }}" download class="btn btn-warning">{{ __('main.download_example') }}</a>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn ripple btn-primary" type="submit">{{ __('main.import') }}</button>
-                        <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('main.Close') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="deletemodal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content modal-content-demo">
-                <div class="modal-header">
-                    <h6 class="modal-title">{{ __('main.delete') }}</h6><button aria-label="Close" class="close"
-                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <form method="POST" id="deleteForm">
-                    @csrf
-                    @method('delete')
-                    <input type="hidden" name="ids" id="selectionIdsInput">
-                    <div class="modal-body">
-                        <h6 class="text-center">{{ __('main.Are_you_sure') }}</h6>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn ripple btn-danger" type="submit">{{ __('main.delete') }}</button>
-                        <button class="btn ripple btn-secondary" data-dismiss="modal"
-                            type="button">{{ __('main.Close') }}</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
@@ -222,7 +178,7 @@
                     <h6 class="modal-title">{{ __('main.filter') }}</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form method="get" action="{{ route('mall.sections.index') }}">
+                <form method="get" action="{{ route('commission_reports', $app) }}">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="start_at">{{ __('main.start_date') }}</label>

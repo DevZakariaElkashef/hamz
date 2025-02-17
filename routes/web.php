@@ -153,6 +153,7 @@ Route::middleware(['auth'])->group(function () {
 
     /**start Withdraw Routes */
     Route::get('commission-reports/{app}', [CommissionReportController::class, 'commission_reports'])->name('commission_reports');
+    Route::get('commission-reports/export/{app}', [CommissionReportController::class, 'report_export'])->name('commission_reports.export');
     // Route::get('withdrows-toggle-status/{withdrow}', [WithdrowController::class, 'toggleStatus'])->name('withdrow.toggleStatus');
     // Route::delete('delete-withdrows', [WithdrowController::class, 'delete'])->name('withdrows.delete');
     /**end Withdraw Routes */
