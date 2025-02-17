@@ -650,5 +650,9 @@ return
         'user_image' => 'User Image',
         'coupon_code' => 'Coupon Code',
         'invalid_coupon' => 'The coupon may have expired or exceeded the usage limit',
-        'used_coupon' => 'The coupon has already been used'
+        'used_coupon' => 'The coupon has already been used',
+
+        'order_id' => 'Order ID',
+        'commission_value' => 'Commission Value',
+        'commission_percentage' => 'Commission Percentage',
     ];

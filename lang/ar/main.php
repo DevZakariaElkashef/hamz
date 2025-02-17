@@ -660,5 +660,10 @@ return
         'user_image' => 'صورة المستخدم',
         'coupon_code' => 'كود الكوبون',
         'invalid_coupon' => 'ربما انتهت صلاحية الكوبون أو فاق عدد الاستخدامات',
-        'used_coupon' => 'تم استخدام الكوبون من قبل'
+        'used_coupon' => 'تم استخدام الكوبون من قبل',
+
+        'order_id' => 'رقم الطلب',
+        'commission_value' => 'اجمالى العموله',
+        'commission_percentage' => 'نسبه العموله',
+
     ];

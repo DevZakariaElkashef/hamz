@@ -23,11 +23,6 @@
 @endsection
 @section('content')
 
-    {{-- <div class="left-content">
-        <div>
-            <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">الاجمالى</h2>
-        </div>
-    </div> --}}
     <!-- row -->
     <div class="row mt-3 d-flex justify-content-center row-sm">
 
@@ -135,6 +130,38 @@
 
     </div>
     <!-- row closed -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="my-auto">
+            <div class="d-flex">
+                <h5 class="content-title mb-0 my-auto"><a href="{{ route('home') }}"
+                        class="text-dark">{{ __('main.home') }}</a></h5>
+                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
+                        href="{{ route('commission_reports', $app) }}">{{ __('main.commision_report') }}</a></span>
+            </div>
+        </div>
+        <div class="d-flex my-xl-auto right-content">
+            <div class="pr-1 mb-3 mb-xl-0">
+                <a href="{{ route('mall.orders.export', ['start_at' => request('start_at'), 'end_at' => request('end_at'), 'is_active' => request('is_active'), 'category_id' => request('category_id'), 'brand_id' => request('brand_id')]) }}"
+                    class="btn btn-secondary ml-2" data-toggle="tooltip" title="{{ __('main.export_to_excel') }}">
+                    {{ __('main.export') }}
+                    <i class="mdi mdi-download"></i>
+                </a>
+
+            </div>
+
+            <div class="pr-1 mb-3 mb-xl-0">
+                <button type="button" class="btn btn-info btn-icon ml-2" data-target="#filterModal" data-toggle="modal"
+                    data-effect="effect-flip-vertical"><i class="mdi mdi-filter-variant"></i></button>
+            </div>
+            <div class="pr-1 mb-3 mb-xl-0">
+                <a href="{{ route('mall.orders.index') }}" class="btn btn-warning  btn-icon ml-2"><i
+                        class="mdi mdi-refresh"></i></a>
+            </div>
+            {{-- <div class="mb-3 mb-xl-0">
+                <a href="{{ route('mall.orders.create') }}" class="btn btn-primary ">{{ __('main.create') }}</a>
+            </div> --}}
+        </div>
+    </div>
     <!-- Modal effects -->
     <div class="modal" id="importmodal">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -234,16 +261,11 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">{{ __('main.sections') }}</h4>
+                        <h4 class="card-title mg-b-0">{{ __('main.commision_report') }}</h4>
                         <div class="d-flex">
-                            <a href="#" class="btn btn-danger mx-1 d-none" id="deleteSelectionBtn"
-                                data-toggle="modal" data-effect="effect-flip-vertical" data-target="#deletemodal"
-                                data-url="{{ route('mall.sections.delete') }}">{{ __('main.delete') }}</a>
-                            <input type="text" id="searchInput" data-url="{{ route('mall.sections.search') }}"
-                                class="form-control" placeholder="{{ __('main.search') }}">
                             <div class="custom-select-wrapper mx-1">
                                 <select id="showPerPage" class="custom-select"
-                                    data-url="{{ route('mall.sections.index') }}" onchange="updatePageSize()">
+                                    data-url="{{ route('commission_reports', $app) }}" onchange="updatePageSize()">
                                     <option value="10" @if (request('per_page') && request('per_page') == 10) selected @endif>10</option>
                                     <option value="25" @if (request('per_page') && request('per_page') == 25) selected @endif>25</option>
                                     <option value="50" @if (request('per_page') && request('per_page') == 50) selected @endif>50</option>
