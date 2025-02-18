@@ -14,6 +14,7 @@ use App\Http\Resources\Api\TermsResource;
 use App\Models\About;
 use App\Models\AppSetting;
 use App\Models\Term;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -54,5 +55,22 @@ class HomeController extends Controller
             'value' => $data->value_ar,
         ];
         return $this->sendResponse(200, $data1);
+    }
+
+    public function get_apps()  {
+        $apps = Application::where('is_active', 1)->get();
+        $data = [];
+        foreach($apps as $app){
+            $row = [
+                'id' => $app->id,
+                'name' => $app->name,
+                'logo' => $app->logo ? asset($app->logo) : '',
+                'is_active' => $app->is_active,
+                'created_at' => Carbon::parse($app->created_at)->format('Y-m-d h:i:s'),
+                'updated_at' => Carbon::parse($app->updated_at)->format('Y-m-d h:i:s'),
+            ];
+            $data[] = $row;
+        }
+        return $this->sendResponse(200, $data);
     }
 }

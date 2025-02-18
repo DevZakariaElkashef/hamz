@@ -54,6 +54,8 @@ Route::get('terms', [HomeController::class, 'terms']);
 Route::get('about', [HomeController::class, 'about']);
 Route::get('vendor-register', [HomeController::class, 'vendor_register']);
 
+Route::get('apps', [HomeController::class, 'get_apps']);
+
 
 
 // =============================================================================

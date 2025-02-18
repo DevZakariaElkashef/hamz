@@ -43,6 +43,25 @@
                         @csrf
                         <div class="row">
 
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.name') }}(AR): <span
+                                        class="tx-danger">*</span></label>
+                                <input class="form-control" name="name_ar" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('name_ar') ?? $app->name_ar }}">
+                                @error('name_ar')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.name') }}(EN): <span
+                                        class="tx-danger">*</span></label>
+                                <input class="form-control" name="name_en" placeholder="{{ __('main.enter_name') }}"
+                                    required="" type="text" value="{{ old('name_en') ?? $app->name_en }}">
+                                @error('name_en')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="col-md-12 form-group mt-4">
                                 <div class="custom-file">
                                     <label class="custom-file-label" for="customFile">{{ __('main.image') }}</label>
