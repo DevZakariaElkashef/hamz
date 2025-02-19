@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 class CommissionReportController extends Controller
 {
     function commission_reports($app) {
+        // if($app = 'rfoof'){
+
+        // }
         $orders = Order::where('app', $app)->where('order_status_id', 4);
         if (auth()->user()->role->name == "seller"){
             $this_srore_id = '';

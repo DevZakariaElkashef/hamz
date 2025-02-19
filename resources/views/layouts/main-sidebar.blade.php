@@ -251,10 +251,11 @@ php
                             </a>
                         </li>
                         {{-- <li>
-                            <a class="slide-item" href="{{ route('commission_reports', 'mall') }}">
+                            <a class="slide-item" href="{{ route('commission_reports', 'rfoof') }}">
                                 {{ __('main.rfoof') }}
                             </a>
-                        </li>
+                        </li> --}}
+                        {{--
                         <li>
                             <a class="slide-item" href="{{ route('commission_reports', 'mall') }}">
                                 {{ __('main.usedmarket') }}

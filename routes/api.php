@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\OrderStoreRatingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CommissionTransactionController;
 use App\Http\Controllers\Api\CouponController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\TransactionContoller;
@@ -32,6 +33,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('updateProfile', [AuthController::class, 'updateProfile']);
     Route::post('updatePassword', [AuthController::class, 'updatePassword']);
     // -------------------------------
+
+    Route::post('/commission-transactions', [CommissionTransactionController::class, 'store']);
+
 
     // =============================================================================
     //                           Wallet ROUTES
