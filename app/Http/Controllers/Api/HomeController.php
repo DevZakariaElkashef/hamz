@@ -58,7 +58,7 @@ class HomeController extends Controller
     }
 
     public function get_apps()  {
-        $apps = Application::where('is_active', 1)->get();
+        $apps = Application::get();
         $data = [];
         foreach($apps as $app){
             $row = [
