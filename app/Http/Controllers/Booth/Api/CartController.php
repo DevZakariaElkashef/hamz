@@ -12,6 +12,9 @@ use App\Http\Resources\Booth\CartStoreResource;
 use App\Http\Requests\Booth\Api\ClearCartRequest;
 use App\Http\Requests\Booth\Api\UpdateCartRequest;
 use App\Http\Requests\Booth\Api\DeleteItemFromCartRequest;
+use App\Http\Resources\Booth\ShowProductRecource;
+use App\Models\Category;
+use App\Models\Product;
 
 class CartController extends Controller
 {
@@ -38,6 +41,16 @@ class CartController extends Controller
         if (!$cart) {
             return $this->sendResponse(404, __('main.cart_not_found'));
         }
+        $products_ids = $cart->items()->pluck('product_id')->toArray();
+        // return $products_ids;
+        $cats_ids = Category::where('store_id', $cart->store_id)
+        ->active()->pluck('id');
+        $products = Product::whereIn('category_id', $cats_ids)
+        ->when(!empty($products_ids), function ($query) use ($products_ids) {
+            return $query->whereNotIn('id', $products_ids);
+        })->active()->limit(5)->get();
+        $suggested_products = ShowProductRecource::collection($products);
+        $cart->suggested_products = $suggested_products;
         $data = new CartResource($cart);
         return $this->sendResponse(200, $data);
     }
