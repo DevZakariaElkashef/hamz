@@ -96,7 +96,7 @@
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.store') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control select2" name="store_id">
+                                <select class="form-control select2" name="store_id">
                                     <option value selected disabled>
                                         {{ __('main.select_store') }}
                                     </option>
@@ -111,6 +111,28 @@
                                 @enderror
                             </div>
 
+                            <div class="col-md-6 form-group">
+                                <div class="custom-file">
+                                    <label class="" for="path">{{ __('main.url') }}</label>
+                                    <input class="form-control" id="path" type="url" name="path"
+                                        value="{{ $video->path }}">
+                                    @error('path')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <div class="custom-file">
+                                    <label class="store_url" for="store_url">{{ __('main.store_url') }}</label>
+                                    <input class="form-control" id="store_url" type="store_url" name="store_url"
+                                        value="{{ old('store_url', $video->store_url) }}">
+                                    @error('store_url')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
                                 <select required class="form-control" name="is_active">
@@ -123,21 +145,6 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
-
-
-
-                            <div class="col-md-6 form-group">
-                                <div class="custom-file">
-                                    <label class="" for="path">{{ __('main.url') }}</label>
-                                    <input class="form-control" id="path" type="url" name="path"
-                                        value="{{ $video->path }}">
-                                    @error('path')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.category') }}: <span

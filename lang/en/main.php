@@ -19,6 +19,7 @@ return
         'name' => 'name',
         'image' => 'image',
         'url' => 'url',
+        'store_url' => 'Store Url',
         'status' => 'status',
         'actions' => 'actions',
         'active' => 'active',

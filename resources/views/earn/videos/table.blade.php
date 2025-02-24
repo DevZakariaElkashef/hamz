@@ -19,7 +19,7 @@
                     <th class="text-end p-1"><input type="checkbox" class="checkbox-input" value="{{ $video->id }}"></th>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $video->title }}</td>
-                    <td>{{ $video->store->name }}</td>
+                    <td>{{ $video->store->name ?? '' }}</td>
                     <td>{{ $video->reword_amount . '    ' . __('main.sar') }}</td>
                     <td>{{ $video->viewed_count }}</td>
                     <td>
