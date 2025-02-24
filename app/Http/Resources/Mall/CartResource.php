@@ -28,7 +28,7 @@ class CartResource extends JsonResource
             'tax_amount' => number_format($this->calcTax(), 2, '.', ''),
             'discount' => number_format($this->calcDiscount(), 2, '.', ''),
             'total' => number_format($this->calcTotal(), 2, '.', ''),
-
+            'suggested_products' => $this->suggested_products,
 
         ];
     }
