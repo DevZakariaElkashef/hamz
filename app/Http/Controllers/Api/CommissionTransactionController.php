@@ -24,6 +24,7 @@ class CommissionTransactionController extends Controller
                 'time' => 'required',
                 'total_amount' => 'nullable|numeric',
                 'app' => 'required|in:rfoof,resale',
+
             ]);
         }  catch (ValidationException $e) {
             $errorMessage = $e->validator->errors()->first();
