@@ -17,16 +17,17 @@ class CommissionTransactionController extends Controller
         try {
             $request->validate([
                 'transaction_id' => 'required',
-                'user_id' => 'required|exists:users,id',
-                'product_id' => 'required|exists:products,id',
+                // 'user_id' => 'required|exists:users,id',
+                // 'product_id' => 'required|exists:products,id',
                 'time' => 'required|date',
                 'total_amount' => 'nullable|numeric',
+                'app' => 'required|in:booth,mall',
             ]);
         }  catch (ValidationException $e) {
             $errorMessage = $e->validator->errors()->first();
             return $this->sendResponse(400, '', $errorMessage);
         }
-        $app = Product::find($request->product_id)->app;
+        $app = $request->app;
         $commission_percentage = AppSetting::where('key', "commission_$app")->first();
         if($commission_percentage){
             $commission_percentage = $commission_percentage->pluck('value_ar');
@@ -37,7 +38,7 @@ class CommissionTransactionController extends Controller
         $commissionTransaction = CommissionTransaction::create([
             'transaction_id' => $request->transaction_id,
             'user_id' => $request->user_id,
-            'product_id' => $request->product_id,
+            'product_id' => "",
             'time' => $request->time,
             'total_amount' => $request->total_amount,
             'commission_percentage' => $commission_percentage,
