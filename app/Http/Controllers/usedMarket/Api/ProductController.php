@@ -130,7 +130,7 @@ class ProductController extends Controller
             Commenets::create([
                 'product_id' => $request->product_id,
                 'comment' => $request->message,
-                'rate' => $request->rate,
+                'rate' => 0,
                 'user_id' => $request->user()->id,
                 'app' => 'resale'
             ]);
