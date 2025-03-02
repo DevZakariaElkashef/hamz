@@ -19,6 +19,7 @@ use App\Http\Resources\Usedmarket\UserResource;
 use App\Http\Resources\Usedmarket\ProductResource;
 use App\Http\Requests\usedMarket\Product\AddRequest;
 use App\Http\Requests\usedMarket\Product\UpdateRequest;
+use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
@@ -101,9 +102,24 @@ class ProductController extends Controller
     }
     public function deleteProduct(Request $request)
     {
+        try {
+            $validated = $request->validate([
+                'product_id' => 'required|exists:products,id,deleted_at,NULL,app,resale',
+            ]);
+        }  catch (ValidationException $e) {
+            $errorMessage = $e->validator->errors()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $errorMessage,
+                'data' => ''
+            ], 400);
+        }
         try{
             $product = Product::find($request->product_id);
+            $product->delete_reason = $request->delete_reason;
+            $product->save();
             $product->delete();
+            
             return $this->returnSuccess(200, __('main.deleteProduct'));
         } catch (\Throwable $e) {
             return $this->returnError(403, $e->getMessage());

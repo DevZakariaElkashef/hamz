@@ -41,7 +41,7 @@ Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::post('addProduct', [ProductController::class, 'addProduct']);
     Route::post('updateProduct', [ProductController::class, 'updateProduct']);
     Route::get('deleteImage', [ProductController::class, 'deleteImage']);
-    Route::get('deleteProduct', [ProductController::class, 'deleteProduct']);
+    Route::post('deleteProduct', [ProductController::class, 'deleteProduct']);
     Route::post('addCommenet', [ProductController::class, 'addCommenet']);
     Route::post('addComplain', [ProductController::class, 'addComplain']);
     Route::get('myAds', [ProductController::class, 'myAds']);
