@@ -33,7 +33,7 @@ class HomeController extends Controller
         $data = [
             'ad' => $ad ? new SliderResource($ad) : null,
             'sliders' => SliderResource::collection(Slider::mall()->active()->scrollable()->get()),
-            'sections' => SectionResource::collection(Section::mall()->active()->with('stores')->latest()->take(4)->get()),
+            'sections' => SectionResource::collection(Section::mall()->active()->with('stores')->latest()->get()),
             'most_recent' => ProductInHomeResource::collection(Product::mall()->active()->latest()->take(10)->get()),
             'most_sale' => ProductInHomeResource::collection($mostSaledProducts),
         ];
