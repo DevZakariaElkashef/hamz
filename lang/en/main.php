@@ -20,6 +20,7 @@ return
         'image' => 'image',
         'url' => 'url',
         'store_url' => 'Store Url',
+        'commission_auth' => 'Commission Auth',
         'status' => 'status',
         'actions' => 'actions',
         'active' => 'active',

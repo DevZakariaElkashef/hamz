@@ -67,7 +67,7 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <div class="form-group">
-                                            <label for="resale-desc-ar">{{ __('main.content') }}(EN)</label>
+                                            <label for="resale-desc-ar">{{ __('main.content') }}(AR)</label>
                                             <textarea id="resale-desc-ar" class="form-control" type="text" name="resale-desc-ar">{{ collect($commission)->firstWhere('key', 'desc_resale')->value_ar ?? '' }}</textarea>
                                             @error('resale-desc-ar')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -79,6 +79,26 @@
                                             <label for="resale-desc-en">{{ __('main.content') }}(EN)</label>
                                             <textarea id="resale-desc-en" class="form-control" type="text" name="resale-desc-en">{{ collect($commission)->firstWhere('key', 'desc_resale')->value_en ?? '' }}</textarea>
                                             @error('resale-desc-en')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="resale-auth-ar">{{ __('main.commission_auth') }}(AR)</label>
+                                            <textarea id="resale-auth-ar" class="form-control" type="text" name="resale-auth-ar">{{ collect($commission)->firstWhere('key', 'auth_resale')->value_ar ?? '' }}</textarea>
+                                            @error('resale-auth-ar')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="resale-auth-en">{{ __('main.commission_auth') }}(EN)</label>
+                                            <textarea id="resale-auth-en" class="form-control" type="text" name="resale-auth-en">{{ collect($commission)->firstWhere('key', 'auth_resale')->value_en ?? '' }}</textarea>
+                                            @error('resale-auth-en')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -96,7 +116,7 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <div class="form-group">
-                                            <label for="rfoof-desc-ar">{{ __('main.content') }}(EN)</label>
+                                            <label for="rfoof-desc-ar">{{ __('main.content') }}(AR)</label>
                                             <textarea id="rfoof-desc-ar" class="form-control" type="text" name="rfoof-desc-ar">{{ collect($commission)->firstWhere('key', 'desc_rfoof')->value_ar ?? '' }}</textarea>
                                             @error('rfoof-desc-ar')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -108,6 +128,26 @@
                                             <label for="rfoof-desc-en">{{ __('main.content') }}(EN)</label>
                                             <textarea id="rfoof-desc-en" class="form-control" type="text" name="rfoof-desc-en">{{ collect($commission)->firstWhere('key', 'desc_rfoof')->value_en ?? '' }}</textarea>
                                             @error('rfoof-desc-en')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="rfoof-auth-ar">{{ __('main.commission_auth') }}(AR)</label>
+                                            <textarea id="rfoof-auth-ar" class="form-control" type="text" name="rfoof-auth-ar">{{ collect($commission)->firstWhere('key', 'auth_rfoof')->value_ar ?? '' }}</textarea>
+                                            @error('rfoof-auth-ar')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="rfoof-auth-en">{{ __('main.commission_auth') }}(EN)</label>
+                                            <textarea id="rfoof-auth-en" class="form-control" type="text" name="rfoof-auth-en">{{ collect($commission)->firstWhere('key', 'auth_rfoof')->value_en ?? '' }}</textarea>
+                                            @error('rfoof-auth-en')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>

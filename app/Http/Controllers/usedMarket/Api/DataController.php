@@ -59,9 +59,14 @@ class DataController extends Controller
                 'app' => 'resale',
                 'key' => 'commission_resale',
             ])->first();
+            $auth = AppSetting::where([
+                'app' => 'resale',
+                'key' => 'auth_resale',
+            ])->first();
             $data = [
-                'value' => $value->content,
-                'content' => $text->content,
+                'value' => $value->content ?? '',
+                'content' => $text->content ?? '',
+                'auth' => $auth->content ?? '',
             ];
             return $this->returnData("data", $data, __('main.returnData'));
         } catch (\Throwable $th) {

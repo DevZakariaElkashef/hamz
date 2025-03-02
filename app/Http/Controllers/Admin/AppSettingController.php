@@ -48,7 +48,7 @@ class AppSettingController extends Controller
     {
         $commission = AppSetting::whereIn('key', [
             'commission_resale', 'commission_booth', 'commission_mall', 'commission_rfoof',
-            'desc_resale', 'desc_rfoof',
+            'desc_resale', 'desc_rfoof', 'auth_rfoof', 'auth_resale'
         ])->get();
         return view("settings.commission", compact('commission'));
     }
@@ -62,6 +62,8 @@ class AppSettingController extends Controller
             'commission_rfoof',
             'desc_resale',
             'desc_rfoof',
+            'auth_rfoof',
+            'auth_resale',
         ];
         foreach ($keys as $key) {
             $row = AppSetting::where('key', $key)->first();
@@ -96,6 +98,21 @@ class AppSettingController extends Controller
                         'key' => $key,
                         'value_ar' => $request["$app-desc-ar"],
                         'value_en' => $request["$app-desc-en"]
+                    ]);
+                    $row->app = $app;
+                    $row->save();
+                }
+            } elseif (str_starts_with($key, 'auth')) {
+                if ($row) {
+                    $row->value_ar = $request["$app-auth-ar"];
+                    $row->value_en = $request["$app-auth-en"];
+                    $row->app = $app;
+                    $row->save();
+                }else {
+                    $row = AppSetting::create([
+                        'key' => $key,
+                        'value_ar' => $request["$app-auth-ar"],
+                        'value_en' => $request["$app-auth-en"]
                     ]);
                     $row->app = $app;
                     $row->save();

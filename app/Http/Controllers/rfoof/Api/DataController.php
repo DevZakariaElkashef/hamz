@@ -59,9 +59,14 @@ class DataController extends Controller
                 'app' => 'rfoof',
                 'key' => 'commission_rfoof',
             ])->first();
+            $auth = AppSetting::where([
+                'app' => 'rfoof',
+                'key' => 'auth_rfoof',
+            ])->first();
             $data = [
-                'value' => $value->content,
-                'content' => $text->content,
+                'value' => $value->content ?? '',
+                'content' => $text->content ?? '',
+                'auth' => $auth->content ?? '',
             ];
             return $this->returnData("data", $data, __('main.returnData'));
         } catch (\Throwable $th) {
