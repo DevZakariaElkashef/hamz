@@ -66,7 +66,7 @@ class DataController extends Controller
             $data = [
                 'value' => $value->content ?? '',
                 'content' => $text->content ?? '',
-                'auth' => $auth->content ?? '',
+                'oath' => $auth->content ?? '',
             ];
             return $this->returnData("data", $data, __('main.returnData'));
         } catch (\Throwable $th) {
