@@ -31,6 +31,8 @@ return
         'store_most_sale' => 'Most Sale Stores',
         'store_less_sale' => 'Less Sale Stores',
         'products_less_sale' => 'Less Sale Products',
+        "commissionsCount" => "Total Commission Count",
+        "totalAmountSum" => "Total Commissions Amount",
         'products_most_sale' => 'Most Sale Products',
         'edit' => 'edit',
         'delete' => 'delete',

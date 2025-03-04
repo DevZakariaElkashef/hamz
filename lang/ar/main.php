@@ -366,6 +366,8 @@ return
         'create_role' => 'إنشاء دور',
         'edit_role' => 'تعديل دور',
         "Booth" => "البوثات",
+        "commissionsCount" => "عدد العمولات المدفوعه",
+        "totalAmountSum" => "قيمه العمولات المدفوعه",
         "booth" => "البوثات",
         "Apps" => "التطبيقات",
         "Main" => "الرئيسي",

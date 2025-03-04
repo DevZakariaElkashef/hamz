@@ -250,17 +250,18 @@ php
                                 {{ __('main.booth') }}
                             </a>
                         </li>
-                        {{-- <li>
-                            <a class="slide-item" href="{{ route('commission_reports', 'rfoof') }}">
-                                {{ __('main.rfoof') }}
-                            </a>
-                        </li> --}}
-                        {{--
-                        <li>
-                            <a class="slide-item" href="{{ route('commission_reports', 'mall') }}">
-                                {{ __('main.usedmarket') }}
-                            </a>
-                        </li> --}}
+                        @if (auth()->user()->role->name == "super-admin")
+                            <li>
+                                <a class="slide-item" href="{{ route('commission_reports', 'rfoof') }}">
+                                    {{ __('main.rfoof') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="slide-item" href="{{ route('commission_reports', 'resale') }}">
+                                    {{ __('main.usedmarket') }}
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             @endcan
