@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Coupon;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,8 @@ class CategoriesResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name ?? '',
             'image' => $this->image ? asset($this->image): '',
-            'couponsCount' => $this->coupons()->active()->count() ?? 0
+            'couponsCount' => $this->coupons()->active()->where('start_date', '<=', Carbon::now())
+            ->where('end_date', '>=', Carbon::now())->count() ?? 0
         ];
     }
 }
