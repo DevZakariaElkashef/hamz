@@ -20,13 +20,16 @@ class ProductController extends Controller
     public function index($status)
     {
         $products = Product::rfoof();
-        if ($status != 0) {
+        if ($status != 0 && $status != 'D') {
             $products = $products->Where('status', $status);
         }elseif ($status == 0) {
             $products = $products->where(function ($query) use ($status) {
                 $query->where('status', $status)
                     ->orWhereNull('status');
             });
+        }elseif ($status == 'D') {
+            // show deleted products
+            $products = $products->onlyTrashed();
         }
         $products = $products->latest()->paginate();
         return view('rfoof.products.index', compact('products', 'status'));
@@ -69,6 +72,11 @@ class ProductController extends Controller
         // $this->to($product->user->device_token, $messageDataUser, $title);
         // $this->sendMail($product->user, $product, $messageDataUser, $title);
         return back()->with('message', 'تم رفض الاعلان بنجاح');
+    }
+    public function delete(Request $request){
+        $product = Product::findOrFail($request->product_id);
+        $product->delete();
+        return back()->with('message', 'تم حذف المنتج بنجاح');
     }
     public function accepetAds($id)
     {
@@ -156,12 +164,12 @@ class ProductController extends Controller
 
     public function restore($id)
     {
-        $ads = Product::findOrFail($id);
-
+        $ads = Product::where('id', $id)->withTrashed()->first();
         $ads->update([
             'status' => 1,
             'verify' => 1,
         ]);
+        $ads->restore();
         $messageData = 'تم استرجاع الاعلان الخاص بك بنجاح ';
         $title = 'استرجاع الاعلان';
         Notification::create([

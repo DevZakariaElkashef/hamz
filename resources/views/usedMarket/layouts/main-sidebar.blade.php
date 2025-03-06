@@ -98,9 +98,9 @@
                         </li>
                         <li><a class="slide-item" href="{{ route('usedMarket.products', 2) }}">الاعلانات المرفوضه</a>
                         </li>
-                        {{-- <li><a class="slide-item" href="{{ route('usedMarket.products', 3) }}">الاعلانات المميزه</a></li> --}}
                         <li><a class="slide-item" href="{{ route('usedMarket.products', 4) }}">الاعلانات المحظوره</a>
                         </li>
+                        <li><a class="slide-item" href="{{ route('usedMarket.products', 'D') }}">الاعلانات المحذوفه</a></li>
 
                     </ul>
                 </li>
