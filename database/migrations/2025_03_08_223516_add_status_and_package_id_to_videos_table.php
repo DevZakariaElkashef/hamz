@@ -11,11 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('videos', function (Blueprint $table) {
-            $table->dropColumn('active_status');
-            $table->dropForeign(['package_id']);
-            $table->dropColumn('package_id');
-        });
+        
         Schema::table('videos', function (Blueprint $table) {
             $table->boolean('payment_status')->default(false); // Change default value if needed
             $table->unsignedBigInteger('package_id')->nullable();
