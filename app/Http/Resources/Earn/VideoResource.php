@@ -36,6 +36,8 @@ class VideoResource extends JsonResource
             "created_at"=> $this->created_at,
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d h:i:s'),
             'updated_at' => Carbon::parse($this->updated_at)->format('Y-m-d h:i:s'),
+            // 'viewed' => $this->viewed->count(),
+            // 'package' => $this->package ? $this->package->limit : 0,
         ];
     }
 }

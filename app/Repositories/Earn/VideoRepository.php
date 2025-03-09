@@ -9,7 +9,16 @@ class VideoRepository
 {
     public function getVideos($request)
     {
-        return Video::filterVideos($request)->get();
+
+        return Video::filterVideos($request)
+        ->where('payment_status', 1)
+        ->withCount('viewed') // Count the views
+        ->whereHas('package', function ($query) {
+            $query->whereRaw(
+                '(SELECT COUNT(*) FROM views WHERE views.video_id = videos.id AND views.status = 1) < packages.limit'
+            );
+        })
+        ->get();
     }
 
     public function getVideoById($id)
