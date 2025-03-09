@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Package;
 use App\Models\Subscription;
+use App\Models\Video;
 use App\Repositories\FatoorahRepository;
 use Illuminate\Http\Request;
 
@@ -18,17 +19,17 @@ class SubscripeController extends Controller
         $this->fatoorahRepository = $fatoorahRepository;
     }
 
-    public function create(Request $request)
+    public function create(Request $request, $video_id)
     {
-        if(isUserSubscribed($request->user(), 'earn')){
-            return redirect()->route('earn.home');
-        }
+        // if(isUserSubscribed($request->user(), 'earn')){
+        //     return redirect()->route('earn.home');
+        // }
 
         $packages = Package::active()->earn()->get();
-        return view('earn.subscripe.create', compact('packages'));
+        return view('earn.subscripe.create', compact('packages', 'video_id'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $video_id)
     {
 
         $request->validate([
@@ -48,7 +49,7 @@ class SubscripeController extends Controller
             "ErrorUrl" => route("earn.subscripe.error"),
             "Language" => app()->getLocale(),
             "DisplayCurrencyIso" => 'SAR',
-            'CustomerReference' => $request->package_id . '-' . $userID,
+            'CustomerReference' => $request->package_id . '-' . $userID . '-' . $video_id,
         ];
 
         $response = $this->fatoorahRepository->sendPayment($data);
@@ -72,12 +73,14 @@ class SubscripeController extends Controller
         if ($response['Data']['CustomerReference']) {
             $packageId = explode('-', $response['Data']['CustomerReference'])[0];
             $userId = explode('-', $response['Data']['CustomerReference'])[1];
+            $video_id = explode('-', $response['Data']['CustomerReference'])[2];
 
-            if ($packageId && $userId) {
+            if ($packageId && $userId && $video_id) {
                 $package = Package::findOrFail($packageId);
                 $date = date('Y-m-d', strtotime(date('Y-m-d') . "+ $package->period_in_days days"));
                 Subscription::create([
                     'user_id' => $userId,
+                    'video_id' => $video_id,
                     'package_id' => $packageId,
                     'limit' => $package->limit,
                     'expire_date' => $date,
@@ -85,6 +88,13 @@ class SubscripeController extends Controller
                     'transaction_id' => $request->paymentId,
                     'app' => 'earn'
                 ]);
+                $video = Video::findOrFail($video_id);
+                if ($video) {
+                    $video->package_id  = $package->id;
+                    $video->reword_amount = $package->reword_amount;
+                    $video->payment_status = 1;
+                    $video->save();
+                }
             }
         }
 

@@ -8,8 +8,13 @@
                 <th>{{ __('main.store') }}</th>
                 <th>{{ __('main.reword_amount') }}</th>
                 <th>{{ __('main.views') }}</th>
+                <th>الحد الاقصي للمشاهدات</th>
+                <th>الباقه</th>
+                <th>الحاله</th>
                 <th>{{ __('main.url') }}</th>
-                <th>{{ __('main.status') }}</th>
+                @if (auth()->user()->role->name == 'super-admin')  
+                    <th>{{ __('main.status') }}</th>
+                @endif
                 <th>{{ __('main.actions') }}</th>
             </tr>
         </thead>
@@ -22,23 +27,37 @@
                     <td>{{ $video->store->name ?? '' }}</td>
                     <td>{{ $video->reword_amount . '    ' . __('main.sar') }}</td>
                     <td>{{ $video->viewed_count }}</td>
+                    <td>{{ $video->package ? $video->package->limit : 0 }}</td>
+                    <td>{{ $video->package ? $video->package->name : "" }}</td>
+                    @if ($video->is_active)
+                        <td>{{ $video->payment_status ? "مفعل" : "غير مفعل" }}</td>
+                    @else
+                        <td>في انتظار الموافقه</td>
+                    @endif
                     <td>
                         <a href="{{ $video->path }}" target="_blank">{{ __("main.show") }}</a>
                     </td>
-                    <td>
-                        <label class="custom-toggle-switch">
-                            <input type="checkbox" class="custom-toggle-input" data-id="{{ $video->id }}"
-                                data-url="{{ route('earn.video.toggleStatus', $video->id) }}"
-                                {{ $video->is_active ? 'checked' : '' }}>
-                            <span class="custom-toggle-slider"></span>
-                        </label>
-                    </td>
+                    @if (auth()->user()->role->name == 'super-admin')    
+                        <td>
+                            <label class="custom-toggle-switch">
+                                <input type="checkbox" class="custom-toggle-input" data-id="{{ $video->id }}"
+                                    data-url="{{ route('earn.video.toggleStatus', $video->id) }}"
+                                    {{ $video->is_active ? 'checked' : '' }}>
+                                <span class="custom-toggle-slider"></span>
+                            </label>
+                        </td>
+                    @endif
 
-                    <td>
+                    <td class="d-flex justify-content-center">
+                        @if (($status == 'unpaid' || $status == 'all') && $video->payment_status == 0 && $video->is_active )
+                            <a href="{{ route('earn.subscripe.create', $video->id) }}"
+                                class="btn m-1 btn-primary">تفعيل
+                            </a>
+                        @endif
                         <a href="{{ route('earn.videos.edit', $video->id) }}"
-                            class="btn btn-secondary">{{ __('main.edit') }}</a>
+                            class="btn m-1 btn-secondary">{{ __('main.edit') }}</a>
 
-                        <a href="#" class="btn btn-danger delete-btn" data-toggle="modal"
+                        <a href="#" class="btn m-1 btn-danger delete-btn" data-toggle="modal"
                             data-effect="effect-flip-vertical"
                             data-url="{{ route('earn.videos.destroy', $video->id) }}"
                             data-target="#deletemodal">{{ __('main.delete') }}</a>

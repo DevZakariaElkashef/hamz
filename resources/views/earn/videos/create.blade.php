@@ -71,7 +71,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
+                            {{-- <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.reword_amount') }}: <span
                                         class="tx-danger">*</span></label>
                                 <input class="form-control" name="reword_amount"
@@ -80,7 +80,7 @@
                                 @error('reword_amount')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
 
                             <div class="col-md-6 form-group mt-4">
@@ -111,6 +111,23 @@
                                 @enderror
                             </div>
 
+                            {{-- <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.packages') }}: <span class="tx-danger">*</span></label>
+                                <select class="form-control select2" name="package_id">
+                                    <option value selected disabled>
+                                        {{ __('main.select_package') }}
+                                    </option>
+                                    @foreach ($packages as $package)
+                                        <option value="{{ $package->id }}">
+                                            {{ $package->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('package_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div> --}}
+
                             <div class="col-md-6 form-group">
                                 <div class="custom-file">
                                     <label class="path" for="path">{{ __('main.url') }}</label>
@@ -133,18 +150,20 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
-                                <select required class="form-control" name="is_active">
-                                    <option value="0" @if (old('is_active') == 0) selected @endif>
-                                        {{ __('main.not_active') }}</option>
-                                    <option value="1" @if (old('is_active') == 1) selected @endif>
-                                        {{ __('main.active') }}</option>
-                                </select>
-                                @error('is_active')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            @if ( auth()->user()->role->name == 'super-admin')    
+                                <div class="col-md-6 form-group mg-b-0">
+                                    <label class="form-label">{{ __('main.status') }}: <span class="tx-danger">*</span></label>
+                                    <select required class="form-control" name="is_active">
+                                        <option value="0" @if (old('is_active') == 0) selected @endif>
+                                            {{ __('main.not_active') }}</option>
+                                        <option value="1" @if (old('is_active') == 1) selected @endif>
+                                            {{ __('main.active') }}</option>
+                                    </select>
+                                    @error('is_active')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endif
 
                             <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.category') }}: <span

@@ -13,7 +13,7 @@
             <div class="d-flex">
                 <h5 class="content-title mb-0 my-auto">{{ __('main.home') }}</h5>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ <a class="text-dark"
-                        href="{{ route('earn.subscripe.create') }}">{{ __('main.subscripe') }}</a></span>
+                        href="{{ route('earn.subscripe.create', $video_id) }}">{{ __('main.subscripe') }}</a></span>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('earn.subscripe.store') }}" data-parsley-validate=""
+                    <form method="post" action="{{ route('earn.subscripe.store', $video_id) }}" data-parsley-validate=""
                         enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -56,7 +56,8 @@
                                         <tr>
                                             <th>{{ __('main.name') }}</th>
                                             <th>{{ __('main.limit') }}</th>
-                                            <th>{{ __('main.period_in_days') }}</th>
+                                            {{-- <th>{{ __('main.period_in_days') }}</th> --}}
+                                            <th>قيمه المكافأه</th>
                                             <th>{{ __('main.price') }}</th>
                                         </tr>
                                     </thead>
@@ -64,7 +65,7 @@
                                         <tr>
                                             <td id="package-name"></td>
                                             <td id="package-limit"></td>
-                                            <td id="package-period_in_days"></td>
+                                            <td id="package-reword_amount"></td>
                                             <td id="package-price"></td>
                                         </tr>
                                     </tbody>
@@ -113,7 +114,7 @@
             let package = packages[ariaValue];
             document.getElementById('package-name').innerText = package["name_" + language];
             document.getElementById('package-limit').innerText = package.limit;
-            document.getElementById('package-period_in_days').innerText = package.period_in_days;
+            document.getElementById('package-reword_amount').innerText = package.reword_amount;
             document.getElementById('package-price').innerText = package.price + "{{ ' ' . __('main.sar') }}";
         }
 

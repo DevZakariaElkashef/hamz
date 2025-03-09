@@ -25,6 +25,11 @@ class Video extends Model
         return $this->belongsTo(Store::class);
     }
 
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
+
     public function getTitleAttribute()
     {
         return $this->attributes['title_' . app()->getLocale()];

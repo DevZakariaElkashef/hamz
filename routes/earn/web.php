@@ -62,6 +62,10 @@ Route::middleware('auth')->group(function () {
 
         /**start Slider Routes */
         Route::resource('videos', VideoController::class);
+        Route::get('videos-notactive', [VideoController::class, 'notactive'])->name('videos.notactive');
+        Route::get('videos-unpaid', [VideoController::class, 'unpaid'])->name('videos.unpaid');
+        Route::get('videos-paid', [VideoController::class, 'paid'])->name('videos.paid');
+
         Route::middleware('earn')->group(function () {
             Route::get('search-videos', [VideoController::class, 'search'])->name('videos.search');
             Route::get('videos-toggle-status/{video}', [VideoController::class, 'toggleStatus'])->name('video.toggleStatus');
@@ -83,7 +87,9 @@ Route::middleware('auth')->group(function () {
 
 Route:: as('earn.')->group(function () {
     /**start Slider Routes */
-    Route::resource('subscripe', SubscripeController::class)->only('create', 'store')->middleware('auth');
+    // Route::resource('subscripe', SubscripeController::class)->only('create', 'store')->middleware('auth');
+    Route::get('subscripe/create/{video_id}', [SubscripeController::class, 'create'])->name('subscripe.create')->middleware('auth');
+    Route::post('subscripe/store/{video_id}', [SubscripeController::class, 'store'])->name('subscripe.store')->middleware('auth');
     Route::get('subscripe-callback', [SubscripeController::class, 'callBack'])->name('subscripe.callback');
     Route::get('subscripe-success', [SubscripeController::class, 'success'])->name('subscripe.success');
     Route::get('subscripe-error', [SubscripeController::class, 'error'])->name('subscripe.error');

@@ -40,6 +40,10 @@ class WebVideoRepository
             $data['thumbnail'] =  $this->uploadImage($request->file('thumbnail'), 'videos');
         }
         $data['app'] = 'earn';
+        $data['reword_amount'] = 0;
+        if (auth()->user()->role->name == 'seller') {
+            $data['is_active'] = false;
+        }
         unset($data['_token']);
         return Video::create($data);
     }

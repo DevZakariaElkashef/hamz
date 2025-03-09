@@ -61,8 +61,9 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.price') }}:</label>
-                                <input class="form-control" name="price" placeholder="{{ __('main.enter_price') }}"
+                                <label class="form-label">{{ __('main.price') }}: <span
+                                    class="tx-danger">*</span></label>
+                                <input class="form-control" required="" name="price" placeholder="{{ __('main.enter_price') }}"
                                     type="number" value="{{ old('price') }}">
                                 @error('price')
                                     <div class="text-danger">{{ $message }}</div>
@@ -70,19 +71,31 @@
                             </div>
 
                             <div class="col-md-6 form-group mg-b-0">
-                                <label class="form-label">{{ __('main.limit') }}:</label>
-                                <input class="form-control" name="limit" placeholder="{{ __('main.enter_limit') }}"
+                                <label class="form-label">{{ __('main.limit') }}: <span
+                                    class="tx-danger">*</span></label>
+                                <input class="form-control" required="" name="limit" placeholder="{{ __('main.enter_limit') }}"
                                     type="number" value="{{ old('limit') }}">
                                 @error('limit')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="col-md-6 form-group mg-b-0">
+                            {{-- <div class="col-md-6 form-group mg-b-0">
                                 <label class="form-label">{{ __('main.period_in_days') }}:</label>
                                 <input class="form-control" name="period_in_days" placeholder="{{ __('main.enter_period_in_days') }}"
                                     type="number" value="{{ old('period_in_days') }}">
                                 @error('period_in_days')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div> --}}
+
+                            <div class="col-md-6 form-group mg-b-0">
+                                <label class="form-label">{{ __('main.reword_amount') }}: <span
+                                        class="tx-danger">*</span></label>
+                                <input class="form-control" name="reword_amount"
+                                    placeholder="{{ __('main.enter_reword_amount') }}" required="" type="number"
+                                    value="{{ old('reword_amount') }}">
+                                @error('reword_amount')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>

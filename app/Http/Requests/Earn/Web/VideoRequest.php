@@ -25,12 +25,13 @@ class VideoRequest extends FormRequest
             'title_ar' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
             'duration' => 'required',
-            'reword_amount' => 'required',
+            // 'reword_amount' => 'required',
             'thumbnail' => 'nullable|file|mimes:png,jpg,jpeg',
             'path' => 'required|url',
             'store_url' => 'nullable|url|required_without:store_id',
             'store_id' => 'nullable|integer|required_without:store_url',
-            'is_active' => 'required|boolean'
+            // 'package_id' => 'required|integer',
+            // 'is_active' => 'required|boolean'
         ];
     }
 }

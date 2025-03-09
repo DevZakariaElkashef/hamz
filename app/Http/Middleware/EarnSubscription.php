@@ -19,8 +19,8 @@ class EarnSubscription
 
         // Use the helper function to check the subscription
         if (isUserSubscribed($user, 'earn')) {
-            return $next($request);
         }
+        return $next($request);
 
         return to_route('earn.subscripe.create');
     }

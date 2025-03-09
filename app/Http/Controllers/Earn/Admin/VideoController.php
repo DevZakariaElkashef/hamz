@@ -6,6 +6,7 @@ use App\Models\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Earn\Web\VideoRequest;
+use App\Models\Package;
 use App\Models\Store;
 use App\Models\Subscription;
 use App\Repositories\Earn\WebVideoRepository;
@@ -14,9 +15,11 @@ use Illuminate\Support\Facades\DB;
 class VideoController extends Controller
 {
     protected $videoRepository;
+    protected $limit;
 
     public function __construct(WebVideoRepository $videoRepository)
     {
+        $this->limit = config('app.pg_limit');
         $this->videoRepository = $videoRepository;
 
         // autherization
@@ -31,8 +34,35 @@ class VideoController extends Controller
     public function index(Request $request)
     {
         $videos = $this->videoRepository->index($request);
-        return view('earn.videos.index', compact('videos'));
+        $status = 'all';
+        return view('earn.videos.index', compact('videos', 'status'));
     }
+
+    public function notactive(Request $request)
+    {
+        $videos = Video::where('is_active', false)->when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->filter($request)->earn()->withCount('viewed')->paginate($request->per_page ?? $this->limit);
+        $status = 'notactive';
+        return view('earn.videos.index', compact('videos', 'status'));
+    }
+
+    public function paid(Request $request)
+    {
+        $videos = Video::where('is_active', true)->where('payment_status', true)->when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->filter($request)->earn()->withCount('viewed')->paginate($request->per_page ?? $this->limit);
+        $status = 'paid';
+        return view('earn.videos.index', compact('videos', 'status'));
+    }
+
+    public function unpaid(Request $request)
+    {
+        $videos = Video::where('is_active', true)->where('payment_status', false)->when($request->user()->role_id == 3, function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        })->filter($request)->earn()->withCount('viewed')->paginate($request->per_page ?? $this->limit);
+        $status = 'unpaid';
+        return view('earn.videos.index', compact('videos', 'status'));    }
 
     public function search(Request $request)
     {
@@ -57,16 +87,16 @@ class VideoController extends Controller
      */
     public function store(VideoRequest $request)
     {
-        if (
-            auth()->user()->role_id == '3' &&
-            Subscription::where('limit', '<=', Video::where('user_id', auth()->id())->count())
-            ->where('app', 'earn')
-            ->orderBy('expire_date', 'DESC')
-            ->first()
-        ) {
-            session()->flash('error', __("main.reached_package_limit"));
-            return redirect()->back();
-        }
+        // if (
+        //     auth()->user()->role_id == '3' &&
+        //     Subscription::where('limit', '<=', Video::where('user_id', auth()->id())->count())
+        //     ->where('app', 'earn')
+        //     ->orderBy('expire_date', 'DESC')
+        //     ->first()
+        // ) {
+        //     session()->flash('error', __("main.reached_package_limit"));
+        //     return redirect()->back();
+        // }
         $this->videoRepository->store($request); // store video
         return to_route('earn.videos.index')->with('success', __("main.created_successffully"));
     }
