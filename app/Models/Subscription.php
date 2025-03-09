@@ -24,6 +24,11 @@ class Subscription extends Model
         return $this->belongsTo(Package::class);
     }
 
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
+    }
+
     public function scopeSearch($query, $search)
     {
         return $query->whereHas('user', function ($user) use ($search) {

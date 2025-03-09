@@ -95,6 +95,28 @@ class SubscripeController extends Controller
                     $video->payment_status = 1;
                     $video->save();
                 }
+            }elseif ($packageId && $userId && $video_id == null) {
+                if ($packageId && $userId && $video_id) {
+                    $package = Package::findOrFail($packageId);
+                    $date = date('Y-m-d', strtotime(date('Y-m-d') . "+ $package->period_in_days days"));
+                    Subscription::create([
+                        'user_id' => $userId,
+                        // 'video_id' => $video_id,
+                        'package_id' => $packageId,
+                        'limit' => $package->limit,
+                        'expire_date' => $date,
+                        'status' => 1,
+                        'transaction_id' => $request->paymentId,
+                        'app' => 'earn'
+                    ]);
+                    // $video = Video::findOrFail($video_id);
+                    // if ($video) {
+                    //     $video->package_id  = $package->id;
+                    //     $video->reword_amount = $package->reword_amount;
+                    //     $video->payment_status = 1;
+                    //     $video->save();
+                    // }
+                }
             }
         }
 

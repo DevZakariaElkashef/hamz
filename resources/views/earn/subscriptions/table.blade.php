@@ -10,7 +10,9 @@
                 <th>{{ __('main.package') }}</th>
                 <th>{{ __('main.limit') }}</th>
                 <th>{{ __('main.used_count') }}</th>
-                <th>{{ __('main.expire_date') }}</th>
+                <th>عنووان الفيديو</th>
+                {{-- <th>{{ __('main.expire_date') }}</th> --}}
+                <th>قيمه الاشتراك</th>
                 <th>{{ __('main.transaction_id') }}</th>
                 <th>{{ __('main.status') }}</th>
                 @if (auth()->user()->role_id != '3')
@@ -37,8 +39,10 @@
                     @endif
                     <td>{{ $subscription->package->name ?? '' }}</td>
                     <td>{{ $subscription->limit }}</td>
-                    <td>{{ $used }}</td>
-                    <td>{{ $subscription->expire_date }}</td>
+                    <td>{{ $subscription->video ? $subscription->video->viewed->count() : "خطأ" }}</td>
+                    <td>{{ $subscription->video ? $subscription->video->title_ar : "خطأ" }}</td>
+                    {{-- <td>{{ $subscription->expire_date }}</td> --}}
+                    <td>{{ $subscription->package ? $subscription->package->price : 0 }}</td>
                     <td>{{ $subscription->transaction_id }}</td>
                     @if (auth()->user()->role_id != '3')
                         <td>
