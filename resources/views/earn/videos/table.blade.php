@@ -6,13 +6,15 @@
                 <th>{{ __('main.id') }}</th>
                 <th>{{ __('main.name') }}</th>
                 <th>{{ __('main.store') }}</th>
-                <th>{{ __('main.reword_amount') }}</th>
+                @if (auth()->user()->role->name == 'super-admin')
+                    <th>{{ __('main.reword_amount') }}</th>
+                @endif
                 <th>{{ __('main.views') }}</th>
                 <th>الحد الاقصي للمشاهدات</th>
                 <th>الباقه</th>
                 <th>الحاله</th>
                 <th>{{ __('main.url') }}</th>
-                @if (auth()->user()->role->name == 'super-admin')  
+                @if (auth()->user()->role->name == 'super-admin')
                     <th>{{ __('main.status') }}</th>
                 @endif
                 <th>{{ __('main.actions') }}</th>
@@ -25,19 +27,21 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $video->title }}</td>
                     <td>{{ $video->store->name ?? '' }}</td>
-                    <td>{{ $video->reword_amount . '    ' . __('main.sar') }}</td>
+                    @if (auth()->user()->role->name == 'super-admin')
+                        <td>{{ $video->reword_amount . '    ' . __('main.sar') }}</td>
+                    @endif
                     <td>{{ $video->viewed_count }}</td>
                     <td>{{ $video->package ? $video->package->limit : 0 }}</td>
                     <td>{{ $video->package ? $video->package->name : "" }}</td>
                     @if ($video->is_active)
-                        <td>{{ $video->payment_status ? "مفعل" : "غير مفعل" }}</td>
+                        <td>{{ $video->payment_status ? "تم الدفع" : "في انتظار الدفع" }}</td>
                     @else
                         <td>في انتظار الموافقه</td>
                     @endif
                     <td>
                         <a href="{{ $video->path }}" target="_blank">{{ __("main.show") }}</a>
                     </td>
-                    @if (auth()->user()->role->name == 'super-admin')    
+                    @if (auth()->user()->role->name == 'super-admin')
                         <td>
                             <label class="custom-toggle-switch">
                                 <input type="checkbox" class="custom-toggle-input" data-id="{{ $video->id }}"
@@ -51,7 +55,7 @@
                     <td class="d-flex justify-content-center">
                         @if (($status == 'unpaid' || $status == 'all') && $video->payment_status == 0 && $video->is_active )
                             <a href="{{ route('earn.subscripe.create', $video->id) }}"
-                                class="btn m-1 btn-primary">تفعيل
+                                class="btn m-1 btn-primary">الدفع
                             </a>
                         @endif
                         <a href="{{ route('earn.videos.edit', $video->id) }}"

@@ -57,7 +57,7 @@
                                             <th>{{ __('main.name') }}</th>
                                             <th>{{ __('main.limit') }}</th>
                                             {{-- <th>{{ __('main.period_in_days') }}</th> --}}
-                                            <th>قيمه المكافأه</th>
+                                            {{-- <th>قيمه المكافأه</th> --}}
                                             <th>{{ __('main.price') }}</th>
                                         </tr>
                                     </thead>
@@ -65,7 +65,7 @@
                                         <tr>
                                             <td id="package-name"></td>
                                             <td id="package-limit"></td>
-                                            <td id="package-reword_amount"></td>
+                                            {{-- <td id="package-reword_amount"></td> --}}
                                             <td id="package-price"></td>
                                         </tr>
                                     </tbody>
@@ -114,7 +114,7 @@
             let package = packages[ariaValue];
             document.getElementById('package-name').innerText = package["name_" + language];
             document.getElementById('package-limit').innerText = package.limit;
-            document.getElementById('package-reword_amount').innerText = package.reword_amount;
+            //document.getElementById('package-reword_amount').innerText = package.reword_amount;
             document.getElementById('package-price').innerText = package.price + "{{ ' ' . __('main.sar') }}";
         }
 
