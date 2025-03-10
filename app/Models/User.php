@@ -117,7 +117,13 @@ class User extends Authenticatable
     }
     public function getUnwatchedVideos()
     {
-        return Video::whereDoesntHave('viewed', function ($query) {
+        return Video::where('payment_status', 1)
+        ->withCount('viewed') // Count the views
+        ->whereHas('package', function ($query) {
+            $query->whereRaw(
+                '(SELECT COUNT(*) FROM views WHERE views.video_id = videos.id AND views.status = 1) < packages.limit'
+            );
+        })->whereDoesntHave('viewed', function ($query) {
             $query->where('user_id', $this->id)
                 ->where('status', 1);
         })
