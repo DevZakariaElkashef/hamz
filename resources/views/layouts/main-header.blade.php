@@ -66,7 +66,7 @@
 							</li>
 						</ul> --}}
             <div class="nav nav-item  navbar-nav-right ml-auto">
-                {{-- <div class="nav-link" id="bs-example-navbar-collapse-1">
+				{{-- <div class="nav-link" id="bs-example-navbar-collapse-1">
 								<form class="navbar-form" role="search">
 									<div class="input-group">
 										<input type="text" class="form-control" placeholder="Search">
@@ -248,16 +248,71 @@
 									</div>
 								</div>
 							</div> --}}
-                <div class="nav-item full-screen fullscreen-button">
-                    <a class="new nav-link full-screen-link" href="#"><svg xmlns="http://www.w3.org/2000/svg"
-                            class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-maximize">
-                            <path
-                                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
-                            </path>
-                        </svg></a>
-                </div>
+							<div class="nav-item full-screen fullscreen-button">
+								<a class="new nav-link full-screen-link" href="#"><svg xmlns="http://www.w3.org/2000/svg"
+										class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+										stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+										class="feather feather-maximize">
+										<path
+											d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+										</path>
+									</svg></a>
+							</div>
+				<div class="dropdown nav-item main-header-notification">
+					<a class="new nav-link" href="#" id="notifications-dropdown" data-toggle="dropdown" aria-expanded="false">
+						<svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+							<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+						</svg>
+						{{-- @if(auth()->user()->unreadNotifications->count() > 0) --}}
+							<span class="pulse"></span>
+						{{-- @endif --}}
+					</a>
+					<style>
+						.main-header .dropdown-notify-menu:after {
+							left: 92px !important;
+						}
+					</style>
+					<div class="dropdown-menu dropdown-notify-menu  dropdown-menu-right">
+						<div class="menu-header-content bg-primary text-right">
+							<div class="d-flex">
+								<h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Notifications</h6>
+								{{-- @if(auth()->user()->unreadNotifications->count() > 0) --}}
+									<a href="#" class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All Read</a>
+								{{-- @endif --}}
+							</div>
+							<p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12">
+								You have 0 
+								{{-- {{ auth()->user()->unreadNotifications->count() }}  --}}
+								unread notifications
+							</p>
+						</div>
+						<div class="main-notification-list notification-scroll">
+							{{-- @forelse(auth()->user()->notifications()->take(5)->get() as $notification)
+								<a class="d-flex p-3 border-bottom {{ $notification->read_at ? '' : 'bg-light' }}" href="{{ route('notifications.show', $notification->id) }}">
+									<div class="notifyimg bg-{{ $notification->data['color'] ?? 'primary' }}">
+										<i class="la {{ $notification->data['icon'] ?? 'la-bell' }} text-white"></i>
+									</div>
+									<div class="mr-3">
+										<h5 class="notification-label mb-1">{{ $notification->data['title'] ?? 'Notification' }}</h5>
+										<div class="notification-subtext">{{ $notification->created_at->diffForHumans() }}</div>
+									</div>
+									<div class="mr-auto">
+										<i class="las la-angle-left text-left text-muted"></i>
+									</div>
+								</a>
+							@empty --}}
+								<div class="p-3 text-center">
+									<p class="mb-0">No notifications found</p>
+								</div>
+							{{-- @endforelse --}}
+						</div>
+						<div class="dropdown-footer">
+							<a href="#">VIEW ALL</a>
+						</div>
+					</div>
+				</div>
+                
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
                     <a class="profile-user d-flex" href=""><img alt=""
                             src="{{ URL::asset('assets/img/faces/6.jpg') }}"></a>
