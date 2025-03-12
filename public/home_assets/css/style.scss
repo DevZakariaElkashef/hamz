@@ -1,0 +1,527 @@
+@import url("https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&display=swap");
+$mainColor: #fc7e10;
+
+@font-face {
+  font-family: coonr;
+  src: url("../fonts/CoconNextArabic-Regular.ttf");
+}
+
+@font-face {
+  font-family: coonl;
+  src: url("../fonts/alfont_com_AlFont_com_cocon-next-arabic.ttf");
+}
+
+@font-face {
+  font-family: coonb;
+  src: url("../fonts/CoconNextArabic-Bold.ttf");
+}
+
+$mainFont: coonr;
+$mainFontb: coonb;
+$mainFontl: coonl;
+
+input,
+select,
+textarea,
+button {
+  &:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+html {
+  font-size: 16px;
+  font-family: "El Messiri", serif;
+}
+
+body {
+  direction: rtl;
+  font-family: "El Messiri", serif;
+  // height: 4000px;
+}
+
+.clear {
+  clear: both;
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+}
+
+.header_wrapper {
+  min-height: 85vh;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+  .headerimg2 {
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+    transform: translate(-40%, 0);
+    z-index: 3;
+    img {
+      width: 90%;
+    }
+  }
+  .left_strip {
+    width: 40%;
+    background-image: linear-gradient(to right, #f9a733, #f98933);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 60%;
+    }
+  }
+  .header_img {
+    // width: 100%;
+    position: absolute;
+    top: 130px;
+    right: -100px;
+    z-index: 4;
+    img {
+      width: 100%;
+    }
+  }
+  .header_conte {
+    padding-top: 250px;
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    img {
+      width: 150px;
+    }
+    h5 {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #1d6491;
+    }
+    h6 {
+      font-size: 1.5rem;
+    }
+    p {
+      font-size: 1.3rem;
+      line-height: 30px;
+      // margin-bottom: 35px;
+      margin: 30px 0;
+    }
+    a {
+      display: inline-block;
+      margin-left: 15px;
+      img {
+        width: 150px;
+      }
+    }
+  }
+}
+
+@media (max-height: 735px) {
+  .header_wrapper {
+    height: 95vh;
+  }
+}
+
+.about_content {
+  background-color: #f5f5f5;
+  box-shadow: 0 -7px 12px rgba(#000000, 0.16);
+  position: relative;
+  overflow: hidden;
+  padding: 90px 0;
+  .about_chicken {
+    position: absolute;
+    top: 123%;
+    right: 0;
+    img {
+      width: 350px;
+    }
+  }
+  .thcontent {
+    padding-top: 90px;
+    h5 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #1d6491;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 30px;
+    }
+  }
+  .about_img {
+    text-align: left;
+    img {
+      width: 70%;
+    }
+  }
+}
+
+.features_section {
+  padding: 60px 0 90px 0;
+  background-color: rgba(#302e2e, 0.95);
+  .section_header {
+    text-align: center;
+    margin-bottom: 70px;
+    h5 {
+      margin: 0;
+      color: #fff;
+      font-size: 2rem;
+    }
+  }
+  .list {
+    li {
+      display: flex;
+      align-items: center;
+      margin-top: 40px;
+      .card_icon {
+        img {
+          width: 120px;
+          height: 120px;
+        }
+      }
+      h5 {
+        color: #f9a733;
+        font-size: 1.1rem;
+      }
+      p {
+        color: #fff;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  .list_opsite {
+    .card_icon {
+      margin-left: 15px;
+    }
+    .middle {
+      // margin-right: 55px;
+    }
+  }
+  .features_img {
+    text-align: center;
+    img {
+      width: 90%;
+      margin: auto;
+    }
+  }
+}
+
+.screens {
+  background-image: url("../images/screen-bg.png");
+  background-position: center;
+  background-size: cover;
+  padding: 100px 0;
+  position: relative;
+  margin-top: -30px;
+  // min-height: 100vh;
+  // display: flex;
+  align-items: center;
+  .scree_icon {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 35%;
+    // width: 300px;
+    img {
+      width: 100%;
+      max-width: unset !important;
+    }
+  }
+  .section-header {
+    position: relative;
+    text-align: center;
+    z-index: 4;
+
+    h5 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+  }
+  .slider-item {
+    padding: 30px 0;
+    img {
+      display: block;
+      box-shadow: 0 0 20px rgba(#000000, 0.2);
+    }
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 4;
+
+    .screens-slider-wrapper {
+      width: 100%;
+    }
+  }
+}
+
+.download_app {
+  .download_app_wrapper {
+    background: linear-gradient(to right, rgba(#f2c85c, 1), rgba(#fbc63d, 1));
+    border-radius: 36px;
+    padding: 150px 40px;
+    margin: 100px 0 30px 0;
+    position: relative;
+
+    .download_app {
+      img {
+        width: 170px;
+      }
+    }
+    h5 {
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      // margin-top: 100px;
+    }
+    p {
+      font-size: 1.5rem;
+      margin-bottom: 39px;
+      color: #fff;
+      span {
+        color: #000;
+      }
+    }
+  }
+  .download_app_img {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 50px;
+
+    // z-index: 1;
+    // width: 50%;
+    text-align: left;
+    img {
+      width: 90%;
+      margin-left: auto;
+    }
+  }
+  .download_app_btn {
+    display: flex;
+    align-items: center;
+    a {
+      display: block;
+      margin-left: 10px;
+      img {
+        width: 170px;
+      }
+    }
+  }
+}
+.thelive-previre {
+  h5 {
+    font-size: 2rem;
+    span {
+      color: #c94201;
+    }
+  }
+  .live-img {
+    // width: 600px;
+    iframe {
+      height: 500px;
+    }
+  }
+}
+
+// @media (max-width: 1350px) {
+//   .about-content .about-img {
+//     width: 60%;
+//   }
+// }
+
+.live-preview {
+  position: relative;
+  overflow: hidden;
+  .live-content {
+    padding: 27px 0;
+
+    h5 {
+      font-size: 2.5rem;
+      // margin-bottom: 10px;
+      color: #ff7f0c;
+    }
+    a {
+      font-size: 1.2rem;
+      color: #fff;
+      background-color: #0b3f8d;
+    }
+    h6 {
+      color: #ff7f0c;
+      font-size: 2.5rem;
+      margin-top: 70px;
+    }
+
+    p {
+      font-size: 1.1rem;
+
+      span {
+        color: #c3966c;
+      }
+    }
+
+    .down {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+
+      img {
+        margin-left: 15px;
+        display: block;
+        width: 150px;
+      }
+    }
+  }
+
+  .live-img {
+    padding-top: 60px;
+
+    iframe {
+      height: 750px;
+    }
+  }
+
+  .live-before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+}
+
+@media (max-width: 1100px) {
+  .header_wrapper .headerimg2 img {
+    width: 70%;
+  }
+  .features_section .features_img img {
+    margin-top: 40px;
+  }
+  .features_section .list li .card_icon img {
+    width: 80px;
+    height: 80px;
+  }
+  .features_section .list li {
+    margin-top: 20px;
+  }
+  .screens img {
+    max-width: 140px !important;
+  }
+  .screens {
+    padding-bottom: 50px;
+  }
+  .header_wrapper .header_img {
+    right: -50px;
+    width: 120%;
+  }
+  .about_content .thcontent {
+    padding-top: 0;
+  }
+  .download_app .download_app_img img {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 991px) {
+  .features_section .features_img img {
+    width: 50%;
+  }
+  .features_section .list li {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .features_section .list li .card_icon img {
+    width: 50px;
+    margin-left: 20px;
+  }
+  .features_section .list_opsite li {
+    flex-direction: row;
+    justify-content: flex-start;
+    .card_icon {
+      margin-left: 0;
+    }
+    img {
+      margin-left: 20px !important;
+    }
+  }
+  .header_wrapper .header_img {
+    opacity: 0.2;
+  }
+  .about_content .about_img {
+    text-align: center;
+  }
+  .about_content .about_img img {
+    width: 50%;
+    margin: auto;
+    margin-top: 30px;
+  }
+  .download_app .download_app_img {
+    opacity: 0.2;
+  }
+  .download_app .download_app_wrapper h5,
+  .download_app .download_app_wrapper p,
+  .download_app .download_app_wrapper h6,
+  .download_app .download_app_wrapper a {
+    z-index: 3;
+    position: relative;
+  }
+}
+
+@media (max-width: 600px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+  .download_app .download_app_wrapper h5 {
+    font-size: 2rem;
+  }
+  .download_app .download_app_wrapper p,
+  .download_app .download_app_wrapper h6 {
+    font-size: 1.2rem;
+  }
+  .header_wrapper .header_content {
+    padding: 60px 0;
+  }
+  .header_wrapper .headerimg2 img {
+    opacity: 0.1;
+  }
+  .header_wrapper .left_strip {
+    img {
+      opacity: 0.1;
+    }
+  }
+  .header_wrapper .header_content h5 {
+    font-size: 1.8rem;
+  }
+  .header_wrapper .header_content h6 {
+    font-size: 1.2rem;
+  }
+  .header_wrapper .header_content img {
+    width: 120px;
+  }
+  .header_wrapper .header_content a img {
+    width: 120px;
+  }
+  .header_wrapper {
+    min-height: auto;
+  }
+  .header_wrapper .header_conte{
+    padding: 90px 0;
+  }
+}
+
+.screens img {
+  margin: auto;
+  cursor: zoom-in;
+  max-width: 180px;
+  max-height: auto;
+}

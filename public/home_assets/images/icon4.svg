@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="92" height="92" viewBox="0 0 92 92">
+  <defs>
+    <filter id="Ellipse_606" x="0" y="0" width="92" height="92" filterUnits="userSpaceOnUse">
+      <feOffset dy="6" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#f2c85c" flood-opacity="0.271"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_212406" data-name="Group 212406" transform="translate(-328.055 -1373.26)">
+    <g transform="matrix(1, 0, 0, 1, 328.05, 1373.26)" filter="url(#Ellipse_606)">
+      <g id="Ellipse_606-2" data-name="Ellipse 606" transform="translate(12 6)" fill="#fff" stroke="#f2c85c" stroke-width="1">
+        <circle cx="34" cy="34" r="34" stroke="none"/>
+        <circle cx="34" cy="34" r="33.5" fill="none"/>
+      </g>
+    </g>
+    <path id="advertiser-megaphone-svgrepo-com" d="M31.382,29.787V21.37a.8.8,0,0,0-1.565-.253c-.008.023-.917,2.382-6.5,5.659A23.422,23.422,0,0,1,12.1,29.812,1.889,1.889,0,0,0,10.384,28.7H3.705a1.889,1.889,0,0,0-1.887,1.887v.11h-.3A1.525,1.525,0,0,0,0,32.221v3.413a1.525,1.525,0,0,0,1.523,1.523h.3v.11a1.89,1.89,0,0,0,1.887,1.887H4.863l1.014,5.987a1.333,1.333,0,0,0,1.318,1.113H9.376a1.337,1.337,0,0,0,1.318-1.56l-.938-5.541h.628A1.888,1.888,0,0,0,12.1,38.044,23.424,23.424,0,0,1,23.32,41.08c5.5,3.231,6.474,5.6,6.5,5.671a.8.8,0,0,0,1.561-.265V38.069a2.228,2.228,0,0,0,1.948-2.206V31.994A2.228,2.228,0,0,0,31.382,29.787Zm-20.717,7.48a.281.281,0,0,1-.281.281H3.705a.281.281,0,0,1-.281-.281V30.589a.281.281,0,0,1,.281-.281h6.678a.281.281,0,0,1,.281.281v6.679Z" transform="translate(355.393 1379.171)" fill="#f2c85c"/>
+  </g>
+</svg>
