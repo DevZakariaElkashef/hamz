@@ -6,9 +6,11 @@ use App\Models\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Earn\Web\VideoRequest;
+use App\Models\Notification;
 use App\Models\Package;
 use App\Models\Store;
 use App\Models\Subscription;
+use App\Models\User;
 use App\Repositories\Earn\WebVideoRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -97,7 +99,20 @@ class VideoController extends Controller
         //     session()->flash('error', __("main.reached_package_limit"));
         //     return redirect()->back();
         // }
-        $this->videoRepository->store($request); // store video
+        $video = $this->videoRepository->store($request); // store video
+        // all super admin ids
+        $superAdminsIds = User::where('role_id', 1)->pluck('id')->toArray();
+        foreach ($superAdminsIds as $adminId) {
+            Notification::create([
+                'title_en' => 'New Video Added',
+                'title_ar' => 'تم اضافه فيديو جديد',
+                'message_ar' => "تم أضافه فيديو جديد بواسطه  " . $video->user->name,
+                'message_en' => "New video added by " . $video->user->name,
+                'user_id' => $adminId,
+                'video_id' => $video->id,
+                'app' => 'earn'
+            ]);
+        }
         return to_route('earn.videos.index')->with('success', __("main.created_successffully"));
     }
 
@@ -143,6 +158,15 @@ class VideoController extends Controller
     public function toggleStatus(Request $request, Video $video)
     {
         $video->update(['is_active' => $request->is_active]);
+        Notification::create([
+            'title_ar' => 'تمت الموافقه علي الفيديو',
+            'title_en' => 'Your Video is now Approved',
+            'message_ar' => "تمت الموافقة على الفيديو '" . $video->title_ar . "' الآن يمكنك إتمام عملية الدفع",
+            'message_en' => "The video '" . $video->title_ar . "' has been approved. You can now proceed with the payment",
+            'user_id' => $video->store->user_id,
+            'video_id' => $video->id,
+            'app' => 'earn'
+        ]);
         return response()->json([
             'success' => true,
             'message' => __("main.updated_successffully")

@@ -9,6 +9,7 @@ use App\Http\Controllers\Mall\Admin\ImageController;
 use App\Http\Controllers\Earn\Admin\SliderController;
 use App\Http\Controllers\Earn\Admin\PackageController;
 use App\Http\Controllers\Earn\Admin\CategoryController;
+use App\Http\Controllers\Earn\Admin\NotificationController;
 use App\Http\Controllers\Earn\Admin\SubscriptionController;
 
 
@@ -58,6 +59,10 @@ Route::middleware('auth')->group(function () {
         Route::get('subscriptions-toggle-status/{subscription}', [SubscriptionController::class, 'toggleStatus'])->name('subscription.toggleStatus');
         Route::delete('delete-subscriptions', [SubscriptionController::class, 'delete'])->name('subscriptions.delete');
         /**end Slider Routes */
+
+
+        /**start Notification Routes */
+        Route::get('notifications/index', [NotificationController::class, 'index'])->name('notifications.index');
 
 
         /**start Slider Routes */

@@ -20,9 +20,19 @@ class Video extends Model
         return $this->hasMany(View::class)->where('status', '1');
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function store()
     {
         return $this->belongsTo(Store::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function package()

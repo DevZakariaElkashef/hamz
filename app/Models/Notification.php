@@ -30,6 +30,11 @@ class Notification extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function video()
+    {
+        return $this->belongsTo(Video::class, 'video_id');
+    }
     public function getTitleAttribute()
     {
         return $this->attributes['title_' . app()->getLocale()];

@@ -264,9 +264,13 @@
 							<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
 							<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
 						</svg>
-						{{-- @if(auth()->user()->unreadNotifications->count() > 0) --}}
+						@php
+							$notificationsCount = auth()->user()->notifications
+							->where('app', 'earn')->where('status', 0)->count()
+						@endphp
+						@if($notificationsCount > 0)
 							<span class="pulse"></span>
-						{{-- @endif --}}
+						@endif
 					</a>
 					<style>
 						.main-header .dropdown-notify-menu:after {
@@ -276,40 +280,40 @@
 					<div class="dropdown-menu dropdown-notify-menu  dropdown-menu-right">
 						<div class="menu-header-content bg-primary text-right">
 							<div class="d-flex">
-								<h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Notifications</h6>
-								{{-- @if(auth()->user()->unreadNotifications->count() > 0) --}}
-									<a href="#" class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All Read</a>
-								{{-- @endif --}}
+								<h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">الاشعارات</h6>
+								@if($notificationsCount > 0)
+									<a href="#" class="badge badge-pill badge-warning mr-auto my-auto float-left">تحديد الكل كمقرؤ</a>
+								@endif
 							</div>
 							<p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12">
-								You have 0 
-								{{-- {{ auth()->user()->unreadNotifications->count() }}  --}}
-								unread notifications
+								لديك 
+								{{ $notificationsCount }} 
+								اشعارات غير مقروئه
 							</p>
 						</div>
 						<div class="main-notification-list notification-scroll">
-							{{-- @forelse(auth()->user()->notifications()->take(5)->get() as $notification)
-								<a class="d-flex p-3 border-bottom {{ $notification->read_at ? '' : 'bg-light' }}" href="{{ route('notifications.show', $notification->id) }}">
-									<div class="notifyimg bg-{{ $notification->data['color'] ?? 'primary' }}">
-										<i class="la {{ $notification->data['icon'] ?? 'la-bell' }} text-white"></i>
+							@forelse(auth()->user()->notifications()->take(5)->get() as $notification)
+								<a class="d-flex p-3 border-bottom {{ $notification->status ? '' : 'bg-light' }}" >
+									<div class="notifyimg bg-primary">
+										<i class="la la-bell text-white"></i>
 									</div>
 									<div class="mr-3">
-										<h5 class="notification-label mb-1">{{ $notification->data['title'] ?? 'Notification' }}</h5>
+										<h5 class="notification-label mb-1">{{ $notification->title_ar ?? 'Notification' }}</h5>
 										<div class="notification-subtext">{{ $notification->created_at->diffForHumans() }}</div>
 									</div>
-									<div class="mr-auto">
+									{{-- <div class="mr-auto">
 										<i class="las la-angle-left text-left text-muted"></i>
-									</div>
+									</div> --}}
 								</a>
-							@empty --}}
+							@empty
 								<div class="p-3 text-center">
 									<p class="mb-0">No notifications found</p>
 								</div>
-							{{-- @endforelse --}}
+							@endforelse
 						</div>
-						<div class="dropdown-footer">
+						{{-- <div class="dropdown-footer">
 							<a href="#">VIEW ALL</a>
-						</div>
+						</div> --}}
 					</div>
 				</div>
                 
