@@ -141,30 +141,22 @@ class OrderController extends Controller
         $user = null;
         $order->update(['order_status_id' => $request->status_id]);
         if ($order->payment_status == '1') {
+            $user = User::select('users.*')
+                ->join('stores', 'stores.user_id', '=', 'users.id')
+                ->join('orders', 'orders.store_id', '=', 'stores.id')
+                ->where('orders.id', $request->id)
+                ->first();
             if ($order->order_status_id == '4' && $oldOrderStatusId != '4') {
                 // Add Order Total To Store Owner
-                $user = User::select('users.*')
-                    ->join('stores', 'stores.user_id', '=', 'users.id')
-                    ->join('orders', 'orders.store_id', '=', 'stores.id')
-                    ->where('orders.id', $request->id)
-                    ->first();
-
                 $user->update([
                     'wallet' => $user->wallet + ($order->total - $order->total / 100 * $order->management_ratio)
                 ]);
             } else if ($order->order_status_id != '4' && $oldOrderStatusId == '4') {
                 // Remove Order Total To Store Owner If Order Finished Before
-                $user = User::select('users.*')
-                    ->join('stores', 'stores.user_id', '=', 'users.id')
-                    ->join('orders', 'orders.store_id', '=', 'stores.id')
-                    ->where('orders.id', $request->id)
-                    ->first();
-
                 $user->update([
                     'wallet' => $user->wallet - ($order->total - $order->total / 100 * $order->management_ratio)
                 ]);
             }
-
             // Remove Order Total From User If Order Cancelled Before
             if ($order->order_status_id != '5' && $oldOrderStatusId == '5') {
                 $user = User::findOrFail($order->user_id);
@@ -179,10 +171,12 @@ class OrderController extends Controller
                 ]);
             }
         }
-        if($user->device_token)
+        if($user)
         {
-            $firebase = new FirebaseService();
-            $firebase->notify("الطلب رقم #$order->id", ".تم تغير حاله طلبكم الان ".$order->orderStatus->name, $user->device_token);
+            if ($user->device_token) {
+                $firebase = new FirebaseService();
+                $firebase->notify("الطلب رقم #$order->id", ".تم تغير حاله طلبكم الان ".$order->orderStatus->name, $user->device_token);
+            }
         }
         return back()->with('success', __("main.updated_successffully"));
     }
